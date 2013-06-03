@@ -2,6 +2,7 @@
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+SHOW_DEBUG_TOOLBAR = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -25,72 +26,72 @@ DATABASES = {
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
 
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+###############################################################################
+#
+# Time Zones
+#
 
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
+TIME_ZONE = 'America/Chicago'
+USE_TZ = True
+
+###############################################################################
+#
+# Internationalization and Localization
+#
+
 LANGUAGE_CODE = 'en-us'
+USE_I18N = True
+USE_L10N = True
 
 SITE_ID = 1
 
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
-USE_I18N = True
+###############################################################################
+#
+# Templates and Static Assets
+#
 
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale.
-USE_L10N = True
-
-# If you set this to False, Django will not use timezone-aware datetimes.
-USE_TZ = True
-
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/var/www/example.com/media/"
 MEDIA_ROOT = ''
-
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://example.com/media/", "http://media.example.com/"
 MEDIA_URL = ''
 
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/var/www/example.com/static/"
 STATIC_ROOT = ''
-
-# URL prefix for static files.
-# Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
-
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
-
-# List of finder classes that know how to find static files in
-# various locations.
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
+STATICFILES_DIRS = ()
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = '21g@a%$7jgg_xwkm)#odybxm6so0pxktqyv_5+&9)-4u-e^m@_'
-
-# List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
 )
+TEMPLATE_DIRS = ()
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.request",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+#    'social_auth.context_processors.social_auth_by_name_backends',
+#    'social_auth.context_processors.social_auth_backends',
+#    'social_auth.context_processors.social_auth_by_type_backends',
+
+    'meetingmatters.utils.context_processors.settings.DEBUG',
+    'meetingmatters.utils.context_processors.settings.TEMPLATE_DEBUG',
+    'meetingmatters.utils.context_processors.site',
+)
+
+###############################################################################
+#
+# Server Configuration
+#
+
+WSGI_APPLICATION = 'myphillyrising.wsgi.application'
+ROOT_URLCONF = 'myphillyrising.urls'
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -102,15 +103,72 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'myphillyrising.urls'
+SECRET_KEY = 'Set me in local settings!!!'
 
-# Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'myphillyrising.wsgi.application'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+###############################################################################
+#
+# Authentication
+#
+
+AUTHENTICATION_BACKENDS = (
+    # See http://django-social-auth.readthedocs.org/en/latest/configuration.html
+    # for list of available backends.
+    'social_auth.backends.twitter.TwitterBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+LOGIN_URL          = '/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_ERROR_URL    = '/'
+
+###############################################################################
+#
+# 3rd-party service configuration and keys
+#
+
+TWITTER_CONSUMER_KEY         = ''  # Set me in local settings
+TWITTER_CONSUMER_SECRET      = ''  # Set me in local settings
+
+###############################################################################
+#
+# URL Shortening
+#
+
+SHORTEN_MODELS = {
+    'm': 'meetingmatters.meetings.meeting',
+}
+#SHORT_BASE_URL = 'http://mtm.tt/'
+
+###############################################################################
+#
+# Pluggable Applications
+#
+
+COMMUNITY_APPS = (
+    'south',
+    'django_nose',
+    'debug_toolbar',
+    'social_auth',
+    'bootstrapped',
+    'uni_form',
+    'taggit',
+    'taggit_templatetags',
+    'compressor',
+    'reversion',
+    'shorturls',
+    'rest_framework',
+    'floppyforms',
+)
+
+MEETINGMATTERS_APPS = (
+    'meetingmatters.datetime_fields',
+    'meetingmatters.utils',
+    'meetingmatters.meetings',
+)
+
+PROJECT_SPECIFIC_APPS = (
+    'myphillyrising',
 )
 
 INSTALLED_APPS = (
@@ -118,19 +176,38 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'django.contrib.admin',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
-)
+    'django.contrib.comments',
+    'django.contrib.gis',
+) + PROJECT_SPECIFIC_APPS + MEETINGMATTERS_APPS + COMMUNITY_APPS
 
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error when DEBUG=False.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
+
+################################################################################
+#
+# Testing and administration
+#
+
+# Tests (nose)
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+SOUTH_TESTS_MIGRATE = False
+
+# Debug toolbar
+def custom_show_toolbar(request):
+    return SHOW_DEBUG_TOOLBAR
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
+    'INTERCEPT_REDIRECTS': False
+}
+INTERNAL_IPS = ('127.0.0.1',)
+
+
+################################################################################
+#
+# Logging Configuration
+#
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -154,3 +231,11 @@ LOGGING = {
         },
     }
 }
+
+
+###############################################################################
+# Local settings overrides
+try:
+    from local_settings import *
+except ImportError:
+    pass

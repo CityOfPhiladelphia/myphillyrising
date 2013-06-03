@@ -1,0 +1,21 @@
+# ==============================
+# Web server
+# ==============================
+
+Django
+south
+
+
+# ==============================
+# Meetings and events
+# ==============================
+
+git+git://github.com/openplans/meetingmatters.git#egg=meetingmatters
+
+
+
+# ==============================
+# Testing / QA
+# ==============================
+
+nose
