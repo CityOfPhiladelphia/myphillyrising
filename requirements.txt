@@ -3,13 +3,23 @@
 # ==============================
 
 Django
+
+
+
+# ==============================
+# Database and Model Management
+# ==============================
+
+psycopg2
 south
+django-reversion
+
 
 
 # ==============================
 # Meetings and events
 # ==============================
-
+#
 #git+git://github.com/openplans/meetingmatters.git#egg=meetingmatters
 
 
@@ -31,10 +41,11 @@ djangorestframework
 
 
 # ==============================
-# Templating
+# Routes and Templating
 # ==============================
 
 django-jstemplate
+django-shorturls
 
 
 
@@ -43,3 +54,5 @@ django-jstemplate
 # ==============================
 
 nose
+django-nose
+django-debug-toolbar
