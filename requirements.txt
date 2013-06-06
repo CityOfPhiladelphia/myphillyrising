@@ -10,7 +10,31 @@ south
 # Meetings and events
 # ==============================
 
-git+git://github.com/openplans/meetingmatters.git#egg=meetingmatters
+#git+git://github.com/openplans/meetingmatters.git#egg=meetingmatters
+
+
+
+# ==============================
+# Authentication
+# ==============================
+
+django-social-auth
+
+
+
+# ==============================
+# APIs
+# ==============================
+
+djangorestframework
+
+
+
+# ==============================
+# Templating
+# ==============================
+
+django-jstemplate
 
 
 
