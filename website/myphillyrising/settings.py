@@ -146,7 +146,6 @@ COMMUNITY_APPS = (
     'django_nose',
     'debug_toolbar',
     'social_auth',
-    'compressor',
     'reversion',
     'shorturls',
     'rest_framework',
@@ -166,7 +165,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.comments',
-    'django.contrib.gis',
 ) + PROJECT_SPECIFIC_APPS + COMMUNITY_APPS
 
 
