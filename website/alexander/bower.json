@@ -1,0 +1,10 @@
+{
+  "name": "alexander",
+  "version": "0.0.0",
+  "dependencies": {
+    "bootstrap": "~2.3.2",
+    "underscore": "~1.4.4",
+    "backbone": "~1.0.0",
+    "backbone.marionette": "~1.0.3"
+  }
+}

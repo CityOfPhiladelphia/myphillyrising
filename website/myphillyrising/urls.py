@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+import alexander.urls
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -10,8 +11,7 @@ urlpatterns = patterns('',
     # url(r'^myphillyrising/', include('myphillyrising.foo.urls')),
 
     # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^djangoadmin/', include(admin.site.urls)),
 
-    url(r'^meetings/', include('meetingmatters.meetings.urls')),
-    url(r'^utils/', include('meetingmatters.utils.urls')),
+    url(r'^', include(alexander.urls)),
 )
