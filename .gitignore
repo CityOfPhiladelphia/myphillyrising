@@ -35,6 +35,10 @@ nosetests.xml
 .pydevproject
 
 env/
+.env/
 *.sublime-project
 *.sublime-workspace
 local_settings.py
+
+# Bower
+website/alexander/static/components/
