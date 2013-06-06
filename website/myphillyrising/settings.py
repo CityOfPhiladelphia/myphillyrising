@@ -79,10 +79,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 #    'social_auth.context_processors.social_auth_by_name_backends',
 #    'social_auth.context_processors.social_auth_backends',
 #    'social_auth.context_processors.social_auth_by_type_backends',
-
-    'meetingmatters.utils.context_processors.settings.DEBUG',
-    'meetingmatters.utils.context_processors.settings.TEMPLATE_DEBUG',
-    'meetingmatters.utils.context_processors.site',
 )
 
 ###############################################################################
@@ -136,7 +132,7 @@ TWITTER_CONSUMER_SECRET      = ''  # Set me in local settings
 #
 
 SHORTEN_MODELS = {
-    'm': 'meetingmatters.meetings.meeting',
+    # 'm': 'meetingmatters.meetings.meeting',
 }
 #SHORT_BASE_URL = 'http://mtm.tt/'
 
@@ -150,25 +146,15 @@ COMMUNITY_APPS = (
     'django_nose',
     'debug_toolbar',
     'social_auth',
-    'bootstrapped',
-    'uni_form',
-    'taggit',
-    'taggit_templatetags',
     'compressor',
     'reversion',
     'shorturls',
     'rest_framework',
-    'floppyforms',
-)
-
-MEETINGMATTERS_APPS = (
-    'meetingmatters.datetime_fields',
-    'meetingmatters.utils',
-    'meetingmatters.meetings',
 )
 
 PROJECT_SPECIFIC_APPS = (
     'myphillyrising',
+    'alexander',
 )
 
 INSTALLED_APPS = (
@@ -181,7 +167,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.comments',
     'django.contrib.gis',
-) + PROJECT_SPECIFIC_APPS + MEETINGMATTERS_APPS + COMMUNITY_APPS
+) + PROJECT_SPECIFIC_APPS + COMMUNITY_APPS
 
 
 ################################################################################
