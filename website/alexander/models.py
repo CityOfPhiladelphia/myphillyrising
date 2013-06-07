@@ -1,12 +1,16 @@
 from django.db import models
 from django.utils.translation import ugettext as _
+from django.utils.timezone import now
+from .feed_readers import get_feed_reader
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 class FeedManager (models.Manager):
-    def update_from_source(self, ids):
+    def update_from_source(self, ids=None):
         feeds = self.all()
-        if ids:
-            feeds.filter(pk__in=ids)
+        if ids: feeds = feeds.filter(pk__in=ids)
 
         for feed in feeds:
             feed.fetch_from_source()
@@ -14,20 +18,40 @@ class FeedManager (models.Manager):
 
 class Feed (models.Model):
     title = models.CharField(max_length=100)
-    last_read_at = models.DateTimeField(null=True)
-
+    last_read_at = models.DateTimeField(null=True, blank=True)
+    # ----------
     # Information about the original feed
     source_url = models.URLField()
     source_type = models.CharField(max_length=20)
-
+    # ----------
     # Defaults for the content items retrieved from this feed
     default_category = models.CharField(max_length=20)
 
+    objects = FeedManager()
+
     def __unicode__(self):
-        self.title
+        return self.title
 
     def fetch_from_source(self):
-        pass
+        """
+        Update a feed instance from its source URL if there have been any 
+        changes to the feed's items.
+        """
+        feed_source = get_feed_reader(self.source_type, url=self.source_url)
+        for item_source in feed_source:
+            source_id = feed_source.get_item_id(item_source)
+            # TODO: We could probably get all the source ids all at once,
+            #       cutting down on the glut of queries we have to do.
+            # TODO: Think about what to do when there are multiple content 
+            #       items that refer to the same source item (e.g., repeating
+            #       calendar events).
+            try:
+                item = self.items.get(source_id=source_id)
+            except ContentItem.DoesNotExist:
+                item = ContentItem(feed=self, source_id=source_id)
+            feed_source.update_item_if_changed(item, item_source)
+        self.last_read_at = now()
+        self.save()
 
 
 class ContentItem (models.Model):
@@ -37,7 +61,7 @@ class ContentItem (models.Model):
     tags = models.ManyToManyField('ContentTag')
 
     # Information about the original source content
-    source_feed = models.ForeignKey('Feed')
+    feed = models.ForeignKey('Feed', related_name='items')
     source_id = models.CharField(max_length=1000)
     source_url = models.URLField()
     source_posted_at = models.DateTimeField()
