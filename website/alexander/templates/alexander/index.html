@@ -3,79 +3,90 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-    </head>
-    <body>
-    <div class="navbar">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="#">myPhillyRising Admin</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Feeds</a></li>
-              <li><a href="#">Items</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title></title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width">
+      <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+      <link href="{{ STATIC_URL }}components/bootstrap/docs/assets/css/bootstrap.css" rel="stylesheet">
+      <script src="{{ STATIC_URL }}components/modernizr/modernizr.js"></script>
+  </head>
+  <body>
+
+  {% verbatim %}
+  <script type="text/x-handlebars-template" id="feed-item-tpl">
+    <div class="pull-right">
+      <p> {{ source_type }}, {{ default_category }} <br>
+      Last updated {{ last_read_at }}</p>
+    </div>
+
+    <h3><i class="icon-star"></i> {{ title }}</h3>
+    <p>{{ source_url }} <a class="pull-right" href="#">Delete</a></p>
+  </script>
+  {% endverbatim %}
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="brand" href="#">myPhillyRising Admin</a>
+        <div class="nav-collapse collapse">
+          <ul class="nav">
+            <li class="active"><a href="#">Feeds</a></li>
+            <li><a href="#">Items</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+
+  <div id="main"></div>
+
+  <div class="container">
+    <h1>Feeds</h1>
+    <ul id="feeds-list" class="unstyled"></ul>
+
+    <form class="form-inline well">
+
+      <select class="input-medium">
+        <option>Resources</option>
+        <option>Stories</option>
+        <option>Events</option>
+      </select>
+      <input type="text" class="input-large" placeholder="Feed Name">
+      <input type="password" class="input-xlarge" placeholder="URL">
+      <button type="submit" class="btn">Save</button>
+
+      <a class="pull-right" href="#">Cancel</a>
+    </form>
+
+    <h1>Items</h1>
+    <div class="row">
+      <div class="span8">
+        Content here
+      </div>
+      <div class="span4">
+        Tags here
       </div>
     </div>
 
-    <div class="container">
+  </div>
 
-      <h1>Feeds</h1>
-      <ul class="unstyled">
-        <li class="well">
+  <!--[if lt IE 7]>
+      <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+  <![endif]-->
 
-          <div class="pull-right">Last updated 2 hours ago</div>
-
-          <h3><i class="icon-star"></i> Philly Innovates</h3>
-          <p>http://phillyinnovates.wordpress.com/feed/
-
-          <a class="pull-right" href="#">Delete</a>
-
-        </li>
-      </ul>
-
-      <form class="form-inline well">
-
-        <select class="input-medium">
-          <option>Resources</option>
-          <option>Stories</option>
-          <option>Events</option>
-        </select>
-        <input type="text" class="input-large" placeholder="Feed Name">
-        <input type="password" class="input-xlarge" placeholder="URL">
-        <button type="submit" class="btn">Save</button>
-
-        <a class="pull-right" href="#">Cancel</a>
-      </form>
-
-      <h1>Items</h1>
-      <div class="row">
-        <div class="span8">
-          Content here
-        </div>
-        <div class="span4">
-          Tags here
-        </div>
-      </div>
-
-    </div>
-
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
-</body>
+  <script src="{{ STATIC_URL }}components/jquery/jquery.min.js"></script>
+  <script src="{{ STATIC_URL }}components/underscore/underscore-min.js"></script>
+  <script src="{{ STATIC_URL }}components/backbone/backbone-min.js"></script>
+  <script src="{{ STATIC_URL }}components/backbone.marionette/lib/backbone.marionette.js"></script>
+  <script src="{{ STATIC_URL }}components/handlebars.js/dist/handlebars.js"></script>
+  <script src="{{ STATIC_URL }}js/main.js"></script>
+  </body>
 </html>
