@@ -71,6 +71,7 @@ def get_feed_reader(source_type, **source_kwargs):
     """
     Given a source type and arguments, construct an appropriate feed reader.
     """
+    source_type = source_type.lower()
     if source_type == 'rss':
         source_url = source_kwargs.get('url')
         return RSSFeedReader(source_url)
