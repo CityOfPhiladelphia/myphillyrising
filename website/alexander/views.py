@@ -5,16 +5,24 @@ from rest_framework.response import Response
 from rest_framework.routers import DefaultRouter
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-from alexander.models import Feed
+from alexander.models import Feed, ContentItem
 from alexander.tasks import refresh_feed, refresh_feeds
 
 
-class AdminView (TemplateView):
-    template_name = 'alexander/index.html'
+class AdminFeedView (TemplateView):
+    template_name = 'alexander/feeds.html'
+
+
+class AdminItemView (TemplateView):
+    template_name = 'alexander/items.html'
 
 
 class FeedViewSet (ModelViewSet):
     model = Feed
+
+
+class ContentItemViewSet (ModelViewSet):
+    model = ContentItem
 
 
 class RefreshFeedView (SingleObjectMixin, APIView):
@@ -27,10 +35,12 @@ class RefreshFeedView (SingleObjectMixin, APIView):
 
 
 # Views
-admin_view = AdminView.as_view()
+admin_feed_view = AdminFeedView.as_view()
+admin_item_view = AdminItemView.as_view()
 
 # Setup the API routes
 api_router = DefaultRouter()
 api_router.register('feeds', FeedViewSet)
+api_router.register('items', ContentItemViewSet)
 
 refresh_feed_view = RefreshFeedView.as_view()

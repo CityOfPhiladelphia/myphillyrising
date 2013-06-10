@@ -1,0 +1,52 @@
+{% extends 'alexander/base.html' %}
+
+{% block title %}Feeds{% endblock title %}
+
+{% block navitems %}
+  <li><a href="/admin/items">Items</a></li>
+  <li class="active"><a href="/admin/feeds">Feeds</a></li>
+{% endblock navitems %}
+
+{% block content %}
+  {% verbatim %}
+  <script type="text/x-handlebars-template" id="feed-tpl">
+    <div class="pull-right">
+      <p> {{ source_type }}, {{ default_category }} <br>
+      Last updated {{ last_read_at }}</p>
+    </div>
+
+    <h3><i class="icon-star"></i> {{ title }}</h3>
+    <p>{{ source_url }}
+      <a class="delete-feed-link btn btn-danger pull-right" href="#"><i class="icon-trash"></i> Delete</a>
+      <a class="refresh-feed-link btn pull-right" href="#"><i class="icon-refresh"></i> Refresh</a>
+    </p>
+  </script>
+  {% endverbatim %}
+
+  <div class="container">
+    <h1>Feeds</h1>
+    <ul id="feeds-list" class="unstyled"></ul>
+
+    <form id="feed-form" action="/api/feeds/" method="post" class="form-inline well">
+      <select name="default_category" class="input-medium">
+        <option>Resource</option>
+        <option>Story</option>
+        <option>Event</option>
+      </select>
+      <select name="source_type" class="input-medium">
+        <option>RSS</option>
+        <option>ICS</option>
+        <option>Twitter</option>
+        <option>Facebook</option>
+      </select>
+
+      <input name="title" type="text" class="input-large" placeholder="Feed Name">
+      <input name="source_url" type="text" class="input-xlarge" placeholder="URL">
+      <button type="submit" class="btn">Save</button>
+    </form>
+  </div>
+{% endblock content %}
+
+{% block javascripts %}
+  <script src="{{ STATIC_URL }}js/feeds.js"></script>
+{% endblock javascripts %}

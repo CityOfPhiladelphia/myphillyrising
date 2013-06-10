@@ -1,0 +1,31 @@
+{% extends 'alexander/base.html' %}
+
+{% block title %}Items{% endblock title %}
+
+{% block navitems %}
+  <li class="active"><a href="/admin/items">Items</a></li>
+  <li><a href="/admin/feeds">Feeds</a></li>
+{% endblock navitems %}
+
+{% block content %}
+  {% verbatim %}
+  <script type="text/x-handlebars-template" id="content-item-tpl">
+    <div class="pull-right">
+      <p>{{ source_posted_at }}</p>
+    </div>
+
+    <h3><a href="{{source_url}}" target="_blank">{{ title }}</a></h3>
+    <p>by {{ source_content.author }}</p>
+    <p>{{{ source_content.summary }}}</p>
+  </script>
+  {% endverbatim %}
+
+  <div class="container">
+    <h1>Items</h1>
+    <ul id="items-list" class="unstyled"></ul>
+  </div>
+{% endblock content %}
+
+{% block javascripts %}
+  <script src="{{ STATIC_URL }}js/items.js"></script>
+{% endblock javascripts %}

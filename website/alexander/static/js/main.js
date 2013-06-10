@@ -7,16 +7,7 @@ var Alexander = Alexander || {};
     return Handlebars.compile(rawTemplate);
   };
 
-  NS.App = new Backbone.Marionette.Application();
-
-  NS.App.addRegions({
-    content: '#content'
-  });
-
-  NS.App.on('initialize:after', function(){
-    Backbone.history.start();
-  });
-
+  // Models and Collections
   NS.FeedModel = Backbone.Model.extend({
     refresh: function() {
       $.ajax({
@@ -31,8 +22,28 @@ var Alexander = Alexander || {};
     model: NS.FeedModel
   });
 
+  NS.ContentItemModel = Backbone.Model.extend({
+    parse: function(resp, options) {
+      resp.source_content = JSON.parse(resp.source_content);
+      return resp;
+    },
+    sync: function(method, model, options) {
+      var data = options.attrs || model.toJSON(options);
+      if (method !== 'read' && method !== 'destroy') {
+        options.data.content_source = JSON.stringify(data.content_source);
+      }
+      return Backbone.sync.apply(this, arguments);
+    }
+  });
+
+  NS.ContentItemCollection = Backbone.Collection.extend({
+    url: '/api/items/',
+    model: NS.ContentItemModel
+  });
+
+  // Views
   NS.FeedView = Backbone.Marionette.ItemView.extend({
-    template: "#feed-item-tpl",
+    template: "#feed-tpl",
     tagName: 'li',
     className: 'feed-item well',
     events: {
@@ -59,37 +70,19 @@ var Alexander = Alexander || {};
     itemView: NS.FeedView
   });
 
-  $(function() {
-    var collection = new NS.FeedCollection(),
-        feedListView = new NS.FeedListView({
-          el: '#feeds-list',
-          collection: collection
-        });
+  NS.ContentItemView = Backbone.Marionette.ItemView.extend({
+    template: "#content-item-tpl",
+    tagName: 'li',
+    className: 'content-item well',
+    events: {
+    },
+    tag: function() {
+      console.log('update tags on this model');
+    }
+  });
 
-    $('#feed-form').on('submit', function(evt) {
-      evt.preventDefault();
-      var form = this,
-          formArray = $(form).serializeArray(),
-          modelObj = {};
-
-      _.each(formArray, function(obj){
-        modelObj[obj.name] = obj.value;
-      });
-
-      collection.create(modelObj, {
-        wait: true,
-        success: function() {
-          form.reset();
-        },
-        error: function() {
-          // TODO: make nicer
-          window.alert('Unable to save. Please try again.');
-        }
-      });
-
-    });
-
-    collection.fetch();
+  NS.ContentItemListView = Backbone.Marionette.CollectionView.extend({
+    itemView: NS.ContentItemView
   });
 
 }(Alexander));

@@ -6,7 +6,7 @@
   <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title></title>
+      <title>{% block title %}{% endblock %} | myPhillyRising Admin</title>
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width">
       <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -14,21 +14,6 @@
       <script src="{{ STATIC_URL }}components/modernizr/modernizr.js"></script>
   </head>
   <body>
-
-  {% verbatim %}
-  <script type="text/x-handlebars-template" id="feed-item-tpl">
-    <div class="pull-right">
-      <p> {{ source_type }}, {{ default_category }} <br>
-      Last updated {{ last_read_at }}</p>
-    </div>
-
-    <h3><i class="icon-star"></i> {{ title }}</h3>
-    <p>{{ source_url }} 
-      <a class="delete-feed-link btn btn-danger pull-right" href="#"><i class="icon-trash"></i> Delete</a>
-      <a class="refresh-feed-link btn pull-right" href="#"><i class="icon-refresh"></i> Refresh</a>
-    </p>
-  </script>
-  {% endverbatim %}
 
   <div class="navbar">
     <div class="navbar-inner">
@@ -41,49 +26,16 @@
         <a class="brand" href="#">myPhillyRising Admin</a>
         <div class="nav-collapse collapse">
           <ul class="nav">
-            <li class="active"><a href="#">Feeds</a></li>
-            <li><a href="#">Items</a></li>
+            {% block navitems %}{% endblock %}
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
   </div>
 
-  <div id="main"></div>
 
-  <div class="container">
-    <h1>Feeds</h1>
-    <ul id="feeds-list" class="unstyled"></ul>
+  {% block content %}{% endblock %}
 
-    <form id="feed-form" action="/api/feeds/" method="post" class="form-inline well">
-      <select name="default_category" class="input-medium">
-        <option>Resource</option>
-        <option>Story</option>
-        <option>Event</option>
-      </select>
-      <select name="source_type" class="input-medium">
-        <option>RSS</option>
-        <option>ICS</option>
-        <option>Twitter</option>
-        <option>Facebook</option>
-      </select>
-
-      <input name="title" type="text" class="input-large" placeholder="Feed Name">
-      <input name="source_url" type="text" class="input-xlarge" placeholder="URL">
-      <button type="submit" class="btn">Save</button>
-    </form>
-
-    <h1>Items</h1>
-    <div class="row">
-      <div class="span8">
-        Content here
-      </div>
-      <div class="span4">
-        Tags here
-      </div>
-    </div>
-
-  </div>
 
   <!--[if lt IE 7]>
       <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
@@ -96,5 +48,7 @@
   <script src="{{ STATIC_URL }}components/handlebars.js/dist/handlebars.js"></script>
   <script src="{{ STATIC_URL }}js/django-csrf.js"></script>
   <script src="{{ STATIC_URL }}js/main.js"></script>
+  {% block javascripts %}{% endblock %}
+
   </body>
 </html>
