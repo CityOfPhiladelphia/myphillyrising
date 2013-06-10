@@ -16,6 +16,8 @@ SECRET_KEY = '0xyj_n)ut)c=d98*+=e$iyk1wkbi4t)1)kyoij87jb1av*z*o'
 TWITTER_CONSUMER_KEY = ''
 TWITTER_CONSUMER_SECRET = ''
 
+BROKER_URL = 'django://'  # Use the Django database as the celery broker
+
 LOGGING = { 
    'version': 1,
    'disable_existing_loggers': True,

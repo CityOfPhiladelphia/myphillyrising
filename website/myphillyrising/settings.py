@@ -149,6 +149,8 @@ COMMUNITY_APPS = (
     'reversion',
     'shorturls',
     'rest_framework',
+    'djcelery',
+    'kombu.transport.django',  # for the Django ORM celery task broker
 )
 
 PROJECT_SPECIFIC_APPS = (
@@ -167,6 +169,14 @@ INSTALLED_APPS = (
     'django.contrib.comments',
 ) + PROJECT_SPECIFIC_APPS + COMMUNITY_APPS
 
+
+###############################################################################
+#
+# Task Queing and Management
+#
+
+import djcelery
+djcelery.setup_loader()
 
 ################################################################################
 #

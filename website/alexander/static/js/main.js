@@ -17,7 +17,14 @@ var Alexander = Alexander || {};
     Backbone.history.start();
   });
 
-  NS.FeedModel = Backbone.Model.extend({});
+  NS.FeedModel = Backbone.Model.extend({
+    refresh: function() {
+      $.ajax({
+        url: this.url() + '/refresh/',
+        type: 'PUT'
+      });
+    }
+  });
 
   NS.FeedCollection = Backbone.Collection.extend({
     url: '/api/feeds/',
@@ -29,7 +36,8 @@ var Alexander = Alexander || {};
     tagName: 'li',
     className: 'feed-item well',
     events: {
-      'click .delete-feed-link': 'delete'
+      'click .delete-feed-link': 'delete',
+      'click .refresh-feed-link': 'refresh'
     },
     delete: function() {
       if (window.confirm('Are you sure you want to delete this feed?')) {
@@ -41,6 +49,9 @@ var Alexander = Alexander || {};
           }
         });
       }
+    },
+    refresh: function() {
+      this.model.refresh();
     }
   });
 

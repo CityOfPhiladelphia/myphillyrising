@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import query
 from django.utils.translation import ugettext as _
 from django.utils.timezone import now
 from .feed_readers import get_feed_reader
@@ -7,13 +8,18 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class FeedManager (models.Manager):
-    def update_from_source(self, ids=None):
-        feeds = self.all()
-        if ids: feeds = feeds.filter(pk__in=ids)
+class FeedQuerySet (query.QuerySet):
+    def refresh(self):
+        for feed in self:
+            feed.refresh()
 
-        for feed in feeds:
-            feed.fetch_from_source()
+
+class FeedManager (models.Manager):
+    def get_query_set(self):
+        return FeedQuerySet(self.model, using=self._db)
+
+    def refresh(self):
+        return self.all().refresh()
 
 
 class Feed (models.Model):
@@ -32,7 +38,7 @@ class Feed (models.Model):
     def __unicode__(self):
         return self.title
 
-    def fetch_from_source(self):
+    def refresh(self):
         """
         Update a feed instance from its source URL if there have been any 
         changes to the feed's items.

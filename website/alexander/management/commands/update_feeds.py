@@ -12,4 +12,7 @@ class Command(BaseCommand):
     help = "Load new items from content feed sources"
 
     def handle(self, *args, **options):
-        Feed.objects.update_from_source(ids=args)
+        feeds = Feed.objects.all()
+        if args:
+            feeds = feeds.filter(pk__in=args)
+        feeds.refresh()
