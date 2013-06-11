@@ -7,6 +7,24 @@ var Alexander = Alexander || {};
     return Handlebars.compile(rawTemplate);
   };
 
+  NS.defaultTags = [
+    'Market East',
+    'North Central',
+    'Pennrose',
+    'Strawberry Mansion',
+    'Hartranft',
+    'Kensington',
+    'St Hughs',
+    'Frankford',
+    'Lawncrest',
+    'Swampoodle/Allegheny West',
+    'Point Breeze',
+    'Southeast',
+    'Elmwood',
+    'Haddington',
+    'Kingsessing'
+  ];
+
   // Models and Collections
   NS.FeedModel = Backbone.Model.extend({
     refresh: function() {
@@ -30,9 +48,10 @@ var Alexander = Alexander || {};
     sync: function(method, model, options) {
       var data = options.attrs || model.toJSON(options);
       if (method !== 'read' && method !== 'destroy') {
-        options.data.content_source = JSON.stringify(data.content_source);
+        options.data = data;
+        options.data.source_content = JSON.stringify(data.source_content);
       }
-      return Backbone.sync.apply(this, arguments);
+      return Backbone.sync(method, model, options);
     }
   });
 
@@ -76,8 +95,28 @@ var Alexander = Alexander || {};
     className: 'content-item well',
     events: {
     },
-    tag: function() {
-      console.log('update tags on this model');
+    saveTags: function(tags) {
+      this.model.save({'tags': tags}, {
+        patch: true,
+        wait: true,
+        error: function() {
+          // TODO
+          console.error('unable to save tags - handle it');
+        }
+      });
+    },
+    onRender: function() {
+      var self = this;
+
+      this.$('input.tag-input')
+        .val(this.model.get('tags').join(','))
+        .select2({
+          tags: NS.defaultTags,
+          tokenSeparators: [',', ' '],
+          width: '100%'
+        }).on('change', function(evt) {
+          self.saveTags(evt.val);
+        });
     }
   });
 
