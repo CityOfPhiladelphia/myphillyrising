@@ -1,0 +1,9 @@
+{
+  "name": "myphillyrising",
+  "version": "0.0.0",
+  "dependencies": {
+    "swiper": "latest",
+    "normalize-css": "~2.1.2",
+    "jquery": "~2.0.2"
+  }
+}

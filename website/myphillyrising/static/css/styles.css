@@ -1,0 +1,450 @@
+/* =Base Styles
+-------------------------------------------------------------- */
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position:relative;
+}
+
+/* Typography */
+body, select, input, textarea {
+  color: #444;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+h1,h2,h3,h4,h5,h6 { margin: 0 0 0.5em 0; }
+h1 { font-size: 2.5em; }
+h2 { font-size: 2.5em; }
+h3 { font-size: 2.25em; }
+h4 { font-size: 2em; }
+h5 { font-size: 1.75em; font-weight: 400; }
+h6 { font-size: 1.5em; font-weight: 400; }
+a:hover, a:active { outline: none; }
+a, a:active, a:visited { color: #308fbf; }
+a:hover { color: #3db6f2; }
+p { margin: 0 0 1.2em; }
+ul, ol { margin-left: 1.8em; }
+ol { list-style-type: decimal; }
+ul, ol, dl { margin-bottom: 0.6em; }
+ul li, ol li { padding-bottom: 0.6em; }
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* =Nonsemantic Base Styles
+-------------------------------------------------------------- */
+
+.clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; visibility: hidden; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
+/* Hide for both screenreaders and browsers */
+.is-hidden { display: none; visibility: hidden; }
+/* Hide only visually, but have it available for screenreaders */
+.is-screen-reader-text,
+.is-visuallyhidden {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+}
+/* Hide visually and from screenreaders, but maintain layout */
+.is-invisible { visibility: hidden; }
+
+
+/* =Layout: Panels, Pages, Profiles
+-------------------------------------------------------------- */
+
+#panels.swiper-container, #panels .swiper-slide {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  position: relative;
+}
+
+.panel-nav {
+  display: none;
+}
+
+#panels, #page, #profile {
+  position: absolute;
+  z-index: 100;
+  top: 2.5em;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: auto;
+  background: #eee;
+}
+
+#page {
+  background: #fff;
+  overflow: auto;
+  padding: 0.75em;
+  box-shadow: 0 0 1em rgba(0,0,0,0.25);
+  -webkit-transition: -webkit-transform 0.7s;
+     -moz-transition:    -moz-transform 0.7s;
+       -o-transition:      -o-transform 0.7s;
+          transition:         transform 0.7s;
+  -webkit-transform: translate(0,0);
+     -moz-transform: translate(0,0);
+       -o-transform: translate(0,0);
+          transform: translate(0,0);
+}
+#page.is-closed {
+  z-index: 99;
+  -webkit-transition: -webkit-transform 0.7s, z-index 1.5s;
+     -moz-transition:    -moz-transform 0.7s, z-index 1.5s;
+       -o-transition:      -o-transform 0.7s, z-index 1.5s;
+          transition:         transform 0.7s, z-index 1.5s;
+  -webkit-transform: translate(0,100%);
+     -moz-transform: translate(0,100%);
+       -o-transform: translate(0,100%);
+          transform: translate(0,100%);
+}
+
+
+#profile {
+  background: #666;
+  color: #fff;
+  overflow: auto;
+  padding: 0.75em;
+  box-shadow: 0 0 1em rgba(0,0,0,1);
+  -webkit-transition: -webkit-transform 0.7s;
+     -moz-transition:    -moz-transform 0.7s;
+       -o-transition:      -o-transform 0.7s;
+          transition:         transform 0.7s;
+  -webkit-transform: translate(0,0);
+     -moz-transform: translate(0,0);
+       -o-transform: translate(0,0);
+          transform: translate(0,0);
+}
+#profile.is-closed {
+  z-index: 99;
+  -webkit-transition: -webkit-transform 0.7s, z-index 1.5s;
+     -moz-transition:    -moz-transform 0.7s, z-index 1.5s;
+       -o-transition:      -o-transform 0.7s, z-index 1.5s;
+          transition:         transform 0.7s, z-index 1.5s;
+  -webkit-transform: translate(0,-100%);
+     -moz-transform: translate(0,-100%);
+       -o-transform: translate(0,-100%);
+          transform: translate(0,-100%);
+}
+
+/* Close Button */
+a.close-btn {
+  float: right;
+  text-decoration: none;
+  height: 2em;
+  width: 2em;
+  text-align: center;
+  margin: -0.75em -0.75em 0.75em 0.75em;
+  color: LightSalmon;
+}
+a.close-btn:hover {
+  color: Salmon;
+}
+.close-icon {
+  font-size: 1.5em;
+  line-height: 1.2;
+}
+
+.profile-close-btn {
+  display: none;
+}
+
+
+/* =Sections
+-------------------------------------------------------------- */
+
+.section-container {
+  padding: 0.75em;
+}
+
+.section-header {
+  background: #666;
+  color: #fff;
+  margin: -0.75em -0.75em 0.75em -0.75em;
+  padding: 0 0.75em;
+  font-size: 1em;
+  text-align: center;
+  font-weight: normal;
+  text-transform: uppercase;
+  line-height: 2.25;
+}
+.events-header {
+  background: Salmon;
+}
+.resources-header {
+  background: MediumPurple;
+}
+.stories-header {
+  background: DarkOrange;
+}
+.community-header {
+  background: YellowGreen;
+}
+
+/* Section Navigation */
+.section-nav {
+  margin: -3em -0.75em 0.75em;
+  height: 2.25em;
+  position: relative;
+  z-index: 50;
+  font-family: Futura, "Arial Black", Arial, Helvetica, sans-serif;
+  overflow: hidden;
+}
+.section-nav a {
+  font-size: 2.5em;
+  text-decoration: none;
+  line-height: 1.25;
+  color: #ddd;
+  color: rgba(255,255,255,0.5);
+  padding: 0 0.25em;
+  margin-top: -0.325em;
+}
+.section-nav .prev { float: left; padding-left: 0.2em; }
+.section-nav .next { float: right; padding-right: 0.2em; }
+
+/* Content */
+.content {
+  position: absolute;
+  top: 2.25em;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  padding: 0.75em;
+}
+
+
+/* =Smooth Native Scrolling in iOS
+-------------------------------------------------------------- */
+
+.content,
+#page,
+#profile {
+  -webkit-overflow-scrolling: touch;
+}
+.content > *,
+#page > *,
+#profile > * { -webkit-transform: translateZ(0px); }
+
+body.is-page-open .content,
+body.is-profile-open .content,
+body.is-profile-open #page {
+  -webkit-overflow-scrolling: auto;
+}
+
+
+
+/* =Site Header
+-------------------------------------------------------------- */
+
+#site-header {
+  position: relative;
+  z-index: 200;
+  background-color: #666;
+  color: #fff;
+  height: 2.5em;
+  padding: 0 0.75em;
+}
+
+#site-header a {
+  color: #fff;
+  text-decoration: none;
+}
+
+#site-title {
+  font-size: 1em;
+  line-height: 2.5em;
+}
+
+a.profile-open-btn {
+  position: absolute;
+  top: 0.25em;
+  right: 0.25em;
+  height: 2em;
+  width: 2em;
+  text-align: center;
+  background: rgba(255,255,255,0.1);
+  box-shadow: 0 0 0.25em rgba(0,0,0,0.2);
+  border-radius: 0.2em;
+}
+.menu-icon {
+  font-size: 1.5em;
+  line-height: 1.325;
+  color: #c4c4c4;
+  text-shadow: 0 0 0.125em rgba(0,0,0,0.25);
+}
+
+
+/* =Media Queries for Responsive Layout
+-------------------------------------------------------------- */
+
+@media only screen and (min-width: 320px) {
+}
+
+@media only screen and (min-width: 480px) {
+}
+
+@media only screen and (min-width: 768px) {
+  .section-nav,
+  .section-header {
+      display: none;
+  }
+  .content {
+    padding: 2em;
+  }
+  .panel-nav {
+    display: block;
+    overflow: hidden;
+  }
+  .panel-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 2.5em;
+    right: -3px;
+    bottom: auto;
+    left: 0;
+    line-height: 2.25;
+  }
+  .panel-nav li {
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 25%;
+  }
+  .panel-nav a {
+    display: block;
+    color: #fff;
+    margin: 0;
+    padding: 0 0.75em;
+    font-size: 1em;
+    text-align: center;
+    font-weight: normal;
+    text-transform: uppercase;
+    line-height: 2.25;
+    box-shadow: inset 1px 1px 0 rgba(255,255,255,0.2), -1px -1px 0 rgba(0,0,0,0.2);
+  }
+  .panel-nav a.events {
+    background: Salmon;
+  }
+  .panel-nav a.resources {
+    background: MediumPurple;
+  }
+  .panel-nav a.stories {
+    background: DarkOrange;
+  }
+  .panel-nav a.community {
+    background: YellowGreen;
+  }
+
+  #profile {
+    top: 0.125em;
+    right: 0.125em;
+    left: 66%;
+    bottom: 33%;
+    z-index: 300;
+    border-radius: 0.5em;
+    -webkit-transition: opacity 0.7s;
+       -moz-transition: opacity 0.7s;
+         -o-transition: opacity 0.7s;
+            transition: opacity 0.7s;
+    -webkit-transform: none !important;
+       -moz-transform: none !important;
+         -o-transform: none !important;
+        -ms-transform: none !important;
+            transform: none !important;
+  }
+  #profile.is-closed {
+    opacity: 0;
+    -webkit-transition: opacity 0.7s, z-index 1.5s;
+       -moz-transition: opacity 0.7s, z-index 1.5s;
+         -o-transition: opacity 0.7s, z-index 1.5s;
+            transition: opacity 0.7s, z-index 1.5s;
+    -webkit-transform: none !important;
+       -moz-transform: none !important;
+         -o-transform: none !important;
+        -ms-transform: none !important;
+            transform: none !important;
+  }
+  .profile-close-btn {
+    display: block;
+  }
+
+  #page {
+    top: 3.5em;
+    right: 1em;
+    left: 1em;
+    bottom: 1em;
+    z-index: 300;
+    -webkit-transition: opacity 0.7s;
+       -moz-transition: opacity 0.7s;
+         -o-transition: opacity 0.7s;
+            transition: opacity 0.7s;
+    -webkit-transform: none !important;
+       -moz-transform: none !important;
+         -o-transform: none !important;
+        -ms-transform: none !important;
+            transform: none !important;
+  }
+  #page.is-closed {
+    opacity: 0;
+    -webkit-transition: opacity 0.7s, z-index 1.5s;
+       -moz-transition: opacity 0.7s, z-index 1.5s;
+         -o-transition: opacity 0.7s, z-index 1.5s;
+            transition: opacity 0.7s, z-index 1.5s;
+    -webkit-transform: none !important;
+       -moz-transform: none !important;
+         -o-transform: none !important;
+        -ms-transform: none !important;
+            transform: none !important;
+  }
+
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (min-width: 1300px) {
+/*  .section-nav {
+    display: none;
+  }
+  .swiper-container {
+    width: 100% !important;
+  }
+  .swiper-wrapper {
+    width: 100% !important;
+  }
+  .swiper-slide {
+    width: 25% !important;
+    left: auto !important;
+    position: relative !important;
+  }
+  .swiper-wrapper,
+  .swiper-slide {
+    -webkit-transform: none !important;
+       -moz-transform: none !important;
+         -o-transform: none !important;
+        -ms-transform: none !important;
+            transform: none !important;
+  }
+  #page {
+    top: 3.5em;
+    right: 1em;
+    bottom: 1em;
+    left: 1em;
+    height: auto;
+    box-shadow: 0 0 1em rgba(0,0,0,0.5);
+  }*/
+}
+

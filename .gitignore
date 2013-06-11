@@ -42,3 +42,4 @@ local_settings.py
 
 # Bower
 website/alexander/static/components/
+website/myphillyrising/static/components/
