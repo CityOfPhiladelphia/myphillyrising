@@ -5,8 +5,11 @@ var Alexander = Alexander || {};
 (function(NS) {
   $(function() {
     var collection = new NS.FeedCollection(),
-        feedListView = new NS.FeedListView({
+        view = new NS.FeedListView({
           el: '#feeds-list',
+          template: "#feed-tpl",
+          tagName: 'li',
+          className: 'feed-item well',
           collection: collection
         });
 

@@ -7,6 +7,7 @@
     "backbone": "~1.0.0",
     "backbone.marionette": "~1.0.3",
     "modernizr": "~2.6.2",
-    "handlebars.js": "~1.0.12"
+    "handlebars.js": "~1.0.12",
+    "select2": "~3.4.0"
   }
 }

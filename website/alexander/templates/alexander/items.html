@@ -7,6 +7,10 @@
   <li><a href="/admin/feeds">Feeds</a></li>
 {% endblock navitems %}
 
+{% block css %}
+<link href="{{ STATIC_URL }}components/select2/select2.css" rel="stylesheet"/>
+{% endblock css %}
+
 {% block content %}
   {% verbatim %}
   <script type="text/x-handlebars-template" id="content-item-tpl">
@@ -15,8 +19,12 @@
     </div>
 
     <h3><a href="{{source_url}}" target="_blank">{{ title }}</a></h3>
-    <p>by {{ source_content.author }}</p>
-    <p>{{{ source_content.summary }}}</p>
+    <div class="row">
+      <div class="span7">by {{ source_content.author }}<br>{{{ source_content.summary }}}</div>
+      <div class="span4"><h4>Neighborhoods</h4>
+        <input id="content-item-{{id}}" class="tag-input" value="" type="hidden"></input>
+      </div>
+    </div>
   </script>
   {% endverbatim %}
 
@@ -27,5 +35,6 @@
 {% endblock content %}
 
 {% block javascripts %}
+  <script src="{{ STATIC_URL }}components/select2/select2.js"></script>
   <script src="{{ STATIC_URL }}js/items.js"></script>
 {% endblock javascripts %}
