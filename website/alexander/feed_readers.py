@@ -112,6 +112,7 @@ class ICalFeedReader (FeedReader):
         item_data['DTSTAMP'] = get_dt_or_none(item_data.pop('DTSTAMP', None))
         item_data['CREATED'] = get_dt_or_none(item_data.pop('DTSTAMP', None))
         item_data['LAST-MODIFIED'] = get_dt_or_none(item_data.pop('LAST-MODIFIED', None))
+        item_data['RECURRENCE-ID'] = get_dt_or_none(item_data.pop('RECURRENCE-ID', None))
 
         return item_data
 
@@ -160,11 +161,10 @@ def get_feed_reader(source_type, **source_kwargs):
     """
     Given a source type and arguments, construct an appropriate feed reader.
     """
-    source_type = source_type.lower()
-    if source_type == 'rss':
+    if source_type.lower() == 'rss':
         source_url = source_kwargs.get('url')
         return RSSFeedReader(source_url)
-    elif source_type == 'ical':
+    elif source_type.lower() in ('ical', 'ics'):
         source_url = source_kwargs.get('url')
         return ICalFeedReader(source_url)
     else:
