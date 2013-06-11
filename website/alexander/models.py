@@ -78,7 +78,7 @@ class ContentItem (models.Model):
 
 
 class ContentTag (models.Model):
-    label = models.CharField(max_length=100)
+    label = models.CharField(max_length=100, primary_key=True)
 
     def __unicode__(self):
         return self.label
