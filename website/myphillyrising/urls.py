@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from views import app_view
 import alexander.urls
 
 # Uncomment the next two lines to enable the admin:
@@ -7,7 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'myphillyrising.views.home', name='home'),
+    url(r'^$', app_view, name='app'),
     # url(r'^myphillyrising/', include('myphillyrising.foo.urls')),
 
     # Uncomment the next line to enable the admin:
