@@ -7,9 +7,6 @@ var Alexander = Alexander || {};
     var collection = new NS.FeedCollection(),
         view = new NS.FeedListView({
           el: '#feeds-list',
-          template: "#feed-tpl",
-          tagName: 'li',
-          className: 'feed-item well',
           collection: collection
         });
 

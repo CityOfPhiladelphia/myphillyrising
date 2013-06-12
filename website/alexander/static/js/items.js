@@ -6,9 +6,6 @@ var Alexander = Alexander || {};
   $(function() {
     var collection = new NS.ContentItemCollection(),
         view = new NS.ContentItemListView({
-          template: "#content-item-tpl",
-          tagName: 'li',
-          className: 'content-item well',
           el: '#items-list',
           collection: collection
         });
