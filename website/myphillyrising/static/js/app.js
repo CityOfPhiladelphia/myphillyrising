@@ -1,3 +1,5 @@
+/*globals Backbone Handlebars $ */
+
 var MyPhillyRising = MyPhillyRising || {};
 
 (function(NS) {
@@ -8,7 +10,8 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.app = new Backbone.Marionette.Application();
 
   NS.app.addRegions({
-    resourceRegion: '#resource-region .content'
+    resourceRegion: '#resource-region .content',
+    eventRegion: '#event-region .content'
   });
 
   NS.app.addInitializer(function(options){
@@ -25,6 +28,16 @@ var MyPhillyRising = MyPhillyRising || {};
 
     NS.app.resourceRegion.show(view);
   });
+
+  NS.app.addInitializer(function(options) {
+    console.log('render events');
+    var view = new NS.EventCollectionView({
+          collection: options.eventCollection
+        });
+
+    NS.app.eventRegion.show(view);
+  });
+
 
   //
   NS.ContentItemModel = Backbone.Model.extend({
@@ -52,23 +65,31 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.ResourceItemView = Backbone.Marionette.ItemView.extend({
     template: '#resource-item-tpl',
-    tagName: 'p'
   });
 
   NS.ResourceCollectionView = Backbone.Marionette.CollectionView.extend({
     itemView: NS.ResourceItemView
   });
 
+  NS.EventItemView = Backbone.Marionette.ItemView.extend({
+    template: '#event-item-tpl',
+  });
+
+  NS.EventCollectionView = Backbone.Marionette.CollectionView.extend({
+    itemView: NS.EventItemView
+  });
+
   // Init
   $(function() {
-    var resourceCollection = new NS.ContentItemCollection();
+    var resourceCollection = new NS.ContentItemCollection(),
+        eventCollection = new NS.ContentItemCollection();
 
-    resourceCollection.fetch({data: {
-      category: 'Resource'
-    }});
+    resourceCollection.fetch({data: {category: 'Resource'}});
+    eventCollection.fetch({data: {category: 'Event'}});
 
     NS.app.start({
-      resourceCollection: resourceCollection
+      resourceCollection: resourceCollection,
+      eventCollection: eventCollection
     });
   });
 
