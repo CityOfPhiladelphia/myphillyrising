@@ -26,10 +26,11 @@ class ContentItemViewSet (ModelViewSet):
 
     def get_queryset(self):
         category = self.request.GET.get('category')
+        queryset = super(ContentItemViewSet, self).get_queryset()
         if (category):
-            return ContentItem.objects.filter(category=category)
+            return queryset.filter(category=category)
         else:
-            return ContentItem.objects.all()
+            return queryset
 
     # TODO: Override update and/or partial_update to create related objects
     #       (namely, tags) if they do not exist.
