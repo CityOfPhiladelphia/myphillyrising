@@ -295,12 +295,13 @@ a.profile-open-btn {
 }
 
 @media only screen and (min-width: 768px) {
-  .section-nav,
+  .section-nav {
+    display: none;
+  }
   .section-header {
-      display: none;
   }
   .content {
-    padding: 2em;
+    padding: 2em 20%;
   }
   .panel-nav {
     display: block;
@@ -416,35 +417,5 @@ a.profile-open-btn {
 }
 
 @media only screen and (min-width: 1300px) {
-/*  .section-nav {
-    display: none;
-  }
-  .swiper-container {
-    width: 100% !important;
-  }
-  .swiper-wrapper {
-    width: 100% !important;
-  }
-  .swiper-slide {
-    width: 25% !important;
-    left: auto !important;
-    position: relative !important;
-  }
-  .swiper-wrapper,
-  .swiper-slide {
-    -webkit-transform: none !important;
-       -moz-transform: none !important;
-         -o-transform: none !important;
-        -ms-transform: none !important;
-            transform: none !important;
-  }
-  #page {
-    top: 3.5em;
-    right: 1em;
-    bottom: 1em;
-    left: 1em;
-    height: auto;
-    box-shadow: 0 0 1em rgba(0,0,0,0.5);
-  }*/
 }
 
