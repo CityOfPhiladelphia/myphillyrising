@@ -25,8 +25,10 @@ class ContentItemViewSet (ModelViewSet):
     model = ContentItem
 
     def get_queryset(self):
-        category = self.request.GET.get('category')
         queryset = super(ContentItemViewSet, self).get_queryset()
+        queryset = queryset.prefetch_related('tags')
+
+        category = self.request.GET.get('category')
         if (category):
             return queryset.filter(category=category)
         else:
