@@ -151,6 +151,7 @@ COMMUNITY_APPS = (
     'rest_framework',
     'djcelery',
     'kombu.transport.django',  # for the Django ORM celery task broker
+    'jstemplate',
 )
 
 PROJECT_SPECIFIC_APPS = (

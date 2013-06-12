@@ -1,3 +1,5 @@
+{% load jstemplate %}
+
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html dir="ltr" lang="en-US" class="ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html dir="ltr" lang="en-US" class="ie7"> <![endif]-->
@@ -34,19 +36,6 @@
 <body>
 
   {% verbatim %}
-  <script type="text/x-handlebars-template" id="resource-item-tpl">
-    <article class="feed-item">
-      <div class="feed-item-header">
-        <h3 class="feed-item-title"><a href="{{source_url}}" target="_blank" class="page-open-btn">{{ title }}</a></h3>
-        <div class="feed-item-meta">
-        </div>
-      </div>
-      <div class="feed-item-content">
-        <p>{{{ source_content.summary }}}</p>
-      </div>
-    </article>
-  </script>
-
   <script type="text/x-handlebars-template" id="event-item-tpl">
    <article class="feed-item">
       <div class="feed-item-header">
@@ -62,6 +51,7 @@
 
   {% endverbatim %}
 
+  {% handlebarsjs '(.*)' %}
 
 <div id="site-header">
   <h1 id="site-title"><span><a href="#" title="myPhillyRising" rel="home">myPhillyRising</a></span></h1>
@@ -129,14 +119,27 @@
 </div><!-- end #swiper-container -->
 
 <div id="page" class="is-closed">
-  <p><a href="#" class="close-btn page-close-btn"><span class="close-icon">&times;</span><span class="close-text is-hidden">Close</span></a></p>
-  <p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p><p>Page</p>
+  <a href="#" class="close-btn page-close-btn"><span class="close-icon">&times;</span><span class="close-text is-hidden">Close</span></a>
+  <div class="page-header">
+    <h3 class="page-title"><a href="#" class="">This is the title of the event.</a></h3>
+    <div class="page-meta">
+      <span class="date"><a href="#" title="Permalink to Event Title" rel="bookmark"><time class="entry-date" datetime="2013-10-11T11:46:10+00:00">October 11, 2013</time></a></span>
+    </div>
+  </div>
+  <div class="page-content">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div>
 </div><!-- end #page -->
 
 <div id="profile" class="is-closed">
   <p><a href="#" class="close-btn profile-close-btn"><span class="close-icon">&times;</span><span class="close-text is-hidden">Close</span></a></p>
   <p>Profile</p><p>Profile</p><p>Profile</p><p>Profile</p><p>Profile</p><p>Profile</p><p>Profile</p><p>Profile</p><p>Profile</p><p>Profile</p><p>Profile</p><p>Profile</p><p>Profile</p><p>Profile</p><p>Profile</p><p>Profile</p><p>Profile</p><p>Profile</p><p>Profile</p><p>Profile</p>
-</div><!-- end #page -->
+</div><!-- end #profile -->
 
 
 <script src="{{ STATIC_URL }}components/jquery/jquery.js"></script>
