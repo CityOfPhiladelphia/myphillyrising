@@ -147,6 +147,8 @@ a.close-btn {
   text-align: center;
   margin: -0.75em -0.75em 0.75em 0.75em;
   color: LightSalmon;
+  position: relative;
+  z-index: 2;
 }
 a.close-btn:hover {
   color: Salmon;
@@ -297,19 +299,50 @@ a.profile-open-btn {
 }
 .feed-item-header {
   line-height: 1.25;
-  margin: 0 0 0.5em;
+  margin: 0;
 }
 .feed-item-header a {
   text-decoration: none;
 }
 .feed-item-title {
+  font-size: 1.25em;
+  line-height: 1.25;
   margin: 0;
 }
 .feed-item-meta {
+  font-size: 0.8em;
 }
 .feed-item-meta a { color: LightSlateGray; }
 .feed-item-meta a:hover { color: DarkSlateGray; }
 .feed-item-content {
+  margin: 0.75em 0 0;
+}
+
+
+/* =Page Content
+-------------------------------------------------------------- */
+
+#page {
+  line-height: 1.5;
+}
+.page-header {
+  line-height: 1.25;
+  margin: 0;
+}
+.page-header a {
+  text-decoration: none;
+}
+.page-title {
+  line-height: 1.25;
+  margin: 0;
+}
+.page-meta {
+  font-size: 0.8em;
+}
+.page-meta a { color: LightSlateGray; }
+.page-meta a:hover { color: DarkSlateGray; }
+.page-content {
+  margin: 0.75em 0 0;
 }
 
 
