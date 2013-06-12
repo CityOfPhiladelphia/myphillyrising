@@ -54,7 +54,8 @@ class Feed (models.Model):
             try:
                 item = self.items.get(source_id=source_id)
             except ContentItem.DoesNotExist:
-                item = ContentItem(feed=self, source_id=source_id)
+                item = ContentItem(feed=self, source_id=source_id, 
+                    category=self.default_category)
             feed_source.update_item_if_changed(item, item_source)
         self.last_read_at = now()
         self.save()
