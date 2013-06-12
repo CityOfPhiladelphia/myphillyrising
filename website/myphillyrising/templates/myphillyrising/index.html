@@ -25,8 +25,6 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}components/normalize-css/normalize.css" type="text/css" media="screen, projection" />
   <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css" type="text/css" media="screen, projection" />
   <link rel="stylesheet" href="{{ STATIC_URL }}components/swiper/dist/idangerous.swiper.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/swiper-overrides.css" type="text/css" media="screen, projection" />
-
 
 <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -34,6 +32,13 @@
   <![endif]-->
 </head>
 <body>
+
+  {% verbatim %}
+  <script type="text/x-handlebars-template" id="resource-item-tpl">
+    <a href="{{source_url}}" target="_blank">{{ title }}</a>
+  </script>
+  {% endverbatim %}
+
 
 <div id="site-header">
   <h1 id="site-title"><span><a href="#" title="myPhillyRising" rel="home">myPhillyRising</a></span></h1>
@@ -63,7 +68,7 @@
       </div>
     </div><!-- end .swiper-slide -->
 
-    <div class="swiper-slide">
+    <div id="resource-region" class="swiper-slide">
       <div class="section-container section-recources">
         <h2 class="section-header resources-header">Resources</h2>
         <nav class="section-nav">
@@ -71,7 +76,6 @@
           <a href="#" class="next">&rsaquo;</a>
         </nav>
         <div class="content">
-          <p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p><p>Resources</p>
         </div>
       </div>
     </div><!-- end .swiper-slide -->
@@ -117,11 +121,15 @@
 
 <script src="{{ STATIC_URL }}components/jquery/jquery.js"></script>
 <script src="{{ STATIC_URL }}components/swiper/dist/idangerous.swiper-1.9.4.min.js"></script>
+<script src="{{ STATIC_URL }}components/underscore/underscore-min.js"></script>
+<script src="{{ STATIC_URL }}components/backbone/backbone-min.js"></script>
+<script src="{{ STATIC_URL }}components/backbone.marionette/lib/backbone.marionette.js"></script>
+<script src="{{ STATIC_URL }}components/handlebars.js/dist/handlebars.js"></script>
+<script src="{{ STATIC_URL }}js/app.js"></script>
 
 <script type="text/javascript">
 
   $(function(){
-
     var swiper=new Swiper('#panels',{
       simulateTouch: false,
       mode: 'horizontal',
