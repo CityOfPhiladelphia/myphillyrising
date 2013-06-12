@@ -65,6 +65,7 @@ class ContentItem (models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=160, null=True)
     tags = models.ManyToManyField('ContentTag')
+    category = models.CharField(max_length=20)
 
     # Information about the original source content
     feed = models.ForeignKey('Feed', related_name='items')

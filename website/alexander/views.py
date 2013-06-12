@@ -27,7 +27,7 @@ class ContentItemViewSet (ModelViewSet):
     def get_queryset(self):
         category = self.request.GET.get('category')
         if (category):
-            return ContentItem.objects.filter(feed__default_category__exact=category)
+            return ContentItem.objects.filter(category=category)
         else:
             return ContentItem.objects.all()
 
