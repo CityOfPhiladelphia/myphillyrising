@@ -4,6 +4,10 @@
   "dependencies": {
     "swiper": "latest",
     "normalize-css": "~2.1.2",
-    "jquery": "~2.0.2"
+    "jquery": "~2.0.2",
+    "underscore": "~1.4.4",
+    "backbone": "~1.0.0",
+    "handlebars.js": "~1.0.12",
+    "backbone.marionette": "~1.0.3"
   }
 }
