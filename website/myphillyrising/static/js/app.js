@@ -1,12 +1,13 @@
-/*globals Backbone Handlebars $ */
+/*globals Alexander Backbone Handlebars $ */
 
 var MyPhillyRising = MyPhillyRising || {};
 
-(function(NS) {
+(function(NS, A) {
   Backbone.Marionette.TemplateCache.prototype.compileTemplate = function(rawTemplate) {
     return Handlebars.compile(rawTemplate);
   };
 
+  // App ======================================================================
   NS.app = new Backbone.Marionette.Application();
 
   NS.app.addRegions({
@@ -38,31 +39,7 @@ var MyPhillyRising = MyPhillyRising || {};
     NS.app.eventRegion.show(view);
   });
 
-
-  //
-  NS.ContentItemModel = Backbone.Model.extend({
-    parse: function(resp, options) {
-      resp.source_content = JSON.parse(resp.source_content);
-      return resp;
-    },
-    sync: function(method, model, options) {
-      var data = options.attrs || model.toJSON(options);
-      if (method !== 'read' && method !== 'destroy') {
-        options.data = data;
-        options.data.source_content = JSON.stringify(data.source_content);
-      }
-
-      options.data = JSON.stringify(data);
-      options.contentType = 'application/json';
-      return Backbone.sync(method, model, options);
-    }
-  });
-
-  NS.ContentItemCollection = Backbone.Collection.extend({
-    url: '/api/items/',
-    model: NS.ContentItemModel
-  });
-
+  // Views ====================================================================
   NS.ResourceItemView = Backbone.Marionette.ItemView.extend({
     template: '#resource-item-tpl',
   });
@@ -79,10 +56,10 @@ var MyPhillyRising = MyPhillyRising || {};
     itemView: NS.EventItemView
   });
 
-  // Init
+  // Init =====================================================================
   $(function() {
-    var resourceCollection = new NS.ContentItemCollection(),
-        eventCollection = new NS.ContentItemCollection();
+    var resourceCollection = new A.ContentItemCollection(),
+        eventCollection = new A.ContentItemCollection();
 
     resourceCollection.fetch({data: {category: 'Resource'}});
     eventCollection.fetch({data: {category: 'Event'}});
@@ -93,4 +70,4 @@ var MyPhillyRising = MyPhillyRising || {};
     });
   });
 
-}(MyPhillyRising));
+}(MyPhillyRising, Alexander));

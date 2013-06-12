@@ -12,22 +12,6 @@
 {% endblock css %}
 
 {% block content %}
-  {% verbatim %}
-  <script type="text/x-handlebars-template" id="content-item-tpl">
-    <div class="pull-right">
-      <p>{{ source_posted_at }}</p>
-    </div>
-
-    <h3><a href="{{source_url}}" target="_blank">{{ title }}</a></h3>
-    <div class="row">
-      <div class="span7">by {{ source_content.author }}<br>{{{ source_content.summary }}}</div>
-      <div class="span4"><h4>Neighborhoods</h4>
-        <input id="content-item-{{id}}" class="tag-input" value="" type="hidden"></input>
-      </div>
-    </div>
-  </script>
-  {% endverbatim %}
-
   <div class="container">
     <h1>Items</h1>
     <ul id="items-list" class="unstyled"></ul>

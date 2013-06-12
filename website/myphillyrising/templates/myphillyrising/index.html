@@ -34,23 +34,6 @@
   <![endif]-->
 </head>
 <body>
-
-  {% verbatim %}
-  <script type="text/x-handlebars-template" id="event-item-tpl">
-   <article class="feed-item">
-      <div class="feed-item-header">
-        <h3 class="feed-item-title"><a href="#" class="page-open-btn">{{ title }}</a></h3>
-        <div class="feed-item-meta">
-          <span class="date"><a href="#" title="Permalink to Event Title" rel="bookmark"><time class="entry-date" datetime="{{ source_posted_at }}">{{ source_posted_at }}</time></a></span>
-        </div>
-      </div>
-      <div class="feed-item-content">
-        <p>{{{ source_content.DESCRIPTION }}}</p>
-      </div>
-    </article>  </script>
-
-  {% endverbatim %}
-
   {% handlebarsjs '(.*)' %}
 
 <div id="site-header">
@@ -148,6 +131,7 @@
 <script src="{{ STATIC_URL }}components/backbone/backbone.js"></script>
 <script src="{{ STATIC_URL }}components/backbone.marionette/lib/backbone.marionette.js"></script>
 <script src="{{ STATIC_URL }}components/handlebars.js/dist/handlebars.js"></script>
+<script src="{{ STATIC_URL }}js/models.js"></script>
 <script src="{{ STATIC_URL }}js/app.js"></script>
 
 <script type="text/javascript">
