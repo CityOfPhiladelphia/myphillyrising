@@ -15,15 +15,16 @@ body, select, input, textarea {
 }
 h1,h2,h3,h4,h5,h6 { margin: 0 0 0.5em 0; }
 h1 { font-size: 2.5em; }
-h2 { font-size: 2.5em; }
-h3 { font-size: 2.25em; }
-h4 { font-size: 2em; }
-h5 { font-size: 1.75em; font-weight: 400; }
-h6 { font-size: 1.5em; font-weight: 400; }
+h2 { font-size: 2.25em; }
+h3 { font-size: 2em; }
+h4 { font-size: 1.75em; }
+h5 { font-size: 1.5em; font-weight: 400; }
+h6 { font-size: 1em; font-weight: 400; }
 a:hover, a:active { outline: none; }
 a, a:active, a:visited { color: #308fbf; }
 a:hover { color: #3db6f2; }
 p { margin: 0 0 1.2em; }
+p:last-child { margin-bottom: 0; }
 ul, ol { margin-left: 1.8em; }
 ol { list-style-type: decimal; }
 ul, ol, dl { margin-bottom: 0.6em; }
@@ -61,7 +62,7 @@ img {
 
 #panels.swiper-container, #panels .swiper-slide {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 
 .swiper-slide {
@@ -282,6 +283,33 @@ a.profile-open-btn {
   line-height: 1.325;
   color: #c4c4c4;
   text-shadow: 0 0 0.125em rgba(0,0,0,0.25);
+}
+
+
+/* =Feed Items
+-------------------------------------------------------------- */
+
+.feed-item {
+  line-height: 1.5;
+  background: White;
+  padding: 1em;
+  margin: 0 0 1em;
+}
+.feed-item-header {
+  line-height: 1.25;
+  margin: 0 0 0.5em;
+}
+.feed-item-header a {
+  text-decoration: none;
+}
+.feed-item-title {
+  margin: 0;
+}
+.feed-item-meta {
+}
+.feed-item-meta a { color: LightSlateGray; }
+.feed-item-meta a:hover { color: DarkSlateGray; }
+.feed-item-content {
 }
 
 
