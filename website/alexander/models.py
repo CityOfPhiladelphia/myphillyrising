@@ -54,7 +54,8 @@ class Feed (models.Model):
             try:
                 item = self.items.get(source_id=source_id)
             except ContentItem.DoesNotExist:
-                item = ContentItem(feed=self, source_id=source_id)
+                item = ContentItem(feed=self, source_id=source_id, 
+                    category=self.default_category)
             feed_source.update_item_if_changed(item, item_source)
         self.last_read_at = now()
         self.save()
@@ -65,6 +66,7 @@ class ContentItem (models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=160, null=True)
     tags = models.ManyToManyField('ContentTag')
+    category = models.CharField(max_length=20)
 
     # Information about the original source content
     feed = models.ForeignKey('Feed', related_name='items')
