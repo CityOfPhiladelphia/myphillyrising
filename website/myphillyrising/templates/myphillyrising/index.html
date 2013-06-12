@@ -35,7 +35,17 @@
 
   {% verbatim %}
   <script type="text/x-handlebars-template" id="resource-item-tpl">
-    <a href="{{source_url}}" target="_blank">{{ title }}</a>
+    <article class="feed-item">
+      <div class="feed-item-header">
+        <h3 class="feed-item-title"><a href="{{source_url}}" target="_blank" class="page-open-btn">{{ title }}</a></h3>
+        <div class="feed-item-meta">
+        </div>
+      </div>
+      <div class="feed-item-content">
+        <p>{{{ source_content.summary }}}</p>
+      </div>
+    </article>
+
   </script>
   {% endverbatim %}
 
@@ -45,10 +55,10 @@
   <a href="#" class="profile-open-btn"><span class="menu-icon">&equiv;</span></a>
   <nav class="panel-nav">
     <ul>
-      <li><a href="#" class="events">Events</a></li>
-      <li><a href="#" class="resources">Resources</a></li>
-      <li><a href="#" class="stories">Stories</a></li>
-      <li><a href="#" class="community">Community</a></li>
+      <li><a href="#" class="events events-btn">Events</a></li>
+      <li><a href="#" class="resources resources-btn">Resources</a></li>
+      <li><a href="#" class="stories stories-btn">Stories</a></li>
+      <li><a href="#" class="community community-btn">Community</a></li>
     </ul>
   </nav>
 </div>
@@ -63,7 +73,115 @@
           <a href="#" class="next">&rsaquo;</a>
         </nav>
         <div class="content">
-          <p>Events</p><p><a href="#" class="page-open-btn">Open Page</a></p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p><p>Events</p>
+
+          <article class="feed-item">
+            <div class="feed-item-header">
+              <h3 class="feed-item-title"><a href="#" class="page-open-btn">Event Title</a></h3>
+              <div class="feed-item-meta">
+                <span class="date"><a href="#" title="Permalink to Event Title" rel="bookmark"><time class="entry-date" datetime="2013-10-11T11:46:10+00:00">October 11, 2013</time></a></span>
+              </div>
+            </div>
+            <div class="feed-item-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+          </article>
+
+          <article class="feed-item">
+            <div class="feed-item-header">
+              <h3 class="feed-item-title"><a href="#" class="page-open-btn">Event Title</a></h3>
+              <div class="feed-item-meta">
+                <span class="date"><a href="#" title="Permalink to Event Title" rel="bookmark"><time class="entry-date" datetime="2013-10-11T11:46:10+00:00">October 11, 2013</time></a></span>
+              </div>
+            </div>
+            <div class="feed-item-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+          </article>
+
+          <article class="feed-item">
+            <div class="feed-item-header">
+              <h3 class="feed-item-title"><a href="#" class="page-open-btn">Event Title</a></h3>
+              <div class="feed-item-meta">
+                <span class="date"><a href="#" title="Permalink to Event Title" rel="bookmark"><time class="entry-date" datetime="2013-10-11T11:46:10+00:00">October 11, 2013</time></a></span>
+              </div>
+            </div>
+            <div class="feed-item-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+          </article>
+
+          <article class="feed-item">
+            <div class="feed-item-header">
+              <h3 class="feed-item-title"><a href="#" class="page-open-btn">Event Title</a></h3>
+              <div class="feed-item-meta">
+                <span class="date"><a href="#" title="Permalink to Event Title" rel="bookmark"><time class="entry-date" datetime="2013-10-11T11:46:10+00:00">October 11, 2013</time></a></span>
+              </div>
+            </div>
+            <div class="feed-item-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+          </article>
+
+          <article class="feed-item">
+            <div class="feed-item-header">
+              <h3 class="feed-item-title"><a href="#" class="page-open-btn">Event Title</a></h3>
+              <div class="feed-item-meta">
+                <span class="date"><a href="#" title="Permalink to Event Title" rel="bookmark"><time class="entry-date" datetime="2013-10-11T11:46:10+00:00">October 11, 2013</time></a></span>
+              </div>
+            </div>
+            <div class="feed-item-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+          </article>
+
+          <article class="feed-item">
+            <div class="feed-item-header">
+              <h3 class="feed-item-title"><a href="#" class="page-open-btn">Event Title</a></h3>
+              <div class="feed-item-meta">
+                <span class="date"><a href="#" title="Permalink to Event Title" rel="bookmark"><time class="entry-date" datetime="2013-10-11T11:46:10+00:00">October 11, 2013</time></a></span>
+              </div>
+            </div>
+            <div class="feed-item-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+          </article>
+
+          <article class="feed-item">
+            <div class="feed-item-header">
+              <h3 class="feed-item-title"><a href="#" class="page-open-btn">Event Title</a></h3>
+              <div class="feed-item-meta">
+                <span class="date"><a href="#" title="Permalink to Event Title" rel="bookmark"><time class="entry-date" datetime="2013-10-11T11:46:10+00:00">October 11, 2013</time></a></span>
+              </div>
+            </div>
+            <div class="feed-item-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+          </article>
+
+          <article class="feed-item">
+            <div class="feed-item-header">
+              <h3 class="feed-item-title"><a href="#" class="page-open-btn">Event Title</a></h3>
+              <div class="feed-item-meta">
+                <span class="date"><a href="#" title="Permalink to Event Title" rel="bookmark"><time class="entry-date" datetime="2013-10-11T11:46:10+00:00">October 11, 2013</time></a></span>
+              </div>
+            </div>
+            <div class="feed-item-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+          </article>
+
+          <article class="feed-item">
+            <div class="feed-item-header">
+              <h3 class="feed-item-title"><a href="#" class="page-open-btn">Event Title</a></h3>
+              <div class="feed-item-meta">
+                <span class="date"><a href="#" title="Permalink to Event Title" rel="bookmark"><time class="entry-date" datetime="2013-10-11T11:46:10+00:00">October 11, 2013</time></a></span>
+              </div>
+            </div>
+            <div class="feed-item-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+          </article>
+
         </div>
       </div>
     </div><!-- end .swiper-slide -->
@@ -75,8 +193,7 @@
           <a href="#" class="prev">&lsaquo;</a>
           <a href="#" class="next">&rsaquo;</a>
         </nav>
-        <div class="content">
-        </div>
+        <div class="content"></div>
       </div>
     </div><!-- end .swiper-slide -->
 
@@ -164,6 +281,23 @@
     $('.profile-close-btn').click(function(e){
       $('#profile').addClass('is-closed');
       $('body').removeClass('is-profile-open');
+      e.preventDefault();
+    });
+
+    $('.events-btn').click(function(e){
+      swiper.swipeTo(0,0)
+      e.preventDefault();
+    });
+    $('.resources-btn').click(function(e){
+      swiper.swipeTo(1,0)
+      e.preventDefault();
+    });
+    $('.stories-btn').click(function(e){
+      swiper.swipeTo(2,0)
+      e.preventDefault();
+    });
+    $('.community-btn').click(function(e){
+      swiper.swipeTo(3,0)
       e.preventDefault();
     });
   });
