@@ -40,10 +40,10 @@
   <a href="#" class="profile-open-btn"><span class="menu-icon">&equiv;</span></a>
   <nav class="panel-nav">
     <ul>
-      <li><a href="#" class="events">Events</a></li>
-      <li><a href="#" class="resources">Resources</a></li>
-      <li><a href="#" class="stories">Stories</a></li>
-      <li><a href="#" class="community">Community</a></li>
+      <li><a href="#" class="events events-btn">Events</a></li>
+      <li><a href="#" class="resources resources-btn">Resources</a></li>
+      <li><a href="#" class="stories stories-btn">Stories</a></li>
+      <li><a href="#" class="community community-btn">Community</a></li>
     </ul>
   </nav>
 </div>
@@ -156,6 +156,23 @@
     $('.profile-close-btn').click(function(e){
       $('#profile').addClass('is-closed');
       $('body').removeClass('is-profile-open');
+      e.preventDefault();
+    });
+
+    $('.events-btn').click(function(e){
+      swiper.swipeTo(0,0)
+      e.preventDefault();
+    });
+    $('.resources-btn').click(function(e){
+      swiper.swipeTo(1,0)
+      e.preventDefault();
+    });
+    $('.stories-btn').click(function(e){
+      swiper.swipeTo(2,0)
+      e.preventDefault();
+    });
+    $('.community-btn').click(function(e){
+      swiper.swipeTo(3,0)
       e.preventDefault();
     });
   });
