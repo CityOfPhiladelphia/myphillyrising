@@ -31,11 +31,17 @@ class ContentItemViewSet (ModelViewSet):
         else:
             return ContentItem.objects.all()
 
+    # TODO: Override update and/or partial_update to create related objects
+    #       (namely, tags) if they do not exist.
+
 
 class RefreshFeedView (SingleObjectMixin, APIView):
     model = Feed
 
     def put(self, request, pk):
+        # We could just pass the pk straight into the refresh_feed method, but
+        # we go through get_object so that HTTP 40x response situations get
+        # handled.
         feed = self.get_object()
         refresh_feed.delay(feed.pk)
         return Response(status=status.HTTP_204_NO_CONTENT)
