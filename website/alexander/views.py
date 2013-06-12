@@ -24,6 +24,13 @@ class FeedViewSet (ModelViewSet):
 class ContentItemViewSet (ModelViewSet):
     model = ContentItem
 
+    def get_queryset(self):
+        category = self.request.GET.get('category')
+        if (category):
+            return ContentItem.objects.filter(feed__default_category__exact=category)
+        else:
+            return ContentItem.objects.all()
+
 
 class RefreshFeedView (SingleObjectMixin, APIView):
     model = Feed

@@ -59,12 +59,13 @@ var MyPhillyRising = MyPhillyRising || {};
     itemView: NS.ResourceItemView
   });
 
-
   // Init
   $(function() {
     var resourceCollection = new NS.ContentItemCollection();
 
-    resourceCollection.fetch();
+    resourceCollection.fetch({data: {
+      category: 'Resource'
+    }});
 
     NS.app.start({
       resourceCollection: resourceCollection
