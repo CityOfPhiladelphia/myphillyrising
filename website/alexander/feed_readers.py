@@ -4,6 +4,7 @@ from django.utils.timezone import now, datetime
 from time import mktime
 from urllib2 import urlopen
 import json  # For dumping dictionary content to strings
+import re
 
 # Optional packages
 try:
@@ -183,6 +184,36 @@ class ICalFeedReader (FeedReader):
                 item.save()
 
 
+class FacebookPageReader (RSSFeedReader):
+
+    def __iter__(self):
+        orig_url = self.url
+
+        page_url = self.url
+        match = re.match('^https?://(?:www.)?facebook.com/(.+)$', page_url)
+        if match:
+            page_url = 'http://graph.facebook.com/' + match.group(1)
+
+        # Get the page id
+        page_info = json.loads(urlopen(page_url).read())
+        page_id = page_info['id']
+
+        # Temporarily set self.url to the RSS feed for the page
+        self.url = 'https://www.facebook.com/feeds/page.php?format=rss20&id=%s' % (page_id,)
+        feed_iter = super(FacebookPageReader, self).__iter__()
+
+        # Restore the URL and return the iter
+        self.url = orig_url
+        return feed_iter
+
+    def get_item_id(self, item_data):
+        match = re.match('^https?://(?:www.)?facebook.com/feeds/(www.facebook.com/.+)$', item_data['id'])
+        if match:
+            item_data['id'] = 'http://%s' % (match.group(1),)
+
+        return super(FacebookPageReader, self).get_item_id(item_data)
+
+
 def get_feed_reader(source_type, **source_kwargs):
     """
     Given a source type and arguments, construct an appropriate feed reader.
@@ -193,6 +224,9 @@ def get_feed_reader(source_type, **source_kwargs):
     elif source_type.lower() in ('ical', 'ics'):
         source_url = source_kwargs.get('url')
         return ICalFeedReader(source_url)
+    elif source_type.lower() == 'facebook':
+        source_url = source_kwargs.get('url')
+        return FacebookPageReader(source_url)
     else:
         msg = _('Unrecognized feed source type: %r') % (source_type,)
         raise ValueError(msg)
