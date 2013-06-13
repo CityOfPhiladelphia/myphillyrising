@@ -12,7 +12,18 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.app.addRegions({
     resourceRegion: '#resource-region .content',
-    eventRegion: '#event-region .content'
+    eventRegion: '#event-region .content',
+    pageRegion: '#page'
+  });
+
+  NS.app.pageRegion.on('show', function() {
+    $(NS.app.pageRegion.el).removeClass('is-closed');
+    $('body').addClass('is-page-open');
+  });
+
+  NS.app.pageRegion.on('close', function() {
+    $(NS.app.pageRegion.el).addClass('is-closed');
+    $('body').removeClass('is-page-open');
   });
 
   NS.app.addInitializer(function(options){
@@ -42,6 +53,27 @@ var MyPhillyRising = MyPhillyRising || {};
   // Views ====================================================================
   NS.ResourceItemView = Backbone.Marionette.ItemView.extend({
     template: '#resource-item-tpl',
+    events: {
+      'click .feed-item-title a': 'showDetails'
+    },
+    showDetails: function(evt) {
+      evt.preventDefault();
+
+      NS.app.pageRegion.show(new NS.ResourceDetailView({
+        model: this.model
+      }));
+    }
+  });
+
+  NS.ResourceDetailView = Backbone.Marionette.ItemView.extend({
+    template: '#rss-detail-tpl',
+    events: {
+      'click .close-btn': 'closeDetails'
+    },
+    closeDetails: function(evt) {
+      evt.preventDefault();
+      NS.app.pageRegion.close();
+    }
   });
 
   NS.ResourceCollectionView = Backbone.Marionette.CollectionView.extend({

@@ -47,3 +47,7 @@ Handlebars.registerHelper('prettytime', function(datetimeAttr) {
   }
   return '';
 });
+
+Handlebars.registerHelper('rsscontent', function() {
+  return this.source_content.content[0].value;
+});
