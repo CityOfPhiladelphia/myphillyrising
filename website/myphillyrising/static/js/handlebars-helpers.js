@@ -1,9 +1,17 @@
 /*globals Handlebars moment */
 
 Handlebars.registerHelper('fromnow', function(datetimeAttr) {
-  return moment(this[datetimeAttr]).fromNow();
+  var datetime = this[datetimeAttr];
+  if (datetime) {
+    return moment(datetime).fromNow();
+  }
+  return '';
 });
 
 Handlebars.registerHelper('prettydate', function(datetimeAttr) {
-  return moment(this[datetimeAttr]).format('MMMM Do YYYY h:mma');
+  var datetime = this[datetimeAttr];
+  if (datetime) {
+    return moment(datetime).format('MMMM Do YYYY h:mma');
+  }
+  return '';
 });
