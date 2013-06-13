@@ -1,6 +1,6 @@
 /*globals Handlebars moment */
 
-Handlebars.registerHelper('fromnow', function(datetimeAttr) {
+Handlebars.registerHelper('fromnow', function(datetime) {
   var datetime = this[datetimeAttr];
   if (datetime) {
     return moment(datetime).fromNow();
@@ -8,40 +8,35 @@ Handlebars.registerHelper('fromnow', function(datetimeAttr) {
   return '';
 });
 
-Handlebars.registerHelper('prettydate', function(datetimeAttr) {
-  var datetime = this[datetimeAttr];
+Handlebars.registerHelper('prettydate', function(datetime) {
   if (datetime) {
     return moment(datetime).format('MMMM Do YYYY h:mma');
   }
   return '';
 });
 
-Handlebars.registerHelper('prettymonth', function(datetimeAttr) {
-  var datetime = this[datetimeAttr];
+Handlebars.registerHelper('prettymonth', function(datetime) {
   if (datetime) {
     return moment(datetime).format('MMM');
   }
   return '';
 });
 
-Handlebars.registerHelper('prettyday', function(datetimeAttr) {
-  var datetime = this[datetimeAttr];
+Handlebars.registerHelper('prettyday', function(datetime) {
   if (datetime) {
     return moment(datetime).format('D');
   }
   return '';
 });
 
-Handlebars.registerHelper('prettyyear', function(datetimeAttr) {
-  var datetime = this[datetimeAttr];
+Handlebars.registerHelper('prettyyear', function(datetime) {
   if (datetime) {
     return moment(datetime).format('YYYY');
   }
   return '';
 });
 
-Handlebars.registerHelper('prettytime', function(datetimeAttr) {
-  var datetime = this[datetimeAttr];
+Handlebars.registerHelper('prettytime', function(datetime) {
   if (datetime) {
     return moment(datetime).format('h:mma');
   }

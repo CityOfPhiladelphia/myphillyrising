@@ -5,11 +5,11 @@
           <span class="feed-item-date"><a href="#" title="Permalink to Event Title" rel="bookmark">
             <time datetime="{{ source_posted_at }}">
               <span class="calendar-icon">
-                <span class="day">{{ prettyday "source_posted_at" }}</span>
-                <span class="month">{{ prettymonth "source_posted_at" }}</span>
-                <span class="year">{{ prettyyear "source_posted_at" }}</span>
+                <span class="day">{{ prettyday source_posted_at }}</span>
+                <span class="month">{{ prettymonth source_posted_at }}</span>
+                <span class="year">{{ prettyyear source_posted_at }}</span>
               </span>
-              <span class="time">{{ prettytime "source_posted_at" }}</span>
+              <span class="time">{{ prettytime source_posted_at }}</span>
             </time>
           </a></span>
           <span class="location">{{{ source_content.LOCATION }}}</span>
