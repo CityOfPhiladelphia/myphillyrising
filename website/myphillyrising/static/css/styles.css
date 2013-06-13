@@ -315,8 +315,12 @@ a.profile-open-btn {
   font-size: 0.8em;
   color: LightSlateGray;
 }
-.feed-item-meta a { color: LightSlateGray; }
-.feed-item-meta a:hover { color: DarkSlateGray; }
+.feed-item-meta a { 
+  color: LightSlateGray; 
+}
+.feed-item-meta a:hover { 
+  color: DarkSlateGray; 
+}
 .feed-item-content {
   margin: 0.75em 0 0;
   font-size: 0.8em;
@@ -326,6 +330,9 @@ a.profile-open-btn {
 .event-item {
   padding-left: 4.75em;
   min-height: 5.5em;
+}
+.date {
+  margin-bottom: 0;
 }
 .calendar-icon {
   position: absolute;
@@ -356,11 +363,60 @@ a.profile-open-btn {
   font-weight: bold;
   line-height: 1.5;
 }
-.time {
-  font-size: 1.25em;
-  font-weight: bold;
-}
+.time,
 .location {
+  display: block;
+  font-weight: bold;
+  margin-top: 0.5em;
+}
+
+.time-icon {
+  font-size: 1.2em;
+  float: left;
+  height: 0.325em;
+  width: 0.325em;
+  margin: 0.2em 0.25em 0 0;
+  border: 0.25em solid #cbb;
+  border-radius: 0.75em;
+  background: #cbb;
+  position: relative;
+}
+.time-icon:before {
+  content: "\0020";
+	position: absolute;
+	display: block;
+	width: 0.18em;
+	height: 0.25em;
+	left: 50%;
+	bottom: 50%;
+	border-left: 2px solid White;
+	border-bottom: 2px solid White;
+	margin-bottom: -1px;
+	margin-left: -1px;
+}
+
+.location-icon {
+  font-size: 1.2em;
+  float: left;
+  height: 0.25em;
+  width: 0.25em;
+  margin: 0.125em 0.325em 0 0;
+  border: 0.25em solid #cbb;
+  border-radius: 0.75em;
+  background: White;
+  position: relative;
+}
+.location-icon:before {
+  content: "\0020";
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  left: 1px;
+  margin-top: 0.25em;
+  margin-right: -0.25em;
+  margin-left: -0.25em;
+  border: 0.25em solid transparent;
+  border-top: 0.5em solid #cbb;
 }
 
 
