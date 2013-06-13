@@ -1,25 +1,49 @@
 /*globals Handlebars moment */
 
 Handlebars.registerHelper('fromnow', function(datetimeAttr) {
-  return moment(this[datetimeAttr]).fromNow();
+  var datetime = this[datetimeAttr];
+  if (datetime) {
+    return moment(datetime).fromNow();
+  }
+  return '';
 });
 
 Handlebars.registerHelper('prettydate', function(datetimeAttr) {
-  return moment(this[datetimeAttr]).format('MMMM Do YYYY h:mma');
+  var datetime = this[datetimeAttr];
+  if (datetime) {
+    return moment(datetime).format('MMMM Do YYYY h:mma');
+  }
+  return '';
 });
 
 Handlebars.registerHelper('prettymonth', function(datetimeAttr) {
-  return moment(this[datetimeAttr]).format('MMM');
+  var datetime = this[datetimeAttr];
+  if (datetime) {
+    return moment(datetime).format('MMM');
+  }
+  return '';
 });
 
 Handlebars.registerHelper('prettyday', function(datetimeAttr) {
-  return moment(this[datetimeAttr]).format('D');
+  var datetime = this[datetimeAttr];
+  if (datetime) {
+    return moment(datetime).format('D');
+  }
+  return '';
 });
 
 Handlebars.registerHelper('prettyyear', function(datetimeAttr) {
-  return moment(this[datetimeAttr]).format('YYYY');
+  var datetime = this[datetimeAttr];
+  if (datetime) {
+    return moment(datetime).format('YYYY');
+  }
+  return '';
 });
 
 Handlebars.registerHelper('prettytime', function(datetimeAttr) {
-  return moment(this[datetimeAttr]).format('h:mma');
+  var datetime = this[datetimeAttr];
+  if (datetime) {
+    return moment(datetime).format('h:mma');
+  }
+  return '';
 });

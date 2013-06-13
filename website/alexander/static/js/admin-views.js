@@ -59,9 +59,9 @@ var Alexander = Alexander || {};
     tagName: 'li',
     className: 'content-item well',
     templates: {
-      'Event': '#event-item-tpl',
-      'Resource': '#resource-item-tpl',
-      'Story': '#resource-item-tpl'
+      'ICS': '#event-item-tpl',
+      'RSS': '#resource-item-tpl',
+      'Facebook': '#facebook-item-tpl'
     },
     saveTags: function(tags) {
       this.model.save({'tags': tags}, {
@@ -76,7 +76,7 @@ var Alexander = Alexander || {};
     onRender: function() {
       var self = this,
           data = this.model.toJSON(),
-          content = Backbone.Marionette.Renderer.render(this.templates[data.category], data);
+          content = Backbone.Marionette.Renderer.render(this.templates[data.source_type], data);
 
       this.$('.content').html(content);
 
