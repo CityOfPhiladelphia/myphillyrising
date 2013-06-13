@@ -223,7 +223,7 @@ a.close-btn:hover {
   bottom: 0;
   left: 0;
   overflow: auto;
-  padding: 0.75em;
+  padding: 0.5em;
 }
 
 
@@ -292,14 +292,16 @@ a.profile-open-btn {
 -------------------------------------------------------------- */
 
 .feed-item {
+  position: relative;
   line-height: 1.5;
   background: White;
-  padding: 1em;
-  margin: 0 0 1em;
+  padding: 0.75em;
+  margin: 0 0 0.5em;
+  box-shadow: 0 0 0.2em rgba(0,0,0,0.2);
+  border-radius: 0.2em;
 }
 .feed-item-header {
   line-height: 1.25;
-  margin: 0;
 }
 .feed-item-header a {
   text-decoration: none;
@@ -311,11 +313,54 @@ a.profile-open-btn {
 }
 .feed-item-meta {
   font-size: 0.8em;
+  color: LightSlateGray;
 }
 .feed-item-meta a { color: LightSlateGray; }
 .feed-item-meta a:hover { color: DarkSlateGray; }
 .feed-item-content {
   margin: 0.75em 0 0;
+  font-size: 0.8em;
+}
+
+/* Events */
+.event-item {
+  padding-left: 4.75em;
+  min-height: 5.5em;
+}
+.calendar-icon {
+  position: absolute;
+  top: 1.25em;
+  left: 1em;
+  width: 4.25em;
+  background: White;
+  box-shadow: 0 0.1em 0.2em rgba(0,0,0,0.2);
+  border-radius: 0.2em;
+  padding: 1.5em 0 0.5em;
+  text-align: center;
+}
+.calendar-icon .day {
+  display: block;
+  font-size: 2.25em;
+  font-weight: bold;
+}
+.calendar-icon .month {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  background: Salmon;
+  border-radius: 0.2em 0.2em 0 0;
+  width: 100%;
+  color: White;
+  text-transform: uppercase;
+  font-weight: bold;
+  line-height: 1.5;
+}
+.time {
+  font-size: 1.25em;
+  font-weight: bold;
+}
+.location {
 }
 
 
@@ -338,6 +383,7 @@ a.profile-open-btn {
 }
 .page-meta {
   font-size: 0.8em;
+  color: LightSlateGray;
 }
 .page-meta a { color: LightSlateGray; }
 .page-meta a:hover { color: DarkSlateGray; }
@@ -475,7 +521,6 @@ a.profile-open-btn {
         -ms-transform: none !important;
             transform: none !important;
   }
-
 }
 
 @media only screen and (min-width: 1024px) {
