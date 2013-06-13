@@ -21,8 +21,34 @@ logger = logging.getLogger(__name__)
 
 
 class FeedReader (object):
+    """
+    Generally FeedReader instances will be created by the get_feed_reader
+    factory function.
+    """
     def __init__(self, url):
         self.url = url
+
+    def __iter__(self):
+        """
+        Retrieve the feed information from the upstream source, and return an
+        iterator over the individual items from that source.
+        """
+        raise NotImplementedError
+
+    def get_item_id(self, item_data):
+        """
+        Given some upstream representation of an item's source, give the id of
+        the item that is unique to the upstream source.
+        """
+        raise NotImplementedError
+
+    def update_item_if_changed(self, item, item_data):
+        """
+        Compare the item_data from the upstream source to the item model 
+        instance to see whether the item instance needs to be updated. If the
+        upstream data has changed, save the new data into the model.
+        """
+        raise NotImplementedError
 
 
 class RSSFeedReader (FeedReader):
