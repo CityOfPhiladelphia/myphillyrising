@@ -138,17 +138,6 @@
       e.preventDefault();
     });
 
-    $('.page-open-btn').click(function(e){
-      $('#page').removeClass('is-closed');
-      $('body').addClass('is-page-open');
-      e.preventDefault();
-    });
-    $('.page-close-btn').click(function(e){
-      $('#page').addClass('is-closed');
-      $('body').removeClass('is-page-open');
-      e.preventDefault();
-    });
-
     $('.profile-open-btn').click(function(e){
       $('#profile').toggleClass('is-closed');
       $('body').toggleClass('is-profile-open');
