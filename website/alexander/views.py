@@ -6,6 +6,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from alexander.models import Feed, ContentItem
+from alexander.serializers import ContentItemSerializer
 from alexander.tasks import refresh_feed, refresh_feeds
 
 
@@ -23,6 +24,7 @@ class FeedViewSet (ModelViewSet):
 
 class ContentItemViewSet (ModelViewSet):
     model = ContentItem
+    serializer_class = ContentItemSerializer
 
     def get_queryset(self):
         queryset = super(ContentItemViewSet, self).get_queryset()
