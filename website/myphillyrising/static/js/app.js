@@ -51,22 +51,7 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   // Views ====================================================================
-  NS.ResourceItemView = Backbone.Marionette.ItemView.extend({
-    template: '#resource-item-tpl',
-    events: {
-      'click .feed-item-title a': 'showDetails'
-    },
-    showDetails: function(evt) {
-      evt.preventDefault();
-
-      NS.app.pageRegion.show(new NS.ResourceDetailView({
-        model: this.model
-      }));
-    }
-  });
-
-  NS.ResourceDetailView = Backbone.Marionette.ItemView.extend({
-    template: '#rss-detail-tpl',
+  NS.DetailPageView = Backbone.Marionette.ItemView.extend({
     events: {
       'click .close-btn': 'closeDetails'
     },
@@ -76,12 +61,42 @@ var MyPhillyRising = MyPhillyRising || {};
     }
   });
 
+  NS.ItemWithDetailPageView = Backbone.Marionette.ItemView.extend({
+    events: {
+      'click .feed-item-title a': 'showDetails'
+    },
+    showDetails: function(evt) {
+      evt.preventDefault();
+
+      var DetailView = Backbone.Marionette.getOption(this, 'detailView');
+      NS.app.pageRegion.show(new DetailView({
+        model: this.model
+      }));
+    }
+  });
+
+  // Resource Views ===========================================================
+  NS.ResourceDetailView = NS.DetailPageView.extend({
+    template: '#rss-detail-tpl'
+  });
+
+  NS.ResourceItemView = NS.ItemWithDetailPageView.extend({
+    template: '#resource-item-tpl',
+    detailView: NS.ResourceDetailView
+  });
+
   NS.ResourceCollectionView = Backbone.Marionette.CollectionView.extend({
     itemView: NS.ResourceItemView
   });
 
-  NS.EventItemView = Backbone.Marionette.ItemView.extend({
+  // Event Views ==============================================================
+  NS.EventDetailView = NS.DetailPageView.extend({
+    template: '#ics-detail-tpl'
+  });
+
+  NS.EventItemView = NS.ItemWithDetailPageView.extend({
     template: '#event-item-tpl',
+    detailView: NS.EventDetailView
   });
 
   NS.EventCollectionView = Backbone.Marionette.CollectionView.extend({
