@@ -13,20 +13,16 @@ var Alexander = Alexander || {};
           children = childrenContainer.children(),
           indices = childrenContainer.data('indices') || [],
           goHereIndex;
-      // console.log(index, $(itemView.el).find('.feed-item-title').text());
 
-      // console.log('before', indices);
       indices.push(index);
-      indices.sort();
-      // console.log('after', indices);
+      indices.sort(function(a, b) {
+          return a - b;
+      });
       goHereIndex = indices.indexOf(index);
-      // console.log('at', goHereIndex);
 
       if(goHereIndex === 0) {
         childrenContainer.prepend(itemView.el);
-        // console.log('prepend');
       } else {
-        // console.log('insert after', childrenContainer.children().eq(goHereIndex-1).find('.feed-item-title').text());
         childrenContainer.children().eq(goHereIndex-1).after(itemView.el);
       }
 
