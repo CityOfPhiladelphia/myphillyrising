@@ -13,6 +13,7 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.app.addRegions({
     resourceRegion: '#resource-region .content',
     eventRegion: '#event-region .content',
+    storyRegion: '#story-region .content',
     pageRegion: '#page'
   });
 
@@ -48,6 +49,15 @@ var MyPhillyRising = MyPhillyRising || {};
         });
 
     NS.app.eventRegion.show(view);
+  });
+
+  NS.app.addInitializer(function(options) {
+    console.log('render stories');
+    var view = new NS.StoryCollectionView({
+          collection: options.storyCollection
+        });
+
+    NS.app.storyRegion.show(view);
   });
 
   // Views ====================================================================
@@ -103,10 +113,25 @@ var MyPhillyRising = MyPhillyRising || {};
     itemView: NS.EventItemView
   });
 
+  // Story Views ==============================================================
+  NS.StoryItemView = Backbone.Marionette.ItemView.extend({
+    template: function(modelObj) {
+      if (modelObj.source_type === 'Facebook') {
+        return Handlebars.compile($('#facebook-item-tpl').html())(modelObj);
+      }
+      return '<h1>no template found</h1>';
+    }
+  });
+
+  NS.StoryCollectionView = A.OrderedCollectionView.extend({
+    itemView: NS.StoryItemView
+  });
+
   // Init =====================================================================
   $(function() {
     var resourceCollection = new A.ContentItemCollection(),
-        eventCollection = new A.ContentItemCollection();
+        eventCollection = new A.ContentItemCollection(),
+        storyCollection = new A.ContentItemCollection();
 
     resourceCollection.comparator = function(model) {
       return model.get('title');
@@ -116,14 +141,18 @@ var MyPhillyRising = MyPhillyRising || {};
       return model.get('source_content').DTSTART;
     };
 
+    storyCollection.comparator = function(model) {
+      return model.get('source_posted_at');
+    };
+
     resourceCollection.fetch({data: {category: 'Resource'}});
     eventCollection.fetch({data: {category: 'Event'}});
-
-    window.resourceCollection = resourceCollection;
+    storyCollection.fetch({data: {category: 'Story'}});
 
     NS.app.start({
       resourceCollection: resourceCollection,
-      eventCollection: eventCollection
+      eventCollection: eventCollection,
+      storyCollection: storyCollection
     });
   });
 
