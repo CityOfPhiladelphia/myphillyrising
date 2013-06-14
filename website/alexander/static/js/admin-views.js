@@ -59,8 +59,8 @@ var Alexander = Alexander || {};
     tagName: 'li',
     className: 'content-item well',
     templates: {
-      'ICS': '#event-item-tpl',
-      'RSS': '#resource-item-tpl',
+      'ICS': '#ics-item-tpl',
+      'RSS': '#rss-item-tpl',
       'Facebook': '#facebook-item-tpl'
     },
     saveTags: function(tags) {

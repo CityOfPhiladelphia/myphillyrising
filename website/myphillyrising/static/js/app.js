@@ -81,7 +81,7 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.ResourceItemView = NS.ItemWithDetailPageView.extend({
-    template: '#resource-item-tpl',
+    template: '#rss-item-tpl',
     detailView: NS.ResourceDetailView
   });
 
@@ -95,7 +95,7 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.EventItemView = NS.ItemWithDetailPageView.extend({
-    template: '#event-item-tpl',
+    template: '#ics-item-tpl',
     detailView: NS.EventDetailView
   });
 
