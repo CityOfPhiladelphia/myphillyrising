@@ -85,7 +85,7 @@ var MyPhillyRising = MyPhillyRising || {};
     detailView: NS.ResourceDetailView
   });
 
-  NS.ResourceCollectionView = Backbone.Marionette.CollectionView.extend({
+  NS.ResourceCollectionView = A.OrderedCollectionView.extend({
     itemView: NS.ResourceItemView
   });
 
@@ -99,7 +99,7 @@ var MyPhillyRising = MyPhillyRising || {};
     detailView: NS.EventDetailView
   });
 
-  NS.EventCollectionView = Backbone.Marionette.CollectionView.extend({
+  NS.EventCollectionView = A.OrderedCollectionView.extend({
     itemView: NS.EventItemView
   });
 
@@ -108,8 +108,18 @@ var MyPhillyRising = MyPhillyRising || {};
     var resourceCollection = new A.ContentItemCollection(),
         eventCollection = new A.ContentItemCollection();
 
+    resourceCollection.comparator = function(model) {
+      return model.get('title');
+    };
+
+    eventCollection.comparator = function(model) {
+      return model.get('source_content').DTSTART;
+    };
+
     resourceCollection.fetch({data: {category: 'Resource'}});
     eventCollection.fetch({data: {category: 'Event'}});
+
+    window.resourceCollection = resourceCollection;
 
     NS.app.start({
       resourceCollection: resourceCollection,

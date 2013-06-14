@@ -50,7 +50,7 @@ var Alexander = Alexander || {};
     }
   });
 
-  NS.FeedListView = Backbone.Marionette.CollectionView.extend({
+  NS.FeedListView = NS.OrderedCollectionView.extend({
     itemView: NS.FeedView
   });
 
