@@ -141,8 +141,8 @@ var MyPhillyRising = MyPhillyRising || {};
       return model.get('source_content').DTSTART;
     };
 
-    storyCollection.comparator = function(model) {
-      return model.get('source_posted_at');
+    storyCollection.comparator = function(a, b) {
+      return a.get('source_posted_at') < b.get('source_posted_at') ? 1 : -1;
     };
 
     resourceCollection.fetch({data: {category: 'Resource'}});
