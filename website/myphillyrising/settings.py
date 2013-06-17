@@ -101,6 +101,7 @@ MIDDLEWARE_CLASSES = (
 
 SECRET_KEY = 'Set me in local settings!!!'
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 ###############################################################################
 #

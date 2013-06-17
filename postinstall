@@ -7,6 +7,21 @@ safe() { "$@" || barf "cannot $*"; }
 # =============================================================================
 # Post-install hook file for configuring dotcloud server
 
+dotcloud_get_env() {
+    sed -n "/$1/ s/.*: \"\(.*\)\".*/\1/p" < "/home/dotcloud/environment.json"
+}
+
+setup_django_celery() {
+    cat > /home/dotcloud/current/supervisord.conf << EOF
+[program:djcelery]
+directory = /home/dotcloud/current/
+command = python website/manage.py celeryd -E -l info -c 2
+stderr_logfile = /var/log/supervisor/%(program_name)s_error.log
+stdout_logfile = /var/log/supervisor/%(program_name)s.log
+
+EOF
+}
+
 echo "Writing the local settings file..."
 cat >> website/myphillyrising/local_settings.py <<EOF
 
@@ -25,8 +40,6 @@ DATABASES = {
     }
 }
 
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-
 STATIC_ROOT = '/home/dotcloud/current/static/'
 
 # Debug is False by default, true if set in the environment.
@@ -35,6 +48,31 @@ TEMPLATE_DEBUG = DEBUG
 
 # Set these explicitly here to override whatever may have come from settings
 STATIC_URL = '/static/'
+
+BROKER_URL = 'django://'  # Use the Django database as the celery broker
+
+LOGGING = {
+   'version': 1,
+   'disable_existing_loggers': True,
+   'formatters': {
+       'simple': {
+           'format': '%(levelname)s %(message)s',
+       },
+   },
+   'handlers': {
+       'console': {
+           'level': 'DEBUG',
+           'class': 'logging.StreamHandler',
+           'formatter': 'simple'
+       },
+   },
+   'loggers': {
+       'django': {
+           'handlers': ['console'],
+           'level': 'DEBUG',
+       },
+   }
+}
 EOF
 
 # Need to be able to import settings to run the createdbs script...
@@ -47,6 +85,11 @@ safe python website/scripts/dotcloud_createdbs.py
 
 echo "Syncing the database..."
 safe website/manage.py syncdb --migrate --noinput
+
+if [ `dotcloud_get_env DOTCLOUD_SERVICE_NAME` = workers ] ; then
+    echo "Setup Celery"
+    setup_django_celery
+fi
 
 echo "Setting up static file service..."
 safe website/manage.py collectstatic --noinput
