@@ -231,6 +231,9 @@ a.close-btn:hover {
 .community-header {
   background: YellowGreen;
 }
+.map-header {
+  background: FireBrick;
+}
 
 /* Section Navigation */
 .section-nav {
@@ -262,6 +265,16 @@ a.close-btn:hover {
   left: 0;
   overflow: auto;
   padding: 0.5em;
+}
+
+/* Map */
+#map {
+  margin: -0.75em -0.75em 0 -0.75em;
+  background: #bbb;
+  height: 200px;
+}
+.map-content {
+  margin-top: 200px; /* match height of #map */
 }
 
 
@@ -359,6 +372,7 @@ a.events-btn { color: Salmon; }
 a.resources-btn { color: MediumPurple; }
 a.stories-btn { color: DarkOrange; }
 a.community-btn { color: YellowGreen; }
+a.map-btn { color: FireBrick; }
 
 
 /* =Feed Items
@@ -562,7 +576,7 @@ a.community-btn { color: YellowGreen; }
     float: left;
     margin: 0;
     padding: 0;
-    width: 25%;
+    width: 20%;
   }
   .panel-nav a {
     display: block;
@@ -590,6 +604,9 @@ a.community-btn { color: YellowGreen; }
   }
   .panel-nav a.community {
     background: YellowGreen;
+  }
+  .panel-nav a.map {
+    background: FireBrick;
   }
 
   #profile {

@@ -46,6 +46,8 @@
       <li><a href="#" class="resources resources-btn">Resources</a></li>
       <li><a href="#" class="stories stories-btn">Stories</a></li>
       <!-- <li><a href="#" class="community community-btn">Community</a></li> -->
+      <li><a href="#" class="map map-btn">Map</a></li>
+      <!-- <li><a href="#" class="about about-btn">About</a></li> -->
     </ul>
   </nav>
 </div>
@@ -59,7 +61,7 @@
         <nav class="section-nav">
           <a href="#" class="next">&rsaquo;</a>
         </nav>
-        <div class="content">
+        <div class="content overview-content">
           <div class="welcome well">
             <h6>Welcome to myPhillyRising!</h6>
             <ul class="actions-list">
@@ -85,7 +87,7 @@
           <a href="#" class="prev">&lsaquo;</a>
           <a href="#" class="next">&rsaquo;</a>
         </nav>
-        <div class="content"></div>
+        <div class="content events-content"></div>
       </div>
     </div><!-- end .swiper-slide -->
 
@@ -99,7 +101,7 @@
         <!-- <div class="search">
           <input type="search" placeholder="Search Resources...">
         </div> -->
-        <div class="content"></div>
+        <div class="content resources-content"></div>
       </div>
     </div><!-- end .swiper-slide -->
 
@@ -110,7 +112,7 @@
           <a href="#" class="prev">&lsaquo;</a>
           <a href="#" class="next">&rsaquo;</a>
         </nav>
-        <div class="content"></div>
+        <div class="content stories-content"></div>
       </div>
     </div><!-- end .swiper-slide -->
 
@@ -120,11 +122,25 @@
         <nav class="section-nav">
           <a href="#" class="prev">&lsaquo;</a>
         </nav>
-        <div class="content">
+        <div class="content community-content">
           <p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p>
         </div>
       </div>
     </div> --><!-- end .swiper-slide -->
+
+    <div class="swiper-slide">
+      <div class="section-container section-map">
+        <h2 class="section-header map-header">Map</h2>
+        <nav class="section-nav">
+          <a href="#" class="prev">&lsaquo;</a>
+          <a href="#" class="next">&rsaquo;</a>
+        </nav>
+        <div id="map"></div>
+        <div class="content map-content">
+          <p>map</p><p>map</p><p>map</p><p>map</p><p>map</p><p>map</p><p>map</p><p>map</p><p>map</p><p>map</p><p>map</p><p>map</p><p>map</p><p>map</p><p>map</p><p>map</p><p>map</p><p>map</p><p>map</p>
+        </div>
+      </div>
+    </div><!-- end .swiper-slide -->
 
     <div id="about-region" class="swiper-slide">
       <div class="section-container section-about">
@@ -132,7 +148,7 @@
         <nav class="section-nav">
           <a href="#" class="prev">&lsaquo;</a>
         </nav>
-        <div class="content">
+        <div class="content about-content">
           <div class="well">
             <p><strong>myPhillyRising</strong> is a lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -213,8 +229,12 @@
       swiper.swipeTo(4,0)
       e.preventDefault();
     });
-    $('.about-btn').click(function(e){
+    $('.map-btn').click(function(e){
       swiper.swipeTo(4,0)
+      e.preventDefault();
+    });
+    $('.about-btn').click(function(e){
+      swiper.swipeTo(5,0)
       e.preventDefault();
     });
   });
