@@ -14,11 +14,11 @@ body, select, input, textarea {
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 h1,h2,h3,h4,h5,h6 { margin: 0 0 0.5em 0; }
-h1 { font-size: 2.5em; }
-h2 { font-size: 2.25em; }
-h3 { font-size: 2em; }
-h4 { font-size: 1.75em; }
-h5 { font-size: 1.5em; font-weight: 400; }
+h1 { font-size: 2.25em; }
+h2 { font-size: 2.em; }
+h3 { font-size: 1.75em; }
+h4 { font-size: 1.5em; }
+h5 { font-size: 1.25em; font-weight: 400; }
 h6 { font-size: 1em; font-weight: 400; }
 a:hover, a:active { outline: none; }
 a, a:active, a:visited { color: #308fbf; }
@@ -345,6 +345,10 @@ a.profile-open-btn {
   padding: 1.5em 0 0.5em;
   text-align: center;
 }
+#page .calendar-icon {
+  top: 0.5em;
+  left: 0.5em;
+}
 .calendar-icon .day {
   display: block;
   font-size: 2.25em;
@@ -368,8 +372,13 @@ a.profile-open-btn {
   display: block;
   font-weight: bold;
   margin-top: 0.5em;
+  margin-left: 1.25em;
+  text-indent: -1.25em;
 }
-
+#page .time,
+#page .location {
+  font-size: 1.25em;
+}
 .time-icon,
 .location-icon {
   width: 1.25em;

@@ -2,7 +2,7 @@
       <div class="feed-item-header">
         <h3 class="feed-item-title"><a href="#" class="page-open-btn">{{ title }}</a></h3>
         <div class="feed-item-meta">
-          <p class="date"><a href="#" title="Permalink to Event Title" rel="bookmark">
+          <p class="date"><a href="#" title="Permalink to {{ title }}" rel="bookmark">
             <time datetime="{{ source_posted_at }}">
               <span class="calendar-icon">
                 <span class="day">{{ prettyday source_posted_at }}</span>
@@ -10,8 +10,7 @@
                 <span class="year">{{ prettyyear source_posted_at }}</span>
               </span>
               <span class="time">
-                <img class="time-icon" src="static/images/icon-clock.png" />
-                <span class="time-start">{{ prettytime source_content.DTSTART }}</span>
+                <img class="time-icon" src="static/images/icon-clock.png" /><span class="time-start">{{ prettytime source_content.DTSTART }}</span>
                 {{#if source_content.DTEND}}
                 to <span class="time-end">{{ prettytime source_content.DTEND }}</span>
                 {{/if}}
@@ -19,7 +18,7 @@
             </time>
           </a></p>
           {{#if source_content.LOCATION}}
-          <p class="location"><img class="location-icon" src="static/images/icon-location.png" /> {{{ source_content.LOCATION }}}</p>
+          <p class="location"><img class="location-icon" src="static/images/icon-location.png" />{{{ source_content.LOCATION }}}</p>
           {{/if}}
         </div>
       </div>
