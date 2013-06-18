@@ -9,6 +9,7 @@ html, body {
 }
 
 /* Typography */
+body { line-height: 1.25; }
 body, select, input, textarea {
   color: #444;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -18,8 +19,8 @@ h1 { font-size: 2.25em; }
 h2 { font-size: 2.em; }
 h3 { font-size: 1.75em; }
 h4 { font-size: 1.5em; }
-h5 { font-size: 1.25em; font-weight: 400; }
-h6 { font-size: 1em; font-weight: 400; }
+h5 { font-size: 1.25em; }
+h6 { font-size: 1em; }
 a:hover, a:active { outline: none; }
 a, a:active, a:visited { color: #308fbf; }
 a:hover { color: #3db6f2; }
@@ -35,6 +36,40 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+/* Buttons */
+a.btn {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  padding: 0.25em 0.5em;
+  margin-bottom: 0;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #333;
+  text-decoration: none;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+  background-color: #ddd;
+  border: 0.1em solid #fff;
+  border-color: rgba(255,255,255,0.5) rgba(255,255,255,0.5) rgba(255,255,255,0.5);
+  border-bottom-color: rgba(255,255,255,0.1);
+  border-radius: 0.25em;
+  box-shadow: 0 0.1em 0.2em rgba(0,0,0,0.5), inset 0 1em 0 rgba(255,255,255,0.2);
+}
+.btn:hover,
+.btn:focus,
+.btn:active {
+  color: #333;
+  box-shadow: 0 0.1em 0.2em rgba(0,0,0,0.5), inset 0 1em 0 rgba(255,255,255,0.2), inset 0 2em 0 rgba(255,255,255,0.1);
+}
+a.btn-primary {
+  background-color: #308fbf;
+  color: White !important;
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.5);
+}
+
 
 
 /* =Nonsemantic Base Styles
@@ -290,6 +325,37 @@ a.profile-open-btn {
 }
 
 
+/* =Welcome
+-------------------------------------------------------------- */
+
+.welcome {
+  background: White;
+  padding: 0.75em;
+  margin: 0 0 0.5em;
+  box-shadow: 0 0 0.2em rgba(0,0,0,0.2);
+  border-radius: 0.2em;
+  text-align: center;
+}
+.actions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.actions-list a {
+  font-weight: bold;
+}
+a.events-btn,
+a.resources-btn,
+a.stories-btn,
+a.community-btn {
+  text-decoration: none;
+}
+a.events-btn { color: Salmon; }
+a.resources-btn { color: MediumPurple; }
+a.stories-btn { color: DarkOrange; }
+a.community-btn { color: YellowGreen; }
+
+
 /* =Feed Items
 -------------------------------------------------------------- */
 
@@ -504,6 +570,9 @@ a.profile-open-btn {
     text-transform: uppercase;
     line-height: 2.25;
     box-shadow: inset 1px 1px 0 rgba(255,255,255,0.2), -1px -1px 0 rgba(0,0,0,0.2);
+  }
+  .panel-nav a.overview {
+    background: #555;
   }
   .panel-nav a.events {
     background: Salmon;

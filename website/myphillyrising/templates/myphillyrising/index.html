@@ -45,7 +45,7 @@
       <li><a href="#" class="events events-btn">Events</a></li>
       <li><a href="#" class="resources resources-btn">Resources</a></li>
       <li><a href="#" class="stories stories-btn">Stories</a></li>
-      <li><a href="#" class="community community-btn">Community</a></li>
+      <!-- <li><a href="#" class="community community-btn">Community</a></li> -->
     </ul>
   </nav>
 </div>
@@ -55,11 +55,25 @@
 
     <div id="overview-region" class="swiper-slide">
       <div class="section-container section-overview">
-        <h2 class="section-header overview-header">Welcome!</h2>
+        <h2 class="section-header overview-header">Overview</h2>
         <nav class="section-nav">
           <a href="#" class="next">&rsaquo;</a>
         </nav>
-        <div class="content"></div>
+        <div class="content">
+          <div class="welcome">
+            <h6>Welcome to myPhillyRising!</h6>
+            <ul class="actions-list">
+              <li class="events">Find upcoming <a href="#" class="events-btn">events</a></li>
+              <li class="resources">Discover valuable <a href="#" class="resources-btn">resources</a></li>
+              <li class="stories">Read success <a href="#" class="stories-btn">stories</a></li>
+              <li class="community">Join your <a href="#" class="community-btn">community</a></li>
+            </ul>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</p>
+            <p><a href="#" class="btn btn-primary">Sign in</a> or <a href="#">register</a>.</p>
+            <p> </p>
+          </div>
+        </div>
       </div>
     </div><!-- end .swiper-slide -->
 
@@ -162,20 +176,24 @@
       e.preventDefault();
     });
 
-    $('.events-btn').click(function(e){
+    $('.overview-btn').click(function(e){
       swiper.swipeTo(0,0)
       e.preventDefault();
     });
-    $('.resources-btn').click(function(e){
+    $('.events-btn').click(function(e){
       swiper.swipeTo(1,0)
       e.preventDefault();
     });
-    $('.stories-btn').click(function(e){
+    $('.resources-btn').click(function(e){
       swiper.swipeTo(2,0)
       e.preventDefault();
     });
-    $('.community-btn').click(function(e){
+    $('.stories-btn').click(function(e){
       swiper.swipeTo(3,0)
+      e.preventDefault();
+    });
+    $('.community-btn').click(function(e){
+      swiper.swipeTo(4,0)
       e.preventDefault();
     });
   });
