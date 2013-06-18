@@ -178,6 +178,7 @@ a.btn-primary {
 /* Close Button */
 a.close-btn {
   float: right;
+  font-weight: bold;
   text-decoration: none;
   height: 2em;
   width: 2em;
@@ -328,14 +329,18 @@ a.profile-open-btn {
 /* =Welcome
 -------------------------------------------------------------- */
 
-.welcome {
+.well {
   background: White;
   padding: 0.75em;
   margin: 0 0 0.5em;
   box-shadow: 0 0 0.2em rgba(0,0,0,0.2);
   border-radius: 0.2em;
+}
+
+.welcome {
   text-align: center;
 }
+
 .actions-list {
   list-style: none;
   margin: 0;
@@ -621,6 +626,7 @@ a.community-btn { color: YellowGreen; }
   }
 
   #page {
+    padding: 2em;
     top: 3.5em;
     right: 1em;
     left: 1em;
@@ -647,6 +653,13 @@ a.community-btn { color: YellowGreen; }
         -ms-transform: none !important;
             transform: none !important;
   }
+
+  a.close-btn {
+    margin-top: -1em;
+    margin-right: -1em;
+    font-size: 1.25em;
+  }
+
 /*  .section-recources .content {
     top: 4.25em;
     padding-top: 1em;
