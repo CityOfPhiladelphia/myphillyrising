@@ -41,13 +41,13 @@
   <a href="#" class="profile-open-btn"><span class="menu-icon">&equiv;</span></a>
   <nav class="panel-nav">
     <ul>
-      <li><a href="#" class="overview overview-btn">Overview</a></li>
-      <li><a href="#" class="events events-btn">Events</a></li>
-      <li><a href="#" class="resources resources-btn">Resources</a></li>
-      <li><a href="#" class="stories stories-btn">Stories</a></li>
-      <!-- <li><a href="#" class="community community-btn">Community</a></li> -->
-      <li><a href="#" class="map map-btn">Map</a></li>
-      <!-- <li><a href="#" class="about about-btn">About</a></li> -->
+      <li><a href="#" class="overview overview-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-home.png" /> <span>Overview</span></a></li>
+      <li><a href="#" class="events events-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-calendar.png" /> <span>Events</span></a></li>
+      <li><a href="#" class="resources resources-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-book.png" /> <span>Resources</span></a></li>
+      <li><a href="#" class="stories stories-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-balloon.png" /> <span>Stories</span></a></li>
+      <!-- <li><a href="#" class="community community-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-people.png" /> <span>Community</span></a></li> -->
+      <li><a href="#" class="map map-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-map.png" /> <span>Map</a></li>
+      <!-- <li><a href="#" class="about about-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-info.png" /> <span>About</span></a></li> -->
     </ul>
   </nav>
 </div>
@@ -63,13 +63,15 @@
         </nav>
         <div class="content overview-content">
           <div class="welcome well">
-            <h6>Welcome to myPhillyRising!</h6>
+            <h3>Welcome to myPhillyRising!</h3>
             <ul class="actions-list">
-              <li class="events">Find upcoming <a href="#" class="events-btn">events</a></li>
-              <li class="resources">Discover valuable <a href="#" class="resources-btn">resources</a></li>
-              <li class="stories">Read success <a href="#" class="stories-btn">stories</a></li>
-              <li class="community">Join your <a href="#" class="community-btn">community</a></li>
+              <li class="events"><img class="icon-inline" src="{{ STATIC_URL }}/images/gray-icon-calendar.png" /> Find upcoming <a href="#" class="events-btn">events.</a></li>
+              <li class="resources"><img class="icon-inline" src="{{ STATIC_URL }}/images/gray-icon-book.png" /> Discover valuable <a href="#" class="resources-btn">resources.</a></li>
+              <li class="stories"><img class="icon-inline" src="{{ STATIC_URL }}/images/gray-icon-balloon.png" /> Read success <a href="#" class="stories-btn">stories.</a></li>
+              <li class="community"><img class="icon-inline" src="{{ STATIC_URL }}/images/gray-icon-people.png" /> Meet your <a href="#" class="community-btn">community.</a></li>
+              <li class="map"><img class="icon-inline" src="{{ STATIC_URL }}/images/gray-icon-map.png" /> Locate nearby <a href="#" class="map-btn">facilities.</a></li>
             </ul>
+            <p><a href="#" class="about-btn">Learn more about PhillyRising&hellip;</a></p>
             <hr/>
             <h6>Choose your neighborhood&hellip;</h6>
             <p class="choose-neighborhood">
@@ -89,9 +91,6 @@
               <a class="btn" href="/#swampoodle-allegheny-west">Swampoodle/Allegheny West</a>
               <a class="btn" href="/#southeast">Southeast</a>
             </p>
-            <hr/>
-            <p><a href="#" class="btn btn-primary">Sign in</a> or <a href="#">register</a>.</p>
-            <p><a href="#" class="about-btn">Learn more&hellip;</a></p>
             <p> </p>
           </div>
         </div>

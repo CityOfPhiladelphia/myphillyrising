@@ -16,7 +16,7 @@ body, select, input, textarea {
 }
 h1,h2,h3,h4,h5,h6 { margin: 0 0 0.5em 0; }
 h1 { font-size: 2.25em; }
-h2 { font-size: 2.em; }
+h2 { font-size: 2em; }
 h3 { font-size: 1.75em; }
 h4 { font-size: 1.5em; }
 h5 { font-size: 1.25em; }
@@ -24,12 +24,12 @@ h6 { font-size: 1em; }
 a:hover, a:active { outline: none; }
 a, a:active, a:visited { color: #308fbf; }
 a:hover { color: #3db6f2; }
-p { margin: 0 0 1.2em; }
+p { margin: 0 0 1.25em; }
 p:last-child { margin-bottom: 0; }
-ul, ol { margin-left: 1.8em; }
+ul, ol { margin-left: 1.875em; }
 ol { list-style-type: decimal; }
-ul, ol, dl { margin-bottom: 0.6em; }
-ul li, ol li { padding-bottom: 0.6em; }
+ul, ol, dl { margin-bottom: 0.625em; }
+ul li, ol li { padding-bottom: 0.625em; }
 hr { 
   margin: 1.2em 0; border: 0; 
   border: 1px solid #eeeeee;
@@ -380,6 +380,7 @@ a.profile-open-btn {
   list-style: none;
   margin: 0;
   padding: 0;
+  font-size: 1.25em;
 }
 .actions-list a {
   font-weight: bold;
@@ -387,8 +388,16 @@ a.profile-open-btn {
 a.events-btn,
 a.resources-btn,
 a.stories-btn,
-a.community-btn {
+a.community-btn,
+a.map-btn {
   text-decoration: none;
+}
+a.events-btn:hover,
+a.resources-btn:hover,
+a.stories-btn:hover,
+a.community-btn:hover,
+a.map-btn:hover {
+  text-decoration: underline;
 }
 a.events-btn { color: Salmon; }
 a.resources-btn { color: MediumPurple; }
@@ -614,6 +623,9 @@ a.map-btn { color: FireBrick; }
     text-transform: uppercase;
     line-height: 2.25;
     box-shadow: inset 1px 1px 0 rgba(255,255,255,0.2), -1px -1px 0 rgba(0,0,0,0.2);
+  }
+  .panel-nav a span {
+    font-size: 0.875em;
   }
   .panel-nav a.overview {
     background: #555;
