@@ -30,11 +30,27 @@ ul, ol { margin-left: 1.8em; }
 ol { list-style-type: decimal; }
 ul, ol, dl { margin-bottom: 0.6em; }
 ul li, ol li { padding-bottom: 0.6em; }
+hr { 
+  margin: 1.2em 0; border: 0; 
+  border: 1px solid #eeeeee;
+  border-top-color: rgba(0,0,0,0.2);
+  border-bottom-color: rgba(255,255,255,0.75);
+  border-right: 0;
+  border-left: 0;
+}
 
 /* Images */
 img {
   max-width: 100%;
   height: auto;
+}
+.icon-inline {
+  width: 1.25em;
+  height: auto;
+  vertical-align: text-top;
+}
+.icon-muted {
+  opacity: 0.75;
 }
 
 /* Buttons */
@@ -51,7 +67,7 @@ a.btn {
   color: #333;
   text-decoration: none;
   text-shadow: 0 1px 1px rgba(255,255,255,0.75);
-  background-color: #ddd;
+  background-color: Gainsboro;
   border: 0.1em solid #fff;
   border-color: rgba(255,255,255,0.5) rgba(255,255,255,0.5) rgba(255,255,255,0.5);
   border-bottom-color: rgba(255,255,255,0.1);
@@ -62,7 +78,7 @@ a.btn {
 .btn:focus,
 .btn:active {
   color: #333;
-  box-shadow: 0 0.1em 0.2em rgba(0,0,0,0.5), inset 0 1em 0 rgba(255,255,255,0.2), inset 0 2em 0 rgba(255,255,255,0.1);
+  box-shadow: 0 0.1em 0.2em rgba(0,0,0,0.5), inset 0 1em 0 rgba(255,255,255,0.2), inset 0 2em 0 rgba(255,255,255,0.2);
 }
 a.btn-primary {
   background-color: #308fbf;
@@ -219,6 +235,9 @@ a.close-btn:hover {
   text-transform: uppercase;
   line-height: 2.25;
 }
+.section-header span {
+  font-size: 0.875em;
+}
 .events-header {
   background: Salmon;
 }
@@ -339,7 +358,7 @@ a.profile-open-btn {
 }
 
 
-/* =Welcome
+/* =Content Stuff
 -------------------------------------------------------------- */
 
 .well {
@@ -352,6 +371,9 @@ a.profile-open-btn {
 
 .welcome {
   text-align: center;
+}
+.choose-neighborhood .btn {
+  margin: 0.25em;
 }
 
 .actions-list {
@@ -465,12 +487,6 @@ a.map-btn { color: FireBrick; }
 #page .time,
 #page .location {
   font-size: 1.25em;
-}
-.time-icon,
-.location-icon {
-  width: 1.25em;
-  height: auto;
-  vertical-align: text-top;
 }
 
 /* Resources */
