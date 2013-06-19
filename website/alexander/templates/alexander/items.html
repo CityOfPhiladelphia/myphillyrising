@@ -8,10 +8,6 @@
   <li><a href="/admin/feeds">Feeds</a></li>
 {% endblock navitems %}
 
-{% block css %}
-<link href="{{ STATIC_URL }}components/select2/select2.css" rel="stylesheet"/>
-{% endblock css %}
-
 {% block content %}
   {% handlebarsjs '(.*)' %}
 
@@ -22,6 +18,5 @@
 {% endblock content %}
 
 {% block javascripts %}
-  <script src="{{ STATIC_URL }}components/select2/select2.js"></script>
   <script src="{{ STATIC_URL }}js/items.js"></script>
 {% endblock javascripts %}

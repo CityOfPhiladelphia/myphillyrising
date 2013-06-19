@@ -13,6 +13,7 @@
       <meta name="viewport" content="width=device-width">
       <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
       <link href="{{ STATIC_URL }}components/bootstrap/docs/assets/css/bootstrap.css" rel="stylesheet">
+      <link href="{{ STATIC_URL }}components/select2/select2.css" rel="stylesheet"/>
       {% block css %}{% endblock %}
       <script src="{{ STATIC_URL }}components/modernizr/modernizr.js"></script>
   </head>
@@ -53,6 +54,7 @@
   <script src="{{ STATIC_URL }}js/django-csrf.js"></script>
   <script src="{{ STATIC_URL }}components/moment/moment.js"></script>
   <script src="{{ STATIC_URL }}js/handlebars-helpers.js"></script>
+  <script src="{{ STATIC_URL }}components/select2/select2.js"></script>
   <script src="{{ STATIC_URL }}js/base.js"></script>
   <script src="{{ STATIC_URL }}js/admin-views.js"></script>
   {% block javascripts %}{% endblock %}
