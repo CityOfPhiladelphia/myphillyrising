@@ -8,24 +8,74 @@ var Alexander = Alexander || {};
   };
 
   NS.defaultTags = [
-    'Market East',
-    'North Central',
-    'Pennrose',
-    'Strawberry Mansion',
-    'Hartranft',
-    'Kensington',
-    'St Hughs',
-    'Frankford',
-    'Lawncrest',
-    'Swampoodle/Allegheny West',
-    'Point Breeze',
-    'Southeast',
-    'Elmwood',
-    'Haddington',
-    'Kingsessing'
+    { id: 'market-east', label: 'Market East' },
+    { id: 'north-central', label: 'North Central' },
+    { id: 'pennrose', label: 'Pennrose' },
+    { id: 'strawberry-mansion', label: 'Strawberry Mansion' },
+    { id: 'hartranft', label: 'Hartranft' },
+    { id: 'kensington', label: 'Kensington' },
+    { id: 'st-hughs', label: 'St Hugh\'s' },
+    { id: 'frankford', label: 'Frankford' },
+    { id: 'lawncrest', label: 'Lawncrest' },
+    { id: 'swampoodle-allegheny-west', label: 'Swampoodle/Allegheny West' },
+    { id: 'point-breeze', label: 'Point Breeze' },
+    { id: 'southeast', label: 'Southeast' },
+    { id: 'elmwood', label: 'Elmwood' },
+    { id: 'haddington', label: 'Haddington' },
+    { id: 'kingsessing', label: 'Kingsessing' }
   ];
 
   // Views
+  NS.DefaultTagView = Backbone.Marionette.ItemView.extend({
+    serializeData: function() {
+      var data = NS.DefaultTagView.__super__.serializeData.call(this);
+      data.defaultTags = NS.defaultTags;
+      return data;
+    }
+  });
+
+  NS.FeedFormView = NS.DefaultTagView.extend({
+    template: '#feed-form-tpl',
+    events: {
+      'submit form': 'onSubmit'
+    },
+    onRender: function() {
+      this.$('#default-tags').select2({
+        placeholder: 'Tags',
+        width: '100%'
+      });
+    },
+    onSubmit: function(evt) {
+      evt.preventDefault();
+      var form = evt.target,
+          formArray = $(form).serializeArray(),
+          modelObj = {};
+
+      _.each(formArray, function(obj){
+        if (obj.name === 'default_tags') {
+          if (!modelObj[obj.name]) {
+            modelObj[obj.name] = [];
+          }
+          modelObj[obj.name].push(obj.value);
+        } else {
+          modelObj[obj.name] = obj.value;
+        }
+      });
+
+      this.collection.create(modelObj, {
+        wait: true,
+        success: function() {
+          form.reset();
+          $('#default-tags').select2('val', '');
+        },
+        error: function() {
+          // TODO: make nicer
+          window.alert('Unable to save. Please try again.');
+        }
+      });
+    }
+  });
+
   NS.FeedView = Backbone.Marionette.ItemView.extend({
     template: "#feed-tpl",
     tagName: 'li',
@@ -54,15 +104,8 @@ var Alexander = Alexander || {};
     itemView: NS.FeedView
   });
 
-  NS.ContentItemView = Backbone.Marionette.ItemView.extend({
-    template: '#content-item-tpl',
-    tagName: 'li',
-    className: 'content-item well',
-    templates: {
-      'ICS': '#ics-item-tpl',
-      'RSS': '#rss-item-tpl',
-      'Facebook': '#facebook-item-tpl'
-    },
+  NS.ContentItemTagView = NS.DefaultTagView.extend({
+    template: '#item-tags-tpl',
     saveTags: function(tags) {
       this.model.save({'tags': tags}, {
         patch: true,
@@ -74,21 +117,41 @@ var Alexander = Alexander || {};
       });
     },
     onRender: function() {
-      var self = this,
-          data = this.model.toJSON(),
-          content = Backbone.Marionette.Renderer.render(this.templates[data.source_type], data);
+      var self = this;
 
-      this.$('.content').html(content);
+      this.$('select')
+          .val(this.model.get('tags'))
+          .select2({
+            width: '100%'
+          })
+          .on('change', function(evt) {
+            self.saveTags(evt.val);
+          });
+    }
+  });
 
-      this.$('input.tag-input')
-        .val(this.model.get('tags').join(','))
-        .select2({
-          tags: NS.defaultTags,
-          tokenSeparators: [',', ' '],
-          width: '100%'
-        }).on('change', function(evt) {
-          self.saveTags(evt.val);
-        });
+  NS.ContentItemView = Backbone.Marionette.Layout.extend({
+    template: '#content-item-tpl',
+    tagName: 'li',
+    className: 'content-item well',
+    contentTemplates: {
+      'ICS': '#ics-item-tpl',
+      'RSS': '#rss-item-tpl',
+      'Facebook': '#facebook-item-tpl'
+    },
+    regions: {
+      content: '.content',
+      tags: '.tags'
+    },
+    onRender: function() {
+      this.content.show(new Backbone.Marionette.ItemView({
+        template: this.contentTemplates[this.model.get('source_type')],
+        model: this.model
+      }));
+
+      this.tags.show(new NS.ContentItemTagView({
+        model: this.model
+      }));
     }
   });
 

@@ -12,23 +12,7 @@
     <h1>Feeds</h1>
     <ul id="feeds-list" class="unstyled"></ul>
 
-    <form id="feed-form" action="/api/feeds/" method="post" class="form-inline well">
-      <select name="default_category" class="input-medium">
-        <option>Resource</option>
-        <option>Story</option>
-        <option>Event</option>
-      </select>
-      <select name="source_type" class="input-medium">
-        <option>RSS</option>
-        <option>ICS</option>
-        <option>Twitter</option>
-        <option>Facebook</option>
-      </select>
-
-      <input name="title" type="text" class="input-large" placeholder="Feed Name">
-      <input name="source_url" type="text" class="input-xlarge" placeholder="URL">
-      <button type="submit" class="btn">Save</button>
-    </form>
+    <div id="feed-form-container"></div>
   </div>
 {% endblock content %}
 
