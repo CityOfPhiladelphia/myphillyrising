@@ -32,6 +32,7 @@ class Feed (models.Model):
     # ----------
     # Defaults for the content items retrieved from this feed
     default_category = models.CharField(max_length=20)
+    default_tags = models.ManyToManyField('ContentTag')
 
     objects = FeedManager()
 
@@ -40,7 +41,7 @@ class Feed (models.Model):
 
     def refresh(self):
         """
-        Update a feed instance from its source URL if there have been any 
+        Update a feed instance from its source URL if there have been any
         changes to the feed's items.
         """
         feed_source = get_feed_reader(self.source_type, url=self.source_url)
@@ -48,15 +49,21 @@ class Feed (models.Model):
             source_id = feed_source.get_item_id(item_source)
             # TODO: We could probably get all the source ids all at once,
             #       cutting down on the glut of queries we have to do.
-            # TODO: Think about what to do when there are multiple content 
+            # TODO: Think about what to do when there are multiple content
             #       items that refer to the same source item (e.g., repeating
             #       calendar events).
             try:
                 item = self.items.get(source_id=source_id)
             except ContentItem.DoesNotExist:
-                item = ContentItem(feed=self, source_id=source_id, 
+                item = ContentItem(feed=self, source_id=source_id,
                     category=self.default_category)
             feed_source.update_item_if_changed(item, item_source)
+
+            # Add default tags to the content item, if any
+            if self.default_tags:
+                for t in self.default_tags.all():
+                    item.tags.add(t)
+                item.save()
         self.last_read_at = now()
         self.save()
 
