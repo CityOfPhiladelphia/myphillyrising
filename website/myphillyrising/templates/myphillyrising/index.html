@@ -55,7 +55,7 @@
 <div id="panels" class="swiper-container">
   <div class="swiper-wrapper">
 
-    <div id="overview-region" class="swiper-slide">
+    <div id="overview-region" class="swiper-slide" data-name="overview">
       <div class="section-container section-overview">
         <h2 class="section-header overview-header"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-home.png" /> <span>Overview</span></h2>
         <nav class="section-nav">
@@ -73,21 +73,21 @@
             <hr/>
             <h6>Choose your neighborhood&hellip;</h6>
             <p class="choose-neighborhood">
-              <a class="btn" href="/#elmwood">Elmwood</a>
-              <a class="btn" href="/#frankford">Frankford</a>
-              <a class="btn" href="/#haddington">Haddington</a>
-              <a class="btn" href="/#hartranft">Hartranft</a>
-              <a class="btn" href="/#kensington">Kensington</a>
-              <a class="btn" href="/#kingsessing">Kingsessing</a>
-              <a class="btn" href="/#lawncrest">Lawncrest</a>
-              <a class="btn" href="/#market-east">Market East</a>
-              <a class="btn" href="/#north-central">North Central</a>
-              <a class="btn" href="/#pennrose">Pennrose</a>
-              <a class="btn" href="/#point-breeze">Point Breeze</a>
-              <a class="btn" href="/#strawberry-mansion">Strawberry Mansion</a>
-              <a class="btn" href="/#st-hughs">St. Hugh's</a>
-              <a class="btn" href="/#swampoodle-allegheny-west">Swampoodle/Allegheny West</a>
-              <a class="btn" href="/#southeast">Southeast</a>
+              <a class="btn" href="/#!/event/elmwood">Elmwood</a>
+              <a class="btn" href="/#!/event/frankford">Frankford</a>
+              <a class="btn" href="/#!/event/haddington">Haddington</a>
+              <a class="btn" href="/#!/event/hartranft">Hartranft</a>
+              <a class="btn" href="/#!/event/kensington">Kensington</a>
+              <a class="btn" href="/#!/event/kingsessing">Kingsessing</a>
+              <a class="btn" href="/#!/event/lawncrest">Lawncrest</a>
+              <a class="btn" href="/#!/event/market-east">Market East</a>
+              <a class="btn" href="/#!/event/north-central">North Central</a>
+              <a class="btn" href="/#!/event/pennrose">Pennrose</a>
+              <a class="btn" href="/#!/event/point-breeze">Point Breeze</a>
+              <a class="btn" href="/#!/event/strawberry-mansion">Strawberry Mansion</a>
+              <a class="btn" href="/#!/event/st-hughs">St. Hugh's</a>
+              <a class="btn" href="/#!/event/swampoodle-allegheny-west">Swampoodle/Allegheny West</a>
+              <a class="btn" href="/#!/event/southeast">Southeast</a>
             </p>
             <hr/>
             <p><a href="#" class="btn btn-primary">Sign in</a> or <a href="#">register</a>.</p>
@@ -98,7 +98,7 @@
       </div>
     </div><!-- end .swiper-slide -->
 
-    <div id="event-region" class="swiper-slide">
+    <div id="event-region" class="swiper-slide" data-name="event">
       <div class="section-container section-events">
         <h2 class="section-header events-header"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-calendar.png" /> <span>Events</span></h2>
         <nav class="section-nav">
@@ -109,7 +109,7 @@
       </div>
     </div><!-- end .swiper-slide -->
 
-    <div id="resource-region" class="swiper-slide">
+    <div id="resource-region" class="swiper-slide" data-name="resource">
       <div class="section-container section-recources">
         <h2 class="section-header resources-header"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-book.png" /> <span>Resources</span></h2>
         <nav class="section-nav">
@@ -123,7 +123,7 @@
       </div>
     </div><!-- end .swiper-slide -->
 
-    <div id="story-region" class="swiper-slide">
+    <div id="story-region" class="swiper-slide" data-name="story">
       <div class="section-container section-stories">
         <h2 class="section-header stories-header"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-balloon.png" /> <span>Stories</span></h2>
         <nav class="section-nav">
@@ -134,7 +134,7 @@
       </div>
     </div><!-- end .swiper-slide -->
 
-    <!-- <div class="swiper-slide">
+    <!-- <div id="community-region" class="swiper-slide" data-name="community">
       <div class="section-container section-community">
         <h2 class="section-header community-header"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-people.png" /> <span>Community</span></h2>
         <nav class="section-nav">
@@ -146,7 +146,7 @@
       </div>
     </div> --><!-- end .swiper-slide -->
 
-    <div class="swiper-slide">
+    <div id="map-region" class="swiper-slide" data-name="map">
       <div class="section-container section-map">
         <h2 class="section-header map-header"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-map.png" /> <span>Map</span></h2>
         <nav class="section-nav">
@@ -160,7 +160,7 @@
       </div>
     </div><!-- end .swiper-slide -->
 
-    <div id="about-region" class="swiper-slide">
+    <div id="about-region" class="swiper-slide" data-name="about">
       <div class="section-container section-about">
         <h2 class="section-header about-header"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-info.png" /> <span>About</span></h2>
         <nav class="section-nav">
@@ -214,69 +214,8 @@
 <script src="{{ STATIC_URL }}components/handlebars.js/dist/handlebars.js"></script>
 <script src="{{ STATIC_URL }}components/moment/moment.js"></script>
 <script src="{{ STATIC_URL }}js/handlebars-helpers.js"></script>
-<script src="{{ STATIC_URL }}js/base.js"></script>
+<script src="{{ STATIC_URL }}js/models.js"></script>
+<script src="{{ STATIC_URL }}js/views.js"></script>
 <script src="{{ STATIC_URL }}js/app.js"></script>
-
-<script type="text/javascript">
-
-  $(function(){
-    var swiper=new Swiper('#panels',{
-      simulateTouch: false,
-      mode: 'horizontal',
-      loop: false
-    });
-
-    $('.prev').click(function(e){
-      swiper.swipePrev();
-      e.preventDefault();
-    });
-    $('.next').click(function(e){
-      swiper.swipeNext();
-      e.preventDefault();
-    });
-
-    $('.profile-open-btn').click(function(e){
-      $('#profile').toggleClass('is-closed');
-      $('body').toggleClass('is-profile-open');
-      e.preventDefault();
-    });
-    $('.profile-close-btn').click(function(e){
-      $('#profile').addClass('is-closed');
-      $('body').removeClass('is-profile-open');
-      e.preventDefault();
-    });
-
-    $('.overview-btn').click(function(e){
-      swiper.swipeTo(0,0)
-      e.preventDefault();
-    });
-    $('.events-btn').click(function(e){
-      swiper.swipeTo(1,0)
-      e.preventDefault();
-    });
-    $('.resources-btn').click(function(e){
-      swiper.swipeTo(2,0)
-      e.preventDefault();
-    });
-    $('.stories-btn').click(function(e){
-      swiper.swipeTo(3,0)
-      e.preventDefault();
-    });
-    $('.community-btn').click(function(e){
-      swiper.swipeTo(4,0)
-      e.preventDefault();
-    });
-    $('.map-btn').click(function(e){
-      swiper.swipeTo(4,0)
-      e.preventDefault();
-    });
-    $('.about-btn').click(function(e){
-      swiper.swipeTo(5,0)
-      e.preventDefault();
-    });
-  });
-
-</script>
-
 </body>
 </html>

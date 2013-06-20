@@ -1,82 +1,9 @@
-/*globals Alexander Backbone Handlebars $ _ */
+/*globals Alexander Backbone Handlebars $ _ Swiper */
 
 var MyPhillyRising = MyPhillyRising || {};
 
 (function(NS, A) {
-  Backbone.Marionette.TemplateCache.prototype.compileTemplate = function(rawTemplate) {
-    return Handlebars.compile(rawTemplate);
-  };
-
-  // Views ====================================================================
-  NS.DetailPageView = Backbone.Marionette.ItemView.extend({
-    events: {
-      'click .close-btn': 'closeDetails'
-    },
-    closeDetails: function(evt) {
-      evt.preventDefault();
-      NS.app.pageRegion.close();
-    }
-  });
-
-  NS.ItemWithDetailPageView = Backbone.Marionette.ItemView.extend({
-    events: {
-      'click .feed-item-title a': 'showDetails'
-    },
-    showDetails: function(evt) {
-      evt.preventDefault();
-
-      var DetailView = Backbone.Marionette.getOption(this, 'detailView');
-      NS.app.pageRegion.show(new DetailView({
-        model: this.model
-      }));
-    }
-  });
-
-  // Resource Views ===========================================================
-  NS.ResourceDetailView = NS.DetailPageView.extend({
-    template: '#rss-detail-tpl'
-  });
-
-  NS.ResourceItemView = NS.ItemWithDetailPageView.extend({
-    template: '#rss-item-tpl',
-    detailView: NS.ResourceDetailView
-  });
-
-  NS.ResourceCollectionView = Backbone.Marionette.CollectionView.extend({
-    itemView: NS.ResourceItemView
-  });
-
-  // Event Views ==============================================================
-  NS.EventDetailView = NS.DetailPageView.extend({
-    template: '#ics-detail-tpl'
-  });
-
-  NS.EventItemView = NS.ItemWithDetailPageView.extend({
-    template: '#ics-item-tpl',
-    detailView: NS.EventDetailView
-  });
-
-  NS.EventCollectionView = Backbone.Marionette.CollectionView.extend({
-    itemView: NS.EventItemView
-  });
-
-  // Story Views ==============================================================
-  NS.StoryItemView = Backbone.Marionette.ItemView.extend({
-    template: function(modelObj) {
-      if (modelObj.source_type === 'Facebook') {
-        return Handlebars.compile($('#facebook-item-tpl').html())(modelObj);
-      }
-      return '<h1>no template found</h1>';
-    }
-  });
-
-  NS.StoryCollectionView = Backbone.Marionette.CollectionView.extend({
-    itemView: NS.StoryItemView
-  });
-
-  // App ======================================================================
-  NS.app = new Backbone.Marionette.Application();
-
+  // Router ===================================================================
   NS.Router = Backbone.Marionette.AppRouter.extend({
     appRoutes: {
       '!\/:category(/)(:neighborhood)(/)': 'route',
@@ -86,11 +13,10 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.controller = {
     route: function(category, neighborhood) {
-      var lowerCat = category ? category.toLowerCase() : '';
+      var lowerCat = category ? category.toLowerCase() : '',
+          index = $('[data-name="'+lowerCat+'"]').index();
 
-      console.log('route', arguments, this);
-      console.log('go to this panel:', category);
-      console.log('only show stuff for this neighborhood:', neighborhood);
+      NS.app.currentNeighborhood = neighborhood;
 
       _.each(NS.app.filteredCollections, function(collection) {
         collection.filter(function(model) {
@@ -101,12 +27,16 @@ var MyPhillyRising = MyPhillyRising || {};
           return (neighborhood && model.get('tags').indexOf(neighborhood) !== -1);
         });
       });
+
+      NS.app.swiper.swipeTo(index, 500, true);
     },
     home: function() {
-      console.log('home', arguments, this);
-      NS.controller.route();
+      NS.controller.route('overview');
     }
   };
+
+  // App ======================================================================
+  NS.app = new Backbone.Marionette.Application();
 
   NS.app.addRegions({
     resourceRegion: '#resource-region .content',
@@ -126,7 +56,7 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   // Initializers =============================================================
-  NS.app.getInitializer = function(category, comparator, View, region) {
+  NS.app.getPanelInitializer = function(category, comparator, View, region) {
     return function(options) {
       console.log('Render', category);
 
@@ -138,7 +68,7 @@ var MyPhillyRising = MyPhillyRising || {};
       this.filteredCollections[lowerCat].comparator = comparator;
 
       collection.fetch({
-        reset: true,
+        reset: true, // Important! Runs the filtering in the FilteredCollection
         data: { category: category }
       });
 
@@ -150,27 +80,27 @@ var MyPhillyRising = MyPhillyRising || {};
     };
   };
 
-
   NS.app.addInitializer(function() {
     this.filteredCollections = {};
+    this.currentNeighborhood = '';
   });
 
   // Initialize Panels ========================================================
-  NS.app.addInitializer(NS.app.getInitializer(
+  NS.app.addInitializer(NS.app.getPanelInitializer(
     'Resource',
     'title',
     NS.ResourceCollectionView,
     NS.app.resourceRegion
   ));
 
-  NS.app.addInitializer(NS.app.getInitializer(
+  NS.app.addInitializer(NS.app.getPanelInitializer(
     'Event',
     function(model) { return model.get('source_content').DTSTART; },
     NS.EventCollectionView,
     NS.app.eventRegion
   ));
 
-  NS.app.addInitializer(NS.app.getInitializer(
+  NS.app.addInitializer(NS.app.getPanelInitializer(
     'Story',
     function(a, b) {
       return a.get('source_posted_at') < b.get('source_posted_at') ? 1 : -1;
@@ -179,10 +109,53 @@ var MyPhillyRising = MyPhillyRising || {};
     NS.app.storyRegion
   ));
 
+  // Initialize Swiping
+  NS.app.addInitializer(function(options){
+    var self = this;
+    this.swiper=new Swiper('#panels', {
+      simulateTouch: false,
+      mode: 'horizontal',
+      loop: false,
+      onSlideChangeEnd: function() {
+        var slide = self.swiper.getSlide(self.swiper.activeIndex),
+            category = $(slide).attr('data-name');
+
+        self.router.navigate('!/' + category + '/' + (self.currentNeighborhood || ''));
+      }
+    });
+
+    $('.prev').click(function(e){
+      self.swiper.swipePrev();
+      e.preventDefault();
+    });
+    $('.next').click(function(e){
+      self.swiper.swipeNext();
+      e.preventDefault();
+    });
+
+    $('.profile-open-btn').click(function(e){
+      $('#profile').toggleClass('is-closed');
+      $('body').toggleClass('is-profile-open');
+      e.preventDefault();
+    });
+
+    $('.profile-close-btn').click(function(e){
+      $('#profile').addClass('is-closed');
+      $('body').removeClass('is-profile-open');
+      e.preventDefault();
+    });
+
+    $('.panel-nav a').click(function(evt) {
+      var index = $(this).parent('li').index();
+      self.swiper.swipeTo(index, 500, true);
+      evt.preventDefault();
+    });
+  });
+
   NS.app.addInitializer(function(options){
     console.log('make and start a router');
     // Construct a new app router
-    new NS.Router({
+    this.router = new NS.Router({
       controller: NS.controller
     });
     Backbone.history.start();
