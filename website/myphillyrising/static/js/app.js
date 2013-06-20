@@ -1,4 +1,4 @@
-/*globals Alexander Backbone Handlebars $ _ Swiper */
+/*globals Alexander Backbone Handlebars $ _ Swiper L lvector */
 
 var MyPhillyRising = MyPhillyRising || {};
 
@@ -108,6 +108,21 @@ var MyPhillyRising = MyPhillyRising || {};
     NS.StoryCollectionView,
     NS.app.storyRegion
   ));
+
+  // Init Map
+  NS.app.addInitializer(function(options){
+    var url = 'http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png',
+        attribution = '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>',
+        baseLayer = L.tileLayer(url, {attribution: attribution});
+
+    // Init the map
+    this.map = L.map('map', {
+      layers: [baseLayer],
+      center: [39.9529, -75.1630],
+      zoom: 13
+    });
+
+  });
 
   // Initialize Swiping
   NS.app.addInitializer(function(options){

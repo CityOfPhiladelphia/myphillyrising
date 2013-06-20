@@ -9,6 +9,8 @@
     "backbone": "~1.0.0",
     "handlebars.js": "~1.0.12",
     "backbone.marionette": "~1.0.3",
-    "moment": "~2.0.0"
+    "moment": "~2.0.0",
+    "leaflet": "~0.5.1",
+    "leaflet-vector-layers": "git@github.com:JasonSanford/leaflet-vector-layers.git#1.4.0"
   }
 }
