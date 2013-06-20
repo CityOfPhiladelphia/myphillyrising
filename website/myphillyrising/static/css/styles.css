@@ -260,20 +260,16 @@ a.close-btn:hover {
   height: 2.25em;
   position: relative;
   z-index: 50;
-  font-family: Futura, "Arial Black", Arial, Helvetica, sans-serif;
   overflow: hidden;
 }
 .section-nav a {
-  font-size: 2.5em;
+  font-size: 1.325em;
+  line-height: 1.75;
   text-decoration: none;
-  line-height: 1.25;
-  color: #ddd;
-  color: rgba(255,255,255,0.5);
   padding: 0 0.25em;
-  margin-top: -0.325em;
 }
-.section-nav .prev { float: left; padding-left: 0.2em; }
-.section-nav .next { float: right; padding-right: 0.2em; }
+.section-nav .prev { float: left; padding-left: 0.325em; }
+.section-nav .next { float: right; padding-right: 0.325em; }
 
 /* Content */
 .content {
