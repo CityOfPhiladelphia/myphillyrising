@@ -1,4 +1,4 @@
-/*globals Alexander Backbone Handlebars $ */
+/*globals Alexander Backbone Handlebars $ _ */
 
 var MyPhillyRising = MyPhillyRising || {};
 
@@ -6,59 +6,6 @@ var MyPhillyRising = MyPhillyRising || {};
   Backbone.Marionette.TemplateCache.prototype.compileTemplate = function(rawTemplate) {
     return Handlebars.compile(rawTemplate);
   };
-
-  // App ======================================================================
-  NS.app = new Backbone.Marionette.Application();
-
-  NS.app.addRegions({
-    resourceRegion: '#resource-region .content',
-    eventRegion: '#event-region .content',
-    storyRegion: '#story-region .content',
-    pageRegion: '#page'
-  });
-
-  NS.app.pageRegion.on('show', function() {
-    $(NS.app.pageRegion.el).removeClass('is-closed');
-    $('body').addClass('is-page-open');
-  });
-
-  NS.app.pageRegion.on('close', function() {
-    $(NS.app.pageRegion.el).addClass('is-closed');
-    $('body').removeClass('is-page-open');
-  });
-
-  NS.app.addInitializer(function(options){
-    console.log('make and start a router');
-    // Construct a new app router
-    // Backbone.history.start();
-  });
-
-  NS.app.addInitializer(function(options) {
-    console.log('render resources');
-    var view = new NS.ResourceCollectionView({
-          collection: options.resourceCollection
-        });
-
-    NS.app.resourceRegion.show(view);
-  });
-
-  NS.app.addInitializer(function(options) {
-    console.log('render events');
-    var view = new NS.EventCollectionView({
-          collection: options.eventCollection
-        });
-
-    NS.app.eventRegion.show(view);
-  });
-
-  NS.app.addInitializer(function(options) {
-    console.log('render stories');
-    var view = new NS.StoryCollectionView({
-          collection: options.storyCollection
-        });
-
-    NS.app.storyRegion.show(view);
-  });
 
   // Views ====================================================================
   NS.DetailPageView = Backbone.Marionette.ItemView.extend({
@@ -95,7 +42,7 @@ var MyPhillyRising = MyPhillyRising || {};
     detailView: NS.ResourceDetailView
   });
 
-  NS.ResourceCollectionView = A.OrderedCollectionView.extend({
+  NS.ResourceCollectionView = Backbone.Marionette.CollectionView.extend({
     itemView: NS.ResourceItemView
   });
 
@@ -109,7 +56,7 @@ var MyPhillyRising = MyPhillyRising || {};
     detailView: NS.EventDetailView
   });
 
-  NS.EventCollectionView = A.OrderedCollectionView.extend({
+  NS.EventCollectionView = Backbone.Marionette.CollectionView.extend({
     itemView: NS.EventItemView
   });
 
@@ -123,37 +70,127 @@ var MyPhillyRising = MyPhillyRising || {};
     }
   });
 
-  NS.StoryCollectionView = A.OrderedCollectionView.extend({
+  NS.StoryCollectionView = Backbone.Marionette.CollectionView.extend({
     itemView: NS.StoryItemView
+  });
+
+  // App ======================================================================
+  NS.app = new Backbone.Marionette.Application();
+
+  NS.Router = Backbone.Marionette.AppRouter.extend({
+    appRoutes: {
+      '!\/:category(/)(:neighborhood)(/)': 'route',
+      '*anything': 'home'
+    }
+  });
+
+  NS.controller = {
+    route: function(category, neighborhood) {
+      var lowerCat = category ? category.toLowerCase() : '';
+
+      console.log('route', arguments, this);
+      console.log('go to this panel:', category);
+      console.log('only show stuff for this neighborhood:', neighborhood);
+
+      _.each(NS.app.filteredCollections, function(collection) {
+        collection.filter(function(model) {
+          if (!neighborhood) {
+            // Show all if no neighborhood provided
+            return true;
+          }
+          return (neighborhood && model.get('tags').indexOf(neighborhood) !== -1);
+        });
+      });
+    },
+    home: function() {
+      console.log('home', arguments, this);
+      NS.controller.route();
+    }
+  };
+
+  NS.app.addRegions({
+    resourceRegion: '#resource-region .content',
+    eventRegion: '#event-region .content',
+    storyRegion: '#story-region .content',
+    pageRegion: '#page'
+  });
+
+  NS.app.pageRegion.on('show', function() {
+    $(NS.app.pageRegion.el).removeClass('is-closed');
+    $('body').addClass('is-page-open');
+  });
+
+  NS.app.pageRegion.on('close', function() {
+    $(NS.app.pageRegion.el).addClass('is-closed');
+    $('body').removeClass('is-page-open');
+  });
+
+  // Initializers =============================================================
+  NS.app.getInitializer = function(category, comparator, View, region) {
+    return function(options) {
+      console.log('Render', category);
+
+      var collection = new A.ContentItemCollection(),
+          lowerCat = category.toLowerCase(),
+          view;
+
+      this.filteredCollections[lowerCat] = A.FilteredCollection(collection);
+      this.filteredCollections[lowerCat].comparator = comparator;
+
+      collection.fetch({
+        reset: true,
+        data: { category: category }
+      });
+
+      view = new View({
+        collection: this.filteredCollections[lowerCat]
+      });
+
+      region.show(view);
+    };
+  };
+
+
+  NS.app.addInitializer(function() {
+    this.filteredCollections = {};
+  });
+
+  // Initialize Panels ========================================================
+  NS.app.addInitializer(NS.app.getInitializer(
+    'Resource',
+    'title',
+    NS.ResourceCollectionView,
+    NS.app.resourceRegion
+  ));
+
+  NS.app.addInitializer(NS.app.getInitializer(
+    'Event',
+    function(model) { return model.get('source_content').DTSTART; },
+    NS.EventCollectionView,
+    NS.app.eventRegion
+  ));
+
+  NS.app.addInitializer(NS.app.getInitializer(
+    'Story',
+    function(a, b) {
+      return a.get('source_posted_at') < b.get('source_posted_at') ? 1 : -1;
+    },
+    NS.StoryCollectionView,
+    NS.app.storyRegion
+  ));
+
+  NS.app.addInitializer(function(options){
+    console.log('make and start a router');
+    // Construct a new app router
+    new NS.Router({
+      controller: NS.controller
+    });
+    Backbone.history.start();
   });
 
   // Init =====================================================================
   $(function() {
-    var resourceCollection = new A.ContentItemCollection(),
-        eventCollection = new A.ContentItemCollection(),
-        storyCollection = new A.ContentItemCollection();
-
-    resourceCollection.comparator = function(model) {
-      return model.get('title');
-    };
-
-    eventCollection.comparator = function(model) {
-      return model.get('source_content').DTSTART;
-    };
-
-    storyCollection.comparator = function(a, b) {
-      return a.get('source_posted_at') < b.get('source_posted_at') ? 1 : -1;
-    };
-
-    resourceCollection.fetch({data: {category: 'Resource'}});
-    eventCollection.fetch({data: {category: 'Event'}});
-    storyCollection.fetch({data: {category: 'Story'}});
-
-    NS.app.start({
-      resourceCollection: resourceCollection,
-      eventCollection: eventCollection,
-      storyCollection: storyCollection
-    });
+    NS.app.start();
   });
 
 }(MyPhillyRising, Alexander));
