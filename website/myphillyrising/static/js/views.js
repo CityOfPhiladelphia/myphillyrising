@@ -80,7 +80,27 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.MapCollectionView = Backbone.Marionette.CollectionView.extend({
-    itemView: NS.MapItemView
+    itemView: NS.MapItemView,
+    events: {
+      'click .map-list-item': 'handleClick'
+    },
+    handleClick: function(evt) {
+      var $el = this.$(evt.currentTarget);
+      // Remove all of the .is-selected
+      this.$('.map-list-item').removeClass('is-selected');
+      // Add .is-selected to the item
+      $el.addClass('is-selected');
+
+      NS.Map.panTo($el.attr('data-id'));
+    },
+    selectItem: function(id) {
+      // Remove all of the .is-selected
+      this.$('.map-list-item').removeClass('is-selected');
+      // Add .is-selected to the item and move it into view
+      this.$('[data-id="'+id+'"]')
+        .addClass('is-selected')
+        .get(0).scrollIntoView();
+    }
   });
 
 }(MyPhillyRising));
