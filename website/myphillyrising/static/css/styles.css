@@ -30,8 +30,8 @@ ul, ol { margin-left: 1.875em; }
 ol { list-style-type: decimal; }
 ul, ol, dl { margin-bottom: 0.625em; }
 ul li, ol li { padding-bottom: 0.625em; }
-hr { 
-  margin: 1.2em 0; border: 0; 
+hr {
+  margin: 1.2em 0; border: 0;
   border: 1px solid #eeeeee;
   border-top-color: rgba(0,0,0,0.2);
   border-bottom-color: rgba(255,255,255,0.75);
@@ -438,11 +438,11 @@ a.map-btn { color: FireBrick; }
   font-size: 0.8em;
   color: LightSlateGray;
 }
-.feed-item-meta a { 
-  color: LightSlateGray; 
+.feed-item-meta a {
+  color: LightSlateGray;
 }
-.feed-item-meta a:hover { 
-  color: DarkSlateGray; 
+.feed-item-meta a:hover {
+  color: DarkSlateGray;
 }
 .feed-item-content {
   margin: 0.75em 0 0;
