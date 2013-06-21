@@ -26,6 +26,10 @@ var MyPhillyRising = MyPhillyRising || {};
     // Zoom to the neighborhood on the map
     NS.Map.map.panTo(center);
 
+    NS.Map.panTo = function(id) {
+      NS.Map.map.panTo(NS.Map.allTheMarkers[id].getLatLng());
+    };
+
     // Get new data for all of the AGS collections, triggering a reset!
     _.each(NS.Map.allTheCollections, function(collection, i) {
       collection.fetch({
@@ -60,6 +64,8 @@ var MyPhillyRising = MyPhillyRising || {};
     NS.Map.layerGroup = L.layerGroup();
     // Keep track of all of our AGS services
     NS.Map.allTheCollections = [];
+    // Keep track of all of the markers by id
+    NS.Map.allTheMarkers = {};
 
     // Render the view
     NS.app.mapListRegion.show(mapCollectionView);
@@ -85,19 +91,34 @@ var MyPhillyRising = MyPhillyRising || {};
         // Go through each model
         collection.each(function(model) {
           var geom = model.get('geometry'),
-              attrs = model.get('attributes');
+              attrs = model.get('attributes'),
+              normAttrs = {
+                label: f.label,
+                type: f.type
+              };
+
+          _.each(f.attrMap, function(val, key) {
+            normAttrs[key] = attrs[val];
+          });
+
+          NS.Map.allTheMarkers[normAttrs.id] = L.marker([geom.y, geom.x], {
+            // fancy icon
+            attributes: normAttrs
+          });
+
+          // Bind the click event to the marker
+          NS.Map.allTheMarkers[normAttrs.id].on('click', function(evt) {
+
+            mapCollectionView.selectItem(evt.target.options.attributes.id);
+          });
 
           // Add it to the map
           // TODO: fancy markers by f.type
-          NS.Map.layerGroup.addLayer(L.marker([geom.y, geom.x]));
+          NS.Map.layerGroup.addLayer(NS.Map.allTheMarkers[normAttrs.id]);
 
           // Add it to the list item collection so the view can do its thing.
           // Also map our attributes to something the template will understand.
-          NS.Map.allTheThingsCollection.add({
-            name: attrs[f.attrMap.name],
-            label: f.label,
-            address: attrs[f.attrMap.address]
-          });
+          NS.Map.allTheThingsCollection.add(normAttrs);
         });
       });
 

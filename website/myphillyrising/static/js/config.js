@@ -26,6 +26,7 @@ var MyPhillyRising = MyPhillyRising || {};
         type: 'internet_access',
         url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Keyspot_Locations/MapServer/0/query',
         attrMap: {
+          id: 'OBJECTID_1',
           name: 'NAME',
           address: 'MATCH_ADDR'
         }
@@ -35,6 +36,7 @@ var MyPhillyRising = MyPhillyRising || {};
         type: 'recreation',
         url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Recreation_Facilities/MapServer/0/query',
         attrMap: {
+          id: 'OBJECTID',
           name: 'NAME',
           address: 'ADDRESS'
         }
