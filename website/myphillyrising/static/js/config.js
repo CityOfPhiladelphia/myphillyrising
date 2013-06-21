@@ -22,15 +22,24 @@ var MyPhillyRising = MyPhillyRising || {};
 
     facilities: [
       {
-        name: 'Keyspots',
-        url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Keyspot_Locations/MapServer/0/query'
+        label: 'Keyspot',
+        type: 'internet_access',
+        url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Keyspot_Locations/MapServer/0/query',
+        attrMap: {
+          name: 'NAME',
+          address: 'MATCH_ADDR'
+        }
       },
       {
-        name: 'Recreation',
-        url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Recreation_Facilities/MapServer/0/query'
+        label: 'Recreation Facility',
+        type: 'recreation',
+        url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Recreation_Facilities/MapServer/0/query',
+        attrMap: {
+          name: 'NAME',
+          address: 'ADDRESS'
+        }
       }
     ]
-
   };
 
 

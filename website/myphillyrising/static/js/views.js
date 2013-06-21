@@ -74,4 +74,13 @@ var MyPhillyRising = MyPhillyRising || {};
     itemView: NS.StoryItemView
   });
 
+  // Map Views ==============================================================
+  NS.MapItemView = Backbone.Marionette.ItemView.extend({
+    template: '#map-item-tpl'
+  });
+
+  NS.MapCollectionView = Backbone.Marionette.CollectionView.extend({
+    itemView: NS.MapItemView
+  });
+
 }(MyPhillyRising));

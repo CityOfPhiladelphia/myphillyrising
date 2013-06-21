@@ -50,6 +50,7 @@ var MyPhillyRising = MyPhillyRising || {};
     resourceRegion: '#resource-region .content',
     eventRegion: '#event-region .content',
     storyRegion: '#story-region .content',
+    mapListRegion: '#map-region .map-list',
     pageRegion: '#page'
   });
 
