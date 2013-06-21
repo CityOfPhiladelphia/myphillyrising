@@ -6,7 +6,7 @@ var MyPhillyRising = MyPhillyRising || {};
   // Router ===================================================================
   NS.Router = Backbone.Marionette.AppRouter.extend({
     appRoutes: {
-      '!\/:category(/)(:neighborhood)(/)': 'route',
+      '!\/:category/:neighborhood(/)': 'route',
       '*anything': 'home'
     }
   });
@@ -28,10 +28,18 @@ var MyPhillyRising = MyPhillyRising || {};
         });
       });
 
+      console.log('TODO only show places on the map near',
+        NS.app.currentNeighborhood,
+        NS.Config.neighborhoods[NS.app.currentNeighborhood]);
+
+      NS.Map.update(NS.app.currentNeighborhood,
+        NS.Config.neighborhoods[NS.app.currentNeighborhood].center);
+
       NS.app.swiper.swipeTo(index, 500, true);
     },
     home: function() {
-      NS.controller.route('overview');
+      NS.app.router.navigate('');
+      NS.app.swiper.swipeTo(0, 0, false);
     }
   };
 
@@ -82,7 +90,7 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.app.addInitializer(function() {
     this.filteredCollections = {};
-    this.currentNeighborhood = '';
+    this.currentNeighborhood = 'market-east';
   });
 
   // Initialize Panels ========================================================
@@ -110,19 +118,7 @@ var MyPhillyRising = MyPhillyRising || {};
   ));
 
   // Init Map
-  NS.app.addInitializer(function(options){
-    var url = 'http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png',
-        attribution = '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>',
-        baseLayer = L.tileLayer(url, {attribution: attribution});
-
-    // Init the map
-    this.map = L.map('map', {
-      layers: [baseLayer],
-      center: [39.9529, -75.1630],
-      zoom: 13
-    });
-
-  });
+  NS.app.addInitializer(NS.Map.initializer);
 
   // Initialize Swiping
   NS.app.addInitializer(function(options){

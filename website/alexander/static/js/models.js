@@ -1,8 +1,14 @@
-/*globals Backbone $ */
+/*globals Backbone $ _ */
 
 var Alexander = Alexander || {};
 
 (function(NS) {
+  NS.AgsCollection = Backbone.Collection.extend({
+    parse: function(response) {
+      return response.features;
+    }
+  });
+
   // Models and Collections
   NS.FilteredCollection = function(original){
     var filtered = new original.constructor();
@@ -10,12 +16,12 @@ var Alexander = Alexander || {};
     // allow this object to have it's own events
     filtered._callbacks = {};
 
-    // call 'where' on the original function so that
+    // call 'filter' on the original function so that
     // filtering will happen from the complete collection
     filtered.filter = function(criteria){
         var items;
 
-        // call 'where' if we have criteria
+        // call 'filter' if we have criteria
         // or just get all the models if we don't
         if (criteria){
             items = original.filter(criteria);
