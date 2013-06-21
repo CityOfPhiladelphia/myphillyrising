@@ -555,6 +555,14 @@ a.map-btn:hover {
 .is-selected .map-list-icon {
   opacity: 1;
 }
+.map-list-item.is-selected .google-maps-link {
+  position: relative !important;
+  clip: auto;
+  color: #308fbf !important;
+  white-space: nowrap;
+  font-weight: bold;
+  text-decoration: none;
+}
 
 
 /* =Page Content
