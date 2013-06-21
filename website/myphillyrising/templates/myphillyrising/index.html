@@ -28,6 +28,9 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css" type="text/css" media="screen, projection" />
   <link rel="stylesheet" href="{{ STATIC_URL }}components/swiper/dist/idangerous.swiper.css" type="text/css" media="screen, projection" />
 
+  <!-- Google Web Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+
 <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
@@ -36,12 +39,12 @@
 <body>
   {% handlebarsjs '(.*)' %}
 
-<div id="site-header">
-  <h1 id="site-title"><span><a href="#" title="myPhillyRising" rel="home">myPhillyRising</a></span></h1>
-  <a href="#" class="profile-open-btn"><span class="menu-icon">&equiv;</span></a>
+<div class="site-header">
+  <h1 class="site-title"><span><a href="#" title="myPhillyRising" rel="home"><strong>my</strong>PhillyRising</a></span></h1>
+  <a href="#" class="profile-open-btn"><span class="menu-icon"></span></a>
   <nav class="panel-nav">
     <ul>
-      <li><a href="#" class="overview overview-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-home.png" /> <span>Overview</span></a></li>
+      <li><a href="#" class="is-selected overview overview-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-home.png" /> <span>Overview</span></a></li>
       <li><a href="#" class="events events-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-calendar.png" /> <span>Events</span></a></li>
       <li><a href="#" class="resources resources-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-book.png" /> <span>Resources</span></a></li>
       <li><a href="#" class="stories stories-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-balloon.png" /> <span>Stories</span></a></li>
