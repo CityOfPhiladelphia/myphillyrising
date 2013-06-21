@@ -282,16 +282,6 @@ a.close-btn:hover {
   padding: 0.5em;
 }
 
-/* Map */
-#map {
-  margin: -0.75em -0.75em 0 -0.75em;
-  background: #bbb;
-  height: 200px;
-}
-.map-content {
-  margin-top: 200px; /* match height of #map */
-}
-
 
 /* =Smooth Native Scrolling in iOS
 -------------------------------------------------------------- */
@@ -534,6 +524,43 @@ a.map-btn { color: FireBrick; }
      -moz-box-sizing: border-box;
           box-sizing: border-box;
 }*/
+
+
+/* Map */
+.map-container {
+  margin: -0.75em -0.75em 0 -0.75em;
+  background: #bbb;
+}
+#map {
+  margin: 0;
+  background: #bbb;
+  height: 200px;
+}
+.map-content {
+  margin-top: 200px; /* match height of #map */
+}
+.map-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.map-list-item {
+  padding-left: 2.75em;
+}
+.map-list-icon {
+  position: absolute;
+  top: 0.625em;
+  left: 0.25em;
+  font-size: 2em;
+  opacity: 0.25;
+}
+.map-list-item.is-selected {
+  background: AliceBlue;
+  box-shadow: inset 0 0 0.25em rgba(0,0,0,0.25);
+}
+.is-selected .map-list-icon {
+  opacity: 1;
+}
 
 
 /* =Page Content
