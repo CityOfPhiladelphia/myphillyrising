@@ -5,25 +5,29 @@ var MyPhillyRising = MyPhillyRising || {};
 (function(NS, A) {
   NS.Map = {};
 
+  // Roughly buffer a point to a bounding box
+  NS.Map.pointToBoundingBox = function(coords, radius) {
+    var lngMile = 0.0192,
+        latMile = 0.01499,
+        bottom = coords[0] - (latMile * radius),
+        top = coords[0] + (latMile * radius),
+        left = coords[1] - (lngMile * radius),
+        right = coords[1] + (lngMile * radius);
+
+    return [left, bottom, right, top]; // <xmin>,<ymin>,<xmax>,<ymax>
+  };
+
   NS.Map.update = function(neighborhood, center) {
-    // Roughly buffer a point to a bounding box
-    var getBoundingBox = function(coords, radius) {
-      var lngMile = 0.0192,
-          latMile = 0.01499,
-          bottom = coords[0] - (latMile * radius),
-          top = coords[0] + (latMile * radius),
-          left = coords[1] - (lngMile * radius),
-          right = coords[1] + (lngMile * radius);
+    // Clear the map of markers
+    NS.Map.layerGroup.clearLayers();
+    // Clear the list
+    NS.Map.allTheThingsCollection.reset();
 
-      return [left, bottom, right, top]; // <xmin>,<ymin>,<xmax>,<ymax>
-    };
-
-    NS.Map.allTheThingsLayer.clearLayers();
-
+    // Zoom to the neighborhood on the map
     NS.Map.map.panTo(center);
 
-    _.each(NS.Map.allTheThingsCollections, function(collection, i) {
-      console.log('fetching for', neighborhood, 'at', center);
+    // Get new data for all of the AGS collections, triggering a reset!
+    _.each(NS.Map.allTheCollections, function(collection, i) {
       collection.fetch({
         reset: true,
         data: {
@@ -33,43 +37,70 @@ var MyPhillyRising = MyPhillyRising || {};
           outSR: '4326',
           spatialRel: 'esriSpatialRelIntersects', // Find stuff that intersects this envelope
           geometryType: 'esriGeometryEnvelope', // Our "geometry" url param will be an envelope
-          geometry: getBoundingBox(center, 1).join(','), // Build envelope geometry
+          geometry: NS.Map.pointToBoundingBox(center, 0.75).join(','), // Build envelope geometry
           f: 'json'
         }
       });
     });
-
   };
 
   // Init Map
   NS.Map.initializer = function(options){
+    // Collection that controls the item list
+    NS.Map.allTheThingsCollection = new Backbone.Collection();
+
     var url = 'http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png',
         attribution = '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>',
-        baseLayer = L.tileLayer(url, {attribution: attribution});
+        baseLayer = L.tileLayer(url, {attribution: attribution}),
+        mapCollectionView = new NS.MapCollectionView({
+          collection: NS.Map.allTheThingsCollection
+        });
 
-    NS.Map.allTheThingsLayer = L.layerGroup();
-    NS.Map.allTheThingsCollections = [];
+    // A layergroup to handle all our markers
+    NS.Map.layerGroup = L.layerGroup();
+    // Keep track of all of our AGS services
+    NS.Map.allTheCollections = [];
+
+    // Render the view
+    NS.app.mapListRegion.show(mapCollectionView);
 
     // Init the map
     NS.Map.map = L.map('map', {
-      layers: [baseLayer, NS.Map.allTheThingsLayer],
+      layers: [baseLayer, NS.Map.layerGroup],
       center: [39.9529, -75.1630],
       zoom: 13
     });
 
+    // Turn our config file into collections
     _.each(NS.Config.facilities, function(f, i) {
-      NS.Map.allTheThingsCollections[i] = new A.AgsCollection(null, {
+
+      // Make and cache a collection
+      NS.Map.allTheCollections[i] = new A.AgsCollection(null, {
         url: f.url
       });
 
-      NS.Map.allTheThingsCollections[i].on('reset', function(collection, evt) {
-        console.log('finished fetching', this.size(), 'records for', f.name);
+      // When we reset this collection
+      NS.Map.allTheCollections[i].on('reset', function(collection, evt) {
 
+        // Go through each model
         collection.each(function(model) {
-          var geom = model.get('geometry');
-          NS.Map.allTheThingsLayer.addLayer(L.marker([geom.y, geom.x]));
+          var geom = model.get('geometry'),
+              attrs = model.get('attributes');
+
+          // Add it to the map
+          // TODO: fancy markers by f.type
+          NS.Map.layerGroup.addLayer(L.marker([geom.y, geom.x]));
+
+          // Add it to the list item collection so the view can do its thing.
+          // Also map our attributes to something the template will understand.
+          NS.Map.allTheThingsCollection.add({
+            name: attrs[f.attrMap.name],
+            label: f.label,
+            address: attrs[f.attrMap.address]
+          });
         });
       });
+
     });
 
   };
