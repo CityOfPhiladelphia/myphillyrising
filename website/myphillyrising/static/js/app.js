@@ -157,7 +157,13 @@ var MyPhillyRising = MyPhillyRising || {};
     });
 
     $('.panel-nav a').click(function(evt) {
-      var index = $(this).parent('li').index();
+      var $this = $(this),
+          $parent = $this.parent('li'),
+          index = $parent.index();
+
+      $parent.siblings().find('a').removeClass('is-selected');
+      $this.addClass('is-selected');
+
       self.swiper.swipeTo(index, 500, true);
       evt.preventDefault();
     });
