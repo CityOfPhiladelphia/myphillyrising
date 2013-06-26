@@ -370,16 +370,16 @@ a.profile-open-btn {
 .actions-list a {
   font-weight: bold;
 }
-a.events-btn,
-a.resources-btn,
-a.stories-btn,
+a.event-btn,
+a.resource-btn,
+a.story-btn,
 a.community-btn,
 a.map-btn {
   color: #FF6B6B;
 }
-a.events-btn:hover,
-a.resources-btn:hover,
-a.stories-btn:hover,
+a.event-btn:hover,
+a.resource-btn:hover,
+a.story-btn:hover,
 a.community-btn:hover,
 a.map-btn:hover {
   color: #C44D58;

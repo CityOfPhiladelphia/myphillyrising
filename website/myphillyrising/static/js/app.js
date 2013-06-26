@@ -34,11 +34,11 @@ var MyPhillyRising = MyPhillyRising || {};
       NS.Map.update(NS.app.currentNeighborhood,
         NS.Config.neighborhoods[NS.app.currentNeighborhood].center);
 
-      NS.app.swiper.swipeTo(index, 500, false);
+      NS.app.swiper.swipeTo(index, 500, true);
     },
     home: function() {
-      NS.app.router.navigate('');
-      NS.app.swiper.swipeTo(0, 0, false);
+      NS.app.router.navigate('!/overview');
+      NS.app.swiper.swipeTo(0, 20, true);
     }
   };
 
@@ -129,7 +129,14 @@ var MyPhillyRising = MyPhillyRising || {};
       loop: false,
       onSlideChangeEnd: function() {
         var slide = self.swiper.getSlide(self.swiper.activeIndex),
-            category = $(slide).attr('data-name');
+            category = $(slide).attr('data-name'),
+            $navLink = $('.' + category + '-btn'),
+            $parent = $navLink.parent('li');
+
+        // Unselect everything
+        $parent.siblings().find('a').removeClass('is-selected');
+        // Select this tab
+        $navLink.addClass('is-selected');
 
         self.router.navigate('!/' + category + '/' + (self.currentNeighborhood || ''));
       }
@@ -161,7 +168,9 @@ var MyPhillyRising = MyPhillyRising || {};
           $parent = $this.parent('li'),
           index = $parent.index();
 
+      // Unselect all the tabs
       $parent.siblings().find('a').removeClass('is-selected');
+      // Select this tab
       $this.addClass('is-selected');
 
       self.swiper.swipeTo(index, 500, true);
