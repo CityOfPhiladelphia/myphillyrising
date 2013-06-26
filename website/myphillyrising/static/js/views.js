@@ -20,15 +20,23 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.ItemWithDetailPageView = Backbone.Marionette.ItemView.extend({
     events: {
-      'click .feed-item-title a': 'showDetails'
+      'click .feed-item-title a': 'handleClick'
     },
-    showDetails: function(evt) {
+    handleClick: function(evt) {
       evt.preventDefault();
-
+      this.showDetails();
+    },
+    showDetails: function() {
       var DetailView = Backbone.Marionette.getOption(this, 'detailView');
       NS.app.pageRegion.show(new DetailView({
         model: this.model
       }));
+      NS.app.router.navigate('!/' + this.model.get('category').toLowerCase() + '/' + NS.app.currentNeighborhood + '/' + this.model.id);
+    },
+    onRender: function() {
+      if (NS.app.currentPageId === this.model.id) {
+        this.showDetails();
+      }
     }
   });
 

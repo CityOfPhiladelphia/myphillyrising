@@ -6,13 +6,13 @@ var MyPhillyRising = MyPhillyRising || {};
   // Router ===================================================================
   NS.Router = Backbone.Marionette.AppRouter.extend({
     appRoutes: {
-      '!\/:category/:neighborhood(/)': 'route',
+      '!\/:category/:neighborhood(/)(:page)': 'route',
       '*anything': 'home'
     }
   });
 
   NS.controller = {
-    route: function(category, neighborhood) {
+    route: function(category, neighborhood, id) {
       var lowerCat = category ? category.toLowerCase() : '',
           index = $('[data-name="'+lowerCat+'"]').index();
 
@@ -28,14 +28,13 @@ var MyPhillyRising = MyPhillyRising || {};
         });
       });
 
-      console.log('TODO only show places on the map near',
-        NS.app.currentNeighborhood,
-        NS.Config.neighborhoods[NS.app.currentNeighborhood]);
+      // Cache the current page id
+      NS.app.currentPageId = parseInt(id, 10);
 
       NS.Map.update(NS.app.currentNeighborhood,
         NS.Config.neighborhoods[NS.app.currentNeighborhood].center);
 
-      NS.app.swiper.swipeTo(index, 500, true);
+      NS.app.swiper.swipeTo(index, 500, false);
     },
     home: function() {
       NS.app.router.navigate('');
