@@ -1,7 +1,10 @@
 /*globals Handlebars moment */
 
+Handlebars.registerHelper('window_location', function() {
+  return window.location.toString();
+});
+
 Handlebars.registerHelper('fromnow', function(datetime) {
-  var datetime = this[datetimeAttr];
   if (datetime) {
     return moment(datetime).fromNow();
   }
