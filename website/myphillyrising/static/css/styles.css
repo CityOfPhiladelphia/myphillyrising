@@ -370,16 +370,16 @@ a.profile-open-btn {
 .actions-list a {
   font-weight: bold;
 }
-a.event-btn,
-a.resource-btn,
-a.story-btn,
+a.events-btn,
+a.resources-btn,
+a.stories-btn,
 a.community-btn,
 a.map-btn {
   color: #FF6B6B;
 }
-a.event-btn:hover,
-a.resource-btn:hover,
-a.story-btn:hover,
+a.events-btn:hover,
+a.resources-btn:hover,
+a.stories-btn:hover,
 a.community-btn:hover,
 a.map-btn:hover {
   color: #C44D58;
@@ -540,6 +540,7 @@ a.map-btn:hover {
 }
 .map-list-item {
   padding-left: 2.75em;
+  cursor: pointer;
 }
 .map-list-icon {
   position: absolute;
@@ -551,6 +552,7 @@ a.map-btn:hover {
 .map-list-item.is-selected {
   background: AliceBlue;
   box-shadow: inset 0 0 0.25em rgba(0,0,0,0.25);
+  cursor: default;
 }
 .is-selected .map-list-icon {
   opacity: 1;
@@ -727,6 +729,17 @@ a.map-btn:hover {
     font-size: 1.25em;
   }
 
+  .map-container {
+    margin: 0;
+    box-shadow: 0 0 0.2em rgba(0,0,0,0.4);
+    border-radius: 0.2em;
+    position: relative;
+    z-index: 2;
+  }
+  .map-content {
+    z-index: 1;
+  }
+
 /*  .section-recources .content {
     top: 4.25em;
     padding-top: 1em;
@@ -742,6 +755,10 @@ a.map-btn:hover {
   .content {
     padding-left: 15%;
     padding-right: 15%;
+  }
+  .map-container {
+    margin-right: 13%;
+    margin-left: 13%;
   }
   #page {
     right: 15%;
