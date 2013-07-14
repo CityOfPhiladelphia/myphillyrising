@@ -108,7 +108,6 @@ var MyPhillyRising = MyPhillyRising || {};
 
           // Bind the click event to the marker
           NS.Map.allTheMarkers[normAttrs.id].on('click', function(evt) {
-
             mapCollectionView.selectItem(evt.target.options.attributes.id);
           });
 

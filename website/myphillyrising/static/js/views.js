@@ -102,12 +102,13 @@ var MyPhillyRising = MyPhillyRising || {};
       NS.Map.panTo($el.attr('data-id'));
     },
     selectItem: function(id) {
+      var $el = this.$('[data-id="'+id+'"]');
       // Remove all of the .is-selected
       this.$('.map-list-item').removeClass('is-selected');
-      // Add .is-selected to the item and move it into view
-      this.$('[data-id="'+id+'"]')
-        .addClass('is-selected')
-        .get(0).scrollIntoView();
+      // Add .is-selected to the item
+      $el.addClass('is-selected');
+      // Move it into view
+      $('.map-content').scrollTop($el.get(0).offsetTop);
     }
   });
 
