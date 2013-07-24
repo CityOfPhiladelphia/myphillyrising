@@ -88,6 +88,15 @@ var Alexander = Alexander || {};
   NS.ContentItemCollection = Backbone.Collection.extend({
     url: '/api/items/',
     model: NS.ContentItemModel,
-    comparator: 'source_posted_at'
+    comparator: function(a, b) {
+      var aDate = a.get('source_posted_at'),
+          bDate = b.get('source_posted_at');
+      if (aDate < bDate) {
+        return 1;
+      } else if (bDate < aDate) {
+        return -1;
+      }
+      return 0;
+    }
   });
 }(Alexander));
