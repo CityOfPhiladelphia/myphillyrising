@@ -99,4 +99,61 @@ var Alexander = Alexander || {};
       return 0;
     }
   });
+
+  NS.NeighborhoodCategoryCollection = NS.ContentItemCollection.extend({
+    initialize: function(options) {
+      this.neighborhood = options.neighborhood;
+      this.category = options.category;
+    },
+    fetch: function(options) {
+      options = options ? _.clone(options) : {};
+      options.data = options.data || {};
+      _.extend(options.data, {category: this.category, tag: this.neighborhood});
+
+      return NS.NeighborhoodCategoryCollection.__super__.fetch.call(this, options);
+    }
+  });
+
+  NS.NeighborhoodModel = Backbone.Model.extend({
+    collections: {
+      event: null,
+      resource: null,
+      story: null
+    },
+
+    initContentCollections: function() {
+      if (!this.collections.event) {
+        this.collections.event = new NS.NeighborhoodCategoryCollection({
+          category: 'Event',
+          neighborhood: this.get('tag')
+        });
+        this.collections.event.fetch();
+      }
+
+      if (!this.collections.resource) {
+        this.collections.resource = new NS.NeighborhoodCategoryCollection({
+          category: 'Resource',
+          neighborhood: this.get('tag')
+        });
+        this.collections.resource.fetch();
+      }
+
+      if (!this.collections.story) {
+        this.collections.story = new NS.NeighborhoodCategoryCollection({
+          category: 'Story',
+          neighborhood: this.get('tag')
+        });
+        this.collections.story.fetch();
+      }
+    }
+  });
+
+  NS.NeighborhoodCollection = Backbone.Collection.extend({
+    model: NS.NeighborhoodModel
+  });
+
+
+
+
+
 }(Alexander));

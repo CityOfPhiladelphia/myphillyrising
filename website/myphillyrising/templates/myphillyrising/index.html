@@ -26,7 +26,6 @@
 
   <link rel="stylesheet" href="{{ STATIC_URL }}components/normalize-css/normalize.css" type="text/css" media="screen, projection" />
   <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="{{ STATIC_URL }}components/swiper/dist/idangerous.swiper.css" type="text/css" media="screen, projection" />
   <link rel="stylesheet" href="{{ STATIC_URL }}components/leaflet/dist/leaflet.css" type="text/css" media="screen, projection" />
   <!--[if lte IE 8]>
     <link rel="stylesheet" href="{{ STATIC_URL }}components/leaflet/dist/leaflet.ie.css" />
@@ -46,149 +45,9 @@
 <div class="site-header">
   <h1 class="site-title"><span><a href="#" title="myPhillyRising" rel="home"><strong>my</strong>PhillyRising</a></span></h1>
   <a href="#" class="profile-open-btn"><span class="menu-icon"></span></a>
-  <nav class="panel-nav">
-    <ul>
-      <li><a href="#" class="is-selected overview overview-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/gray-icon-home.png" /> <span>Overview</span></a></li>
-      <li><a href="#" class="event events-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/gray-icon-calendar.png" /> <span>Events</span></a></li>
-      <li><a href="#" class="resource resources-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/gray-icon-book.png" /> <span>Resources</span></a></li>
-      <li><a href="#" class="story stories-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/gray-icon-balloon.png" /> <span>Stories</span></a></li>
-      <!-- <li><a href="#" class="community community-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/gray-icon-people.png" /> <span>Community</span></a></li> -->
-      <li><a href="#" class="map map-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/gray-icon-map.png" /> <span>Map</a></li>
-      <!-- <li><a href="#" class="about about-btn"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/gray-icon-info.png" /> <span>About</span></a></li> -->
-    </ul>
-  </nav>
 </div>
 
-<div id="panels" class="swiper-container">
-  <div class="swiper-wrapper">
-
-    <div id="overview-region" class="swiper-slide" data-name="overview">
-      <div class="section-container section-overview">
-        <h2 class="section-header overview-header"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-home.png" /> <span>Overview</span></h2>
-        <nav class="section-nav">
-          <!-- <a href="#" class="prev"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/nav-prev.png" /></a> -->
-          <a href="#" class="next"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/nav-next.png" /></a>
-        </nav>
-        <div class="content overview-content">
-          <div class="welcome well">
-            <h3>Welcome to myPhillyRising!</h3>
-            <ul class="actions-list">
-              <li class="events"><img class="icon-inline" src="{{ STATIC_URL }}/images/gray-icon-calendar.png" /> Find upcoming <a href="#" class="events-btn">events.</a></li>
-              <li class="resources"><img class="icon-inline" src="{{ STATIC_URL }}/images/gray-icon-book.png" /> Discover valuable <a href="#" class="resources-btn">resources.</a></li>
-              <li class="stories"><img class="icon-inline" src="{{ STATIC_URL }}/images/gray-icon-balloon.png" /> Read success <a href="#" class="stories-btn">stories.</a></li>
-              <li class="community"><img class="icon-inline" src="{{ STATIC_URL }}/images/gray-icon-people.png" /> Meet your <a href="#" class="community-btn">community.</a></li>
-              <li class="map"><img class="icon-inline" src="{{ STATIC_URL }}/images/gray-icon-map.png" /> Locate nearby <a href="#" class="map-btn">facilities.</a></li>
-            </ul>
-            <p><a href="#" class="about-btn">Learn more about PhillyRising&hellip;</a></p>
-            <hr/>
-            <h6>Choose your neighborhood&hellip;</h6>
-            <p class="choose-neighborhood">
-              <a class="btn" href="/#!/event/elmwood">Elmwood</a>
-              <a class="btn" href="/#!/event/frankford">Frankford</a>
-              <a class="btn" href="/#!/event/haddington">Haddington</a>
-              <a class="btn" href="/#!/event/hartranft">Hartranft</a>
-              <a class="btn" href="/#!/event/kensington">Kensington</a>
-              <a class="btn" href="/#!/event/kingsessing">Kingsessing</a>
-              <a class="btn" href="/#!/event/lawncrest">Lawncrest</a>
-              <a class="btn" href="/#!/event/market-east">Market East</a>
-              <a class="btn" href="/#!/event/north-central">North Central</a>
-              <a class="btn" href="/#!/event/pennrose">Pennrose</a>
-              <a class="btn" href="/#!/event/point-breeze">Point Breeze</a>
-              <a class="btn" href="/#!/event/strawberry-mansion">Strawberry Mansion</a>
-              <a class="btn" href="/#!/event/st-hughs">St. Hugh's</a>
-              <a class="btn" href="/#!/event/swampoodle-allegheny-west">Swampoodle/Allegheny West</a>
-              <a class="btn" href="/#!/event/southeast">Southeast</a>
-            </p>
-            <p> </p>
-          </div>
-        </div>
-      </div>
-    </div><!-- end .swiper-slide -->
-
-    <div id="event-region" class="swiper-slide" data-name="event">
-      <div class="section-container section-events">
-        <h2 class="section-header events-header"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-calendar.png" /> <span>Events</span></h2>
-        <nav class="section-nav">
-          <a href="#" class="prev"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/nav-prev.png" /></a>
-          <a href="#" class="next"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/nav-next.png" /></a>
-        </nav>
-        <div class="content events-content"></div>
-      </div>
-    </div><!-- end .swiper-slide -->
-
-    <div id="resource-region" class="swiper-slide" data-name="resource">
-      <div class="section-container section-recources">
-        <h2 class="section-header resources-header"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-book.png" /> <span>Resources</span></h2>
-        <nav class="section-nav">
-          <a href="#" class="prev"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/nav-prev.png" /></a>
-          <a href="#" class="next"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/nav-next.png" /></a>
-        </nav>
-        <!-- <div class="search">
-          <input type="search" placeholder="Search Resources...">
-        </div> -->
-        <div class="content resources-content"></div>
-      </div>
-    </div><!-- end .swiper-slide -->
-
-    <div id="story-region" class="swiper-slide" data-name="story">
-      <div class="section-container section-stories">
-        <h2 class="section-header stories-header"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-balloon.png" /> <span>Stories</span></h2>
-        <nav class="section-nav">
-          <a href="#" class="prev"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/nav-prev.png" /></a>
-          <a href="#" class="next"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/nav-next.png" /></a>
-        </nav>
-        <div class="content stories-content"></div>
-      </div>
-    </div><!-- end .swiper-slide -->
-
-    <!-- <div id="community-region" class="swiper-slide" data-name="community">
-      <div class="section-container section-community">
-        <h2 class="section-header community-header"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-people.png" /> <span>Community</span></h2>
-        <nav class="section-nav">
-        <a href="#" class="prev"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/nav-prev.png" /></a>
-        <a href="#" class="next"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/nav-next.png" /></a>
-        </nav>
-        <div class="content community-content">
-          <p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p><p>Community</p>
-        </div>
-      </div>
-    </div> --><!-- end .swiper-slide -->
-
-    <div id="map-region" class="swiper-slide" data-name="map">
-      <div class="section-container section-map">
-        <h2 class="section-header map-header"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-map.png" /> <span>Map</span></h2>
-        <nav class="section-nav">
-          <a href="#" class="prev"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/nav-prev.png" /></a>
-          <a href="#" class="next"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/nav-next.png" /></a>
-        </nav>
-        <div class="map-container"><div id="map"></div></div>
-        <div class="content map-content">
-          <ul class="map-list"></ul>
-        </div>
-      </div>
-    </div><!-- end .swiper-slide -->
-
-    <div id="about-region" class="swiper-slide" data-name="about">
-      <div class="section-container section-about">
-        <h2 class="section-header about-header"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/white-icon-info.png" /> <span>About</span></h2>
-        <nav class="section-nav">
-          <a href="#" class="prev"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/nav-prev.png" /></a>
-          <!-- <a href="#" class="next"><img class="icon-inline icon-muted" src="{{ STATIC_URL }}/images/nav-next.png" /></a> -->
-        </nav>
-        <div class="content about-content">
-          <div class="well">
-            <p><strong>myPhillyRising</strong> is a lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </div>
-        </div>
-      </div>
-    </div><!-- end .swiper-slide -->
-
-  </div><!-- end #swiper-wrapper -->
-</div><!-- end #swiper-container -->
-
-<div id="page" class="is-closed"></div>
+<div id="main-region"></div>
 
 <div id="profile" class="is-closed">
   <p><a href="#" class="close-btn profile-close-btn"><span class="close-icon">&times;</span><span class="close-text is-hidden">Close</span></a></p>
@@ -204,7 +63,7 @@
       <option value="lawncrest">Lawncrest</option>
       <option value="market-east">Market East</option>
       <option value="north-central">North Central</option>
-      <option value="pennrose">Pennrose</option>
+      <option value="penrose">Penrose</option>
       <option value="point-breeze">Point Breeze</option>
       <option value="strawberry-mansion">Strawberry Mansion</option>
       <option value="st-hughs">St. Hugh's</option>
@@ -216,7 +75,6 @@
 
 
 <script src="{{ STATIC_URL }}components/jquery/jquery.js"></script>
-<script src="{{ STATIC_URL }}components/swiper/dist/idangerous.swiper-1.9.4.min.js"></script>
 <script src="{{ STATIC_URL }}components/underscore/underscore-min.js"></script>
 <script src="{{ STATIC_URL }}components/backbone/backbone.js"></script>
 <script src="{{ STATIC_URL }}components/backbone.marionette/lib/backbone.marionette.js"></script>
