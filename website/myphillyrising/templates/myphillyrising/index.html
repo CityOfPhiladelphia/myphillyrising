@@ -42,37 +42,55 @@
 <body>
   {% handlebarsjs '(.*)' %}
 
-<div class="site-header">
-  <h1 class="site-title"><span><a href="#" title="myPhillyRising" rel="home"><strong>my</strong>PhillyRising</a></span></h1>
-  <a href="#" class="profile-open-btn"><span class="menu-icon"></span></a>
-</div>
+  <div class="page main">
+    <div class="container">
 
-<div id="main-region"></div>
+      <div class="site-header">
+        <h1 class="site-title"><a href="#" title="myPhillyRising" rel="home"><span class="my">my</span><span class="philly">Philly</span><span class="rising">Rising</a></h1>
+        <h2 class="site-description">Swampoodle/Allegehny West</h2>
+        <a href="#" class="menu-btn btn-off-canvas-menu-left"><img class="menu-icon" src="{{ STATIC_URL }}images/menu-icon-marker.png"></a>
+        <a href="#" class="menu-btn btn-off-canvas-menu-right"><img class="menu-icon" src="{{ STATIC_URL }}images/menu-icon-gear.png"></a>
+      </div>
 
-<div id="profile" class="is-closed">
-  <p><a href="#" class="close-btn profile-close-btn"><span class="close-icon">&times;</span><span class="close-text is-hidden">Close</span></a></p>
-  <div class="styled-select">
-    <label>Choose your neighborhood&hellip;</label>
-    <select class="select-block">
-      <option value="elmwood">Elmwood</option>
-      <option value="frankford">Frankford</option>
-      <option value="haddington">Haddington</option>
-      <option value="hartranft">Hartranft</option>
-      <option value="kensington">Kensington</option>
-      <option value="kingsessing">Kingsessing</option>
-      <option value="lawncrest">Lawncrest</option>
-      <option value="market-east">Market East</option>
-      <option value="north-central">North Central</option>
-      <option value="penrose">Penrose</option>
-      <option value="point-breeze">Point Breeze</option>
-      <option value="strawberry-mansion">Strawberry Mansion</option>
-      <option value="st-hughs">St. Hugh's</option>
-      <option value="swampoodle-allegheny-west">Swampoodle/Allegheny West</option>
-      <option value="southeast">Southeast</option>
-    </select>
+      <div id="main-region"></div>
+
+    </div>
+    <a href="#" class="btn-canvas-center is-hidden"></a>
   </div>
-</div><!-- end #profile -->
 
+  <div class="page off-canvas-menu off-canvas-menu-left">
+    <div class="container">
+
+      <h3 class="off-canvas-menu-header">Select an neighborhood</h3>
+
+      <ul class="neighborhood-list unstyled-list">
+        <li><a class="" href="#">Elmwood</a></li>
+        <li><a class="" href="#">Frankford</a></li>
+        <li><a class="" href="#">Haddington</a></li>
+        <li><a class="" href="#">Hartranft</a></li>
+        <li><a class="is-current-neighborhood" href="#">Kensington</a></li>
+        <li><a class="" href="#">Kingsessing</a></li>
+        <li><a class="" href="#">Lawncrest</a></li>
+        <li><a class="" href="#">Market East</a></li>
+        <li><a class="" href="#">North Central</a></li>
+        <li><a class="" href="#">Pennrose</a></li>
+        <li><a class="" href="#">Point Breeze</a></li>
+        <li><a class="" href="#">Strawberry Mansion</a></li>
+        <li><a class="" href="#">St. Hugh's</a></li>
+        <li><a class="" href="#">Swampoodle/Allegheny West</a></li>
+        <li><a class="" href="#">Southeast</a></li>
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="page off-canvas-menu off-canvas-menu-right">
+    <div class="container">
+
+      <div id="user-menu-region"></div>
+
+    </div>
+  </div>
 
 <script src="{{ STATIC_URL }}components/jquery/jquery.js"></script>
 <script src="{{ STATIC_URL }}components/underscore/underscore-min.js"></script>

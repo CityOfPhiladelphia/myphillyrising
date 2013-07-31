@@ -75,6 +75,24 @@ var MyPhillyRising = MyPhillyRising || {};
 
   // Initializers =============================================================
 
+  NS.app.addInitializer(function(options){
+    $(".btn-off-canvas-menu-left").click(function(e) {
+      $("body").removeClass("is-open-off-canvas-right");
+      $("body").toggleClass("is-open-off-canvas-left");
+      e.preventDefault();
+    });
+    $(".btn-off-canvas-menu-right").click(function(e) {
+      $("body").removeClass("is-open-off-canvas-left");
+      $("body").toggleClass("is-open-off-canvas-right");
+      e.preventDefault();
+    });
+    $(".btn-canvas-center").click(function(e) {
+      $("body").removeClass("is-open-off-canvas-left");
+      $("body").removeClass("is-open-off-canvas-right");
+      e.preventDefault();
+    });
+  });
+
   // Init Map
   // NS.app.addInitializer(NS.Map.initiadlizer);
 
