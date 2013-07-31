@@ -7,3 +7,6 @@ class Neighborhood (models.Model):
     center_lat = models.FloatField()
     center_lng = models.FloatField()
     description = models.TextField()
+
+    def __unicode__(self):
+        return self.name

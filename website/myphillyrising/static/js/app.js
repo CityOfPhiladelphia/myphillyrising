@@ -139,10 +139,9 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.app.addInitializer(function(options){
     // TODO: Bootstrap data please
-    this.neighborhoodCollection = new A.NeighborhoodCollection([
-      {tag: 'kensington', center: [39.9949, -75.1185]},
-      {tag: 'market-east', center: [39.9515, -75.1567]}
-    ]);
+    this.neighborhoodCollection = new A.NeighborhoodCollection(
+      NS.bootstrapped.neighborhoodData
+    );
 
     console.log('make and start a router');
     // Construct a new app router

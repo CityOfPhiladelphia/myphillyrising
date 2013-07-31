@@ -13,7 +13,8 @@ class AppView (TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(AppView, self).get_context_data(**kwargs)
-        context['neighbohood_data'] = self.get_neighborhood_data()
+        context['neighborhood_data'] = self.get_neighborhood_data()
+        context['NS'] = 'MyPhillyRising'
         return context
 
 # Views

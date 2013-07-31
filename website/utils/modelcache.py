@@ -48,6 +48,7 @@ class ModelCache (object):
         return cache.get(*args, **kwargs)
 
     def set(self, *args, **kwargs):
+        # TODO: Automatically register key?
         return cache.set(*args, **kwargs)
 
     def clear(self, instance=None):
