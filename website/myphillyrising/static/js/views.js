@@ -31,7 +31,7 @@ var MyPhillyRising = MyPhillyRising || {};
       NS.app.pageRegion.show(new DetailView({
         model: this.model
       }));
-      NS.app.router.navigate('!/' + this.model.get('category').toLowerCase() + '/' + NS.app.currentNeighborhood + '/' + this.model.id);
+      NS.app.router.navigate(this.model.get('category').toLowerCase() + '/' + NS.app.currentNeighborhood + '/' + this.model.id);
     },
     onRender: function() {
       if (NS.app.currentPageId === this.model.id) {
@@ -41,11 +41,11 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   // Resource Views ===========================================================
-  NS.ResourceDetailView = NS.DetailPageView.extend({
+  NS.ResourceDetailView = Backbone.Marionette.ItemView.extend({
     template: '#rss-detail-tpl'
   });
 
-  NS.ResourceItemView = NS.ItemWithDetailPageView.extend({
+  NS.ResourceItemView = Backbone.Marionette.ItemView.extend({
     template: '#rss-item-tpl',
     detailView: NS.ResourceDetailView
   });
@@ -55,11 +55,11 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   // Event Views ==============================================================
-  NS.EventDetailView = NS.DetailPageView.extend({
+  NS.EventDetailView = Backbone.Marionette.ItemView.extend({
     template: '#ics-detail-tpl'
   });
 
-  NS.EventItemView = NS.ItemWithDetailPageView.extend({
+  NS.EventItemView = Backbone.Marionette.ItemView.extend({
     template: '#ics-item-tpl',
     detailView: NS.EventDetailView
   });

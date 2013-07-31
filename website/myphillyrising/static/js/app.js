@@ -28,6 +28,22 @@ var MyPhillyRising = MyPhillyRising || {};
       // Init and update the content models if not already done
       neighborhoodModel.initContentCollections();
 
+      if (category === 'event') {
+        NS.app.mainRegion.show(new NS.EventCollectionView({
+          collection: neighborhoodModel.collections[category]
+        }));
+      } else if (category === 'resource') {
+        NS.app.mainRegion.show(new NS.ResourceCollectionView({
+          collection: neighborhoodModel.collections[category]
+        }));
+      } else if (category === 'story') {
+        NS.app.mainRegion.show(new NS.StoryCollectionView({
+          collection: neighborhoodModel.collections[category]
+        }));
+      }
+
+
+
       console.log('show a category list', neighborhoodModel.collections[category], category);
     },
     neighborhoodCategoryItem: function(neighborhood, category, id) {
