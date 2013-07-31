@@ -158,6 +158,7 @@ COMMUNITY_APPS = (
 PROJECT_SPECIFIC_APPS = (
     'myphillyrising',
     'alexander',
+    'utils',
 )
 
 INSTALLED_APPS = (
