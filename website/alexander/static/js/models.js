@@ -154,7 +154,7 @@ var Alexander = Alexander || {};
   });
 
   NS.FeedCollection = Backbone.Collection.extend({
-    url: '/api/feeds/',
+    url: '/api/feeds',
     model: NS.FeedModel,
     comparator: 'title'
   });
