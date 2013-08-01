@@ -85,6 +85,9 @@ class ContentItem (models.Model):
     def __unicode__(self):
         return self.title or self.source_url
 
+    class Meta:
+        ordering = ('-source_posted_at',)
+
 
 class ContentTag (models.Model):
     label = models.CharField(max_length=100, primary_key=True)

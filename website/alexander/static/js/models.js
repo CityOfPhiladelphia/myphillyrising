@@ -85,7 +85,17 @@ var Alexander = Alexander || {};
   NS.PaginatedCollection = Backbone.Collection.extend({
     parse: function(response) {
       this.totalLength = response.count
+      this.nextPage = response.next
       return response.results;
+    },
+
+    fetchNextPage: function() {
+      var collection = this,
+          nextUrl = function() { return collection.nextPage; }
+
+      NS.Utils.patch(this, {url: nextUrl}, function() {
+        collection.fetch({remove: false});
+      });
     }
   });
 

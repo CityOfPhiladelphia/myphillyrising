@@ -195,7 +195,19 @@ var Alexander = Alexander || {};
     template: '#content-item-list-tpl',
     itemViewContainer: '.content-item-list',
     itemView: NS.ContentItemView,
-    appendHtml: NS.OrderedCollectionMixin.appendHtml
+    appendHtml: NS.OrderedCollectionMixin.appendHtml,
+
+    events: {
+      'click .load-more-action': 'onClickLoadMore'
+    },
+
+    onClickLoadMore: function() {
+      this.loadMoreContentItems();
+    },
+
+    loadMoreContentItems: function() {
+      this.collection.fetchNextPage();
+    }
   });
 
 }(Alexander));
