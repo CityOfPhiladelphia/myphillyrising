@@ -56,7 +56,8 @@ var MyPhillyRising = MyPhillyRising || {};
       }
     },
     neighborhoodCategoryItem: function(neighborhood, category, id) {
-      var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood});
+      var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood}),
+          view;
       NS.app.currentNeighborhood = neighborhood;
 
       // Init and update the content models if not already done
@@ -66,8 +67,26 @@ var MyPhillyRising = MyPhillyRising || {};
 
       if (!itemModel) {
         console.log(id, 'is not here, better to go get it.');
+        itemModel = new A.ContentItemModel({id: parseInt(id, 10)});
+        console.log('fetching', itemModel);
       }
 
+      if (category === 'events') {
+        NS.app.mainRegion.show(new NS.EventDetailView({
+          model: itemModel
+        }));
+      } else if (category === 'resources') {
+        NS.app.mainRegion.show(new NS.ResourceDetailView({
+          model: itemModel
+        }));
+      } else if (category === 'stories') {
+        NS.app.mainRegion.show(new NS.StoryDetailView({
+          model: itemModel
+        }));
+      }
+
+
+itemModel.fetch();
       console.log('show a category item', itemModel);
     },
     neighborhoodMap: function(neighborhood) {

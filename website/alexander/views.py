@@ -64,7 +64,7 @@ admin_feed_view = AdminFeedView.as_view()
 admin_item_view = AdminItemView.as_view()
 
 # Setup the API routes
-api_router = DefaultRouter()
+api_router = DefaultRouter(trailing_slash=False)
 api_router.register('feeds', FeedViewSet)
 api_router.register('items', ContentItemViewSet)
 

@@ -11,7 +11,8 @@ var MyPhillyRising = MyPhillyRising || {};
 
   // Resource Views ===========================================================
   NS.ResourceDetailView = Backbone.Marionette.ItemView.extend({
-    template: '#rss-detail-tpl'
+    template: '#rss-detail-tpl',
+    modelEvents: { 'change': 'render'}
   });
 
   NS.ResourceItemView = Backbone.Marionette.ItemView.extend({
@@ -24,7 +25,8 @@ var MyPhillyRising = MyPhillyRising || {};
 
   // Event Views ==============================================================
   NS.EventDetailView = Backbone.Marionette.ItemView.extend({
-    template: '#ics-detail-tpl'
+    template: '#ics-detail-tpl',
+    modelEvents: { 'change': 'render'}
   });
 
   NS.EventItemView = Backbone.Marionette.ItemView.extend({
@@ -36,13 +38,13 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   // Story Views ==============================================================
+  NS.StoryDetailView = Backbone.Marionette.ItemView.extend({
+    template: '#facebook-detail-tpl',
+    modelEvents: { 'change': 'render'}
+  });
+
   NS.StoryItemView = Backbone.Marionette.ItemView.extend({
-    template: function(modelObj) {
-      if (modelObj.source_type === 'Facebook') {
-        return Handlebars.compile($('#facebook-item-tpl').html())(modelObj);
-      }
-      return '<h1>no template found</h1>';
-    }
+    template: '#facebook-item-tpl'
   });
 
   NS.StoryCollectionView = Backbone.Marionette.CollectionView.extend({

@@ -141,6 +141,7 @@ var Alexander = Alexander || {};
   });
 
   NS.ContentItemModel = Backbone.Model.extend({
+    urlRoot: '/api/items',
     parse: function(resp, options) {
       resp.source_content = JSON.parse(resp.source_content);
       return resp;
@@ -159,7 +160,7 @@ var Alexander = Alexander || {};
   });
 
   NS.ContentItemCollection = Backbone.Collection.extend({
-    url: '/api/items/',
+    url: '/api/items',
     model: NS.ContentItemModel,
     comparator: function(a, b) {
       var aDate = a.get('source_posted_at'),

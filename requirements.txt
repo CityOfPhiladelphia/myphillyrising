@@ -54,7 +54,7 @@ django-social-auth
 # APIs
 # ==============================
 
-djangorestframework
+djangorestframework>=2.3.6
 
 
 
