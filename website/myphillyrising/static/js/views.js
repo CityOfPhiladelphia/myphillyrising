@@ -20,6 +20,10 @@ var MyPhillyRising = MyPhillyRising || {};
       // Hide the menu
       $("body").removeClass("is-open-off-canvas-left");
       $("body").removeClass("is-open-off-canvas-right");
+
+      // Select as the current neighborhood
+      $('.is-current-neighborhood').removeClass('is-current-neighborhood');
+      this.$('a').addClass('is-current-neighborhood');
     }
   });
 

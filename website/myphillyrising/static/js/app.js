@@ -119,6 +119,10 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.app.addInitializer(function(options){
     $(".btn-off-canvas-menu-left").click(function(e) {
+      // Re-render the neighborhood menu in case the currently-selected
+      // neighborhood has changed.
+      NS.app.neighborhoodMenuView.render();
+      
       $("body").removeClass("is-open-off-canvas-right");
       $("body").toggleClass("is-open-off-canvas-left");
       e.preventDefault();
