@@ -86,9 +86,10 @@
 
   <script>
   var {{NS}} = {{NS}} || {};
-  {{NS}}.bootstrapped = {};
-  {{NS}}.bootstrapped.neighborhoodData = {{ neighborhood_data|as_json }}
-  {{NS}}.bootstrapped.currentUserData = {{ current_user_data|as_json }}
+  {{NS}}.bootstrapped = {
+    neighborhoodData : {{ neighborhood_data|as_json }},
+    currentUserData : {{ current_user_data|as_json }}
+  };
   </script>
 
   {% if debug %}
