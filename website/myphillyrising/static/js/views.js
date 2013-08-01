@@ -1,4 +1,4 @@
-/*globals Alexander Backbone Handlebars $ _ */
+/*globals Alexander Backbone Handlebars $ _ L */
 
 var MyPhillyRising = MyPhillyRising || {};
 
@@ -8,37 +8,6 @@ var MyPhillyRising = MyPhillyRising || {};
   };
 
   // Views ====================================================================
-  NS.DetailPageView = Backbone.Marionette.ItemView.extend({
-    events: {
-      'click .close-btn': 'closeDetails'
-    },
-    closeDetails: function(evt) {
-      evt.preventDefault();
-      NS.app.pageRegion.close();
-    }
-  });
-
-  NS.ItemWithDetailPageView = Backbone.Marionette.ItemView.extend({
-    events: {
-      'click .feed-item-title a': 'handleClick'
-    },
-    handleClick: function(evt) {
-      evt.preventDefault();
-      this.showDetails();
-    },
-    showDetails: function() {
-      var DetailView = Backbone.Marionette.getOption(this, 'detailView');
-      NS.app.pageRegion.show(new DetailView({
-        model: this.model
-      }));
-      NS.app.router.navigate(this.model.get('category').toLowerCase() + '/' + NS.app.currentNeighborhood + '/' + this.model.id);
-    },
-    onRender: function() {
-      if (NS.app.currentPageId === this.model.id) {
-        this.showDetails();
-      }
-    }
-  });
 
   // Resource Views ===========================================================
   NS.ResourceDetailView = Backbone.Marionette.ItemView.extend({
@@ -46,8 +15,7 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.ResourceItemView = Backbone.Marionette.ItemView.extend({
-    template: '#rss-item-tpl',
-    detailView: NS.ResourceDetailView
+    template: '#rss-item-tpl'
   });
 
   NS.ResourceCollectionView = Backbone.Marionette.CollectionView.extend({
@@ -60,8 +28,7 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.EventItemView = Backbone.Marionette.ItemView.extend({
-    template: '#ics-item-tpl',
-    detailView: NS.EventDetailView
+    template: '#ics-item-tpl'
   });
 
   NS.EventCollectionView = Backbone.Marionette.CollectionView.extend({
@@ -87,19 +54,51 @@ var MyPhillyRising = MyPhillyRising || {};
     template: '#map-item-tpl'
   });
 
-  NS.MapCollectionView = Backbone.Marionette.CollectionView.extend({
+  NS.MapView = Backbone.Marionette.CompositeView.extend({
+    template: '#map-tpl',
     itemView: NS.MapItemView,
+    itemViewContainer: '.map-list',
     events: {
       'click .map-list-item': 'handleClick'
     },
+    onShow: function() {
+      var url = 'http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png',
+          attribution = '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>',
+          baseLayer = L.tileLayer(url, {attribution: attribution});
+
+      this.map = L.map('map', {
+        layers: [baseLayer],
+        center: this.model.get('center'),
+        zoom: 13
+      });
+
+      this.featureGroup = L.featureGroup().addTo(this.map);
+
+      this.featureGroup.on('click', function(evt) {
+        this.selectItem(evt.layer.options.data.id);
+      }, this);
+
+      this.listenTo(this.collection, 'add', this.addMarker);
+
+      this.collection.fetch({
+        center: this.model.get('center')
+      });
+    },
+    addMarker: function(model, collection, options) {
+      var geom = model.get('geom');
+      this.featureGroup.addLayer(L.marker([geom.y, geom.x], {
+        data: model.toJSON()
+      }));
+    },
     handleClick: function(evt) {
-      var $el = this.$(evt.currentTarget);
+      var $el = this.$(evt.currentTarget),
+          geom = this.collection.get($el.attr('data-id')).get('geom');
       // Remove all of the .is-selected
       this.$('.map-list-item').removeClass('is-selected');
       // Add .is-selected to the item
       $el.addClass('is-selected');
 
-      NS.Map.panTo($el.attr('data-id'));
+      this.map.panTo([geom.y, geom.x]);
     },
     selectItem: function(id) {
       var $el = this.$('[data-id="'+id+'"]');

@@ -7,6 +7,7 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.Router = Backbone.Marionette.AppRouter.extend({
     appRoutes: {
       ':neighborhood': 'neighborhoodHome',
+      ':neighborhood/map': 'neighborhoodMap',
       ':neighborhood/:category': 'neighborhoodCategoryList',
       ':neighborhood/:category/:id': 'neighborhoodCategoryItem',
       '*anything': 'home'
@@ -41,10 +42,6 @@ var MyPhillyRising = MyPhillyRising || {};
           collection: neighborhoodModel.collections[category]
         }));
       }
-
-
-
-      console.log('show a category list', neighborhoodModel.collections[category], category);
     },
     neighborhoodCategoryItem: function(neighborhood, category, id) {
       var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood});
@@ -59,6 +56,14 @@ var MyPhillyRising = MyPhillyRising || {};
       }
 
       console.log('show a category item', itemModel);
+    },
+    neighborhoodMap: function(neighborhood) {
+      var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood}),
+          view = new NS.MapView({
+            model: neighborhoodModel,
+            collection: new A.FacilitiesCollection([], {config: NS.Config.facilities})
+          });
+      NS.app.mainRegion.show(view);
     },
 
     home: function() {
@@ -99,8 +104,9 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.app.addInitializer(function(options){
     // TODO: Bootstrap data please
     this.neighborhoodCollection = new A.NeighborhoodCollection([
-      {tag: 'kensington'}
-      ]);
+      {tag: 'kensington', center: [39.9949, -75.1185]},
+      {tag: 'market-east', center: [39.9515, -75.1567]}
+    ]);
 
     console.log('make and start a router');
     // Construct a new app router

@@ -9,6 +9,79 @@ var Alexander = Alexander || {};
     }
   });
 
+  NS.FacilitiesCollection = Backbone.Collection.extend({
+    initialize: function(models, options) {
+      var self = this;
+
+      this.config = options.config,
+      // Keep track of all of our AGS services
+      this.allTheCollections = [];
+
+      // Turn our config file into collections
+      _.each(this.config, function(f, i) {
+
+        // Make and cache a collection
+        self.allTheCollections[i] = new NS.AgsCollection(null, {
+          url: f.url
+        });
+
+        // When we reset this collection
+        self.allTheCollections[i].on('reset', function(collection, evt) {
+
+          // Go through each model
+          collection.each(function(model) {
+            var geom = model.get('geometry'),
+                attrs = model.get('attributes'),
+                normAttrs = {
+                  label: f.label,
+                  type: f.type,
+                  geom: geom
+                };
+
+            _.each(f.attrMap, function(val, key) {
+              normAttrs[key] = attrs[val];
+            });
+
+            // Add it to the list item collection so the view can do its thing.
+            // Also map our attributes to something the template will understand.
+            self.add(normAttrs);
+          });
+        });
+      });
+    },
+    fetch: function(options) {
+      var self = this;
+
+      // Get new data for all of the AGS collections, triggering a reset!
+      _.each(this.allTheCollections, function(collection, i) {
+        collection.fetch({
+          reset: true,
+          data: {
+            where: '1=1',
+            outFields: '*',
+            inSR: '4326',
+            outSR: '4326',
+            spatialRel: 'esriSpatialRelIntersects', // Find stuff that intersects this envelope
+            geometryType: 'esriGeometryEnvelope', // Our "geometry" url param will be an envelope
+            geometry: self.pointToBoundingBox(options.center, 0.75).join(','), // Build envelope geometry
+            f: 'json'
+          }
+        });
+      });
+
+    },
+    pointToBoundingBox: function(coords, radius) {
+      var lngMile = 0.0192,
+          latMile = 0.01499,
+          bottom = coords[0] - (latMile * radius),
+          top = coords[0] + (latMile * radius),
+          left = coords[1] - (lngMile * radius),
+          right = coords[1] + (lngMile * radius);
+
+      return [left, bottom, right, top]; // <xmin>,<ymin>,<xmax>,<ymax>
+    }
+  });
+
   // Models and Collections
   NS.FilteredCollection = function(original){
     var filtered = new original.constructor();
