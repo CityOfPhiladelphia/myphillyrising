@@ -9,6 +9,11 @@ var MyPhillyRising = MyPhillyRising || {};
 
   // Views ====================================================================
 
+  // Home View ================================================================
+  NS.HomeView = Backbone.Marionette.Layout.extend({
+    template: '#home-tpl'
+  });
+
   // Resource Views ===========================================================
   NS.ResourceDetailView = Backbone.Marionette.ItemView.extend({
     template: '#rss-detail-tpl',

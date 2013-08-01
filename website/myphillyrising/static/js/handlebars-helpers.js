@@ -54,6 +54,6 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   Handlebars.registerHelper('rsscontent', function() {
-    return this.source_content.content[0].value;
+    return this.source_content && this.source_content.content[0].value;
   });
 }(MyPhillyRising));

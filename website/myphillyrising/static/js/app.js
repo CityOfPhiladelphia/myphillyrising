@@ -33,6 +33,7 @@ var MyPhillyRising = MyPhillyRising || {};
 
       // TODO: Need users too!
       console.log('make a home page view', neighborhoodModel);
+      NS.app.mainRegion.show(new NS.HomeView());
     },
 
     neighborhoodCategoryList: function(neighborhood, category) {
@@ -66,9 +67,8 @@ var MyPhillyRising = MyPhillyRising || {};
       var itemModel = neighborhoodModel.collections[category].get(parseInt(id, 10));
 
       if (!itemModel) {
-        console.log(id, 'is not here, better to go get it.');
         itemModel = new A.ContentItemModel({id: parseInt(id, 10)});
-        console.log('fetching', itemModel);
+        itemModel.fetch();
       }
 
       if (category === 'events') {
@@ -84,10 +84,6 @@ var MyPhillyRising = MyPhillyRising || {};
           model: itemModel
         }));
       }
-
-
-itemModel.fetch();
-      console.log('show a category item', itemModel);
     },
     neighborhoodMap: function(neighborhood) {
       var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood}),
@@ -101,6 +97,7 @@ itemModel.fetch();
 
     home: function() {
       NS.app.router.navigate('');
+      NS.app.mainRegion.show(new NS.HomeView());
     }
   };
 
