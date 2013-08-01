@@ -90,12 +90,14 @@ var Alexander = Alexander || {};
     },
 
     fetchNextPage: function() {
-      var collection = this,
-          nextUrl = function() { return collection.nextPage; }
+      if (this.nextPage) {
+        var collection = this,
+            nextUrl = function() { return collection.nextPage; }
 
-      NS.Utils.patch(this, {url: nextUrl}, function() {
-        collection.fetch({remove: false});
-      });
+        NS.Utils.patch(this, {url: nextUrl}, function() {
+          collection.fetch({remove: false});
+        });
+      }
     }
   });
 
