@@ -1,9 +1,10 @@
-/*globals Alexander Backbone Handlebars $ _ L lvector */
+/*globals Alexander Backbone Handlebars $ _ L lvector Modernizr */
 
 var MyPhillyRising = MyPhillyRising || {};
 
 (function(NS, A) {
   // Router ===================================================================
+  NS.scrollTops = {};
   NS.Router = Backbone.Marionette.AppRouter.extend({
     appRoutes: {
       ':neighborhood': 'neighborhoodHome',
@@ -11,12 +12,22 @@ var MyPhillyRising = MyPhillyRising || {};
       ':neighborhood/:category': 'neighborhoodCategoryList',
       ':neighborhood/:category/:id': 'neighborhoodCategoryItem',
       '*anything': 'home'
+    },
+    navigate: function(fragment, options) {
+      var __super__ = Backbone.Marionette.AppRouter.prototype,
+          path = NS.getCurrentPath();
+      options = options || {};
+
+      NS.scrollTops[path] = document.body.scrollTop || document.documentElement.scrollTop || 0;
+      this.noscroll = options.noscroll;
+      return __super__.navigate.call(this, fragment, options);
     }
   });
 
   NS.controller = {
     neighborhoodHome: function(neighborhood) {
       var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood});
+      NS.app.currentNeighborhood = neighborhood;
       // Init and update the content models if not already done
       neighborhoodModel.initContentCollections();
 
@@ -26,18 +37,19 @@ var MyPhillyRising = MyPhillyRising || {};
 
     neighborhoodCategoryList: function(neighborhood, category) {
       var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood});
+      NS.app.currentNeighborhood = neighborhood;
       // Init and update the content models if not already done
       neighborhoodModel.initContentCollections();
 
-      if (category === 'event') {
+      if (category === 'events') {
         NS.app.mainRegion.show(new NS.EventCollectionView({
           collection: neighborhoodModel.collections[category]
         }));
-      } else if (category === 'resource') {
+      } else if (category === 'resources') {
         NS.app.mainRegion.show(new NS.ResourceCollectionView({
           collection: neighborhoodModel.collections[category]
         }));
-      } else if (category === 'story') {
+      } else if (category === 'stories') {
         NS.app.mainRegion.show(new NS.StoryCollectionView({
           collection: neighborhoodModel.collections[category]
         }));
@@ -45,6 +57,7 @@ var MyPhillyRising = MyPhillyRising || {};
     },
     neighborhoodCategoryItem: function(neighborhood, category, id) {
       var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood});
+      NS.app.currentNeighborhood = neighborhood;
 
       // Init and update the content models if not already done
       neighborhoodModel.initContentCollections();
@@ -63,12 +76,19 @@ var MyPhillyRising = MyPhillyRising || {};
             model: neighborhoodModel,
             collection: new A.FacilitiesCollection([], {config: NS.Config.facilities})
           });
+      NS.app.currentNeighborhood = neighborhood;
       NS.app.mainRegion.show(view);
     },
 
     home: function() {
       NS.app.router.navigate('');
     }
+  };
+
+  NS.getCurrentPath = function() {
+    var root = Backbone.history.root,
+        fragment = Backbone.history.fragment;
+    return root + fragment;
   };
 
   // App ======================================================================
@@ -113,7 +133,58 @@ var MyPhillyRising = MyPhillyRising || {};
     this.router = new NS.Router({
       controller: NS.controller
     });
-    Backbone.history.start();
+
+    Backbone.history.start({ pushState: Modernizr.history, silent: true });
+
+    if(!Modernizr.history) {
+      var rootLength = Backbone.history.options.root.length,
+          fragment = window.location.pathname.substr(rootLength),
+          url;
+
+      if (fragment) {
+        Backbone.history.navigate(fragment, { trigger: true });
+        url = window.location.protocol + '//' + window.location.host +
+            Backbone.history.options.root + '#' + fragment;
+
+        // Do a full redirect so we don't get urls like /visions/7#visions/7
+        window.location = url;
+      } else {
+        Backbone.history.loadUrl(Backbone.history.getFragment());
+      }
+    } else {
+      Backbone.history.loadUrl(Backbone.history.getFragment());
+    }
+
+    // Globally capture clicks. If they are internal and not in the pass
+    // through list, route them through Backbone's navigate method.
+    $(document).on('click', 'a[href^="/"]', function(evt) {
+      var $link = $(evt.currentTarget),
+          href = $link.attr('href'),
+          noscroll = !_.isUndefined($link.attr('data-noscroll')),
+          replace = !_.isUndefined($link.attr('data-replace')),
+          url;
+
+      // Allow shift+click for new tabs, etc.
+      if ((href === '/' ||
+           href.indexOf('/api') !== 0 ||
+           href.indexOf('/admin') !== 0 ||
+           href.indexOf('/djangoadmin') !== 0) &&
+           !evt.altKey && !evt.ctrlKey && !evt.metaKey && !evt.shiftKey) {
+        evt.preventDefault();
+
+        // Remove leading slashes and hash bangs (backward compatablility)
+        url = href.replace(/^\//, '').replace('#!/', '');
+
+        // # Instruct Backbone to trigger routing events
+        NS.app.router.navigate(url, {
+          trigger: true,
+          noscroll: noscroll,
+          replace: replace
+        });
+
+        return false;
+      }
+    });
   });
 
   // Init =====================================================================

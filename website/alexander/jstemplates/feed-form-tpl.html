@@ -1,14 +1,14 @@
 <h4>Add a new feed</h4>
 <form id="feed-form" action="/api/feeds/" method="post" class="well form-inline">
   <select name="default_category" class="span2">
-    <option>Resource</option>
-    <option>Story</option>
-    <option>Event</option>
+    <option value="resources">Resources</option>
+    <option value="stories">Stories</option>
+    <option value="events">Events</option>
   </select>
   <select name="source_type" class="span2">
-    <option>RSS</option>
-    <option>ICS</option>
-    <option>Facebook</option>
+    <option value="rss">RSS</option>
+    <option value="ics">ICS</option>
+    <option value="facebook">Facebook</option>
   </select>
 
   <input name="title" type="text" class="span4" placeholder="Feed Name">

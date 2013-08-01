@@ -8,11 +8,12 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', app_view, name='app'),
     # url(r'^myphillyrising/', include('myphillyrising.foo.urls')),
 
     # Uncomment the next line to enable the admin:
     url(r'^djangoadmin/', include(admin.site.urls)),
 
     url(r'^', include(alexander.urls)),
+
+    url(r'^', app_view, name='app'),
 )

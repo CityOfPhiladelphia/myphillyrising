@@ -189,34 +189,34 @@ var Alexander = Alexander || {};
 
   NS.NeighborhoodModel = Backbone.Model.extend({
     collections: {
-      event: null,
-      resource: null,
-      story: null
+      events: null,
+      resources: null,
+      stories: null
     },
 
     initContentCollections: function() {
-      if (!this.collections.event) {
-        this.collections.event = new NS.NeighborhoodCategoryCollection({
-          category: 'Event',
+      if (!this.collections.events) {
+        this.collections.events = new NS.NeighborhoodCategoryCollection({
+          category: 'events',
           neighborhood: this.get('tag')
         });
-        this.collections.event.fetch();
+        this.collections.events.fetch();
       }
 
-      if (!this.collections.resource) {
-        this.collections.resource = new NS.NeighborhoodCategoryCollection({
-          category: 'Resource',
+      if (!this.collections.resources) {
+        this.collections.resources = new NS.NeighborhoodCategoryCollection({
+          category: 'resources',
           neighborhood: this.get('tag')
         });
-        this.collections.resource.fetch();
+        this.collections.resources.fetch();
       }
 
-      if (!this.collections.story) {
-        this.collections.story = new NS.NeighborhoodCategoryCollection({
-          category: 'Story',
+      if (!this.collections.stories) {
+        this.collections.stories = new NS.NeighborhoodCategoryCollection({
+          category: 'stories',
           neighborhood: this.get('tag')
         });
-        this.collections.story.fetch();
+        this.collections.stories.fetch();
       }
     }
   });

@@ -31,7 +31,7 @@ class ContentItemViewSet (ModelViewSet):
         queryset = super(ContentItemViewSet, self).get_queryset()
         queryset = queryset.prefetch_related('tags')
 
-        queryset = queryset.exclude(source_posted_at__lt=datetime.now(), category='Event')
+        queryset = queryset.exclude(source_posted_at__lt=datetime.now(), category='events')
 
         category = self.request.GET.get('category')
         if (category):
