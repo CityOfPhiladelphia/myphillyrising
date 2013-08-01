@@ -32,7 +32,7 @@ class Feed (models.Model):
     # ----------
     # Defaults for the content items retrieved from this feed
     default_category = models.CharField(max_length=20)
-    default_tags = models.ManyToManyField('ContentTag')
+    default_tags = models.ManyToManyField('ContentTag', blank=True)
 
     objects = FeedManager()
 
