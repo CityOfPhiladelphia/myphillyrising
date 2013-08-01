@@ -19,19 +19,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
   <!-- Favicon & Progressively-Enhanced Touch Icons: http://mathiasbynens.be/notes/touch-icons#sizes -->
-  <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon.ico">
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}images/apple-touch-icon-144x144-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}images/apple-touch-icon-114x114-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}images/apple-touch-icon-72x72-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}images/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="{{ STATIC_URL }}myphillyrising/images/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}myphillyrising/images/apple-touch-icon-144x144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}myphillyrising/images/apple-touch-icon-114x114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}myphillyrising/images/apple-touch-icon-72x72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}myphillyrising/images/apple-touch-icon-precomposed.png">
 
   <!-- Google Web Fonts -->
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
 
   {% if debug %}
   <link rel="stylesheet" href="{{ STATIC_URL }}components/normalize-css/normalize.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}myphillyrising/css/styles.css" type="text/css" media="screen, projection" />
   <link rel="stylesheet" href="{{ STATIC_URL }}components/leaflet/dist/leaflet.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}myphillyrising/css/styles.css" type="text/css" media="screen, projection" />
 
   <script src="{{ STATIC_URL }}components/modernizr/modernizr.js"></script>
   {% else %}
@@ -58,8 +59,8 @@
       <div class="site-header">
         <h1 class="site-title"><a href="#" title="myPhillyRising" rel="home"><span class="my">my</span><span class="philly">Philly</span><span class="rising">Rising</a></h1>
         <h2 class="site-description">Swampoodle/Allegehny West</h2>
-        <a href="#" class="menu-btn btn-off-canvas-menu-left"><img class="menu-icon" src="{{ STATIC_URL }}images/menu-icon-marker.png"></a>
-        <a href="#" class="menu-btn btn-off-canvas-menu-right"><img class="menu-icon" src="{{ STATIC_URL }}images/menu-icon-gear.png"></a>
+        <a href="#" class="menu-btn btn-off-canvas-menu-left"><img class="menu-icon" src="{{ STATIC_URL }}myphillyrising/images/menu-icon-marker.png"></a>
+        <a href="#" class="menu-btn btn-off-canvas-menu-right"><img class="menu-icon" src="{{ STATIC_URL }}myphillyrising/images/menu-icon-gear.png"></a>
       </div>
 
       <div id="main-region"></div>
@@ -104,12 +105,13 @@
 
   {% handlebarsjs '(.*)' precompile register_partials %}
 
-  <script src="{{ STATIC_URL }}js/handlebars-helpers.js"></script>
-  <script src="{{ STATIC_URL }}js/config.js"></script>
-  <script src="{{ STATIC_URL }}js/utils.js"></script>
-  <script src="{{ STATIC_URL }}js/models.js"></script>
-  <script src="{{ STATIC_URL }}js/views.js"></script>
-  <script src="{{ STATIC_URL }}js/app.js"></script>
+  <script src="{{ STATIC_URL }}myphillyrising/js/handlebars-helpers.js"></script>
+  <script src="{{ STATIC_URL }}myphillyrising/js/config.js"></script>
+  <script src="{{ STATIC_URL }}alexander/js/utils.js"></script>
+  <script src="{{ STATIC_URL }}alexander/js/models.js"></script>
+  <script src="{{ STATIC_URL }}myphillyrising/js/views.js"></script>
+  <script src="{{ STATIC_URL }}myphillyrising/js/app.js"></script>
+
   {% else %}
   <script src="{{ STATIC_URL }}js/components.min.js"></script>
 

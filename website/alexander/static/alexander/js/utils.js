@@ -22,4 +22,4 @@ var Alexander = Alexander || {};
       }
     }
   };
-}(Alexander));
+})(Alexander);
