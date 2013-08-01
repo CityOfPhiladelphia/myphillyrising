@@ -11,7 +11,16 @@ var MyPhillyRising = MyPhillyRising || {};
 
   // Neighborhood Menu View ===================================================
   NS.NeighborhoodMenuItemView = Backbone.Marionette.CompositeView.extend({
-    template: '#neighborhood-menu-item-tpl'
+    template: '#neighborhood-menu-item-tpl',
+    events: {
+      'click': 'onClick'
+    },
+
+    onClick: function(evt) {
+      // Hide the menu
+      $("body").removeClass("is-open-off-canvas-left");
+      $("body").removeClass("is-open-off-canvas-right");
+    }
   });
 
   NS.NeighborhoodMenuView = Backbone.Marionette.CompositeView.extend({
