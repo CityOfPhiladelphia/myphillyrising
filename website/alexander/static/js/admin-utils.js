@@ -1,6 +1,8 @@
 var Alexander = Alexander || {};
 
 (function(NS) {
+  "use strict";
+
   NS.Utils = {
     patch: function(obj, overrides, func) {
       var attr, originals = {};
@@ -18,6 +20,6 @@ var Alexander = Alexander || {};
       for (attr in originals) {
         obj[attr] = originals[attr];
       }
-    };
-  }
+    }
+  };
 })(Alexander);
