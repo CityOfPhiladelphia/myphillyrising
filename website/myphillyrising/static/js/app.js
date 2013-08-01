@@ -111,7 +111,8 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.app = new Backbone.Marionette.Application();
 
   NS.app.addRegions({
-    mainRegion: '#main-region'
+    mainRegion: '#main-region',
+    neighborhoodMenuRegion: '#neighborhood-menu-region'
   });
 
   // Initializers =============================================================
@@ -142,6 +143,12 @@ var MyPhillyRising = MyPhillyRising || {};
     this.neighborhoodCollection = new A.NeighborhoodCollection(
       NS.bootstrapped.neighborhoodData
     );
+
+    // Show the neighborhood menu
+    NS.app.neighborhoodMenuView = new NS.NeighborhoodMenuView({
+      collection: this.neighborhoodCollection
+    });
+    NS.app.neighborhoodMenuRegion.show(NS.app.neighborhoodMenuView);
 
     console.log('make and start a router');
     // Construct a new app router

@@ -2,8 +2,11 @@
 var MyPhillyRising = MyPhillyRising || {};
 
 (function(NS) {
+  Handlebars.registerHelper('is_current_neighborhood', function(options) {
+    return (this.tag === NS.app.currentNeighborhood) ? options.fn(this) : options.inverse(this);
+  });
+  
   Handlebars.registerHelper('current_neighborhood', function() {
-
     return NS.app && NS.app.currentNeighborhood ? NS.app.currentNeighborhood : '';
   });
 
