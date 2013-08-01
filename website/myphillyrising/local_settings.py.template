@@ -1,3 +1,5 @@
+from os import environ
+
 DEBUG = 'True'
 
 DATABASES = {
@@ -13,8 +15,12 @@ DATABASES = {
 
 SECRET_KEY = '0xyj_n)ut)c=d98*+=e$iyk1wkbi4t)1)kyoij87jb1av*z*o'
 
-TWITTER_CONSUMER_KEY = ''
-TWITTER_CONSUMER_SECRET = ''
+# For authenticating users with social auth
+TWITTER_CONSUMER_KEY = environ.get('TWITTER_CONSUMER_KEY')
+TWITTER_CONSUMER_SECRET = environ.get('TWITTER_CONSUMER_SECRET')
+FACEBOOK_APP_ID = environ.get('FACEBOOK_APP_ID')
+FACEBOOK_API_SECRET = environ.get('FACEBOOK_API_SECRET')
+
 
 BROKER_URL = 'django://'  # Use the Django database as the celery broker
 

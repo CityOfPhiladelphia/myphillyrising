@@ -112,6 +112,7 @@ AUTHENTICATION_BACKENDS = (
     # See http://django-social-auth.readthedocs.org/en/latest/configuration.html
     # for list of available backends.
     'social_auth.backends.twitter.TwitterBackend',
+    'social_auth.backends.facebook.FacebookBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -126,6 +127,8 @@ LOGIN_ERROR_URL    = '/'
 
 TWITTER_CONSUMER_KEY         = ''  # Set me in local settings
 TWITTER_CONSUMER_SECRET      = ''  # Set me in local settings
+FACEBOOK_APP_ID              = ''
+FACEBOOK_API_SECRET          = ''
 
 ###############################################################################
 #

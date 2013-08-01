@@ -79,7 +79,10 @@
   <div class="page off-canvas-menu off-canvas-menu-right">
     <div class="container">
 
-      <div id="user-menu-region"></div>
+      <div id="user-menu-region">
+        <p><a href="{% url 'socialauth_begin' 'twitter' %}">Log in with Twitter</a></p>
+        <p><a href="{% url 'socialauth_begin' 'facebook' %}">Log in with Facebook</a></p>
+      </div>
 
     </div>
   </div>

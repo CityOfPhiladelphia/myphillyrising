@@ -8,6 +8,7 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.Router = Backbone.Marionette.AppRouter.extend({
     appRoutes: {
       'about': 'about',
+      '_=_': 'facebookAuthRedirect',
       ':neighborhood': 'neighborhoodHome',
       ':neighborhood/map': 'neighborhoodMap',
       ':neighborhood/:category': 'neighborhoodCategoryList',
@@ -111,6 +112,15 @@ var MyPhillyRising = MyPhillyRising || {};
           collection: NS.app.neighborhoodCollection
         }));
       // }
+    },
+
+    facebookAuthRedirect: function() {
+      // Due to a bug in Facebook's OAuth redirection, we always get back a
+      // hash of _=_. The app will think that's a neighborhood unless we do
+      // something. This should only be a problem for the home route. See
+      // https://developers.facebook.com/bugs/317224701698736?browse=external_tasks_search_results_51fab56f7448d2531771258
+      // or http://stackoverflow.com/q/7693663/123776 for more information.
+      this.home();
     }
   };
 
@@ -203,12 +213,15 @@ var MyPhillyRising = MyPhillyRising || {};
           replace = !_.isUndefined($link.attr('data-replace')),
           url;
 
-      // Allow shift+click for new tabs, etc.
-      if ((href === '/' ||
-           href.indexOf('/api') !== 0 ||
-           href.indexOf('/admin') !== 0 ||
+      if (// Exempt the following routes
+          (href.indexOf('/api') !== 0 &&
+           href.indexOf('/log') !== 0 && // login or logout
+           href.indexOf('/admin') !== 0 &&
            href.indexOf('/djangoadmin') !== 0) &&
-           !evt.altKey && !evt.ctrlKey && !evt.metaKey && !evt.shiftKey) {
+
+          // Allow shift+click for new tabs, etc.
+          (!evt.altKey && !evt.ctrlKey && !evt.metaKey && !evt.shiftKey)) {
+
         evt.preventDefault();
 
         // Remove leading slashes and hash bangs (backward compatablility)
