@@ -82,6 +82,13 @@ var Alexander = Alexander || {};
     }
   });
 
+  NS.PaginatedCollection = Backbone.Collection.extend({
+    parse: function(response) {
+      this.totalLength = response.count
+      return response.results;
+    }
+  });
+
   // Models and Collections
   NS.FilteredCollection = function(original){
     var filtered = new original.constructor();
@@ -159,7 +166,7 @@ var Alexander = Alexander || {};
     }
   });
 
-  NS.ContentItemCollection = Backbone.Collection.extend({
+  NS.ContentItemCollection = NS.PaginatedCollection.extend({
     url: '/api/items',
     model: NS.ContentItemModel,
     comparator: function(a, b) {

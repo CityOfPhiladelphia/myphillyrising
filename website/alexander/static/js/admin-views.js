@@ -53,6 +53,7 @@ var Alexander = Alexander || {};
         childrenContainer.children().eq(goHereIndex-1).after(itemView.el);
       }
 
+      // console.log(childrenContainer)
       childrenContainer.data('indices', indices);
     }
   };
@@ -190,7 +191,9 @@ var Alexander = Alexander || {};
     }
   });
 
-  NS.ContentItemListView = Backbone.Marionette.CollectionView.extend({
+  NS.ContentItemListView = Backbone.Marionette.CompositeView.extend({
+    template: '#content-item-list-tpl',
+    itemViewContainer: '.content-item-list',
     itemView: NS.ContentItemView,
     appendHtml: NS.OrderedCollectionMixin.appendHtml
   });

@@ -6,9 +6,9 @@ var Alexander = Alexander || {};
   $(function() {
     var collection = new NS.ContentItemCollection(),
         view = new NS.ContentItemListView({
-          el: '#items-list',
+          el: '#content-item-list-wrapper',
           collection: collection
-        });
+        }).render();
     collection.fetch();
   });
 }(Alexander));

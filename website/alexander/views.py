@@ -26,6 +26,7 @@ class FeedViewSet (ModelViewSet):
 class ContentItemViewSet (ModelViewSet):
     model = ContentItem
     serializer_class = ContentItemSerializer
+    paginate_by = 20
 
     def get_queryset(self):
         queryset = super(ContentItemViewSet, self).get_queryset()
@@ -35,10 +36,12 @@ class ContentItemViewSet (ModelViewSet):
 
         category = self.request.GET.get('category')
         if (category):
+            # TODO: Make case insensitive
             queryset = queryset.filter(category=category)
 
         tags = self.request.GET.getlist('tag')
         if (tags):
+            # TODO: Make case insensitive
             queryset = queryset.filter(tags__in=tags)
 
         return queryset
