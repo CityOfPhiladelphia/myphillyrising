@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 
 class Neighborhood (models.Model):
@@ -10,3 +11,6 @@ class Neighborhood (models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+User = get_user_model()
