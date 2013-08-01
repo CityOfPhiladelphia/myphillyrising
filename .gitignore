@@ -42,4 +42,11 @@ local_settings.py
 
 # Bower
 website/alexander/static/components/
+website/alexander/node_modules/
+website/alexander/static/js/*.min.js
+website/alexander/static/css/*.min.css
+
 website/myphillyrising/static/components/
+website/myphillyrising/node_modules/
+website/myphillyrising/static/js/*.min.js
+website/myphillyrising/static/css/*.min.css

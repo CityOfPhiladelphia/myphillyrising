@@ -25,22 +25,29 @@
   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}images/apple-touch-icon-72x72-precomposed.png">
   <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}images/apple-touch-icon-precomposed.png">
 
+  <!-- Google Web Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+
+  {% if debug %}
   <link rel="stylesheet" href="{{ STATIC_URL }}components/normalize-css/normalize.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css" type="text/css" media="screen, projection" />
   <link rel="stylesheet" href="{{ STATIC_URL }}components/leaflet/dist/leaflet.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css" type="text/css" media="screen, projection" />
+
+  <script src="{{ STATIC_URL }}components/modernizr/modernizr.js"></script>
+  {% else %}
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/components.min.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.min.css" type="text/css" media="screen, projection" />
+  <script src="{{ STATIC_URL }}js/modernizr.min.js"></script>
+  {% endif %}
+
   <!--[if lte IE 8]>
     <link rel="stylesheet" href="{{ STATIC_URL }}components/leaflet/dist/leaflet.ie.css" />
   <![endif]-->
 
-  <!-- Google Web Fonts -->
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
-
-<!--[if lt IE 9]>
+  <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
   <![endif]-->
-
-  <script src="{{ STATIC_URL }}components/modernizr/modernizr.js"></script>
 </head>
 <body>
   {% handlebarsjs '(.*)' %}
@@ -83,6 +90,7 @@
   {{NS}}.bootstrapped.neighborhoodData = {{ neighborhood_data|as_json }}
   </script>
 
+  {% if debug %}
   <script src="{{ STATIC_URL }}components/jquery/jquery.js"></script>
   <script src="{{ STATIC_URL }}components/underscore/underscore-min.js"></script>
   <script src="{{ STATIC_URL }}components/backbone/backbone.js"></script>
@@ -91,11 +99,22 @@
   <script src="{{ STATIC_URL }}components/moment/moment.js"></script>
   <script src="{{ STATIC_URL }}components/leaflet/dist/leaflet.js"></script>
   <script src="{{ STATIC_URL }}components/leaflet-vector-layers/dist/lvector.js"></script>
+
+  {% handlebarsjs '(.*)' precompile register_partials %}
+
   <script src="{{ STATIC_URL }}js/handlebars-helpers.js"></script>
   <script src="{{ STATIC_URL }}js/config.js"></script>
   <script src="{{ STATIC_URL }}js/utils.js"></script>
   <script src="{{ STATIC_URL }}js/models.js"></script>
   <script src="{{ STATIC_URL }}js/views.js"></script>
   <script src="{{ STATIC_URL }}js/app.js"></script>
+  {% else %}
+  <script src="{{ STATIC_URL }}js/components.min.js"></script>
+
+  {% handlebarsjs '(.*)' precompile register_partials %}
+
+  <script src="{{ STATIC_URL }}js/app.min.js"></script>
+  {% endif %}
+
 </body>
 </html>
