@@ -8,6 +8,38 @@ A mobile web app to support the outreach work of the PhillyRising collaborative.
 Stay tuned for more about the tool. It's in a very early state of development - feel free to poke around in our source code!
 
 
+Setup Instructions
+------------------
+
+Do the usual:
+
+    pip install -r requirements.txt
+    ./manage.py syncdb
+    ./manage.py migrate
+    cp local_settings.py.template local_settings.py
+    cd website
+
+Do the *bower* install in both the `myphillyrising` and `alexander` folders:
+
+    cd myphillyrising/static
+    bower install
+    cd ../..
+    cd alexander/static
+    bower install
+    cd ../..
+
+Load the neighborhoods and tags:
+
+    ./manage.py loaddata fixtures/phillyrising_neighborhoods.json
+
+Load some content items:
+
+    ./manage.py runserver  # Run this in one terminal
+    ./manage.py celeryd    # Run this in another terminal
+
+Browse to `http://localhost:8000/admin` and add a feed or two. Click the *Refresh* button next to each feed to import the data. Give it a minute (you should see database activity scrolling by in your `celeryd` terminal as the content items are loading).
+
+
 About PhillyRising
 ------------------
 PhillyRising targets neighborhoods throughout Philadelphia that are plagued by chronic crime and quality of life concerns, and establishes partnerships with community members to address these issues. The PhillyRising Team coordinates the actions of City agencies to help neighbors realize their vision for their community through sustainable, responsive, and cost-effective solutions. Read more at [phila.gov/phillyrising](http://www.phila.gov/phillyrising/).
