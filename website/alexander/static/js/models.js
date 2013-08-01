@@ -84,18 +84,24 @@ var Alexander = Alexander || {};
 
   NS.PaginatedCollection = Backbone.Collection.extend({
     parse: function(response) {
-      this.totalLength = response.count
-      this.nextPage = response.next
+      this.totalLength = response.count;
+      this.nextPage = response.next;
       return response.results;
     },
 
-    fetchNextPage: function() {
+    fetchNextPage: function(success, error) {
+      var collection = this,
+          nextUrl;
+
       if (this.nextPage) {
-        var collection = this,
-            nextUrl = function() { return collection.nextPage; }
+        nextUrl = function() { return collection.nextPage; };
 
         NS.Utils.patch(this, {url: nextUrl}, function() {
-          collection.fetch({remove: false});
+          collection.fetch({
+            remove: false,
+            success: success,
+            error: error
+          });
         });
       }
     }
@@ -194,7 +200,7 @@ var Alexander = Alexander || {};
   });
 
   NS.NeighborhoodCategoryCollection = NS.ContentItemCollection.extend({
-    initialize: function(options) {
+    initialize: function(data, options) {
       this.neighborhood = options.neighborhood;
       this.category = options.category;
     },
@@ -216,7 +222,7 @@ var Alexander = Alexander || {};
 
     initContentCollections: function() {
       if (!this.collections.events) {
-        this.collections.events = new NS.NeighborhoodCategoryCollection({
+        this.collections.events = new NS.NeighborhoodCategoryCollection([], {
           category: 'events',
           neighborhood: this.get('tag')
         });
@@ -224,7 +230,7 @@ var Alexander = Alexander || {};
       }
 
       if (!this.collections.resources) {
-        this.collections.resources = new NS.NeighborhoodCategoryCollection({
+        this.collections.resources = new NS.NeighborhoodCategoryCollection([], {
           category: 'resources',
           neighborhood: this.get('tag')
         });
@@ -232,7 +238,7 @@ var Alexander = Alexander || {};
       }
 
       if (!this.collections.stories) {
-        this.collections.stories = new NS.NeighborhoodCategoryCollection({
+        this.collections.stories = new NS.NeighborhoodCategoryCollection([], {
           category: 'stories',
           neighborhood: this.get('tag')
         });
@@ -244,9 +250,4 @@ var Alexander = Alexander || {};
   NS.NeighborhoodCollection = Backbone.Collection.extend({
     model: NS.NeighborhoodModel
   });
-
-
-
-
-
 }(Alexander));

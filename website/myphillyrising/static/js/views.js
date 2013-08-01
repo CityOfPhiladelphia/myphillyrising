@@ -33,6 +33,35 @@ var MyPhillyRising = MyPhillyRising || {};
     itemViewContainer: '.neighborhood-list',
   });
 
+  NS.PaginatedCompositeView = Backbone.Marionette.CompositeView.extend({
+    template: '#paginated-list-tpl',
+    itemViewContainer: '.content-list',
+    events: {
+      'click .load-more-action': 'onClickLoadMore'
+    },
+
+    collectionEvents: {
+      add: function() {
+        this.setLoadButtonVisibility(!!this.collection.nextPage);
+      }
+    },
+
+    onClickLoadMore: function() {
+      this.loadMoreContentItems();
+    },
+
+    loadMoreContentItems: function() {
+      var self = this;
+      this.collection.fetchNextPage(function(collection, response, options) {
+        self.setLoadButtonVisibility(!!collection.nextPage);
+      });
+    },
+
+    setLoadButtonVisibility: function(show) {
+      this.$('.load-more-action').toggleClass('is-hidden', !show);
+    }
+  });
+
   // Home View ================================================================
   NS.HomeView = Backbone.Marionette.Layout.extend({
     template: '#home-tpl'
@@ -48,7 +77,7 @@ var MyPhillyRising = MyPhillyRising || {};
     template: '#rss-item-tpl'
   });
 
-  NS.ResourceCollectionView = Backbone.Marionette.CollectionView.extend({
+  NS.ResourceCollectionView = NS.PaginatedCompositeView.extend({
     itemView: NS.ResourceItemView
   });
 
@@ -62,7 +91,7 @@ var MyPhillyRising = MyPhillyRising || {};
     template: '#ics-item-tpl'
   });
 
-  NS.EventCollectionView = Backbone.Marionette.CollectionView.extend({
+  NS.EventCollectionView = NS.PaginatedCompositeView.extend({
     itemView: NS.EventItemView
   });
 
@@ -76,7 +105,7 @@ var MyPhillyRising = MyPhillyRising || {};
     template: '#facebook-item-tpl'
   });
 
-  NS.StoryCollectionView = Backbone.Marionette.CollectionView.extend({
+  NS.StoryCollectionView = NS.PaginatedCompositeView.extend({
     itemView: NS.StoryItemView
   });
 
