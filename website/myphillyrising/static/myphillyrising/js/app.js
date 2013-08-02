@@ -76,27 +76,30 @@ var MyPhillyRising = MyPhillyRising || {};
       if (neighborhoodModel) {
         NS.app.vent.trigger('neighborhoodchange', neighborhoodModel);
 
-        itemModel = neighborhoodModel.collections[category].get(parseInt(id, 10));
-
-        if (!itemModel) {
-          itemModel = new A.ContentItemModel({id: parseInt(id, 10)});
-          itemModel.fetch();
-        }
-
         if (category === 'events') {
+          itemModel = neighborhoodModel.collections[category].get(parseInt(id, 10));
           NS.app.mainRegion.show(new NS.EventDetailView({
             model: itemModel
           }));
         } else if (category === 'resources') {
+          itemModel = neighborhoodModel.collections[category].get(parseInt(id, 10));
           NS.app.mainRegion.show(new NS.ResourceDetailView({
             model: itemModel
           }));
         } else if (category === 'stories') {
+          itemModel = neighborhoodModel.collections[category].get(parseInt(id, 10));
           NS.app.mainRegion.show(new NS.StoryDetailView({
             model: itemModel
           }));
         } else {
-          this.home();
+          this.neighborhoodHome(neighborhood);
+          NS.app.router.navigate(neighborhood, {replace: true});
+          return;
+        }
+
+        if (!itemModel) {
+          itemModel = new A.ContentItemModel({id: parseInt(id, 10)});
+          itemModel.fetch();
         }
       } else {
         this.home();
