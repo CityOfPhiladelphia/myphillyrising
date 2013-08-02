@@ -9,6 +9,12 @@ var MyPhillyRising = MyPhillyRising || {};
 
   // Views ====================================================================
 
+  // User Menu View ===================================================
+  NS.UserMenuView = Backbone.Marionette.ItemView.extend({
+    template: '#user-menu-tpl'
+  });
+
+
   // Neighborhood Menu View ===================================================
   NS.NeighborhoodMenuItemView = Backbone.Marionette.ItemView.extend({
     template: '#neighborhood-menu-item-tpl',

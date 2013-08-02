@@ -8,6 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^', include('social_auth.urls')),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout', kwargs={'next_page': '/'}),
     url(r'^djangoadmin/', include(admin.site.urls)),
 
     url(r'^', include(alexander.urls)),

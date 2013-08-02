@@ -4,7 +4,7 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.UserModel = Backbone.Model.extend({
     isAuthenticated: function() {
-      return this.isNew();
+      return !this.isNew();
     }
   });
 

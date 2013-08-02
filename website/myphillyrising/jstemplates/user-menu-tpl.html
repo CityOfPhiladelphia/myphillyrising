@@ -1,2 +1,11 @@
-<p><a href="{% url 'socialauth_begin' 'twitter' %}">Log in with Twitter</a></p>
-<p><a href="{% url 'socialauth_begin' 'facebook' %}">Log in with Facebook</a></p>
+{{# is_authenticated }}
+
+  <p>{{ username }}</p>
+  <p><a href="{{ logout_url }}">Log out</a></p>
+
+{{^}}
+
+  <p><a href="{{ login_url_for 'twitter' }}">Log in with Twitter</a></p>
+  <p><a href="{{ login_url_for 'facebook' }}">Log in with Facebook</a></p>
+
+{{/ is_authenticated }}

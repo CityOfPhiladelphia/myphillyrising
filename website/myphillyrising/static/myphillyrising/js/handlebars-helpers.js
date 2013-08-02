@@ -2,6 +2,10 @@
 var MyPhillyRising = MyPhillyRising || {};
 
 (function(NS) {
+  Handlebars.registerHelper('is_authenticated', function(options) {
+    return (NS.app.currentUser.isAuthenticated()) ? options.fn(this) : options.inverse(this);
+  });
+  
   Handlebars.registerHelper('is_current_neighborhood', function(options) {
     return (this.tag === NS.app.currentNeighborhood) ? options.fn(this) : options.inverse(this);
   });
@@ -12,6 +16,18 @@ var MyPhillyRising = MyPhillyRising || {};
 
   Handlebars.registerHelper('window_location', function() {
     return window.location.toString();
+  });
+
+  Handlebars.registerHelper('login_url_for', function(service) {
+    return NS.bootstrapped.baseUrl + 'login/' + service + '/';
+  });
+
+  Handlebars.registerHelper('logout_url', function() {
+    return NS.bootstrapped.baseUrl + 'logout/';
+  });
+
+  Handlebars.registerHelper('STATIC_URL', function() {
+    return NS.bootstrapped.staticUrl;
   });
 
   Handlebars.registerHelper('fromnow', function(datetime) {
