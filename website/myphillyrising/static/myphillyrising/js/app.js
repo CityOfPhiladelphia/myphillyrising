@@ -166,16 +166,16 @@ var MyPhillyRising = MyPhillyRising || {};
   // NS.app.addInitializer(NS.Map.initiadlizer);
 
   NS.app.addInitializer(function(options){
-    // TODO: Bootstrap data please
-    this.neighborhoodCollection = new A.NeighborhoodCollection(
-      NS.bootstrapped.neighborhoodData
-    );
+    this.neighborhoodCollection = new A.NeighborhoodCollection(NS.bootstrapped.neighborhoodData);
 
-    // Show the neighborhood menu
+    // Create the neighborhood menu
     NS.app.neighborhoodMenuView = new NS.NeighborhoodMenuView({
       collection: this.neighborhoodCollection
     });
     NS.app.neighborhoodMenuRegion.show(NS.app.neighborhoodMenuView);
+
+    // Crete the current user
+    this.currentUser = new NS.UserModel(NS.bootstrapped.currentUserData);
 
     console.log('make and start a router');
     // Construct a new app router
