@@ -37,7 +37,9 @@ var MyPhillyRising = MyPhillyRising || {};
 
       // TODO: Need users too!
       console.log('make a home page view', neighborhoodModel);
-      NS.app.mainRegion.show(new NS.HomeView());
+      NS.app.mainRegion.show(new NS.NeighborhoodHomeView({
+        model: neighborhoodModel
+      }));
     },
 
     neighborhoodCategoryList: function(neighborhood, category) {
@@ -100,8 +102,15 @@ var MyPhillyRising = MyPhillyRising || {};
     },
 
     home: function() {
-      NS.app.router.navigate('');
-      NS.app.mainRegion.show(new NS.HomeView());
+      // This is the default route - I could be anywhere
+      // if (NS.app.currentUser && NS.app.currentUser.neighborhood) {
+        // NS.app.router.navigate(NS.app.currentUser.neighborhood, {trigger: true});
+      // } else {
+        NS.app.router.navigate('', {replace: true});
+        NS.app.mainRegion.show(new NS.HomeView({
+          collection: NS.app.neighborhoodCollection
+        }));
+      // }
     }
   };
 
