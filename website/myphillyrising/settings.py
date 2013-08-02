@@ -156,8 +156,8 @@ COMMUNITY_APPS = (
 )
 
 PROJECT_SPECIFIC_APPS = (
-    'myphillyrising',
     'alexander',
+    'myphillyrising',
     'utils',
 )
 
