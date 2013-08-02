@@ -5,11 +5,11 @@ var MyPhillyRising = MyPhillyRising || {};
   Handlebars.registerHelper('is_authenticated', function(options) {
     return (NS.app.currentUser.isAuthenticated()) ? options.fn(this) : options.inverse(this);
   });
-  
+
   Handlebars.registerHelper('is_current_neighborhood', function(options) {
     return (this.tag === NS.app.currentNeighborhood) ? options.fn(this) : options.inverse(this);
   });
-  
+
   Handlebars.registerHelper('current_neighborhood', function() {
     return NS.app && NS.app.currentNeighborhood ? NS.app.currentNeighborhood : '';
   });

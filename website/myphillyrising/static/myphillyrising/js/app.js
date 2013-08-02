@@ -142,40 +142,18 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.app.addRegions({
     mainRegion: '#main-region',
+    headerRegion: '#header-region',
     neighborhoodMenuRegion: '#neighborhood-menu-region',
     userMenuRegion: '#user-menu-region'
   });
 
   // Initializers =============================================================
-
-  NS.app.addInitializer(function(options){
-    $(".btn-off-canvas-menu-left").click(function(e) {
-      // Re-render the neighborhood menu in case the currently-selected
-      // neighborhood has changed.
-      NS.app.neighborhoodMenuView.render();
-
-      $("body").removeClass("is-open-off-canvas-right");
-      $("body").toggleClass("is-open-off-canvas-left");
-      e.preventDefault();
-    });
-    $(".btn-off-canvas-menu-right").click(function(e) {
-      $("body").removeClass("is-open-off-canvas-left");
-      $("body").toggleClass("is-open-off-canvas-right");
-      e.preventDefault();
-    });
-    $(".btn-canvas-center").click(function(e) {
-      $("body").removeClass("is-open-off-canvas-left");
-      $("body").removeClass("is-open-off-canvas-right");
-      e.preventDefault();
-    });
-  });
-
-  // Init Map
-  // NS.app.addInitializer(NS.Map.initiadlizer);
-
   NS.app.addInitializer(function(options){
     this.neighborhoodCollection = new A.NeighborhoodCollection(NS.bootstrapped.neighborhoodData);
     this.currentUser = new NS.UserModel(NS.bootstrapped.currentUserData);
+
+    var headerView = new NS.HeaderView();
+    NS.app.headerRegion.show(headerView);
 
     // Create the neighborhood menu
     NS.app.neighborhoodMenuView = new NS.NeighborhoodMenuView({

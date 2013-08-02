@@ -14,6 +14,34 @@ var MyPhillyRising = MyPhillyRising || {};
     template: '#user-menu-tpl'
   });
 
+  // Header View
+  NS.HeaderView = Backbone.Marionette.Layout.extend({
+    template: '#header-tpl',
+    events: {
+      'click .btn-off-canvas-menu-left': 'showNeighborhoodMenu',
+      'click .btn-off-canvas-menu-right': 'showUserMenu',
+      'click .btn-canvas-center': 'hideMenus'
+    },
+    showNeighborhoodMenu: function(evt) {
+      // Re-render the neighborhood menu in case the currently-selected
+      // neighborhood has changed.
+      NS.app.neighborhoodMenuView.render();
+
+      $('body').removeClass('is-open-off-canvas-right');
+      $('body').toggleClass('is-open-off-canvas-left');
+      evt.preventDefault();
+    },
+    showUserMenu: function(evt) {
+      $('body').removeClass('is-open-off-canvas-left');
+      $('body').toggleClass('is-open-off-canvas-right');
+      evt.preventDefault();
+    },
+    hideMenus: function(evt) {
+      $('body').removeClass('is-open-off-canvas-left');
+      $('body').removeClass('is-open-off-canvas-right');
+      evt.preventDefault();
+    }
+  });
 
   // Neighborhood Menu View ===================================================
   NS.NeighborhoodMenuItemView = Backbone.Marionette.ItemView.extend({
