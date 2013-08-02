@@ -17,6 +17,9 @@ var MyPhillyRising = MyPhillyRising || {};
   // Header View
   NS.HeaderView = Backbone.Marionette.Layout.extend({
     template: '#header-tpl',
+    regions: {
+      descriptionRegion: '.site-description'
+    },
     events: {
       'click .btn-off-canvas-menu-left': 'showNeighborhoodMenu',
       'click .btn-off-canvas-menu-right': 'showUserMenu',
@@ -41,6 +44,10 @@ var MyPhillyRising = MyPhillyRising || {};
       $('body').removeClass('is-open-off-canvas-right');
       evt.preventDefault();
     }
+  });
+
+  NS.NeighborhoodLabelView = Backbone.Marionette.ItemView.extend({
+    template: '#neighborhood-label-tpl'
   });
 
   // Neighborhood Menu View ===================================================

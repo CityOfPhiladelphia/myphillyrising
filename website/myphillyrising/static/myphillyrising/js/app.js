@@ -32,81 +32,92 @@ var MyPhillyRising = MyPhillyRising || {};
     },
     neighborhoodHome: function(neighborhood) {
       var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood});
+      if (neighborhoodModel) {
+        NS.app.vent.trigger('neighborhoodchange', neighborhoodModel);
 
-      if (neighborhoodModel === undefined) {
+        // TODO: Need users too!
+        NS.app.mainRegion.show(new NS.NeighborhoodHomeView({
+          model: neighborhoodModel
+        }));
+      } else {
         this.home();
-        return;
       }
-
-      NS.app.currentNeighborhood = neighborhood;
-
-      // Init and update the content models if not already done
-      neighborhoodModel.initContentCollections();
-
-      // TODO: Need users too!
-      console.log('make a home page view', neighborhoodModel);
-      NS.app.mainRegion.show(new NS.NeighborhoodHomeView({
-        model: neighborhoodModel
-      }));
     },
 
     neighborhoodCategoryList: function(neighborhood, category) {
       var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood});
-      NS.app.currentNeighborhood = neighborhood;
-      // Init and update the content models if not already done
-      neighborhoodModel.initContentCollections();
+      if (neighborhoodModel) {
+        NS.app.vent.trigger('neighborhoodchange', neighborhoodModel);
 
-      if (category === 'events') {
-        NS.app.mainRegion.show(new NS.EventCollectionView({
-          collection: neighborhoodModel.collections[category]
-        }));
-      } else if (category === 'resources') {
-        NS.app.mainRegion.show(new NS.ResourceCollectionView({
-          collection: neighborhoodModel.collections[category]
-        }));
-      } else if (category === 'stories') {
-        NS.app.mainRegion.show(new NS.StoryCollectionView({
-          collection: neighborhoodModel.collections[category]
-        }));
+        if (category === 'events') {
+          NS.app.mainRegion.show(new NS.EventCollectionView({
+            collection: neighborhoodModel.collections[category]
+          }));
+        } else if (category === 'resources') {
+          NS.app.mainRegion.show(new NS.ResourceCollectionView({
+            collection: neighborhoodModel.collections[category]
+          }));
+        } else if (category === 'stories') {
+          NS.app.mainRegion.show(new NS.StoryCollectionView({
+            collection: neighborhoodModel.collections[category]
+          }));
+        } else {
+          this.neighborhoodHome(neighborhood);
+          NS.app.router.navigate(neighborhood, {replace: true});
+        }
+      } else {
+        this.home();
       }
     },
     neighborhoodCategoryItem: function(neighborhood, category, id) {
       var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood}),
-          view;
-      NS.app.currentNeighborhood = neighborhood;
+          view, itemModel;
 
-      // Init and update the content models if not already done
-      neighborhoodModel.initContentCollections();
+      if (neighborhoodModel) {
+        NS.app.vent.trigger('neighborhoodchange', neighborhoodModel);
 
-      var itemModel = neighborhoodModel.collections[category].get(parseInt(id, 10));
+        itemModel = neighborhoodModel.collections[category].get(parseInt(id, 10));
 
-      if (!itemModel) {
-        itemModel = new A.ContentItemModel({id: parseInt(id, 10)});
-        itemModel.fetch();
-      }
+        if (!itemModel) {
+          itemModel = new A.ContentItemModel({id: parseInt(id, 10)});
+          itemModel.fetch();
+        }
 
-      if (category === 'events') {
-        NS.app.mainRegion.show(new NS.EventDetailView({
-          model: itemModel
-        }));
-      } else if (category === 'resources') {
-        NS.app.mainRegion.show(new NS.ResourceDetailView({
-          model: itemModel
-        }));
-      } else if (category === 'stories') {
-        NS.app.mainRegion.show(new NS.StoryDetailView({
-          model: itemModel
-        }));
+        if (category === 'events') {
+          NS.app.mainRegion.show(new NS.EventDetailView({
+            model: itemModel
+          }));
+        } else if (category === 'resources') {
+          NS.app.mainRegion.show(new NS.ResourceDetailView({
+            model: itemModel
+          }));
+        } else if (category === 'stories') {
+          NS.app.mainRegion.show(new NS.StoryDetailView({
+            model: itemModel
+          }));
+        } else {
+          this.home();
+        }
+      } else {
+        this.home();
       }
     },
     neighborhoodMap: function(neighborhood) {
       var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood}),
-          view = new NS.MapView({
-            model: neighborhoodModel,
-            collection: new A.FacilitiesCollection([], {config: NS.Config.facilities})
-          });
-      NS.app.currentNeighborhood = neighborhood;
-      NS.app.mainRegion.show(view);
+          view;
+
+      if (neighborhoodModel) {
+        NS.app.vent.trigger('neighborhoodchange', neighborhoodModel);
+
+        view = new NS.MapView({
+          model: neighborhoodModel,
+          collection: new A.FacilitiesCollection([], {config: NS.Config.facilities})
+        });
+
+        NS.app.mainRegion.show(view);
+      } else {
+        this.home();
+      }
     },
 
     home: function() {
@@ -147,13 +158,27 @@ var MyPhillyRising = MyPhillyRising || {};
     userMenuRegion: '#user-menu-region'
   });
 
+  NS.app.vent.on('neighborhoodchange', function(neighborhoodModel){
+    // Update the neighborhood label when the neighborhood changes
+    NS.app.headerView.descriptionRegion.show(new NS.NeighborhoodLabelView({
+      model: neighborhoodModel
+    }));
+
+    // Init and update the content models if not already done
+    neighborhoodModel.initContentCollections();
+
+    // Set the current neighborhood tag
+    NS.app.currentNeighborhood = neighborhoodModel.get('tag');
+  });
+
   // Initializers =============================================================
   NS.app.addInitializer(function(options){
     this.neighborhoodCollection = new A.NeighborhoodCollection(NS.bootstrapped.neighborhoodData);
     this.currentUser = new NS.UserModel(NS.bootstrapped.currentUserData);
 
-    var headerView = new NS.HeaderView();
-    NS.app.headerRegion.show(headerView);
+    // Create the header
+    this.headerView = new NS.HeaderView();
+    NS.app.headerRegion.show(this.headerView);
 
     // Create the neighborhood menu
     NS.app.neighborhoodMenuView = new NS.NeighborhoodMenuView({
