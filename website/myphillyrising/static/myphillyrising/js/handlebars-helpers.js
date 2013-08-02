@@ -19,7 +19,7 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   Handlebars.registerHelper('login_url_for', function(service) {
-    return NS.bootstrapped.baseUrl + 'login/' + service + '/';
+    return NS.Utils.getLoginUrl({service: service});
   });
 
   Handlebars.registerHelper('logout_url', function() {

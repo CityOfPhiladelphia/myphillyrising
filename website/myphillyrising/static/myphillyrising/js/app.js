@@ -173,22 +173,7 @@ var MyPhillyRising = MyPhillyRising || {};
     this.neighborhoodCollection = new A.NeighborhoodCollection(NS.bootstrapped.neighborhoodData);
     this.currentUser = new NS.UserModel(NS.bootstrapped.currentUserData);
 
-    // Create the header
-    this.headerView = new NS.HeaderView();
-    NS.app.headerRegion.show(this.headerView);
-
-    // Create the neighborhood menu
-    NS.app.neighborhoodMenuView = new NS.NeighborhoodMenuView({
-      collection: this.neighborhoodCollection
-    });
-    NS.app.neighborhoodMenuRegion.show(NS.app.neighborhoodMenuView);
-
-    // Create the user menu
-    NS.app.userMenuView = new NS.UserMenuView({
-      model: this.currentUser
-    });
-    NS.app.userMenuRegion.show(NS.app.userMenuView);
-
+    console.log('make and start a router');
     // Construct a new app router
     this.router = new NS.Router({
       controller: NS.controller
@@ -214,6 +199,22 @@ var MyPhillyRising = MyPhillyRising || {};
     } else {
       Backbone.history.loadUrl(Backbone.history.getFragment());
     }
+
+    // Create the header
+    this.headerView = new NS.HeaderView();
+    NS.app.headerRegion.show(this.headerView);
+
+    // Create the neighborhood menu
+    NS.app.neighborhoodMenuView = new NS.NeighborhoodMenuView({
+      collection: this.neighborhoodCollection
+    });
+    NS.app.neighborhoodMenuRegion.show(NS.app.neighborhoodMenuView);
+
+    // Create the user menu
+    NS.app.userMenuView = new NS.UserMenuView({
+      model: this.currentUser
+    });
+    NS.app.userMenuRegion.show(NS.app.userMenuView);
 
     // Update login URLs when the route changes
     this.router.bind('route', function(route, router) {
