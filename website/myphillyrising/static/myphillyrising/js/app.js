@@ -17,7 +17,7 @@ var MyPhillyRising = MyPhillyRising || {};
     },
     navigate: function(fragment, options) {
       var __super__ = Backbone.Marionette.AppRouter.prototype,
-          path = NS.getCurrentPath();
+          path = NS.Utils.getCurrentPath();
       options = options || {};
 
       NS.scrollTops[path] = document.body.scrollTop || document.documentElement.scrollTop || 0;
@@ -145,12 +145,6 @@ var MyPhillyRising = MyPhillyRising || {};
     }
   };
 
-  NS.getCurrentPath = function() {
-    var root = Backbone.history.root,
-        fragment = Backbone.history.fragment;
-    return root + fragment;
-  };
-
   // App ======================================================================
   NS.app = new Backbone.Marionette.Application();
 
@@ -220,6 +214,20 @@ var MyPhillyRising = MyPhillyRising || {};
     } else {
       Backbone.history.loadUrl(Backbone.history.getFragment());
     }
+
+    // Update login URLs when the route changes
+    this.router.bind('route', function(route, router) {
+      $('.twitter-login-link').attr('href', NS.Utils.getLoginUrl({service: 'twitter'}));
+      $('.facebook-login-link').attr('href', NS.Utils.getLoginUrl({service: 'facebook'}));
+    });
+
+    // Scroll to the top, or to the last-known scroll position for the route
+    this.router.bind('route', function(route, router) {
+      var scrollTop = NS.scrollTops[NS.Utils.getCurrentPath()] || 0;
+      if (!this.noscroll) {
+        document.body.scrollTop = document.documentElement.scrollTop = scrollTop;
+      }
+    });
 
     // Globally capture clicks. If they are internal and not in the pass
     // through list, route them through Backbone's navigate method.
