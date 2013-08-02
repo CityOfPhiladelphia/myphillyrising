@@ -10,7 +10,7 @@
                 <span class="year">{{ prettyyear source_posted_at }}</span>
               </span>
               <span class="time">
-                <img class="icon-inline icon-time" src="static/images/gray-icon-clock.png" /><span class="time-start">{{ prettytime source_content.DTSTART }}</span>
+                <img class="icon-inline icon-time" src="{{ STATIC_URL }}myphillyrising/images/gray-icon-clock.png" /><span class="time-start">{{ prettytime source_content.DTSTART }}</span>
                 {{#if source_content.DTEND}}
                 to <span class="time-end">{{ prettytime source_content.DTEND }}</span>
                 {{/if}}
@@ -18,7 +18,7 @@
             </time>
           </p>
           {{#if source_content.LOCATION}}
-          <p class="location"><img class="icon-inline icon-location" src="static/images/gray-icon-map.png" />{{{ source_content.LOCATION }}}</p>
+          <p class="location"><img class="icon-inline icon-location" src="{{ STATIC_URL }}myphillyrising/images/gray-icon-map.png" />{{{ source_content.LOCATION }}}</p>
           {{/if}}
         </div>
       </div>
