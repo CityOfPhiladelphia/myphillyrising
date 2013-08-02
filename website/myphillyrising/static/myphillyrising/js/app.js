@@ -125,14 +125,14 @@ var MyPhillyRising = MyPhillyRising || {};
 
     home: function() {
       // This is the default route - I could be anywhere
-      // if (NS.app.currentUser && NS.app.currentUser.neighborhood) {
-        // NS.app.router.navigate(NS.app.currentUser.neighborhood, {trigger: true});
-      // } else {
+      if (NS.app.currentUser && NS.app.currentUser.has('neighborhood')) {
+        NS.app.router.navigate(NS.app.currentUser.get('neighborhood'), {trigger: true});
+      } else {
         NS.app.router.navigate('', {replace: true});
         NS.app.mainRegion.show(new NS.HomeView({
           collection: NS.app.neighborhoodCollection
         }));
-      // }
+      }
     },
 
     facebookAuthRedirect: function() {
