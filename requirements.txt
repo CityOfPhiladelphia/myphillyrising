@@ -34,11 +34,13 @@ django-celery
 
 
 # ==============================
-# Feeds
+# Web Data Wrappers
 # ==============================
 
 feedparser  # RSS / ATOM
 icalendar  # iCal
+twitter
+facebook-sdk
 
 
 
