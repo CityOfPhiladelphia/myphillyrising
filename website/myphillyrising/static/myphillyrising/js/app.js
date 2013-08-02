@@ -32,7 +32,14 @@ var MyPhillyRising = MyPhillyRising || {};
     },
     neighborhoodHome: function(neighborhood) {
       var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood});
+
+      if (neighborhoodModel === undefined) {
+        this.home();
+        return;
+      }
+
       NS.app.currentNeighborhood = neighborhood;
+
       // Init and update the content models if not already done
       neighborhoodModel.initContentCollections();
 
