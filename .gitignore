@@ -34,6 +34,10 @@ nosetests.xml
 .project
 .pydevproject
 
+# Dotcloud
+.dotcloud/
+
+# Environment
 env/
 .env/
 *.sublime-project

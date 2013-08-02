@@ -91,10 +91,46 @@ if [ `dotcloud_get_env DOTCLOUD_SERVICE_NAME` = workers ] ; then
     setup_django_celery
 fi
 
-echo "Setting up static file service..."
-safe website/manage.py collectstatic --noinput
+if [ `dotcloud_get_env DOTCLOUD_SERVICE_NAME` = www ] ; then
+    echo "Install node and npm"
+    wget http://nodejs.org/dist/v0.10.13/node-v0.10.13-linux-x64.tar.gz
+    tar -xzf node-v0.10.13-linux-x64.tar.gz
+    export PATH=$PATH:`pwd`/node-v0.10.13-linux-x64/bin
+
+    which node
+    which npm
+
+    echo "Install bower and grunt"
+    npm install -g bower grunt-cli
+
+    echo "Fetch client dependencies for myphillyrising"
+    cd website/myphillyrising
+    bower install
+
+    echo "Minify client dependencies"
+    npm install
+    grunt
+    cd ../..
+
+    echo "Fetch client dependencies for alexander"
+    cd website/alexander
+    bower install
+
+    echo "Minify client dependencies"
+    npm install
+    grunt
+    cd ../..
+
+    echo "Setting up static file service..."
+    safe website/manage.py collectstatic --noinput
+fi
 
 echo "Configuring nginx to serve static files..."
 cat >> nginx.conf <<EOF
-location /static/ { root /home/dotcloud/current ; }
+location /static/ {
+    root /home/dotcloud/current ;
+    expires max;
+}
+gzip on;
+gzip_types       text/plain application/json application/x-javascript text/css text/html;
 EOF
