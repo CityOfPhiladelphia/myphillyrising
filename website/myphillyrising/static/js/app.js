@@ -7,6 +7,7 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.scrollTops = {};
   NS.Router = Backbone.Marionette.AppRouter.extend({
     appRoutes: {
+      'about': 'about',
       ':neighborhood': 'neighborhoodHome',
       ':neighborhood/map': 'neighborhoodMap',
       ':neighborhood/:category': 'neighborhoodCategoryList',
@@ -25,6 +26,9 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.controller = {
+    about: function() {
+      NS.app.mainRegion.show(new NS.AboutView());
+    },
     neighborhoodHome: function(neighborhood) {
       var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood});
       NS.app.currentNeighborhood = neighborhood;
@@ -122,7 +126,7 @@ var MyPhillyRising = MyPhillyRising || {};
       // Re-render the neighborhood menu in case the currently-selected
       // neighborhood has changed.
       NS.app.neighborhoodMenuView.render();
-      
+
       $("body").removeClass("is-open-off-canvas-right");
       $("body").toggleClass("is-open-off-canvas-left");
       e.preventDefault();

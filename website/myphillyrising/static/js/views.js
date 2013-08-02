@@ -171,4 +171,8 @@ var MyPhillyRising = MyPhillyRising || {};
     }
   });
 
+  NS.AboutView = Backbone.Marionette.ItemView.extend({
+    template: '#about-tpl'
+  });
+
 }(MyPhillyRising));
