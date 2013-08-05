@@ -175,7 +175,7 @@ var MyPhillyRising = MyPhillyRising || {};
 
       this.map = L.map('map', {
         layers: [baseLayer],
-        center: this.model.get('center'),
+        center: [this.model.get('center_lat'), this.model.get('center_lng')],
         zoom: 13
       });
 
@@ -188,7 +188,7 @@ var MyPhillyRising = MyPhillyRising || {};
       this.listenTo(this.collection, 'add', this.addMarker);
 
       this.collection.fetch({
-        center: this.model.get('center')
+        center: [this.model.get('center_lat'), this.model.get('center_lng')]
       });
     },
     addMarker: function(model, collection, options) {
