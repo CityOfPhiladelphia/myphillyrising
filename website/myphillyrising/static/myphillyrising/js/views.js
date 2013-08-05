@@ -301,7 +301,7 @@ var MyPhillyRising = MyPhillyRising || {};
       // Add .is-selected to the item
       $el.addClass('is-selected');
       // Move it into view
-      $('.map-content').scrollTop($el.get(0).offsetTop);
+      this.$('.map-list-container').scrollTop($el.get(0).offsetTop);
     }
   });
 
