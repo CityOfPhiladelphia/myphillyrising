@@ -375,7 +375,7 @@ a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighb
 }
 .neighborhood-title {
   font-size: 1.2em;
-/*  font-weight: 400;*/
+  font-weight: 400;
   top: 0;
   right: -3em;
   bottom: 0;
@@ -391,7 +391,7 @@ a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighb
   position: absolute;
   top: auto;
   right: 3em;
-  bottom: 5px;
+  bottom: 8px;
   left: 3em;
   line-height: 1.25;
   padding-left: 10px;
