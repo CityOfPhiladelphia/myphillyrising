@@ -173,6 +173,10 @@ var MyPhillyRising = MyPhillyRising || {};
     this.neighborhoodCollection = new A.NeighborhoodCollection(NS.bootstrapped.neighborhoodData);
     this.currentUser = new NS.UserModel(NS.bootstrapped.currentUserData);
 
+    // Create the header
+    this.headerView = new NS.HeaderView();
+    NS.app.headerRegion.show(this.headerView);
+
     console.log('make and start a router');
     // Construct a new app router
     this.router = new NS.Router({
@@ -199,10 +203,6 @@ var MyPhillyRising = MyPhillyRising || {};
     } else {
       Backbone.history.loadUrl(Backbone.history.getFragment());
     }
-
-    // Create the header
-    this.headerView = new NS.HeaderView();
-    NS.app.headerRegion.show(this.headerView);
 
     // Create the neighborhood menu
     NS.app.neighborhoodMenuView = new NS.NeighborhoodMenuView({
