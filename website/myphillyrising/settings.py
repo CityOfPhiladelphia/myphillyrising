@@ -116,6 +116,22 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+SOCIAL_AUTH_PIPELINE = (
+    'social_auth.backends.pipeline.social.social_auth_user',
+    'social_auth.backends.pipeline.associate.associate_by_email',
+    'social_auth.backends.pipeline.user.get_username',
+    'social_auth.backends.pipeline.user.create_user',
+    'social_auth.backends.pipeline.social.associate_user',
+    'social_auth.backends.pipeline.social.load_extra_data',
+    'social_auth.backends.pipeline.user.update_user_details',
+
+    # Set up or update the myPhillyRising profile
+    'myphillyrising.social_auth.get_user_profile',
+    'myphillyrising.social_auth.update_user_profile',
+)
+
+FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id,name,email,picture.type(large),first_name,last_name,bio'}
+
 LOGIN_URL          = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL    = '/'

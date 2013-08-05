@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from views import app_view
+from views import app_view, api_router
 import alexander.urls
 
 # Uncomment the next two lines to enable the admin:
@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^djangoadmin/', include(admin.site.urls)),
 
     url(r'^', include(alexander.urls)),
+    url(r'^api/', include(api_router.urls)),
 
     url(r'^', app_view, name='app'),
 )

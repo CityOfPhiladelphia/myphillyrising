@@ -1,6 +1,7 @@
 {{# is_authenticated }}
 
-  <p>{{ username }}</p>
+  <p>{{ full_name }}</p>
+  <img src="{{ avatar_url }}" alt="{{ username }}">
   <p><a href="{{ logout_url }}">Log out</a></p>
 
 {{^}}

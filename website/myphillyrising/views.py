@@ -1,9 +1,19 @@
 from django.views.generic import TemplateView
-from myphillyrising.models import Neighborhood
+from rest_framework.routers import DefaultRouter
+from rest_framework.viewsets import ModelViewSet
+from myphillyrising.models import Neighborhood, User, UserProfile
 from myphillyrising.serializers import NeighborhoodSerializer, UserSerializer
 
 
-class AppView (TemplateView):
+class MyPhillyRisingViewMixin (object):
+    def get_user_queryset(self):
+        return User.objects.all()\
+            .select_related('profile')\
+            .exclude(profile=None)\
+            .select_related('profile__neighborhood')
+
+
+class AppView (MyPhillyRisingViewMixin, TemplateView):
     template_name = 'myphillyrising/index.html'
 
     def get_neighborhood_data(self):
@@ -14,8 +24,13 @@ class AppView (TemplateView):
     def get_current_user_data(self):
         current_user = self.request.user
         if current_user.is_authenticated():
-            serializer = UserSerializer(current_user)
-            return serializer.data
+            try:
+                current_user.profile
+            except UserProfile.DoesNotExist:
+                return {}
+            else:
+                serializer = UserSerializer(current_user)
+                return serializer.data
         else:
             return {}
 
@@ -26,5 +41,22 @@ class AppView (TemplateView):
         context['NS'] = 'MyPhillyRising'
         return context
 
+
+class UserViewSet (MyPhillyRisingViewMixin, ModelViewSet):
+    model = User
+    serializer_class = UserSerializer
+    paginate_by = 20
+
+    def get_queryset(self):
+        return User.objects.all()\
+            .select_related('profile')\
+            .exclude(profile=None)\
+            .select_related('profile__neighborhood')
+
+
 # Views
 app_view = AppView.as_view()
+
+# Setup the API routes
+api_router = DefaultRouter(trailing_slash=False)
+api_router.register('users', UserViewSet)
