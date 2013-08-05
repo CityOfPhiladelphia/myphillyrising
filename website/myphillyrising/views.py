@@ -48,10 +48,16 @@ class UserViewSet (MyPhillyRisingViewMixin, ModelViewSet):
     paginate_by = 20
 
     def get_queryset(self):
-        return User.objects.all()\
+        queryset = User.objects.all()\
             .select_related('profile')\
             .exclude(profile=None)\
             .select_related('profile__neighborhood')
+
+        neighborhoods = self.request.GET.getlist('neighborhood')
+        if (neighborhoods):
+            queryset = queryset.filter(profile__neighborhood__tag_id__in=neighborhoods)
+
+        return queryset
 
 
 # Views

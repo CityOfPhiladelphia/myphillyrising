@@ -170,7 +170,7 @@ var MyPhillyRising = MyPhillyRising || {};
 
   // Initializers =============================================================
   NS.app.addInitializer(function(options){
-    this.neighborhoodCollection = new A.NeighborhoodCollection(NS.bootstrapped.neighborhoodData);
+    this.neighborhoodCollection = new NS.NeighborhoodCollection(NS.bootstrapped.neighborhoodData);
     this.currentUser = new NS.UserModel(NS.bootstrapped.currentUserData);
 
     // Create the header

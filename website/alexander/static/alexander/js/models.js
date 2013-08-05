@@ -216,49 +216,4 @@ var Alexander = Alexander || {};
       return NS.NeighborhoodCategoryCollection.__super__.fetch.call(this, options);
     }
   });
-
-  NS.NeighborhoodModel = Backbone.Model.extend({
-    initialize: function() {
-      this.collections = {
-        events: new NS.NeighborhoodCategoryCollection([], {
-          category: 'events',
-          neighborhood: this.get('tag')
-        }),
-
-        resources: new NS.NeighborhoodCategoryCollection([], {
-          category: 'resources',
-          neighborhood: this.get('tag')
-        }),
-
-        stories: new NS.NeighborhoodCategoryCollection([], {
-          category: 'stories',
-          neighborhood: this.get('tag')
-        })
-      };
-    },
-
-    fetchCollectionData: function() {
-      if (!this.collections.events.isSynced) {
-        this.collections.events.fetch({
-          reset: true
-        });
-      }
-
-      if (!this.collections.resources.isSynced) {
-        this.collections.resources.fetch({
-          reset: true
-        });
-      }
-
-      if (!this.collections.stories.isSynced) {
-        this.collections.stories.fetch({
-          reset: true
-        });
-      }
-    }
-  });
-
-  NS.NeighborhoodCollection = Backbone.Collection.extend({
-    model: NS.NeighborhoodModel
-  });
 }(Alexander));

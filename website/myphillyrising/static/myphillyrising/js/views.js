@@ -115,6 +115,9 @@ var MyPhillyRising = MyPhillyRising || {};
       resourcesRegion1: '.resources-region1'
     },
     initialize: function() {
+      this.listenTo(this.model.collections.users, 'reset', function() {
+        this.renderUsers();
+      });
       this.listenTo(this.model.collections.events, 'reset', function() {
         this.renderEvents();
       });
@@ -126,6 +129,9 @@ var MyPhillyRising = MyPhillyRising || {};
       });
     },
     onRender: function() {
+      if(this.model.collections.users.isSynced) {
+        this.renderUsers();
+      }
       if(this.model.collections.events.isSynced) {
         this.renderEvents();
       }
@@ -135,6 +141,32 @@ var MyPhillyRising = MyPhillyRising || {};
       if(this.model.collections.stories.isSynced) {
         this.renderStories();
       }
+    },
+    renderUsers: function() {
+      console.log('render users for', this.model.get('tag'));
+
+      if (this.model.collections.users.length < 6) {
+        this.usersRegion1.show(new NS.HomeUserListView({
+          model: this.model,
+          collection: new Backbone.Collection(this.model.collections.users.slice(0, 3))
+        }));
+        this.usersRegion2.show(new NS.HomeUserListView({
+          model: this.model,
+          collection: new Backbone.Collection(this.model.collections.users.slice(3, 6))
+        }));
+      }
+
+      else {
+        this.usersRegion1.show(new NS.HomeUserListView({
+          model: this.model,
+          collection: new Backbone.Collection(this.model.collections.users.slice(0, 6))
+        }));
+        this.usersRegion2.show(new NS.HomeUserListView({
+          model: this.model,
+          collection: new Backbone.Collection(this.model.collections.users.slice(6, 10))
+        }));
+      }
+
     },
     renderEvents: function() {
       console.log('render events for', this.model.get('tag'));
@@ -240,6 +272,18 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.HomeStoryListView = Backbone.Marionette.CompositeView.extend({
     template: '#home-story-list-tpl',
     itemView: NS.HomeEventItemView,
+    itemViewContainer: '.item-view-container'
+  });
+
+  // User Views ==============================================================
+  NS.HomeUserItemView = Backbone.Marionette.ItemView.extend({
+    template: '#home-user-tpl',
+    tagName: 'li'
+  });
+
+  NS.HomeUserListView = Backbone.Marionette.CompositeView.extend({
+    template: '#home-user-list-tpl',
+    itemView: NS.HomeUserItemView,
     itemViewContainer: '.item-view-container'
   });
 
