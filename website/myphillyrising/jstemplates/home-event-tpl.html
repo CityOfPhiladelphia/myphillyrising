@@ -1,0 +1,5 @@
+{{ title }}
+<span class="time-start">{{ prettytime source_content.DTSTART }}</span>
+{{#if source_content.DTEND}}
+to <span class="time-end">{{ prettytime source_content.DTEND }}</span>
+{{/if}}

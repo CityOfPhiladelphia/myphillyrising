@@ -203,6 +203,10 @@ var Alexander = Alexander || {};
     initialize: function(data, options) {
       this.neighborhood = options.neighborhood;
       this.category = options.category;
+
+      this.on('sync', function() {
+        this.isSynced = true;
+      }, this);
     },
     fetch: function(options) {
       options = options ? _.clone(options) : {};
@@ -214,35 +218,42 @@ var Alexander = Alexander || {};
   });
 
   NS.NeighborhoodModel = Backbone.Model.extend({
-    collections: {
-      events: null,
-      resources: null,
-      stories: null
-    },
-
-    initContentCollections: function() {
-      if (!this.collections.events) {
-        this.collections.events = new NS.NeighborhoodCategoryCollection([], {
+    initialize: function() {
+      this.collections = {
+        events: new NS.NeighborhoodCategoryCollection([], {
           category: 'events',
           neighborhood: this.get('tag')
-        });
-        this.collections.events.fetch();
-      }
+        }),
 
-      if (!this.collections.resources) {
-        this.collections.resources = new NS.NeighborhoodCategoryCollection([], {
+        resources: new NS.NeighborhoodCategoryCollection([], {
           category: 'resources',
           neighborhood: this.get('tag')
-        });
-        this.collections.resources.fetch();
-      }
+        }),
 
-      if (!this.collections.stories) {
-        this.collections.stories = new NS.NeighborhoodCategoryCollection([], {
+        stories: new NS.NeighborhoodCategoryCollection([], {
           category: 'stories',
           neighborhood: this.get('tag')
+        })
+      };
+    },
+
+    fetchCollectionData: function() {
+      if (!this.collections.events.isSynced) {
+        this.collections.events.fetch({
+          reset: true
         });
-        this.collections.stories.fetch();
+      }
+
+      if (!this.collections.resources.isSynced) {
+        this.collections.resources.fetch({
+          reset: true
+        });
+      }
+
+      if (!this.collections.stories.isSynced) {
+        this.collections.stories.fetch({
+          reset: true
+        });
       }
     }
   });

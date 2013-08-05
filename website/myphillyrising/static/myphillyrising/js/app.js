@@ -167,8 +167,8 @@ var MyPhillyRising = MyPhillyRising || {};
       model: neighborhoodModel
     }));
 
-    // Init and update the content models if not already done
-    neighborhoodModel.initContentCollections();
+    // Fetch the content models if not already done
+    neighborhoodModel.fetchCollectionData();
 
     // Set the current neighborhood tag
     NS.app.currentNeighborhood = neighborhoodModel.get('tag');
@@ -195,7 +195,6 @@ var MyPhillyRising = MyPhillyRising || {};
     });
     NS.app.userMenuRegion.show(NS.app.userMenuView);
 
-    console.log('make and start a router');
     // Construct a new app router
     this.router = new NS.Router({
       controller: NS.controller

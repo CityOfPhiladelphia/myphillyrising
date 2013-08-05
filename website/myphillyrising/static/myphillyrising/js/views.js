@@ -105,7 +105,50 @@ var MyPhillyRising = MyPhillyRising || {};
 
   // Home View ================================================================
   NS.NeighborhoodHomeView = Backbone.Marionette.Layout.extend({
-    template: '#neighborhood-home-tpl'
+    template: '#neighborhood-home-tpl',
+    regions: {
+      usersRegion1: '.users-region1',
+      eventsRegion1: '.events-region1',
+      storiesRegion1: '.stories-region1',
+      usersRegion2: '.users-region2',
+      resourcesRegion1: '.resources-region1'
+    },
+    initialize: function() {
+      this.listenTo(this.model.collections.events, 'reset', function() {
+        this.renderEvents();
+      });
+      this.listenTo(this.model.collections.resources, 'reset', function() {
+        this.renderResources();
+      });
+      this.listenTo(this.model.collections.stories, 'reset', function() {
+        this.renderStories();
+      });
+    },
+    onRender: function() {
+      if(this.model.collections.events.isSynced) {
+        this.renderEvents();
+      }
+      if(this.model.collections.resources.isSynced) {
+        this.renderResources();
+      }
+      if(this.model.collections.stories.isSynced) {
+        this.renderStories();
+      }
+    },
+    renderEvents: function() {
+      console.log('render events for', this.model.get('tag'));
+
+      this.eventsRegion1.show(new NS.HomeEventListView({
+        model: this.model,
+        collection: new Backbone.Collection(this.model.collections.events.slice(0, 1))
+      }));
+    },
+    renderResources: function() {
+      console.log('render resources for', this.model.get('tag'));
+    },
+    renderStories: function() {
+      console.log('render stories for', this.model.get('tag'));
+    }
   });
 
   NS.HomeView = Backbone.Marionette.CompositeView.extend({
@@ -140,6 +183,17 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.EventCollectionView = NS.PaginatedCompositeView.extend({
     itemView: NS.EventItemView
+  });
+
+  NS.HomeEventItemView = Backbone.Marionette.ItemView.extend({
+    template: '#home-event-tpl',
+    tagName: 'li'
+  });
+
+  NS.HomeEventListView = Backbone.Marionette.CompositeView.extend({
+    template: '#home-event-list-tpl',
+    itemView: NS.HomeEventItemView,
+    itemViewContainer: '.item-view-container'
   });
 
   // Story Views ==============================================================
