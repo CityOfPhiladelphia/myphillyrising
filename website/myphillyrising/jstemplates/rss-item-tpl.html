@@ -1,11 +1,11 @@
     <article class="feed-item">
-      <div class="feed-item-header">
-        <h3 class="feed-item-title"><a href="/{{current_neighborhood}}/{{category}}/{{id}}">{{{ title }}}</a></h3>
+      <div class="item-header feed-item-header">
+        <h3 class="item-title feed-item-title"><a href="/{{current_neighborhood}}/{{category}}/{{id}}">{{{ title }}}</a></h3>
       </div>
-      <div class="feed-item-content">
+      <div class="item-content feed-item-content">
         <p>{{{ source_content.summary }}}</p>
       </div>
-      <div class="feed-item-meta">
+      <div class="item-meta feed-item-meta">
         <p class="updated">Last updated {{ prettydate updated_at }}.</p>
       </div>
     </article>

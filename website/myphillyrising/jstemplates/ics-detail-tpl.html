@@ -1,10 +1,10 @@
   <article class="event-item detail-event-item detail-item">
 
-    <a href="#" class="close-btn page-close-btn"><span class="close-icon">&times;</span><span class="close-text is-hidden">Close</span></a>
+    <a href="#" class="close-btn detail-close-btn"><span class="close-icon">&times;</span><span class="close-text is-hidden">Close</span></a>
 
-    <div class="page-header">
-      <h3 class="page-title">{{{ title }}}</h3>
-      <div class="page-meta">
+    <div class="item-header detail-header event-item-header">
+      <h3 class="item-title detail-title">{{{ title }}}</h3>
+      <div class="item-meta detail-meta">
         <p class="date"><a href="#" title="Permalink to {{ title }}" rel="bookmark">
           <time datetime="{{ source_posted_at }}">
             <span class="calendar-icon">
@@ -13,7 +13,7 @@
               <span class="year">{{ prettyyear source_posted_at }}</span>
             </span>
             <span class="time">
-              <img class="icon-inline icon-time" src="static/images/icon-clock.png" /><span class="time-start">{{ prettytime source_content.DTSTART }}</span>
+              <img class="icon-inline icon-time" src="{{ STATIC_URL }}myphillyrising/images/icon-clock.png" /><span class="time-start">{{ prettytime source_content.DTSTART }}</span>
               {{#if source_content.DTEND}}
               to <span class="time-end">{{ prettytime source_content.DTEND }}</span>
               {{/if}}
@@ -21,12 +21,12 @@
           </time>
         </a></p>
         {{#if source_content.LOCATION}}
-        <p class="location"><img class="icon-inline icon-location" src="static/images/icon-location.png" />{{{ source_content.LOCATION }}}</p>
+        <p class="location"><img class="icon-inline icon-location" src="{{ STATIC_URL }}myphillyrising/images/icon-location.png" />{{{ source_content.LOCATION }}}</p>
         {{/if}}
       </div>
     </div>
 
-    <div class="page-content">
+    <div class="item-content detail-content">
       {{{ source_content.DESCRIPTION }}}
     </div>
 

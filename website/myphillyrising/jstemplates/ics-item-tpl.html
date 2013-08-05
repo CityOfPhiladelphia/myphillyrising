@@ -1,7 +1,7 @@
     <article class="feed-item event-item">
-      <div class="feed-item-header">
-        <h3 class="feed-item-title"><a href="/{{current_neighborhood}}/{{category}}/{{id}}">{{ title }}</a></h3>
-        <div class="feed-item-meta">
+      <div class="item-header feed-item-header event-item-header">
+        <h3 class="item-title feed-item-title"><a href="/{{current_neighborhood}}/{{category}}/{{id}}">{{ title }}</a></h3>
+        <div class="item-meta feed-item-meta">
           <p class="date">
             <time datetime="{{ source_posted_at }}">
               <span class="calendar-icon">
@@ -22,7 +22,7 @@
           {{/if}}
         </div>
       </div>
-      <div class="feed-item-content">
+      <div class="item-content feed-item-content">
         <p>{{{ source_content.DESCRIPTION }}}</p>
       </div>
     </article>
