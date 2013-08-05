@@ -145,9 +145,19 @@ var MyPhillyRising = MyPhillyRising || {};
     },
     renderResources: function() {
       console.log('render resources for', this.model.get('tag'));
+
+      this.resourcesRegion1.show(new NS.HomeResourceListView({
+        model: this.model,
+        collection: new Backbone.Collection(this.model.collections.resources.slice(0, 1))
+      }));
     },
     renderStories: function() {
       console.log('render stories for', this.model.get('tag'));
+
+      this.storiesRegion1.show(new NS.HomeStoryListView({
+        model: this.model,
+        collection: new Backbone.Collection(this.model.collections.stories.slice(0, 3))
+      }));
     }
   });
 
@@ -169,6 +179,17 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.ResourceCollectionView = NS.PaginatedCompositeView.extend({
     itemView: NS.ResourceItemView
+  });
+
+  NS.HomeResourceItemView = Backbone.Marionette.ItemView.extend({
+    template: '#home-resource-tpl',
+    tagName: 'li'
+  });
+
+  NS.HomeResourceListView = Backbone.Marionette.CompositeView.extend({
+    template: '#home-resource-list-tpl',
+    itemView: NS.HomeResourceItemView,
+    itemViewContainer: '.item-view-container'
   });
 
   // Event Views ==============================================================
@@ -208,6 +229,17 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.StoryCollectionView = NS.PaginatedCompositeView.extend({
     itemView: NS.StoryItemView
+  });
+
+  NS.HomeStoryItemView = Backbone.Marionette.ItemView.extend({
+    template: '#home-story-tpl',
+    tagName: 'li'
+  });
+
+  NS.HomeStoryListView = Backbone.Marionette.CompositeView.extend({
+    template: '#home-story-list-tpl',
+    itemView: NS.HomeEventItemView,
+    itemViewContainer: '.item-view-container'
   });
 
   // Map Views ==============================================================
