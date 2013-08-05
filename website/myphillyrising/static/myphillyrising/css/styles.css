@@ -375,10 +375,9 @@ a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighb
 .neighborhood-header .map-container {
   margin: 0;
 }
-
 .neighborhood-title {
   font-size: 1.2em;
-  font-weight: 400;
+/*  font-weight: 400;*/
   top: 0;
   right: -3em;
   bottom: 0;
@@ -403,6 +402,33 @@ a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighb
 }
 .neighborhood-content {
   margin: 0 -10px;
+}
+.neighborhood-widget {
+  margin: 0;
+  padding: 0;
+}
+.users-region1 {}
+.events-region1 {
+  float: right;
+  width: 40%;
+  background: #FF6B6B;
+  color: #fff;
+}
+.events-region1 a {
+  color: #fff;
+}
+.resources-region1 {
+  float: left;
+  width: 60%;
+  background: CornflowerBlue;
+  color: #fff;
+}
+.users-region2 {
+}
+.stories-region1 {
+  float: left;
+  width: 60%;
+  background: #caf445;
 }
 
 .item-header {
