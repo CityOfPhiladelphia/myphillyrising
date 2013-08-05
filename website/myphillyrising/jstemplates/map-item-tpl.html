@@ -1,10 +1,10 @@
             <li class="map-list-item feed-item" id="map-list-item-{{ id }}" data-id="{{ id }}">
-              <div class="feed-item-header">
-                <h3 class="feed-item-title">{{ name }}</h3>
+              <div class="item-header feed-item-header map-item-header">
+                <h3 class="item-title feed-item-title map-item-title">{{ name }}</h3>
               </div>
-              <div class="feed-item-meta">
+              <div class="item-meta feed-item-meta map-item-meta">
                 <span>{{ label }}</span> /
-                <span class="address"><img class="icon-inline map-list-icon" src="static/images/black-icon-map.png" />{{ address }}</span>&nbsp;
+                <span class="address"><img class="icon-inline map-list-icon" src="{{ STATIC_URL }}myphillyrising/images/black-icon-map.png" />{{ address }}</span><br>
                 <a href="http://maps.google.com/?near=Philadelphia, PA&q={{address}}" target="_blank" class="google-maps-link is-visuallyhidden">Google Maps</a>
               </div>
             </li>

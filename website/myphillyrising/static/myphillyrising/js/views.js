@@ -47,7 +47,8 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.NeighborhoodLabelView = Backbone.Marionette.ItemView.extend({
-    template: '#neighborhood-label-tpl'
+    template: '#neighborhood-label-tpl',
+    tagName: 'span'
   });
 
   // Neighborhood Menu View ===================================================
