@@ -5,7 +5,7 @@ from django.conf import settings
 
 class Neighborhood (models.Model):
     name = models.CharField(max_length=100)
-    tag = models.OneToOneField('alexander.ContentTag')
+    tag = models.OneToOneField('alexander.ContentTag', primary_key=True)
     center_lat = models.FloatField()
     center_lng = models.FloatField()
     description = models.TextField()
