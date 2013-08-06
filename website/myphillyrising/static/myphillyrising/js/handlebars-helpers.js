@@ -1,7 +1,14 @@
-/*globals Handlebars moment */
+/*globals Handlebars moment _ $ */
 var MyPhillyRising = MyPhillyRising || {};
 
 (function(NS) {
+    function getTweetText (text) {
+    var url = window.location.toString(),
+        urlLength = NS.twitterConf.short_url_length,
+        len = 140 - urlLength - 1;
+    return NS.Utils.truncateChars(text, len);
+  }
+
   Handlebars.registerHelper('is_authenticated', function(options) {
     return (NS.app.currentUser.isAuthenticated()) ? options.fn(this) : options.inverse(this);
   });
@@ -108,4 +115,7 @@ var MyPhillyRising = MyPhillyRising || {};
 
     return $el.html();
   });
+  Handlebars.registerHelper('truncatechars', NS.Utils.truncateChars);
+
+  Handlebars.registerHelper('TWEET_TEXT', getTweetText);
 }(MyPhillyRising));

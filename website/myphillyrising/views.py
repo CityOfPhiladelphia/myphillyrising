@@ -1,8 +1,10 @@
+import json
 from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
 from rest_framework.viewsets import ModelViewSet
 from myphillyrising.models import Neighborhood, User, UserProfile
 from myphillyrising.serializers import NeighborhoodSerializer, UserSerializer, LoggedInUserSerializer
+from myphillyrising.services import default_twitter_service
 
 
 class MyPhillyRisingViewMixin (object):
@@ -38,6 +40,7 @@ class AppView (MyPhillyRisingViewMixin, TemplateView):
         context = super(AppView, self).get_context_data(**kwargs)
         context['neighborhood_data'] = self.get_neighborhood_data()
         context['current_user_data'] = self.get_current_user_data()
+        context['twitter_config'] = json.dumps(default_twitter_service.get_config())
         context['NS'] = 'MyPhillyRising'
         return context
 

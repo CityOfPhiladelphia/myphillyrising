@@ -25,6 +25,7 @@ module.exports = function(grunt) {
           {
             dest: 'static/js/app.min.js',
             src: [
+              'static/js/utils.js',
               'static/js/handlebars-helpers.js',
               'static/js/config.js',
               '../alexander/static/js/utils.js',

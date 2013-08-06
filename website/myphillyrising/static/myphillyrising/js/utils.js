@@ -19,6 +19,19 @@ var MyPhillyRising = MyPhillyRising || {};
       return NS.bootstrapped.baseUrl + 'login/' +
         (options.service ? options.service + '/' : '') +
         '?next=' + options.redirect;
+    },
+
+    truncateChars: function(text, maxLength, continuationString) {
+      if (_.isUndefined(continuationString) || !_.isString(continuationString)) {
+        continuationString = '...';
+      }
+
+      if (text && text.length > maxLength) {
+        return text.slice(0, maxLength - continuationString.length) + continuationString;
+      } else {
+        return text;
+      }
     }
+
   });
 })(MyPhillyRising);

@@ -225,10 +225,19 @@ var MyPhillyRising = MyPhillyRising || {};
     itemViewContainer: '.neighborhood-list',
   });
 
+  NS.BaseDetailView = Backbone.Marionette.ItemView.extend({
+    modelEvents: { 'change': 'render'},
+    onShow: function() {
+      // Render ShareThis buttons
+      if (window.stButtons && window.stButtons.locateElements) {
+        window.stButtons.locateElements();
+      }
+    }
+  });
+
   // Resource Views ===========================================================
-  NS.ResourceDetailView = Backbone.Marionette.ItemView.extend({
-    template: '#rss-detail-tpl',
-    modelEvents: { 'change': 'render'}
+  NS.ResourceDetailView = NS.BaseDetailView.extend({
+    template: '#rss-detail-tpl'
   });
 
   NS.ResourceItemView = Backbone.Marionette.ItemView.extend({
@@ -251,9 +260,8 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   // Event Views ==============================================================
-  NS.EventDetailView = Backbone.Marionette.ItemView.extend({
-    template: '#ics-detail-tpl',
-    modelEvents: { 'change': 'render'}
+  NS.EventDetailView = NS.BaseDetailView.extend({
+    template: '#ics-detail-tpl'
   });
 
   NS.EventItemView = Backbone.Marionette.ItemView.extend({
@@ -276,9 +284,8 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   // Story Views ==============================================================
-  NS.StoryDetailView = Backbone.Marionette.ItemView.extend({
-    template: '#facebook-detail-tpl',
-    modelEvents: { 'change': 'render'}
+  NS.StoryDetailView = NS.BaseDetailView.extend({
+    template: '#facebook-detail-tpl'
   });
 
   NS.StoryItemView = Backbone.Marionette.ItemView.extend({
