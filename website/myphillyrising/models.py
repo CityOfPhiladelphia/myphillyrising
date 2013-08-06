@@ -22,6 +22,7 @@ class UserProfile (models.Model):
     full_name = models.CharField(max_length=100, null=True, blank=True)
     neighborhood = models.ForeignKey('Neighborhood', null=True, blank=True)
     avatar_url = models.URLField(null=True, blank=True)
+    email_permission = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.user.username

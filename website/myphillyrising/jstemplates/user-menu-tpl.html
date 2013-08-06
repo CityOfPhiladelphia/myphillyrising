@@ -8,8 +8,21 @@
     <label for="user-menu-email-field">Email:</label>
     <input id="user-menu-email-field" type="email" name="email" value="{{ email }}">
   </div>
+
+  <div>
+    <label for="user-menu-email-permission-field">
+      <input id="user-menu-email-permission-field"
+             type="checkbox" name="email_permission"
+             {{# if profile.email_permission }} checked{{/ if }}>
+      Email me with updates and notifications
+    </label>
+  </div>
   
   <select id="user-menu-neighborhood-field" name="neighborhood">
+    {{^ if profile.neighborhood }}
+      <option class="empty-neighborhood-option" value="">----------</option>
+    {{/ if }}
+
     {{# select profile.neighborhood }}
       {{# each_neighborhood }}
         <option value="{{ tag }}">{{ name }}</option>

@@ -15,7 +15,8 @@ var MyPhillyRising = MyPhillyRising || {};
 
     events: {
       'change #user-menu-neighborhood-field': 'onNeighborhoodChange',
-      'change #user-menu-email-field': 'onEmailChange'
+      'change #user-menu-email-field': 'onEmailChange',
+      'change #user-menu-email-permission-field': 'onEmailPermissionChange'
     },
 
     onNeighborhoodChange: function() {
@@ -24,8 +25,15 @@ var MyPhillyRising = MyPhillyRising || {};
           profileData = NS.app.currentUser.get('profile');
 
       if ($field[0].checkValidity()) {
-        profileData.neighborhood = newNeighborhood;
-        NS.app.currentUser.save({'profile': profileData});
+        profileData['neighborhood'] = newNeighborhood;
+        NS.app.currentUser.save({'profile': profileData}, {
+          success: function() {
+            $field.find('.empty-neighborhood-option').remove();
+          },
+          error: function() {
+            // TODO: Let the user know, and switch back the neighborhood.
+          }
+        });
       }
     },
 
@@ -35,6 +43,17 @@ var MyPhillyRising = MyPhillyRising || {};
 
       if ($field[0].checkValidity()) {
         NS.app.currentUser.save({'email': newEmail});
+      }
+    },
+
+    onEmailPermissionChange: function() {
+      var $field = this.$('#user-menu-email-permission-field'),
+          newEmailPermission = $field.is(':checked'),
+          profileData = NS.app.currentUser.get('profile');
+
+      if ($field[0].checkValidity()) {
+        profileData['email_permission'] = newEmailPermission;
+        NS.app.currentUser.save({'profile': profileData});
       }
     }
   });
