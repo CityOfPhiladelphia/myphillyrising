@@ -438,7 +438,11 @@ a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighb
   margin-right: 20%;
 }
 .neighborhood-content {
-  margin: 0 -10px -10px;
+  background: #455161;
+  border-bottom: 1px solid #fff;
+  box-shadow: inset 0 -0.75em 1.5em rgba(0,0,0,0.1);
+  margin: 0 -10px 10px;
+  padding: 0 0 10px 0;
   font-size: 0.8em;
   overflow: hidden;
   position: relative;
