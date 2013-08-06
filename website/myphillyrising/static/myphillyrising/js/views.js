@@ -11,7 +11,32 @@ var MyPhillyRising = MyPhillyRising || {};
 
   // User Menu View ===================================================
   NS.UserMenuView = Backbone.Marionette.ItemView.extend({
-    template: '#user-menu-tpl'
+    template: '#user-menu-tpl',
+
+    events: {
+      'change #user-menu-neighborhood-field': 'onNeighborhoodChange',
+      'change #user-menu-email-field': 'onEmailChange'
+    },
+
+    onNeighborhoodChange: function() {
+      var $field = this.$('#user-menu-neighborhood-field'),
+          newNeighborhood = $field.val(),
+          profileData = NS.app.currentUser.get('profile');
+
+      if ($field[0].checkValidity()) {
+        profileData.neighborhood = newNeighborhood;
+        NS.app.currentUser.save({'profile': profileData});
+      }
+    },
+
+    onEmailChange: function() {
+      var $field = this.$('#user-menu-email-field'),
+          newEmail = $field.val();
+
+      if ($field[0].checkValidity()) {
+        NS.app.currentUser.save({'email': newEmail});
+      }
+    }
   });
 
   // Header View

@@ -2,7 +2,7 @@ from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
 from rest_framework.viewsets import ModelViewSet
 from myphillyrising.models import Neighborhood, User, UserProfile
-from myphillyrising.serializers import NeighborhoodSerializer, UserSerializer
+from myphillyrising.serializers import NeighborhoodSerializer, UserSerializer, LoggedInUserSerializer
 
 
 class MyPhillyRisingViewMixin (object):
@@ -29,7 +29,7 @@ class AppView (MyPhillyRisingViewMixin, TemplateView):
             except UserProfile.DoesNotExist:
                 return {}
             else:
-                serializer = UserSerializer(current_user)
+                serializer = LoggedInUserSerializer(current_user)
                 return serializer.data
         else:
             return {}
@@ -58,6 +58,12 @@ class UserViewSet (MyPhillyRisingViewMixin, ModelViewSet):
             queryset = queryset.filter(profile__neighborhood__tag_id__in=neighborhoods)
 
         return queryset
+
+    def get_serializer_class(self, *args, **kwargs):
+        if hasattr(self, 'object') and self.object is not None:
+            if self.object.pk == self.request.user.pk:
+                return LoggedInUserSerializer
+        return super(UserViewSet, self).get_serializer_class(*args, **kwargs)
 
 
 # Views

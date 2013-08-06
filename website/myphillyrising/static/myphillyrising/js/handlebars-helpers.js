@@ -10,6 +10,21 @@ var MyPhillyRising = MyPhillyRising || {};
     return (this.tag === NS.app.currentNeighborhood) ? options.fn(this) : options.inverse(this);
   });
 
+  Handlebars.registerHelper('each_neighborhood', function(options) {
+    var result;
+
+    if (NS.app.neighborhoodCollection.length > 0) {
+      result = '';
+      NS.app.neighborhoodCollection.each(function(neighborhood) {
+        result += options.fn(_.extend({}, this, neighborhood.toJSON()));
+      });
+    } else {
+      result = options.inverse(this);
+    }
+
+    return result;
+  });
+
   Handlebars.registerHelper('current_neighborhood', function() {
     return NS.app && NS.app.currentNeighborhood ? NS.app.currentNeighborhood : '';
   });
@@ -74,5 +89,23 @@ var MyPhillyRising = MyPhillyRising || {};
 
   Handlebars.registerHelper('rsscontent', function() {
     return this.source_content && this.source_content.content[0].value;
+  });
+
+  Handlebars.registerHelper('select', function(value, options) {
+    var $el = $('<div/>').html(options.fn(this)),
+      selectValue = function(v) {
+        $el.find('[value="'+v+'"]').attr({
+          checked: 'checked',
+          selected: 'selected'
+        });
+      };
+
+    if (_.isArray(value)) {
+      _.each(value, selectValue);
+    } else {
+      selectValue(value);
+    }
+
+    return $el.html();
   });
 }(MyPhillyRising));

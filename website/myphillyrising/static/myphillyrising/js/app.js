@@ -172,6 +172,7 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.app.addInitializer(function(options){
     this.neighborhoodCollection = new NS.NeighborhoodCollection(NS.bootstrapped.neighborhoodData);
     this.currentUser = new NS.UserModel(NS.bootstrapped.currentUserData);
+    this.currentUser.url = function() { return NS.UserCollection.prototype.url + '/' + this.id; }
 
     // Create the header
     this.headerView = new NS.HeaderView();

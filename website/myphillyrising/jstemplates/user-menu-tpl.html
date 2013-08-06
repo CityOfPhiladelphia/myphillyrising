@@ -1,7 +1,22 @@
 {{# is_authenticated }}
 
-  <p>{{ full_name }}</p>
-  <img src="{{ avatar_url }}" alt="{{ username }}">
+  <p>{{ profile.full_name }}</p>
+  
+  <img src="{{ profile.avatar_url }}" alt="{{ username }}">
+
+  <div>
+    <label for="user-menu-email-field">Email:</label>
+    <input id="user-menu-email-field" type="email" name="email" value="{{ email }}">
+  </div>
+  
+  <select id="user-menu-neighborhood-field" name="neighborhood">
+    {{# select profile.neighborhood }}
+      {{# each_neighborhood }}
+        <option value="{{ tag }}">{{ name }}</option>
+      {{/ each_neighborhood }}
+    {{/ select }}
+  </select>
+
   <p><a href="{{ logout_url }}">Log out</a></p>
 
 {{^}}

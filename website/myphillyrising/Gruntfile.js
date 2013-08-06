@@ -29,6 +29,7 @@ module.exports = function(grunt) {
               'static/js/config.js',
               '../alexander/static/js/utils.js',
               '../alexander/static/js/models.js',
+              '../alexander/static/js/django-csrf.js',
               'static/js/views.js',
               'static/js/app.js'
             ]
