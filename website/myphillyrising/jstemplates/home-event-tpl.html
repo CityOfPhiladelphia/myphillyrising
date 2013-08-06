@@ -1,5 +1,14 @@
-{{ title }}
-<span class="time-start">{{ prettytime source_content.DTSTART }}</span>
-{{#if source_content.DTEND}}
-to <span class="time-end">{{ prettytime source_content.DTEND }}</span>
-{{/if}}
+<span class="date">
+  <time datetime="{{ source_posted_at }}">
+    <span class="month">{{ prettymonth source_posted_at }}</span>
+    <span class="day">{{ prettyday source_posted_at }}</span>
+  </time>
+</span>
+
+<span class="event-title">
+  {{ title }}
+</span>
+
+<span class="time">
+  <span class="time-start">{{ prettytime source_content.DTSTART }}</span>{{#if source_content.DTEND}}&ndash;<span class="time-end">{{ prettytime source_content.DTEND }}</span>{{/if}}
+</span>

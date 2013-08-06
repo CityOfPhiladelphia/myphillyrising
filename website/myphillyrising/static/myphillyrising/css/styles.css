@@ -2,6 +2,20 @@
 /* =Base Styles
 -------------------------------------------------------------- */
 
+/* Color Palette (These aren't semantic; just here for reference. ) */
+.light-grey { color: #ebeff3; }
+.grey { color: #d0d3d7; }
+.light-slate { color: #8497b0; }
+.slate { color: #546070; }
+.dark-slate { color: #455161; }
+.light-green { color: #ebffa6; }
+.green { color: #caf445; }
+.dark-green { color: #a6cc29; }
+.lighter-tomato { color: #ffcdbf; }
+.light-tomato { color: #ffae99; }
+.tomato { color: #fc8769; }
+.dark-tomato { color: #bf6750; }
+
 /* Typography */
 body { line-height: 1.25; }
 body, select, input, textarea {
@@ -38,7 +52,7 @@ ul.unstyled-list li, ol.unstyled-list li {
   padding-bottom: 0;
 }
 strong {
-  font-weight: 800;
+  font-weight: 700;
 }
 hr {
   margin: 1.2em 0; border: 0;
@@ -74,36 +88,57 @@ img {
 }
 
 /* Buttons */
-a.btn {
+.btn,
+.btn:visited,
+.btn:link {
   display: inline-block;
   *display: inline;
   *zoom: 1;
   padding: 0.25em 0.5em;
   margin-bottom: 0;
-  font-weight: bold;
+  font-weight: 700;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
   color: #333;
+  text-transform: uppercase;
   text-decoration: none;
   text-shadow: 0 1px 1px rgba(255,255,255,0.75);
-  background-color: Gainsboro;
-  border: 0.1em solid #fff;
-  border-color: rgba(255,255,255,0.5) rgba(255,255,255,0.5) rgba(255,255,255,0.5);
-  border-bottom-color: rgba(255,255,255,0.1);
-  border-radius: 0.25em;
-  box-shadow: 0 0.1em 0.2em rgba(0,0,0,0.5), inset 0 1em 0 rgba(255,255,255,0.2);
+  background-color: #d0d3d7;
+  border: 2px solid #ebeff3;
+  border-radius: 3px;
+  box-shadow: 0 0.25em 0.5em rgba(0,0,0,0.2);
 }
 .btn:hover,
 .btn:focus,
 .btn:active {
   color: #333;
-  box-shadow: 0 0.1em 0.2em rgba(0,0,0,0.5), inset 0 1em 0 rgba(255,255,255,0.2), inset 0 2em 0 rgba(255,255,255,0.2);
 }
-a.btn-primary {
+.btn-primary,
+.btn-primary:visited,
+.btn-primary:link {
   background-color: #308fbf;
-  color: White !important;
+  color: #fff !important;
   text-shadow: 0 -1px 1px rgba(0,0,0,0.5);
+}
+.btn-block,
+.btn-block:visited,
+.btn-block:link {
+  clear: both;
+  display: block;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
+  width: 100%;
+}
+.btn-large {
+  font-size: 1.25em;
+  padding: 0.75em 1em 0.5em;
+}
+.btn-small {
+  font-size: 0.8em;
 }
 
 /* Forms */
@@ -370,7 +405,9 @@ a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighb
 .neighborhood-header {
   overflow: hidden;
   position: relative;
+  z-index: 2;
   margin: -10px -10px 0;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.5);
 }
 .neighborhood-header .map-container {
   margin: 0;
@@ -401,35 +438,63 @@ a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighb
   margin-right: 20%;
 }
 .neighborhood-content {
-  margin: 0 -10px;
+  margin: 0 -10px -10px;
+  font-size: 0.8em;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
+
+.column-40-right { width: 40%; float: right; }
+.column-60-left { width: 60%; float: left; }
+
+.neighbors-list .avatar {
+  float: left;
+  width: 20%;
+  height: auto;
+}
+.column-40-right .avatar { width: 50%; }
+.column-60-left .avatar { width: 33.333333%; }
+
 .neighborhood-widget {
   margin: 0;
   padding: 0;
 }
-.users-region1 {}
-.events-region1 {
-  float: right;
-  width: 40%;
-  background: #FF6B6B;
+.events-widget {
+  background: #fc8769;
   color: #fff;
 }
-.events-region1 a {
+.events-widget .date {
+  text-transform: uppercase;
+  font-size: 2em;
+  font-weight: 100;
+  display: block;
+  margin: 0;
+  text-shadow: ;
+}
+.events-widget .day { font-weight: 700; }
+.events-widget .time { 
+  font-weight: 400;
+  display: block;
+  margin-top: 0;
+  margin-bottom: 10px;
+  margin-left: 0;
+  text-indent: 0;
+}
+.events-widget .event-title { font-weight: 700; }
+.resources-widget {
+  background: #8497b0;
   color: #fff;
 }
-.resources-region1 {
-  float: left;
-  width: 60%;
-  background: CornflowerBlue;
+.stories-widget {
+  background: #ebffa6;
+}
+.about-widget {
+  background: #546070;
   color: #fff;
 }
-.users-region2 {
-}
-.stories-region1 {
-  float: left;
-  width: 60%;
-  background: #caf445;
-}
+.events-widget a,
+.about-widget a { color: #fff; }
 
 .item-header {
   margin: 0 0 10px;
