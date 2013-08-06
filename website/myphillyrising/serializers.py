@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, URLField, IntegerField
-from myphillyrising.models import Neighborhood, User, UserProfile
+from myphillyrising.models import Neighborhood, User, UserProfile, UserAction
 from utils.rest_framework_extensions import ManyToNativeMixin
 
 
@@ -34,10 +34,11 @@ class LoggedInUserProfileSerializer(UserProfileSerializer):
 
 class LoggedInUserSerializer(UserSerializer):
     profile = LoggedInUserProfileSerializer()
+    points = IntegerField(read_only=True)
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'last_login', 'profile', 'email')
+        fields = ('id', 'username', 'last_login', 'profile', 'email', 'points')
 
     def from_native(self, data, files):
         profile_data = data.get('profile')
@@ -51,3 +52,8 @@ class LoggedInUserSerializer(UserSerializer):
                 profile_serializer.save()
 
         return user
+
+
+class UserActionSerializer(ModelSerializer):
+    class Meta:
+        model = UserAction

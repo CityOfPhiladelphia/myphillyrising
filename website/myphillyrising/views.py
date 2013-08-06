@@ -38,7 +38,8 @@ class AppView (MyPhillyRisingViewMixin, TemplateView):
             except UserProfile.DoesNotExist:
                 return {}
             else:
-                serializer = LoggedInUserSerializer(current_user)
+                queryset = self.get_user_queryset()
+                serializer = LoggedInUserSerializer(queryset.get(pk=current_user.pk))
                 return serializer.data
         else:
             return {}

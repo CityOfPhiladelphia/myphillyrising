@@ -1,6 +1,10 @@
 {{# is_authenticated }}
 
   <p>{{ profile.full_name }}</p>
+
+  <div>
+    <p>You have {{ points }} points!</p>
+  </div>
   
   <img src="{{ profile.avatar_url }}" alt="{{ username }}">
 
