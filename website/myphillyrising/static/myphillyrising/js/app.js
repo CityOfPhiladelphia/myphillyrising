@@ -130,8 +130,8 @@ var MyPhillyRising = MyPhillyRising || {};
 
     home: function() {
       // This is the default route - I could be anywhere
-      if (NS.app.currentUser && NS.app.currentUser.has('neighborhood')) {
-        NS.app.router.navigate(NS.app.currentUser.get('neighborhood'), {trigger: true});
+      if (NS.app.currentUser && NS.app.currentUser.has('profile')) {
+        NS.app.router.navigate(NS.app.currentUser.get('profile').neighborhood, {trigger: true});
       } else {
         NS.app.router.navigate('', {replace: true});
         NS.app.mainRegion.show(new NS.HomeView({
