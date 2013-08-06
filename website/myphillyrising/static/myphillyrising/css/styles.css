@@ -100,7 +100,7 @@ img {
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
-  color: #333;
+  color: #455161;
   text-transform: uppercase;
   text-decoration: none;
   text-shadow: 0 1px 1px rgba(255,255,255,0.75);
@@ -112,7 +112,7 @@ img {
 .btn:hover,
 .btn:focus,
 .btn:active {
-  color: #333;
+  color: #455161;
 }
 .btn-primary,
 .btn-primary:visited,
@@ -191,6 +191,7 @@ textarea {
 .is-invisible { visibility: hidden; }
 
 .nobreak { white-space: nowrap; }
+.block-link { display: block; }
 
 
 /* =Layout
@@ -338,7 +339,7 @@ body {
   top: 8px;
   background-color: #546070;
   border: 2px solid #455161;
-  border-radius: 10px;
+  border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 .btn-off-canvas-menu-left {
@@ -351,6 +352,7 @@ body {
   display: block;
   width: 36px;
   height: 36px;
+  border-radius: 6px;
 }
 
 
@@ -463,6 +465,11 @@ a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighb
 .neighborhood-widget {
   margin: 0;
   padding: 0;
+  clear: both;
+}
+.neighborhood-widget .block-link {
+  margin-bottom: 10px;
+  text-decoration: none;
 }
 .events-widget {
   background: #fc8769;
@@ -481,11 +488,9 @@ a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighb
   font-weight: 400;
   display: block;
   margin-top: 0;
-  margin-bottom: 10px;
   margin-left: 0;
   text-indent: 0;
 }
-.events-widget .event-title { font-weight: 700; }
 .resources-widget {
   background: #8497b0;
   color: #fff;
@@ -497,6 +502,7 @@ a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighb
   background: #546070;
   color: #fff;
 }
+.resources-widget a,
 .events-widget a,
 .about-widget a { color: #fff; }
 
@@ -504,6 +510,7 @@ a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighb
   margin: 0 0 10px;
 }
 .item-header a { text-decoration: none; }
+.item-title { font-weight: 700; }
 .item-meta {
   font-size: 0.8em;
   color: #888;
