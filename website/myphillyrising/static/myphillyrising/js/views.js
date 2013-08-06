@@ -167,6 +167,11 @@ var MyPhillyRising = MyPhillyRising || {};
         this.renderStories();
       }
     },
+    onShow: function() {
+      if (window.DISQUS) {
+        window.DISQUS.reset({reload: true});
+      }
+    },
     renderUsers: function() {
       console.log('render users for', this.model.get('tag'));
 
