@@ -277,7 +277,7 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.HomeResourceItemView = Backbone.Marionette.ItemView.extend({
-    template: '#home-resource-tpl',
+    template: '#home-resource-item-tpl',
     tagName: 'li'
   });
 
@@ -301,7 +301,7 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.HomeEventItemView = Backbone.Marionette.ItemView.extend({
-    template: '#home-event-tpl',
+    template: '#home-event-item-tpl',
     tagName: 'li'
   });
 
@@ -325,19 +325,19 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.HomeStoryItemView = Backbone.Marionette.ItemView.extend({
-    template: '#home-story-tpl',
+    template: '#home-story-item-tpl',
     tagName: 'li'
   });
 
   NS.HomeStoryListView = Backbone.Marionette.CompositeView.extend({
     template: '#home-story-list-tpl',
-    itemView: NS.HomeEventItemView,
+    itemView: NS.HomeStoryItemView,
     itemViewContainer: '.item-view-container'
   });
 
   // User Views ==============================================================
   NS.HomeUserItemView = Backbone.Marionette.ItemView.extend({
-    template: '#home-user-tpl',
+    template: '#home-user-item-tpl',
     tagName: 'li'
   });
 
