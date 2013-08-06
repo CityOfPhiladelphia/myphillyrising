@@ -72,7 +72,7 @@ class ContentItem (models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=160, null=True)
-    tags = models.ManyToManyField('ContentTag')
+    tags = models.ManyToManyField('ContentTag', related_name='items')
     category = models.CharField(max_length=20)
 
     # Information about the original source content

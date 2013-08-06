@@ -51,6 +51,13 @@
       <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
   <![endif]-->
 
+  <script>
+    var MyPhillyRising = MyPhillyRising || {};
+    MyPhillyRising.bootstrapped = {
+      staticUrl: '{{ STATIC_URL }}'
+    };
+  </script>
+
   {% if debug %}
   <script src="{{ STATIC_URL }}components/jquery/jquery.min.js"></script>
   <script src="{{ STATIC_URL }}components/underscore/underscore-min.js"></script>
@@ -60,6 +67,7 @@
   <script src="{{ STATIC_URL }}components/moment/moment.js"></script>
   <script src="{{ STATIC_URL }}components/select2/select2.js"></script>
   <script src="{{ STATIC_URL }}alexander/js/django-csrf.js"></script>
+  <script src="{{ STATIC_URL }}myphillyrising/js/utils.js"></script>
   <script src="{{ STATIC_URL }}myphillyrising/js/handlebars-helpers.js"></script>
   <script src="{{ STATIC_URL }}alexander/js/models.js"></script>
   <script src="{{ STATIC_URL }}alexander/js/admin-views.js"></script>

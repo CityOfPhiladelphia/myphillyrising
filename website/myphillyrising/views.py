@@ -1,4 +1,5 @@
 import json
+from django.db.models import Sum
 from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
 from rest_framework.viewsets import ModelViewSet
@@ -12,14 +13,20 @@ class MyPhillyRisingViewMixin (object):
         return User.objects.all()\
             .select_related('profile')\
             .exclude(profile=None)\
-            .select_related('profile__neighborhood')
+            .select_related('profile__neighborhood')\
+            .annotate(points=Sum('profile__actions__points'))
+
+    def get_neighborhood_queryset(self):
+        return Neighborhood.objects.all()\
+            .annotate(user_points=Sum('profiles__actions__points'))\
+            .annotate(item_points=Sum('tag__items__actions__points'))
 
 
 class AppView (MyPhillyRisingViewMixin, TemplateView):
     template_name = 'myphillyrising/index.html'
 
     def get_neighborhood_data(self):
-        neighborhoods = Neighborhood.objects.all()
+        neighborhoods = self.get_neighborhood_queryset()
         serializer = NeighborhoodSerializer(neighborhoods)
         return serializer.data
 
@@ -51,11 +58,7 @@ class UserViewSet (MyPhillyRisingViewMixin, ModelViewSet):
     paginate_by = 20
 
     def get_queryset(self):
-        queryset = User.objects.all()\
-            .select_related('profile')\
-            .exclude(profile=None)\
-            .select_related('profile__neighborhood')
-
+        queryset = self.get_user_queryset()
         neighborhoods = self.request.GET.getlist('neighborhood')
         if (neighborhoods):
             queryset = queryset.filter(profile__neighborhood__tag_id__in=neighborhoods)
