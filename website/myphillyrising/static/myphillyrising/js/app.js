@@ -71,23 +71,32 @@ var MyPhillyRising = MyPhillyRising || {};
     },
     neighborhoodCategoryItem: function(neighborhood, category, id) {
       var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood}),
+          self = this,
           view, itemModel;
 
       if (neighborhoodModel) {
         NS.app.vent.trigger('neighborhoodchange', neighborhoodModel);
 
+        itemModel = neighborhoodModel.collections[category].get(id);
+        if (!itemModel) {
+          itemModel = new A.ContentItemModel({id: id});
+          itemModel.fetch({
+            error: function() {
+              NS.app.router.navigate(neighborhood + '/' + category, {replace: true});
+              self.neighborhoodCategoryList(neighborhood, category);
+            }
+          });
+        }
+
         if (category === 'events') {
-          itemModel = neighborhoodModel.collections[category].get(parseInt(id, 10));
           NS.app.mainRegion.show(new NS.EventDetailView({
             model: itemModel
           }));
         } else if (category === 'resources') {
-          itemModel = neighborhoodModel.collections[category].get(parseInt(id, 10));
           NS.app.mainRegion.show(new NS.ResourceDetailView({
             model: itemModel
           }));
         } else if (category === 'stories') {
-          itemModel = neighborhoodModel.collections[category].get(parseInt(id, 10));
           NS.app.mainRegion.show(new NS.StoryDetailView({
             model: itemModel
           }));
@@ -97,10 +106,6 @@ var MyPhillyRising = MyPhillyRising || {};
           return;
         }
 
-        if (!itemModel) {
-          itemModel = new A.ContentItemModel({id: parseInt(id, 10)});
-          itemModel.fetch();
-        }
       } else {
         this.home();
       }
