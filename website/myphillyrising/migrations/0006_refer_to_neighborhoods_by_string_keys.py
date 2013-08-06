@@ -8,21 +8,11 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Deleting field 'Neighborhood.id'
-        db.delete_column(u'myphillyrising_neighborhood', u'id')
-
-
-        # Changing field 'Neighborhood.tag'
-        db.alter_column(u'myphillyrising_neighborhood', 'tag_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['alexander.ContentTag'], unique=True, primary_key=True))
-
+        # Changing field 'UserProfile.neighborhood'
+        db.alter_column(u'myphillyrising_userprofile', 'neighborhood_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['myphillyrising.Neighborhood'], null=True, blank=True))
 
     def backwards(self, orm):
-
-        # User chose to not deal with backwards NULL issues for 'Neighborhood.id'
-        raise RuntimeError("Cannot reverse this migration. 'Neighborhood.id' and its values cannot be restored.")
-
-        # Changing field 'Neighborhood.tag'
-        db.alter_column(u'myphillyrising_neighborhood', 'tag_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['alexander.ContentTag'], unique=True))
+        pass
 
     models = {
         u'alexander.contenttag': {

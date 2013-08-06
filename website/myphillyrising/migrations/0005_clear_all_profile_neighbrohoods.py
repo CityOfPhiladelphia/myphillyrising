@@ -1,28 +1,23 @@
 # -*- coding: utf-8 -*-
 import datetime
 from south.db import db
-from south.v2 import SchemaMigration
+from south.v2 import DataMigration
 from django.db import models
 
-
-class Migration(SchemaMigration):
+class Migration(DataMigration):
 
     def forwards(self, orm):
-        # Deleting field 'Neighborhood.id'
-        db.delete_column(u'myphillyrising_neighborhood', u'id')
-
-
-        # Changing field 'Neighborhood.tag'
-        db.alter_column(u'myphillyrising_neighborhood', 'tag_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['alexander.ContentTag'], unique=True, primary_key=True))
+        "Write your forwards methods here."
+        # Note: Don't use "from appname.models import ModelName". 
+        # Use orm.ModelName to refer to models in this application,
+        # and orm['appname.ModelName'] for models in other applications.
+        for profile in orm.UserProfile.objects.all():
+            profile.neighborhood = None
+            profile.save()
 
 
     def backwards(self, orm):
-
-        # User chose to not deal with backwards NULL issues for 'Neighborhood.id'
-        raise RuntimeError("Cannot reverse this migration. 'Neighborhood.id' and its values cannot be restored.")
-
-        # Changing field 'Neighborhood.tag'
-        db.alter_column(u'myphillyrising_neighborhood', 'tag_id', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['alexander.ContentTag'], unique=True))
+        "Write your backwards methods here."
 
     models = {
         u'alexander.contenttag': {
@@ -84,3 +79,4 @@ class Migration(SchemaMigration):
     }
 
     complete_apps = ['myphillyrising']
+    symmetrical = True
