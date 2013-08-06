@@ -36,6 +36,14 @@ var MyPhillyRising = MyPhillyRising || {};
     return NS.app && NS.app.currentNeighborhood ? NS.app.currentNeighborhood : '';
   });
 
+  Handlebars.registerHelper('current_user', function(attr) {
+    return (NS.app && NS.app.currentUser ? NS.app.currentUser.get(attr) : undefined);
+  });
+
+  Handlebars.registerHelper('current_user_profile', function(attr) {
+    return (NS.app && NS.app.currentUser ? NS.app.currentUser.get('profile')[attr] : undefined);
+  });
+
   Handlebars.registerHelper('window_location', function() {
     return window.location.toString();
   });
