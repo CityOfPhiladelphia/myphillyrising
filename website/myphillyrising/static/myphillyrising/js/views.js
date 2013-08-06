@@ -168,9 +168,13 @@ var MyPhillyRising = MyPhillyRising || {};
       }
     },
     onShow: function() {
-      if (window.DISQUS) {
-        window.DISQUS.reset({reload: true});
-      }
+      /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+      var disqus_shortname = 'devphillyrising'; // required: replace example with your forum shortname
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     },
     renderUsers: function() {
       console.log('render users for', this.model.get('tag'));
