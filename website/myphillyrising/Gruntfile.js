@@ -19,7 +19,8 @@ module.exports = function(grunt) {
               'static/components/handlebars.js/dist/handlebars.js',
               'static/components/moment/moment.js',
               'static/components/leaflet/dist/leaflet.js',
-              'static/components/leaflet-vector-layers/dist/lvector.js'
+              'static/components/leaflet-vector-layers/dist/lvector.js',
+              'static/components/masonry/masonry.js'
             ]
           },
           {
