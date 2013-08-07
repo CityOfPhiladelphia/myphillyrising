@@ -1,4 +1,4 @@
-/*globals Alexander Backbone Handlebars $ _ L */
+/*globals Alexander Backbone Handlebars $ _ L Masonry */
 
 var MyPhillyRising = MyPhillyRising || {};
 
@@ -171,6 +171,8 @@ var MyPhillyRising = MyPhillyRising || {};
       this.listenTo(this.model.collections.stories, 'reset', function() {
         this.renderStories();
       });
+
+
     },
     onRender: function() {
       if(this.model.collections.users.isSynced) {
@@ -195,13 +197,12 @@ var MyPhillyRising = MyPhillyRising || {};
       dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 
-      var msnry = new Masonry(this.$('.neighborhood-content').get(0), {
+      this.msnry = new Masonry(this.$('.neighborhood-content').get(0), {
         // options
         columnWidth: '.avatar.masonry',
         itemSelector: '.masonry',
         gutter: 0
       });
-
     },
     renderUsers: function() {
       console.log('render users for', this.model.get('tag'));
@@ -228,6 +229,20 @@ var MyPhillyRising = MyPhillyRising || {};
         }));
       }
 
+      // console.log(this.usersRegion1.$el);
+      var region1Els = this.usersRegion1.$el.find('.masonry'),
+          region1Len = region1Els.length,
+          region2Els = this.usersRegion2.$el.find('.masonry'),
+          region2Len = region2Els.length,
+          i;
+
+      for (i=0; i<region1Len; i++) {
+        this.msnry.appended(region1Els[i]);
+      }
+      for (i=0; i<region2Len; i++) {
+        this.msnry.appended(region2Els[i]);
+      }
+      this.msnry.layout();
     },
     renderEvents: function() {
       console.log('render events for', this.model.get('tag'));
@@ -236,6 +251,9 @@ var MyPhillyRising = MyPhillyRising || {};
         model: this.model,
         collection: new Backbone.Collection(this.model.collections.events.slice(0, 1))
       }));
+
+      this.msnry.appended(this.eventsRegion1.$el.get(0));
+      this.msnry.layout();
     },
     renderResources: function() {
       console.log('render resources for', this.model.get('tag'));
@@ -244,6 +262,9 @@ var MyPhillyRising = MyPhillyRising || {};
         model: this.model,
         collection: new Backbone.Collection(this.model.collections.resources.slice(0, 1))
       }));
+
+      this.msnry.appended(this.resourcesRegion1.$el.get(0));
+      this.msnry.layout();
     },
     renderStories: function() {
       console.log('render stories for', this.model.get('tag'));
@@ -252,6 +273,9 @@ var MyPhillyRising = MyPhillyRising || {};
         model: this.model,
         collection: new Backbone.Collection(this.model.collections.stories.slice(0, 3))
       }));
+
+      this.msnry.appended(this.storiesRegion1.$el.get(0));
+      this.msnry.layout();
     }
   });
 
