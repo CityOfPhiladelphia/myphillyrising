@@ -197,8 +197,9 @@ var MyPhillyRising = MyPhillyRising || {};
 
       var msnry = new Masonry(this.$('.neighborhood-content').get(0), {
         // options
-        columnWidth: 200,
-        itemSelector: '.neighborhood-widget'
+        columnWidth: '.avatar.masonry',
+        itemSelector: '.masonry',
+        gutter: 0
       });
 
     },

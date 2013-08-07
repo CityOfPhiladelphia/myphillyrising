@@ -451,29 +451,23 @@ a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighb
   z-index: 1;
 }
 
-.column-40-right { width: 40%; float: right; }
-.column-60-left { width: 60%; float: left; }
-
-.neighbors-list .avatar {
-  float: left;
-  width: 20%;
-  height: auto;
-}
-.column-40-right .avatar { width: 50%; }
-.column-60-left .avatar { width: 33.333333%; }
-
 .neighborhood-widget {
   margin: 0;
   padding: 0;
-  clear: both;
 }
 .neighborhood-widget .block-link {
   margin-bottom: 10px;
   text-decoration: none;
 }
+.users-widget .avatar {
+  float: left;
+  width: 20%;
+  height: auto;
+}
 .events-widget {
   background: #fc8769;
   color: #fff;
+  width: 40%;
 }
 .events-widget .date {
   text-transform: uppercase;
@@ -494,13 +488,16 @@ a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighb
 .resources-widget {
   background: #8497b0;
   color: #fff;
+  width: 60%;
 }
 .stories-widget {
   background: #ebffa6;
+  width: 60%;
 }
 .about-widget {
   background: #546070;
   color: #fff;
+  width: 40%;
 }
 .resources-widget a,
 .events-widget a,
