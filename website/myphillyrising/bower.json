@@ -11,6 +11,7 @@
     "moment": "~2.0.0",
     "leaflet": "~0.5.1",
     "leaflet-vector-layers": "https://github.com/JasonSanford/leaflet-vector-layers.git#~1.4.0",
-    "modernizr": "~2.6.2"
+    "modernizr": "~2.6.2",
+    "backbone-relational": "~0.8.5"
   }
 }

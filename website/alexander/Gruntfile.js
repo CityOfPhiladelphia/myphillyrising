@@ -15,6 +15,7 @@ module.exports = function(grunt) {
               'static/components/jquery/jquery.min.js',
               'static/components/underscore/underscore-min.js',
               'static/components/backbone/backbone-min.js',
+              'static/components/backbone-relational/backbone-relational.js',
               'static/components/backbone.marionette/lib/backbone.marionette.js',
               'static/components/handlebars.js/dist/handlebars.js',
               'static/components/moment/moment.js',

@@ -3,6 +3,8 @@
 var Alexander = Alexander || {};
 
 (function(NS) {
+  Backbone.Relational.store.addModelScope(NS);
+
   NS.AgsCollection = Backbone.Collection.extend({
     parse: function(response) {
       return response.features;
@@ -123,10 +125,30 @@ var Alexander = Alexander || {};
     comparator: 'title'
   });
 
-  NS.ContentItemModel = Backbone.Model.extend({
+  NS.ActionsModel = Backbone.RelationalModel.extend({
+    urlRoot: 'api/actions'
+  });
+
+  NS.ActionsCollection = Backbone.Collection.extend({
+    url: 'api/actions',
+    model: NS.ActionsModel
+  });
+
+  NS.ContentItemModel = Backbone.RelationalModel.extend({
+    relations: [{
+      type: Backbone.HasMany,
+      key: 'actions',
+      relatedModel: 'ActionsModel',
+      collectionType: 'ActionsCollection',
+      reverseRelation: {
+        key: 'item'
+      }
+    }],
     urlRoot: '/api/items',
     parse: function(resp, options) {
-      resp.source_content = JSON.parse(resp.source_content);
+      if (_.isString(resp.source_content)) {
+        resp.source_content = JSON.parse(resp.source_content);
+      }
       return resp;
     },
     sync: function(method, model, options) {

@@ -7,6 +7,26 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.UserModel = Backbone.Model.extend({
     isAuthenticated: function() {
       return !this.isNew();
+    },
+    onAction: function(resp) {
+      console.log('onAction', arguments);
+      var points = this.get('points');
+      // this.set('points', points += resp.points);
+    },
+    doAction: function(actionObj, contentItem) {
+      var self = this,
+          actionModel;
+
+      if (contentItem) {
+        contentItem.get('actions').create(actionObj, {
+          success: self.onAction
+        });
+      } else {
+        actionModel = new A.ActivityModel(actionObj);
+        actionModel.save({
+          success: self.onAction
+        });
+      }
     }
   });
 
