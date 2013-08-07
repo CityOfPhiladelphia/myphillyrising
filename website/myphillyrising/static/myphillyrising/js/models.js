@@ -1,3 +1,5 @@
+/*globals _, Backbone, Alexander */
+
 var MyPhillyRising = MyPhillyRising || {};
 
 (function(NS, A) {
