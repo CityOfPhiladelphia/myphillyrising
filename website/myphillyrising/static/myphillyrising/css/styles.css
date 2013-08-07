@@ -637,6 +637,19 @@ a.close-btn:hover {
 }
 .detail-header {}
 .detail-meta {}
+.detail-content {
+  margin-bottom: 1.25em;
+}
+.detail-item hr {
+  margin-right: -20px;
+  margin-left: -20px;
+}
+.share-this-prompt {
+  font-size: 1.5em;
+  font-weight: 100;
+  float: left;
+  margin-right: 6px;
+}
 
 /* Events */
 .event-item {}
@@ -682,7 +695,7 @@ a.close-btn:hover {
   font-weight: bold;
   margin-top: 0.5em;
   margin-left: 1.25em;
-  text-indent: -1.25em;
+  text-indent: -1.75em;
 }
 
 /* Map */
