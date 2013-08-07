@@ -494,21 +494,12 @@ a.logout-link:visited {
   z-index: 1;
 }
 
-.neighborhood-widget {
-  margin: 0;
-  padding: 0;
-  clear: both;
-}
-.neighborhood-widget .block-link {
-  margin-bottom: 10px;
-  text-decoration: none;
-}
+.neighborhood-widget {}
 .neighborhood-widget .block-link {
   margin-bottom: 10px;
   text-decoration: none;
 }
 .users-widget .avatar {
-  float: left;
   width: 20%;
   height: auto;
 }
