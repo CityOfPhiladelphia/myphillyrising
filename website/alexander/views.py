@@ -30,7 +30,10 @@ class ContentItemViewSet (ModelViewSet):
 
     def get_queryset(self):
         queryset = super(ContentItemViewSet, self).get_queryset()
-        queryset = queryset.prefetch_related('tags')
+        queryset = queryset.prefetch_related('tags')\
+            .prefetch_related('actions')\
+            .prefetch_related('actions__user')\
+            .prefetch_related('actions__user__profile')
 
         queryset = queryset.exclude(source_posted_at__lt=datetime.now(), category='events')
 
