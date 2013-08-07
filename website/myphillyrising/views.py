@@ -18,8 +18,7 @@ class MyPhillyRisingViewMixin (object):
 
     def get_neighborhood_queryset(self):
         return Neighborhood.objects.all()\
-            .annotate(user_points=Sum('profiles__user__actions__points'))\
-            .annotate(item_points=Sum('tag__items__actions__points'))
+            .annotate(points=Sum('profiles__user__actions__points'))
 
 
 class AppView (MyPhillyRisingViewMixin, TemplateView):

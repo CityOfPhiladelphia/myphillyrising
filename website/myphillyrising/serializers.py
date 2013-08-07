@@ -4,8 +4,7 @@ from utils.rest_framework_extensions import ManyToNativeMixin
 
 
 class NeighborhoodSerializer(ManyToNativeMixin, ModelSerializer):
-    user_points = IntegerField(read_only=True)
-    item_points = IntegerField(read_only=True)
+    points = IntegerField(read_only=True)
 
     class Meta:
         model = Neighborhood
