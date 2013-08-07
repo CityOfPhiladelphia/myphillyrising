@@ -143,16 +143,19 @@ img {
 
 /* Forms */
 form {}
-label {}
+label {
+  color: #d0d3d7;
+}
 .input-block,
 textarea {
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 	        box-sizing: border-box;
   width: 100%;
-  border: 0.25em solid #a1cbcf;
+  border: 0.25em solid #d0d3d7;
   padding: 0.5em;
   outline: 0;
+  margin-bottom: 0.5em;
 }
 .input-block:focus,
 textarea:focus {
@@ -424,6 +427,20 @@ ul.login-options .facebook-login-link {
 .login-link .icon-inline {
   display: block;
   margin: 0 auto 5px;
+}
+
+a.logout-link,
+a.logout-link:link,
+a.logout-link:visited {
+  float: right;
+  color: #ffae99;
+  font-weight: 100;
+  font-size: 0.75em;
+  padding: 0.325em;
+  text-decoration: none;
+}
+.user-profile {
+  padding: 0 10px;
 }
 
 
