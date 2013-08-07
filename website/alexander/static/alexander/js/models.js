@@ -108,48 +108,6 @@ var Alexander = Alexander || {};
   });
 
   // Models and Collections
-  NS.FilteredCollection = function(original){
-    var filtered = new original.constructor();
-
-    // allow this object to have it's own events
-    filtered._callbacks = {};
-
-    // call 'filter' on the original function so that
-    // filtering will happen from the complete collection
-    filtered.filter = function(criteria){
-        var items;
-
-        // call 'filter' if we have criteria
-        // or just get all the models if we don't
-        if (criteria){
-            items = original.filter(criteria);
-        } else {
-            items = original.models;
-        }
-
-        // store current criteria
-        filtered._currentCriteria = criteria;
-
-        // reset the filtered collection with the new items
-        filtered.reset(items);
-    };
-
-    // when the original collection is reset,
-    // the filtered collection will re-filter itself
-    // and end up with the new filtered result set
-    original.on("reset", function(){
-        filtered.filter(filtered._currentCriteria);
-    });
-    original.on("add", function(){
-        console.info('implement filtered add');
-    });
-    original.on("remove", function(){
-        console.info('implement filtered remove');
-    });
-
-    return filtered;
-  };
-
   NS.FeedModel = Backbone.Model.extend({
     refresh: function() {
       $.ajax({
