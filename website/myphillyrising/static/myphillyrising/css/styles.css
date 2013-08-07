@@ -459,14 +459,13 @@ a.logout-link:visited {
 }
 .neighborhood-title {
   font-size: 1.2em;
-/*  font-weight: 400;*/
+  margin: 0;
+  padding: 0 3em;
+  position: absolute;
   top: 0;
   right: -3em;
   bottom: 0;
   left: -3em;
-  margin: 0;
-  padding: 0 3em;
-  position: absolute;
   box-shadow: inset 0 -1em 2em rgba(0,0,0,0.25);
   text-shadow: 0 0.25em 0.5em rgba(0,0,0,0.5), 0 0 0.25em rgba(0,0,0,0.25);
   color: #ebffa6;
@@ -482,6 +481,30 @@ a.logout-link:visited {
   padding-left: 10px;
   margin-right: 20%;
 }
+.neighborhood-map-link {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.neighborhood-map-link-text {
+  position: absolute;
+  top: auto;
+  right: 10px;
+  bottom: 0;
+  left: auto;
+  color: #ffcdbf;
+  background-color: #bf6750;
+  border-radius: 3px 3px 0 0;
+  font-size: 0.625em;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 8px 3px;
+  box-shadow: 0 0 0.5em rgba(0,0,0,0.2);
+  border-top: 1px solid rgba(255,255,255,0.5);
+}
+
 .neighborhood-content {
   background: #455161;
   border-bottom: 1px solid #fff;
