@@ -14,11 +14,11 @@ class MyPhillyRisingViewMixin (object):
             .select_related('profile')\
             .exclude(profile=None)\
             .select_related('profile__neighborhood')\
-            .annotate(points=Sum('profile__actions__points'))
+            .annotate(points=Sum('actions__points'))
 
     def get_neighborhood_queryset(self):
         return Neighborhood.objects.all()\
-            .annotate(user_points=Sum('profiles__actions__points'))\
+            .annotate(user_points=Sum('profiles__user__actions__points'))\
             .annotate(item_points=Sum('tag__items__actions__points'))
 
 
