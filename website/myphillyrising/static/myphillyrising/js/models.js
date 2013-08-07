@@ -8,23 +8,29 @@ var MyPhillyRising = MyPhillyRising || {};
     isAuthenticated: function() {
       return !this.isNew();
     },
-    onAction: function(resp) {
-      console.log('onAction', arguments);
+    onAction: function(model, response, options) {
       var points = this.get('points');
-      // this.set('points', points += resp.points);
+      console.log('before', this.get('points'));
+      this.set('points', points + model.get('points'));
+      console.log('after', this.get('points'));
     },
     doAction: function(actionObj, contentItem) {
       var self = this,
           actionModel;
 
+      _.extend(actionObj, {
+        user: this.id,
+        item: contentItem ? contentItem.id : null
+      });
+
       if (contentItem) {
         contentItem.get('actions').create(actionObj, {
-          success: self.onAction
+          success: _.bind(self.onAction, this)
         });
       } else {
-        actionModel = new A.ActivityModel(actionObj);
-        actionModel.save({
-          success: self.onAction
+        actionModel = new A.ActionModel(actionObj);
+        actionModel.save(null, {
+          success: _.bind(self.onAction, this)
         });
       }
     }

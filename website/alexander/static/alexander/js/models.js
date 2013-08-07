@@ -125,23 +125,24 @@ var Alexander = Alexander || {};
     comparator: 'title'
   });
 
-  NS.ActionsModel = Backbone.RelationalModel.extend({
-    urlRoot: 'api/actions'
+  NS.ActionModel = Backbone.RelationalModel.extend({
+    urlRoot: '/api/actions'
   });
 
-  NS.ActionsCollection = Backbone.Collection.extend({
-    url: 'api/actions',
-    model: NS.ActionsModel
+  NS.ActionsCollection = NS.PaginatedCollection.extend({
+    url: '/api/actions',
+    model: NS.ActionModel
   });
 
   NS.ContentItemModel = Backbone.RelationalModel.extend({
     relations: [{
       type: Backbone.HasMany,
       key: 'actions',
-      relatedModel: 'ActionsModel',
+      relatedModel: 'ActionModel',
       collectionType: 'ActionsCollection',
       reverseRelation: {
-        key: 'item'
+        key: 'item',
+        includeInJSON: Backbone.Model.prototype.idAttribute
       }
     }],
     urlRoot: '/api/items',
