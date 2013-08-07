@@ -18,7 +18,7 @@ User = get_user_model()
 
 
 class UserProfile (models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile', primary_key=True)
     full_name = models.CharField(max_length=100, null=True, blank=True)
     neighborhood = models.ForeignKey('Neighborhood', null=True, blank=True, related_name='profiles')
     avatar_url = models.URLField(null=True, blank=True)
@@ -29,13 +29,13 @@ class UserProfile (models.Model):
 
 
 class UserAction (models.Model):
-    profile = models.ForeignKey('UserProfile', related_name='actions')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='actions')
     item = models.ForeignKey('alexander.ContentItem', related_name='actions', null=True, blank=True)
     points = models.IntegerField(default=0)
     type = models.CharField(max_length=32)
 
     def __unicode__(self):
-        string = u'%s:%s' % (self.profile, self.type)
+        string = u'%s:%s' % (self.user, self.type)
         if self.item:
             string += ':%s' % (self.item,)
         return string
