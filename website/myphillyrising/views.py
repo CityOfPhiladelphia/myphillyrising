@@ -1,4 +1,9 @@
+import base64
+import hashlib
+import hmac
 import json
+import time
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.utils.timezone import now, timedelta
 from django.db.models import Sum, Q
@@ -53,6 +58,37 @@ class MyPhillyRisingViewMixin (object):
             .order_by('tag')
         )
 
+    def get_disqus_sso_message(self, user):
+        if user.is_authenticated():
+            data = {
+                'id': str(user.id) + settings.DISQUS_ACCOUNT_UNIQUIFIER,
+                'username': user.username,
+                'email': user.email,
+                'avatar': user.profile.avatar_url
+            }
+        else:
+            data = {}
+
+        message = base64.b64encode(json.dumps(data))
+        return message
+
+    def get_disqus_sso_timestamp(self):
+        timestamp = int(time.time())
+        return timestamp
+
+    def get_disqus_sso_signature(self, message, timestamp):
+        signature = hmac.HMAC(
+            settings.DISQUS_SECRET_KEY,
+            '%s %s' % (message, timestamp),
+            hashlib.sha1).hexdigest()
+        return signature
+
+    def get_disqus_sso_auth_string(self, user):
+        message = self.get_disqus_sso_message(user)
+        timestamp = self.get_disqus_sso_timestamp()
+        signature = self.get_disqus_sso_signature(message, timestamp)
+        return ' '.join([message, signature, str(timestamp)])
+
 
 class AppView (MyPhillyRisingViewMixin, TemplateView):
     template_name = 'myphillyrising/index.html'
@@ -82,6 +118,7 @@ class AppView (MyPhillyRisingViewMixin, TemplateView):
         context['current_user_data'] = self.get_current_user_data()
         context['twitter_config'] = json.dumps(default_twitter_service.get_config())
         context['NS'] = 'MyPhillyRising'
+        context['disqus_sso_auth'] = self.get_disqus_sso_auth_string(self.request.user)
         return context
 
 

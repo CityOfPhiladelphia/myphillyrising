@@ -42,7 +42,10 @@
     neighborhoodData : {{ neighborhood_data|as_json }},
     currentUserData : {{ current_user_data|as_json }},
     baseUrl : "{% url 'app' %}",
-    staticUrl : "{{ STATIC_URL }}"
+    staticUrl : "{{ STATIC_URL }}",
+
+    disqusSSOAuth : "{{ disqus_sso_auth }}",
+    disqusPublicKey : "{{ settings.DISQUS_PUBLIC_KEY }}"
   };
   {{NS}}.staticURL = '{{ STATIC_URL|safe }}';
   {{NS}}.twitterConf = {{ twitter_config|safe }};
@@ -79,6 +82,25 @@
 
   <script src="{{ STATIC_URL }}js/app.min.js"></script>
   {% endif %}
+
+  <script>
+    var disqus_config = function() {
+      // The generated payload which authenticates users with Disqus
+      this.page.remote_auth_s3 = {{NS}}.bootstrapped.disqusSSOAuth;
+      this.page.api_key = {{NS}}.bootstrapped.disqusPublicKey;
+
+      // This adds the custom login/logout functionality
+      // this.sso = {
+      //   name:   "myPhillyRising",
+      //   // button:  "http://example.com/images/samplenews.gif",
+      //   // icon:     "http://example.com/favicon.png",
+      //   // url:        "http://example.com/login/",
+      //   logout:  "/logout/",
+      //   width:   "800",
+      //   height:  "400"
+      // };
+    }
+  </script>
 
   <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
   <script type="text/javascript">

@@ -1,5 +1,5 @@
-from django.conf import settings
+from django.conf import settings as djangosettings
 
 
-def settings_context(request):
-    return {'settings': settings}
+def settings(request):
+    return {'settings': djangosettings}
