@@ -454,6 +454,11 @@ a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighb
 .neighborhood-widget {
   margin: 0;
   padding: 0;
+  clear: both;
+}
+.neighborhood-widget .block-link {
+  margin-bottom: 10px;
+  text-decoration: none;
 }
 .neighborhood-widget .block-link {
   margin-bottom: 10px;
