@@ -1,44 +1,43 @@
 {{# is_authenticated }}
 
-  <p>{{ profile.full_name }}</p>
+  <h3 class="off-canvas-menu-header">{{ profile.full_name }} <a class="logout-link" href="{{ logout_url }}">Sign Out</a></h3>
 
-  <div>
+  <div class="user-profile">
     <p>You have {{ points }} points!</p>
+
+    <p>
+      <label for="user-menu-neighborhood-field">My Neighborhood:</label>
+      <select id="user-menu-neighborhood-field" name="neighborhood">
+        {{^ if profile.neighborhood }}
+          <option class="empty-neighborhood-option" value="">----------</option>
+        {{/ if }}
+
+        {{# select profile.neighborhood }}
+          {{# each_neighborhood }}
+            <option value="{{ tag }}">{{ name }}</option>
+          {{/ each_neighborhood }}
+        {{/ select }}
+      </select>
+    </p>
+
+    <p>
+      <label for="user-menu-email-field">Email Address:</label>
+      <input class="input-block" id="user-menu-email-field" type="email" name="email" value="{{ email }}">
+      <label for="user-menu-email-permission-field">
+        <input id="user-menu-email-permission-field"
+               type="checkbox" name="email_permission"
+               {{# if profile.email_permission }} checked{{/ if }}>
+        Send me updates &amp; notifications
+      </label>
+    </p>
   </div>
-  
-  <img src="{{ profile.avatar_url }}" alt="{{ username }}">
-
-  <div>
-    <label for="user-menu-email-field">Email:</label>
-    <input id="user-menu-email-field" type="email" name="email" value="{{ email }}">
-  </div>
-
-  <div>
-    <label for="user-menu-email-permission-field">
-      <input id="user-menu-email-permission-field"
-             type="checkbox" name="email_permission"
-             {{# if profile.email_permission }} checked{{/ if }}>
-      Email me with updates and notifications
-    </label>
-  </div>
-  
-  <select id="user-menu-neighborhood-field" name="neighborhood">
-    {{^ if profile.neighborhood }}
-      <option class="empty-neighborhood-option" value="">----------</option>
-    {{/ if }}
-
-    {{# select profile.neighborhood }}
-      {{# each_neighborhood }}
-        <option value="{{ tag }}">{{ name }}</option>
-      {{/ each_neighborhood }}
-    {{/ select }}
-  </select>
-
-  <p><a href="{{ logout_url }}">Log out</a></p>
 
 {{^}}
 
-  <p><a class='twitter-login-link' href="{{ login_url_for 'twitter' }}">Log in with Twitter</a></p>
-  <p><a class='facebook-login-link' href="{{ login_url_for 'facebook' }}">Log in with Facebook</a></p>
+  <h3 class="off-canvas-menu-header">Sign in with&hellip;</h3>
+  <ul class="login-options unstyled-list">
+    <li><a class='btn btn-block btn-primary login-link twitter-login-link' href="{{ login_url_for 'twitter' }}"><img class="icon-inline" src="{{ STATIC_URL }}myphillyrising/images/twitter-bird-white.png" />Twitter</a></li>
+    <li><a class='btn btn-block btn-primary login-link facebook-login-link' href="{{ login_url_for 'facebook' }}"><img class="icon-inline" src="{{ STATIC_URL }}myphillyrising/images/facebook-logo-white.png" />Facebook</a></li>
+  </ul>
 
 {{/ is_authenticated }}

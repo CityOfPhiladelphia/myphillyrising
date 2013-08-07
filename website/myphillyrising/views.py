@@ -3,8 +3,8 @@ from django.db.models import Sum
 from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
 from rest_framework.viewsets import ModelViewSet
-from myphillyrising.models import Neighborhood, User, UserProfile
-from myphillyrising.serializers import NeighborhoodSerializer, UserSerializer, LoggedInUserSerializer
+from myphillyrising.models import Neighborhood, User, UserProfile, UserAction
+from myphillyrising.serializers import NeighborhoodSerializer, UserSerializer, LoggedInUserSerializer, ActionSerializer
 from myphillyrising.services import default_twitter_service
 
 
@@ -14,11 +14,11 @@ class MyPhillyRisingViewMixin (object):
             .select_related('profile')\
             .exclude(profile=None)\
             .select_related('profile__neighborhood')\
-            .annotate(points=Sum('profile__actions__points'))
+            .annotate(points=Sum('actions__points'))
 
     def get_neighborhood_queryset(self):
         return Neighborhood.objects.all()\
-            .annotate(user_points=Sum('profiles__actions__points'))\
+            .annotate(user_points=Sum('profiles__user__actions__points'))\
             .annotate(item_points=Sum('tag__items__actions__points'))
 
 
@@ -73,9 +73,16 @@ class UserViewSet (MyPhillyRisingViewMixin, ModelViewSet):
         return super(UserViewSet, self).get_serializer_class(*args, **kwargs)
 
 
+class ActionViewSet (MyPhillyRisingViewMixin, ModelViewSet):
+    model = UserAction
+    serializer_class = ActionSerializer
+    paginate_by = 20
+
+
 # Views
 app_view = AppView.as_view()
 
 # Setup the API routes
 api_router = DefaultRouter(trailing_slash=False)
 api_router.register('users', UserViewSet)
+api_router.register('actions', ActionViewSet)

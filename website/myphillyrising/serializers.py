@@ -26,6 +26,13 @@ class UserSerializer(ModelSerializer):
         fields = ('id', 'username', 'last_login', 'profile', 'points')
 
 
+# The logged-in user serializers are similar to the normal user serializers,
+# except that they include private information like email address. This is
+# included so that the user may edit the information.
+#
+# TODO: It may make more sense to use the norbal user serializers and modify
+#       them on the fly for the logged-in user.
+
 class LoggedInUserProfileSerializer(UserProfileSerializer):
     class Meta:
         model = UserProfile
@@ -34,7 +41,6 @@ class LoggedInUserProfileSerializer(UserProfileSerializer):
 
 class LoggedInUserSerializer(UserSerializer):
     profile = LoggedInUserProfileSerializer()
-    points = IntegerField(read_only=True)
 
     class Meta:
         model = User
@@ -54,6 +60,6 @@ class LoggedInUserSerializer(UserSerializer):
         return user
 
 
-class UserActionSerializer(ModelSerializer):
+class ActionSerializer(ModelSerializer):
     class Meta:
         model = UserAction
