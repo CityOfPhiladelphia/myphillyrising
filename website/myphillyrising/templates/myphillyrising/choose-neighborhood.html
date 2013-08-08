@@ -1,13 +1,25 @@
 <html>
 <body>
-  <form id="neighborhood-choice-form" method="POST">{% csrf_token %}
-    <select id="neighborhood-choice-field" name="neighborhood">
-      <option value="">Select a neighborhood...</option>
-      {% for neighborhood in neighborhoods %}
-      <option value="{{ neighborhood.tag }}">{{ neighborhood.name }}</option>
-      {% endfor %}
-    </select>
-  </form>
+
+  <h3 class="off-canvas-menu-header">Select a neighborhood</h3>
+
+  <ul class="neighborhood-list unstyled-list">
+    <li><a class="" href="/kingsessing">Kingsessing</a></li>
+    <li><a class="" href="/lawncrest">Lawncrest</a></li>
+    <li><a class="" href="/north-central">North Central</a></li>
+    <li><a class="" href="/swampoodle-allegheny-west">Swampoodle Allegheny West</a></li>
+    <li><a class="" href="/haddington">Haddington</a></li>
+    <li><a class="" href="/frankford">Frankford</a></li>
+    <li><a class="" href="/southeast">Southeast</a></li>
+    <li><a class="" href="/point-breeze">Point Breeze</a></li>
+    <li><a class="" href="/st-hughs">St Hughs</a></li>
+    <li><a class="" href="/hartranft">Hartranft</a></li>
+    <li><a class="" href="/elmwood">Elmwood</a></li>
+    <li><a class="" href="/market-east">Market East</a></li>
+    <li><a class="" href="/penrose">Penrose</a></li>
+    <li><a class="is-current-neighborhood" href="/kensington">Kensington</a></li>
+    <li><a class="" href="/strawberry-mansion">Strawberry Mansion</a></li>
+  </ul>
 
   <script src="{{ STATIC_URL }}components/jquery/jquery.js"></script>
 

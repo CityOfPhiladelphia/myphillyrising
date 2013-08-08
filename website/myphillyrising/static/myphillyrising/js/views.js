@@ -98,6 +98,7 @@ var MyPhillyRising = MyPhillyRising || {};
   // Neighborhood Menu View ===================================================
   NS.NeighborhoodMenuItemView = Backbone.Marionette.ItemView.extend({
     template: '#neighborhood-menu-item-tpl',
+    tagName: 'li',
     events: {
       'click': 'onClick'
     },
