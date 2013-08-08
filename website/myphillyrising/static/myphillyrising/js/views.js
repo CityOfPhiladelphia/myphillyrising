@@ -405,9 +405,20 @@ var MyPhillyRising = MyPhillyRising || {};
     },
     addMarker: function(model, collection, options) {
       var geom = model.get('geom');
-      this.featureGroup.addLayer(L.marker([geom.y, geom.x], {
-        data: model.toJSON()
-      }));
+      if (geom && geom.x && geom.y) {
+        this.featureGroup.addLayer(L.marker([geom.y, geom.x], {
+          data: model.toJSON(),
+          icon: L.icon({
+            iconUrl: NS.staticURL + 'myphillyrising/images/markers/marker-'+model.get('type')+'.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+
+            shadowUrl: NS.staticURL + 'myphillyrising/images/markers/marker-shadow.png',
+            shadowSize: [41, 41]
+          })
+        }));
+      }
     },
     handleClick: function(evt) {
       var $el = this.$(evt.currentTarget),

@@ -2,28 +2,10 @@ var MyPhillyRising = MyPhillyRising || {};
 
 (function(NS) {
   NS.Config = {
-    neighborhoods: {
-      'market-east': { center: [39.9515, -75.1567] },
-      'north-central': { center: [39.9524, -75.1636] },
-      'pennrose': { center: [39.9524, -75.1636] },
-      'strawberry-mansion': { center: [39.9524, -75.1636] },
-      'hartranft': { center: [39.9524, -75.1636] },
-      'kensington': { center: [39.9949, -75.1185] },
-      'st-hughs': { center: [39.9524, -75.1636] },
-      'frankford': { center: [39.9524, -75.1636] },
-      'lawncrest': { center: [39.9524, -75.1636] },
-      'swampoodle-allegheny-west': { center: [39.9524, -75.1636] },
-      'point-breeze': { center: [39.9524, -75.1636] },
-      'southeast': { center: [39.9524, -75.1636] },
-      'elmwood': { center: [39.9524, -75.1636] },
-      'haddington': { center: [39.9524, -75.1636] },
-      'kingsessing': { center: [39.9524, -75.1636] }
-    },
-
     facilities: [
       {
         label: 'Keyspot',
-        type: 'internet_access',
+        type: 'computer',
         url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Keyspot_Locations/MapServer/0/query',
         attrMap: {
           id: 'OBJECTID_1',
@@ -33,13 +15,123 @@ var MyPhillyRising = MyPhillyRising || {};
       },
       {
         label: 'Recreation Facility',
-        type: 'recreation',
+        type: 'reccenter',
         url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Recreation_Facilities/MapServer/0/query',
         attrMap: {
           id: 'OBJECTID',
           name: 'NAME',
           address: 'ADDRESS'
         }
+      },
+      {
+        label: 'Registered Community Organization',
+        type: 'community',
+        url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/RCO/MapServer/0/query',
+        attrMap: {
+          id: 'OBJECTID',
+          name: 'ORG_NAME',
+          address: 'ADDRESS'
+        }
+      },
+      {
+        label: 'Playgrounds',
+        type: 'swing',
+        url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Playgrounds/MapServer/0/query',
+        attrMap: {
+          id: 'OBJECTID',
+          name: 'SITE',
+          address: 'ADDRESS'
+        }
+      },
+      {
+        label: 'PAL Centers',
+        type: 'reccenter',
+        url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/PAL_Centers/MapServer/0/query',
+        attrMap: {
+          id: 'OBJECTID',
+          name: 'CENTER_NAM',
+          address: 'ADDRESS'
+        }
+      },
+      {
+        label: 'Parks',
+        type: 'park',
+        url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Parks/MapServer/0/query',
+        attrMap: {
+          id: 'OBJECTID',
+          name: 'NAME',
+          address: 'ADDRESS'
+        }
+      },
+      {
+        label: 'Ice Rinks',
+        type: 'iceskate',
+        url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Ice_Rinks/MapServer/0/query',
+        attrMap: {
+          id: 'OBJECTID',
+          name: 'NAME',
+          address: 'ADDRESS'
+        }
+      },
+      {
+        label: 'Health Centers',
+        type: 'healthcenter',
+        url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Health_Centers/MapServer/0/query',
+        attrMap: {
+          id: 'OBJECTID',
+          name: 'NAME',
+          address: 'ADDRESS'
+        }
+      },
+      {
+        label: 'Healthy Corner Stores',
+        type: 'food',
+        url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Healthy_Corner_Stores/MapServer/0/query',
+        attrMap: {
+          id: 'OBJECTID',
+          name: 'OFFICIAL_S',
+          address: 'STORE_ADDR'
+        }
+      },
+      {
+        label: 'Farmers Market',
+        type: 'food',
+        url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Farmers_Markets/MapServer/0/query',
+        attrMap: {
+          id: 'OBJECTID',
+          name: 'NAME',
+          address: 'ADDRESS'
+        }
+      },
+      {
+        label: 'Fire Stations',
+        type: 'firefighter',
+        url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Fire_Stations/MapServer/0/query',
+        attrMap: {
+          id: 'OBJECTID',
+          name: 'LAD',
+          address: 'LOCATION'
+        }
+      },
+      {
+        label: 'Cooling Centers',
+        type: 'swimmer',
+        url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Cooling_Centers/MapServer/1/query',
+        attrMap: {
+          id: 'OBJECTID',
+          name: 'NAME',
+          address: 'LOCATION'
+        }
+      // },
+      // {
+      //   label: 'Police Stations',
+      //   type: 'police',
+      //   url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Cooling_Centers/MapServer/0/query',
+      //   attrMap: {
+      //     id: 'OBJECTID',
+      //     name: 'SPCL',
+      //     address: 'LOCATION'
+      //   }
       }
     ]
   };
