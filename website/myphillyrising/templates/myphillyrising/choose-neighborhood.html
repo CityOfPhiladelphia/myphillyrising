@@ -9,6 +9,8 @@
         <h3 class="off-canvas-menu-header">Select a neighborhood</h3>
 
         <form id="neighborhood-choice-form" method="POST">{% csrf_token %}
+          <input type="hidden" name="auth_provider" value="{{ auth_provider|default:'' }}">
+
           <ul class="neighborhood-list unstyled-list">
             {% for neighborhood in neighborhoods %}
             <li><button type="submit" name="neighborhood" value="{{ neighborhood.tag_id }}" class="">

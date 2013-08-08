@@ -21,11 +21,15 @@ def get_neighborhood_preference(*auth_args, **auth_kwargs):
 
     # Redirect to the neighborhood choice form if no neighborhood hs been set
     if neighborhood is None:
-        url = reverse('choose-neighborhood', args=(auth_kwargs['backend'].name,))
+        request.session['auth_provider'] = auth_kwargs['backend'].name
+        url = reverse('choose-neighborhood')
         return HttpResponseRedirect(url)
 
+    # Get rid of stuff we may have put on the session.
     if 'neighborhood' in request.session:
         del request.session['neighborhood']
+    if 'auth_provider' in request.session:
+        del request.session['auth_provider']
 
     return {'neighborhood': neighborhood}
 

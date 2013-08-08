@@ -91,15 +91,18 @@ class ChooseNeighborhoodView (MyPhillyRisingViewMixin, FormView):
     def get_context_data(self, **kwargs):
         context = super(ChooseNeighborhoodView, self).get_context_data(**kwargs)
         context['neighborhoods'] = Neighborhood.objects.all()
+        context['auth_provider'] = (
+            self.request.GET.get('auth_provider') or
+            self.request.session.get('auth_provider'))
         return context
 
     def form_valid(self, form):
         self.request.session['neighborhood'] = form.cleaned_data['neighborhood']
+        self.auth_provider = form.cleaned_data['auth_provider']
         return super(ChooseNeighborhoodView, self).form_valid(form)
 
     def get_success_url(self):
-        auth_provider = self.kwargs['auth_provider']
-        return reverse('socialauth_complete', args=(auth_provider,))
+        return reverse('socialauth_complete', args=(self.auth_provider,))
 
 
 class UserViewSet (MyPhillyRisingViewMixin, ModelViewSet):
