@@ -174,16 +174,6 @@ var MyPhillyRising = MyPhillyRising || {};
     NS.app.currentNeighborhood = neighborhoodModel.get('tag');
   });
 
-  NS.app.notificationRegion.on('show', function() {
-    // Show the message
-    NS.app.notificationRegion.$el.removeClass('is-closed');
-
-    _.delay(function() {
-      // Hide the message
-      NS.app.notificationRegion.$el.addClass('is-closed');
-    }, 5000);
-  });
-
   // Initializers =============================================================
   NS.app.addInitializer(function(options){
     this.neighborhoodCollection = new NS.NeighborhoodCollection(NS.bootstrapped.neighborhoodData);

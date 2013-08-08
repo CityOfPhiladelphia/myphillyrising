@@ -446,7 +446,17 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.PointsNotificationView = Backbone.Marionette.ItemView.extend({
-    template: '#points-notification-tpl'
+    template: '#points-notification-tpl',
+    className: 'notification is-closed',
+    events: {
+      'click .close-btn': function() {
+        // Hide the message
+        this.$el.addClass('is-closed');
+      }
+    },
+    onShow: function() {
+      this.$el.removeClass('is-closed');
+    }
   });
 
 }(MyPhillyRising));
