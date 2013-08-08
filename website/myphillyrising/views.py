@@ -1,6 +1,7 @@
 import json
 from django.core.urlresolvers import reverse
-from django.db.models import Sum
+from django.utils.timezone import now, timedelta
+from django.db.models import Sum, Q
 from django.views.generic import TemplateView, FormView
 from rest_framework.routers import DefaultRouter
 from rest_framework.viewsets import ModelViewSet
@@ -12,15 +13,44 @@ from myphillyrising.services import default_twitter_service
 
 class MyPhillyRisingViewMixin (object):
     def get_user_queryset(self):
-        return User.objects.all()\
-            .select_related('profile')\
-            .exclude(profile=None)\
-            .select_related('profile__neighborhood')\
+        qs =  (
+            User.objects.all()
+
+            # Only select users that have profiles.
+            .select_related('profile')
+            .exclude(profile__isnull=True)
+
+            # Pre-select the neighborhood object.
+            .select_related('profile__neighborhood')
+
+            # For points, only use those that are in the last 30 days. Also
+            # include actions that are null, because those will correspond to
+            # users that yet have no points.
+            .filter(
+                Q(actions__awarded_at__gt=now() - timedelta(days=30)) | 
+                Q(actions__awarded_at__isnull=True)
+            )
+
+            # Add up the points.
             .annotate(points=Sum('actions__points'))
+        )
+
+        return qs
 
     def get_neighborhood_queryset(self):
-        return Neighborhood.objects.all()\
+        return (
+            Neighborhood.objects.all()\
+
+            # For points, only use those that are in the last 30 days. Also
+            # include actions that are null, because those will correspond to
+            # users that yet have no points.
+            .filter(
+                Q(profiles__user__actions__awarded_at__gt=now() - timedelta(days=30)) | 
+                Q(profiles__user__actions__awarded_at__isnull=True)
+            )
+
             .annotate(points=Sum('profiles__user__actions__points'))
+        )
 
 
 class AppView (MyPhillyRisingViewMixin, TemplateView):
