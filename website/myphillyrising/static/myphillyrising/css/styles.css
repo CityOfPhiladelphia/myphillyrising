@@ -763,6 +763,54 @@ a.close-btn:hover {
 }
 
 
+/* =Points Notifications
+-------------------------------------------------------------- */
+
+#notification-region {
+  visibility: visible;
+  position: absolute;
+  z-index: 9999;
+  top: auto;
+  right: 20px;
+  bottom: 0;
+  left: 20px;
+  margin-bottom: 0;
+  opacity: 1;
+
+  background-color: #ebffa6;
+  background-color: rgba(235, 255, 166, 0.9);
+  border: 2px solid #ebffa6;
+  border-bottom: 0;
+  border-radius: 3px 3px 0 0;
+  padding: 5px 5px 8px;
+  text-align: center;
+  color: #546070;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+  box-shadow: 0 0.125em 0.75em rgba(0,0,0,0.5);
+
+  -webkit-transition: margin 0.5s ease, opacity 0.2s ease;
+     -moz-transition: margin 0.5s ease, opacity 0.2s ease;
+      -ms-transition: margin 0.5s ease, opacity 0.2s ease;
+          transition: margin 0.5s ease, opacity 0.2s ease;
+}
+#notification-region.is-closed {
+  visibility: hidden;
+  margin-bottom: -3em;
+  opacity: 0;
+  -webkit-transition: margin 0.5s ease, opacity 0.8s ease, visibility 0 1s;
+     -moz-transition: margin 0.5s ease, opacity 0.8s ease, visibility 0 1s;
+      -ms-transition: margin 0.5s ease, opacity 0.8s ease, visibility 0 1s;
+          transition: margin 0.5s ease, opacity 0.8s ease, visibility 0 1s;
+}
+.notification-points {
+  margin: 0;
+}
+.notification-reason {
+  font-size: 0.75em;
+  text-transform: uppercase;
+}
+
+
 /* =Media Queries for Responsive Layout
 -------------------------------------------------------------- */
 

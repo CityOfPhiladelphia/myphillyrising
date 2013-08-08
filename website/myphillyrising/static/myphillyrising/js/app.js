@@ -175,12 +175,12 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.app.notificationRegion.on('show', function() {
-    // TODO: add classes
-    // NS.app.notificationRegion.$el.addClass('show');
+    // Show the message
+    NS.app.notificationRegion.$el.removeClass('is-closed');
 
     _.delay(function() {
-      // TODO: remove classes
-      // NS.app.notificationRegion.$el.removeClass('show');
+      // Hide the message
+      NS.app.notificationRegion.$el.addClass('is-closed');
     }, 5000);
   });
 
@@ -202,7 +202,7 @@ var MyPhillyRising = MyPhillyRising || {};
 
       NS.app.notificationRegion.show(new NS.PointsNotificationView({
         model: new Backbone.Model({
-          points: points,
+          user_points: points,
           neighborhood_points: neighborhoodPoints,
           neighborhood: neighborhoodModel.get('name'),
           notification: options.notification
