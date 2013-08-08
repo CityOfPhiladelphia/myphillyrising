@@ -134,7 +134,7 @@ SOCIAL_AUTH_PIPELINE = (
     'myphillyrising.social_auth.update_user_profile',
 )
 
-FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id,name,email,picture.type(large),first_name,last_name,bio'}
+FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id,name,email,picture.width(96).height(96),first_name,last_name,bio'}
 
 LOGIN_URL          = '/login/'
 LOGIN_REDIRECT_URL = '/'
