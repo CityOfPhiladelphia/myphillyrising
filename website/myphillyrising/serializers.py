@@ -43,7 +43,7 @@ class LoggedInUserSerializer(UserSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'last_login', 'profile', 'email', 'points')
+        fields = ('id', 'username', 'date_joined', 'last_login', 'profile', 'email', 'points')
 
     def from_native(self, data, files):
         profile_data = data.get('profile')
