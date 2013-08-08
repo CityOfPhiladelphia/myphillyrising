@@ -50,6 +50,7 @@ class MyPhillyRisingViewMixin (object):
             )
 
             .annotate(points=Sum('profiles__user__actions__points'))
+            .order_by('tag')
         )
 
 
