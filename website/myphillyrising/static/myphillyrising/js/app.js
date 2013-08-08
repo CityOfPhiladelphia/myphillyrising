@@ -195,14 +195,14 @@ var MyPhillyRising = MyPhillyRising || {};
       var neighborhood = this.get('profile').neighborhood,
           points = actionModel.get('points'),
           neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood}),
-          neighborhoodPoints = neighborhoodModel.get('user_points') + points;
+          neighborhoodPoints = neighborhoodModel.get('points') + points;
 
       // Update neighborhood points
-      neighborhoodModel.set('user_points', neighborhoodPoints);
+      neighborhoodModel.set('points', neighborhoodPoints);
 
       NS.app.notificationRegion.show(new NS.PointsNotificationView({
         model: new Backbone.Model({
-          user_points: points,
+          points: points,
           neighborhood_points: neighborhoodPoints,
           neighborhood: neighborhoodModel.get('name'),
           notification: options.notification

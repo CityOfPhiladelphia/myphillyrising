@@ -4,8 +4,6 @@
 
     <div class="item-header detail-header event-item-header">
       <h3 class="item-title detail-title">{{{ title }}}</h3>
-      <span class="st_facebook_large" displayText="Facebook" st_title="{{{title}}}"></span>
-      <span class="st_twitter_large" displayText="Tweet" st_title="{{TWEET_TEXT title}}"></span>
 
       <div class="item-meta detail-meta">
         <p class="date"><a href="#" title="Permalink to {{ title }}" rel="bookmark">
@@ -32,5 +30,13 @@
     <div class="item-content detail-content">
       {{{ source_content.DESCRIPTION }}}
     </div>
+
+    <hr />
+
+    <p class="clearfix">
+      <span class="share-this-prompt">Share this: </span>
+      <span class="st_facebook_large" displayText="Facebook" st_title="{{{title}}}"></span>
+      <span class="st_twitter_large" displayText="Tweet" st_title="{{TWEET_TEXT title}}"></span>
+    </p>
 
   </article>
