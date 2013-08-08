@@ -413,4 +413,8 @@ var MyPhillyRising = MyPhillyRising || {};
     template: '#about-tpl'
   });
 
+  NS.PointsNotificationView = Backbone.Marionette.ItemView.extend({
+    template: '#points-notification-tpl'
+  });
+
 }(MyPhillyRising));

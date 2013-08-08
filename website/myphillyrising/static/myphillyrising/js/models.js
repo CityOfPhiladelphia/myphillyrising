@@ -8,13 +8,15 @@ var MyPhillyRising = MyPhillyRising || {};
     isAuthenticated: function() {
       return !this.isNew();
     },
-    onAction: function(model, response, options) {
+    onAction: function(model, options) {
       var points = this.get('points');
       console.log('before', this.get('points'));
       this.set('points', points + model.get('points'));
       console.log('after', this.get('points'));
+
+      this.trigger('action', model, options);
     },
-    doAction: function(actionObj, contentItem) {
+    doAction: function(actionObj, contentItem, options) {
       var self = this,
           actionModel;
 
@@ -25,12 +27,16 @@ var MyPhillyRising = MyPhillyRising || {};
 
       if (contentItem) {
         contentItem.get('actions').create(actionObj, {
-          success: _.bind(self.onAction, this)
+          success: _.bind(function(model) {
+            self.onAction(model, options);
+          }, this)
         });
       } else {
         actionModel = new A.ActionModel(actionObj);
         actionModel.save(null, {
-          success: _.bind(self.onAction, this)
+          success: _.bind(function(model) {
+            self.onAction(model, options);
+          }, this)
         });
       }
     }

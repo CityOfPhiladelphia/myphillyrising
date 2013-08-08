@@ -157,7 +157,8 @@ var MyPhillyRising = MyPhillyRising || {};
     mainRegion: '#main-region',
     headerRegion: '#header-region',
     neighborhoodMenuRegion: '#neighborhood-menu-region',
-    userMenuRegion: '#user-menu-region'
+    userMenuRegion: '#user-menu-region',
+    notificationRegion: '#notification-region'
   });
 
   NS.app.vent.on('neighborhoodchange', function(neighborhoodModel){
@@ -173,11 +174,41 @@ var MyPhillyRising = MyPhillyRising || {};
     NS.app.currentNeighborhood = neighborhoodModel.get('tag');
   });
 
+  NS.app.notificationRegion.on('show', function() {
+    // TODO: add classes
+    // NS.app.notificationRegion.$el.addClass('show');
+
+    _.delay(function() {
+      // TODO: remove classes
+      // NS.app.notificationRegion.$el.removeClass('show');
+    }, 5000);
+  });
+
   // Initializers =============================================================
   NS.app.addInitializer(function(options){
     this.neighborhoodCollection = new NS.NeighborhoodCollection(NS.bootstrapped.neighborhoodData);
     this.currentUser = new NS.UserModel(NS.bootstrapped.currentUserData);
     this.currentUser.url = function() { return NS.UserCollection.prototype.url + '/' + this.id; };
+
+    this.currentUser.on('action', function(actionModel, options) {
+      console.log('action!', actionModel, this);
+      var neighborhood = this.get('profile').neighborhood,
+          points = actionModel.get('points'),
+          neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood}),
+          neighborhoodPoints = neighborhoodModel.get('user_points') + points;
+
+      // Update neighborhood points
+      neighborhoodModel.set('user_points', neighborhoodPoints);
+
+      NS.app.notificationRegion.show(new NS.PointsNotificationView({
+        model: new Backbone.Model({
+          user_points: points,
+          neighborhood_points: neighborhoodPoints,
+          neighborhood: neighborhoodModel.get('name'),
+          notification: options.notification
+        })
+      }));
+    });
 
     // Create the header
     this.headerView = new NS.HeaderView();
