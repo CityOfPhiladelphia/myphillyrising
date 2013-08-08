@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.core.urlresolvers import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.detail import SingleObjectMixin
 from rest_framework import status
@@ -9,13 +10,23 @@ from rest_framework.viewsets import ModelViewSet
 from alexander.models import Feed, ContentItem
 from alexander.serializers import ContentItemSerializer
 from alexander.tasks import refresh_feed, refresh_feeds
+from django.contrib.auth.decorators import user_passes_test
+from django.utils.decorators import method_decorator
 
 
-class AdminFeedView (TemplateView):
+class AdminRequiredMixin(object):
+    """Ensures user is authenticated as a superuser."""
+
+    @method_decorator(user_passes_test(lambda u: u.is_superuser, reverse_lazy('admin_login')))
+    def dispatch(self, *args, **kwargs):
+        return super(AdminRequiredMixin, self).dispatch(*args, **kwargs)
+
+
+class AdminFeedView (AdminRequiredMixin, TemplateView):
     template_name = 'alexander/feeds.html'
 
 
-class AdminItemView (TemplateView):
+class AdminItemView (AdminRequiredMixin, TemplateView):
     template_name = 'alexander/items.html'
 
 

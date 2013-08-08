@@ -1,0 +1,39 @@
+{% extends 'alexander/base.html' %}
+{% load jstemplate %}
+
+{% block title %}Log In{% endblock title %}
+
+{% block navitems %}
+  <li><a href="/admin/items/">Items</a></li>
+  <li><a href="/admin/feeds/">Feeds</a></li>
+{% endblock navitems %}
+
+{% block content %}
+  <div class="container">
+    <h1>Log In</h1>
+
+    {% if user.is_authenticated %}
+      
+      <p>You are not logged in with an administrator account. <a href="{% url 'logout' %}?next={{ request.get_full_path|urlencode }}">Log out</a>.</p>
+
+    {% else %}
+
+      <form method="POST">
+        {{ form }}
+
+        <div>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+
+      <div>
+        <p>Or log in with:</p>
+        <ul>
+          <li><a href="{% url 'socialauth_begin' 'twitter' %}?next={{ next }}">Twitter</a></li>
+          <li><a href="{% url 'socialauth_begin' 'facebook' %}?next={{ next }}">Facebook</a></li>
+        </ul>
+      </div>
+
+    {% endif %}
+  </div>
+{% endblock content %}
