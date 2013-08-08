@@ -285,6 +285,12 @@ body {
   overflow: hidden;
 }
 
+.page.choose {
+  width: 100%;
+  background-color: #546070;
+  color: #ebeff3;
+}
+
 .container {
   padding: 10px;
 }
@@ -375,6 +381,7 @@ body {
   margin: 0 -10px 20px;
   padding: 5px 20px 10px;
   box-shadow: 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.1);
+  color: #d0d3d7;
 }
 
 .off-canvas-menu a, .off-canvas-menu a:link, .off-canvas-menu a:visited { color: #ebffa6; }
@@ -384,14 +391,28 @@ body {
 ul.neighborhood-list {
   margin: -20px -10px 20px;
 }
-.neighborhood-list a {
+.neighborhood-list a,
+.neighborhood-list button {
   display: block;
   text-decoration: none;
+  border: none;
   border-top: 1px solid rgba(255,255,255,0.1);
   border-bottom: 1px solid rgba(0,0,0,0.1);
   padding: 10px 20px;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
+  width: 100%;
+  cursor: pointer;
+  margin: 0px;
+  background: none;
+  text-align: left;
+  color: #ebffa6;
+  font-size: 1em;
+  line-height: 1.25;
 }
-.neighborhood-list li:first-child a {
+.neighborhood-list li:first-child a,
+.neighborhood-list li:first-child button {
   border-top: 0;
 }
 a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighborhood:visited {

@@ -3,16 +3,22 @@
 {% block content %}
   <div class="site-wrapper">
 
-    <h3 class="off-canvas-menu-header">Select a neighborhood</h3>
+    <div class="page choose">
+      <div class="container">
 
-    <form id="neighborhood-choice-form" method="POST">{% csrf_token %}
-      <ul class="neighborhood-list unstyled-list">
-        {% for neighborhood in neighborhoods %}
-        <li><button type="submit" name="neighborhood" value="{{ neighborhood.tag_id }}" class="">
-          {{ neighborhood.name }}</button></li>
-        {% endfor %}
-      </ul>
-    </form>
+        <h3 class="off-canvas-menu-header">Select a neighborhood</h3>
+
+        <form id="neighborhood-choice-form" method="POST">{% csrf_token %}
+          <ul class="neighborhood-list unstyled-list">
+            {% for neighborhood in neighborhoods %}
+            <li><button type="submit" name="neighborhood" value="{{ neighborhood.tag_id }}" class="">
+              {{ neighborhood.name }}</button></li>
+            {% endfor %}
+          </ul>
+        </form>
+
+      </div>
+    </div>
 
   </div>
 {% endblock %}
