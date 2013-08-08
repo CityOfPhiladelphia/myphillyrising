@@ -842,12 +842,10 @@ a.close-btn:hover {
 
 @media only screen and (min-width: 480px) {
   body {
-    overflow: auto;
     background-color: #333c47;
   }
   .site-wrapper {
     width: 480px;
-    height: auto;
     margin: 0 auto;
     box-shadow: 0 0 40px rgba(51,60,71,1);
   }
