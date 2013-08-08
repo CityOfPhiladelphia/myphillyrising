@@ -615,7 +615,6 @@ a.close-btn {
   height: 2em;
   width: 2em;
   text-align: center;
-  margin: -10px -10px 0 0;
   color: #FF6B6B;
   position: relative;
   z-index: 2;
@@ -626,6 +625,9 @@ a.close-btn:hover {
 .close-icon {
   font-size: 1.5em;
   line-height: 1.2;
+}
+.detail-close-btn {
+  margin: -10px -10px 0 0;
 }
 
 /* Detail Items */
