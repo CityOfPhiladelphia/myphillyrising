@@ -254,9 +254,29 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.BaseDetailView = Backbone.Marionette.ItemView.extend({
+    initialize: function() {
+      var self = this;
+      if (window.stLight && MyPhillyRising.app.currentUser) {
+        //register the callback function with sharethis
+        window.stLight.subscribe('click', function(event, service) {
+          // Award points to the user for sharing a thing
+          MyPhillyRising.app.currentUser.doAction(
+            {points: 5, type: 'share'},
+            self.model,
+            {notification: 'You shared "' + self.model.get('title' + '"')}
+          );
+        });
+      }
+    },
     modelEvents: { 'change': 'render'},
     onShow: function() {
-      // Render ShareThis buttons
+      // Sometimes rendering happens after show, sometimes before
+      if (window.stButtons && window.stButtons.locateElements) {
+        window.stButtons.locateElements();
+      }
+    },
+    onRender: function() {
+      // Sometimes rendering happens after show, sometimes before
       if (window.stButtons && window.stButtons.locateElements) {
         window.stButtons.locateElements();
       }
