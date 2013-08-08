@@ -210,6 +210,15 @@ var MyPhillyRising = MyPhillyRising || {};
       }));
     });
 
+    // Is this the first time the user has signed in?
+    if (NS.app.currentUser.hasSignedIn() === false) {
+      NS.app.currentUser.doAction(
+        {points: 10, type: 'signup'},
+        null,
+        {notification: 'You created a new account!'}
+      );
+    }
+
     // Create the header
     this.headerView = new NS.HeaderView();
     NS.app.headerRegion.show(this.headerView);

@@ -8,6 +8,18 @@ var MyPhillyRising = MyPhillyRising || {};
     isAuthenticated: function() {
       return !this.isNew();
     },
+    hasSignedIn: function() {
+      var dateJoined = new Date(this.get('date_joined')),
+          points = this.get('points'),
+          now = new Date(),
+          thirtyDaysInMillis = 2592000000;
+
+      if (!points && (now - dateJoined <= thirtyDaysInMillis)) {
+        return false;
+      }
+
+      return true;
+    },
     onAction: function(model, options) {
       var points = this.get('points');
       console.log('before', this.get('points'));

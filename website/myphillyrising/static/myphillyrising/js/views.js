@@ -260,7 +260,7 @@ var MyPhillyRising = MyPhillyRising || {};
         //register the callback function with sharethis
         window.stLight.subscribe('click', function(event, service) {
           // Award points to the user for sharing a thing
-          MyPhillyRising.app.currentUser.doAction(
+          NS.app.currentUser.doAction(
             {points: 5, type: 'share'},
             self.model,
             {notification: 'You shared "' + self.model.get('title' + '"')}
