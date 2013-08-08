@@ -1,0 +1,20 @@
+<html>
+<body>
+  <form id="neighborhood-choice-form" method="POST">{% csrf_token %}
+    <select id="neighborhood-choice-field" name="neighborhood">
+      <option value="">Select a neighborhood...</option>
+      {% for neighborhood in neighborhoods %}
+      <option value="{{ neighborhood.tag }}">{{ neighborhood.name }}</option>
+      {% endfor %}
+    </select>
+  </form>
+
+  <script src="{{ STATIC_URL }}components/jquery/jquery.js"></script>
+
+  <script>
+    $('#neighborhood-choice-field').change(function() {
+      $('#neighborhood-choice-form').submit();
+    });
+  </script>
+</body>
+</html>

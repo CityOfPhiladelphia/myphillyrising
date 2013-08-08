@@ -1,8 +1,10 @@
 import json
+from django.core.urlresolvers import reverse
 from django.db.models import Sum
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
 from rest_framework.routers import DefaultRouter
 from rest_framework.viewsets import ModelViewSet
+from myphillyrising.forms import ChooseNeighborhoodForm
 from myphillyrising.models import Neighborhood, User, UserProfile, UserAction
 from myphillyrising.serializers import NeighborhoodSerializer, UserSerializer, LoggedInUserSerializer, ActionSerializer
 from myphillyrising.services import default_twitter_service
@@ -52,6 +54,24 @@ class AppView (MyPhillyRisingViewMixin, TemplateView):
         return context
 
 
+class ChooseNeighborhoodView (MyPhillyRisingViewMixin, FormView):
+    template_name = 'myphillyrising/choose-neighborhood.html'
+    form_class = ChooseNeighborhoodForm
+
+    def get_context_data(self, **kwargs):
+        context = super(ChooseNeighborhoodView, self).get_context_data(**kwargs)
+        context['neighborhoods'] = Neighborhood.objects.all()
+        return context
+
+    def form_valid(self, form):
+        self.request.session['neighborhood'] = form.cleaned_data['neighborhood']
+        return super(ChooseNeighborhoodView, self).form_valid(form)
+
+    def get_success_url(self):
+        auth_provider = self.kwargs['auth_provider']
+        return reverse('socialauth_complete', args=(auth_provider,))
+
+
 class UserViewSet (MyPhillyRisingViewMixin, ModelViewSet):
     model = User
     serializer_class = UserSerializer
@@ -80,6 +100,7 @@ class ActionViewSet (MyPhillyRisingViewMixin, ModelViewSet):
 
 # Views
 app_view = AppView.as_view()
+choose_neighborhood = ChooseNeighborhoodView.as_view()
 
 # Setup the API routes
 api_router = DefaultRouter(trailing_slash=False)

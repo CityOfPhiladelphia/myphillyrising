@@ -126,8 +126,11 @@ SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.load_extra_data',
     'social_auth.backends.pipeline.user.update_user_details',
 
-    # Set up or update the myPhillyRising profile
+    # Set up or update the myPhillyRising profile with things like 
+    # neighborhood and email.
     'myphillyrising.social_auth.get_user_profile',
+    'social_auth.backends.pipeline.misc.save_status_to_session',
+    'myphillyrising.social_auth.get_neighborhood_preference',
     'myphillyrising.social_auth.update_user_profile',
 )
 
