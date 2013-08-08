@@ -60,6 +60,10 @@ var MyPhillyRising = MyPhillyRising || {};
     return NS.bootstrapped.staticUrl;
   });
 
+  Handlebars.registerHelper('base_url', function() {
+    return NS.bootstrapped.baseUrl;
+  });
+
   Handlebars.registerHelper('fromnow', function(datetime) {
     if (datetime) {
       return moment(datetime).fromNow();
