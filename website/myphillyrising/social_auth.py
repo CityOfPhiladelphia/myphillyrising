@@ -6,11 +6,7 @@ from services import CacheService
 
 def get_user_profile(*auth_args, **auth_kwargs):
     user = auth_kwargs['social_user'].user
-
-    if auth_kwargs.get('is_new'):
-        profile = UserProfile(user=user)
-    else:
-        profile, created = UserProfile.objects.get_or_create(user=user)
+    profile, created = UserProfile.objects.get_or_create(user=user)
     return {'profile': profile}
 
 
@@ -30,7 +26,7 @@ def get_neighborhood_preference(*auth_args, **auth_kwargs):
 
     if 'neighborhood' in request.session:
         del request.session['neighborhood']
-    
+
     return {'neighborhood': neighborhood}
 
 
