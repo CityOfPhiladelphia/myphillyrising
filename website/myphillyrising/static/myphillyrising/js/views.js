@@ -456,7 +456,7 @@ var MyPhillyRising = MyPhillyRising || {};
       this.getMapListContainer().scrollTop($el.get(0).offsetTop);
     },
     getMapListContainer: function() {
-      return this.$('.map-list-container');
+      return $(document.body || document.documentElement);
     }
   });
 
