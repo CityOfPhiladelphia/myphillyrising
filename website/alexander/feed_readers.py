@@ -93,7 +93,7 @@ class RSSFeedReader (FeedReader):
             has_changed = True
 
         if has_changed:
-            item.source_url = item_data['link']
+            item.source_url = item_data.get('link') or item_data.get('id')
             item.source_posted_at = datetime.fromtimestamp(mktime(published_at or updated_at))
             item.last_read_at = now()
             item.save()
