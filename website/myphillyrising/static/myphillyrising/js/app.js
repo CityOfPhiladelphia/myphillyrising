@@ -270,6 +270,11 @@ var MyPhillyRising = MyPhillyRising || {};
       }
     });
 
+    // Page-view analytics
+    this.router.bind('route', function(route, router) {
+      NS.Utils.log('send', 'pageview', NS.Utils.getCurrentPath());
+    });
+
     // Globally capture clicks. If they are internal and not in the pass
     // through list, route them through Backbone's navigate method.
     $(document).on('click', 'a[href^="/"]', function(evt) {

@@ -31,7 +31,18 @@ var MyPhillyRising = MyPhillyRising || {};
       } else {
         return text;
       }
-    }
+    },
+
+    // ====================================================
+    // Analytics
+
+    log: function() {
+      if (window.ga) {
+        window.ga.apply(window, arguments);
+      } else if (window.console.log) {
+        window.console.log(Array.prototype.slice.call(arguments, 0));
+      }
+    },
 
   });
 })(MyPhillyRising);

@@ -77,6 +77,9 @@ DISQUS_PUBLIC_KEY = env['DISQUS_PUBLIC_KEY']
 DISQUS_SECRET_KEY = env['DISQUS_SECRET_KEY']
 DISQUS_ACCOUNT_UNIQUIFIER = env['DISQUS_ACCOUNT_UNIQUIFIER']
 
+GOOGLE_ANALYTICS_ID = env.get('GOOGLE_ANALYTICS_ID', "', ''); alert('Set your Google Analytics ID and domain!'); (function(){})('")
+GOOGLE_ANALYTICS_DOMAIN = env.get('GOOGLE_ANALYTICS_DOMAIN', 'dotcloud.com')
+
 ALLOWED_HOSTS = ['*']
 
 LOGGING = {
