@@ -2,7 +2,13 @@
   <div class="map-container">
       <img class="home-map-thumb full-width-image" src="http://api.tiles.mapbox.com/v3/openplans.map-dmar86ym/{{center_lng}},{{center_lat}},14/600x120.png">
   </div>
-  <h1 class="neighborhood-title"><span class="title-text">{{name}} <span class="nobreak">is rising!</span></span></h1>
+  <h1 class="neighborhood-title">
+    <span class="title-text">{{name}} <span class="nobreak">is rising!
+      {{#if points}}
+        +{{points}}
+      {{/if}}
+    </span></span>
+  </h1>
   <a class="neighborhood-map-link" href="/{{current_neighborhood}}/map"><span class="neighborhood-map-link-text">Explore<br/>The Map</span></a>
 </div>
 
@@ -22,8 +28,8 @@
   <div class="column-40-right">
     <div class="neighborhood-widget about-widget">
       <div class="container">
-        <h5>About Philly Rising</h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <h5>About PhillyRising</h5>
+        <p>We're creating community partnerships to help neighborhoods that are plagued by chronic crime and quality of life concerns.</p>
         <a class="btn btn-block" href="/about">Learn More</a>
       </div>
     </div>
