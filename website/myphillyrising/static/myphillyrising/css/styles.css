@@ -472,9 +472,11 @@ ul.login-options li {
   float: left;
 }
 ul.login-options .login-link {
+  color: #fff;
   display: block;
   text-align: center;
   padding: 15px 0 10px 0;
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
 }
 ul.login-options .twitter-login-link {
   border-radius: 3px 0 0 3px;

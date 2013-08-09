@@ -36,8 +36,8 @@
 
   <h3 class="off-canvas-menu-header">Sign in with&hellip;</h3>
   <ul class="login-options unstyled-list">
-    <li><a class='btn btn-block btn-primary login-link twitter-login-link' href="{{ login_url_for 'twitter' }}"><img class="icon-inline" src="{{ STATIC_URL }}myphillyrising/images/twitter-bird-white.png" />Twitter</a></li>
-    <li><a class='btn btn-block btn-primary login-link facebook-login-link' href="{{ login_url_for 'facebook' }}"><img class="icon-inline" src="{{ STATIC_URL }}myphillyrising/images/facebook-logo-white.png" />Facebook</a></li>
+    <li><a class='btn btn-block login-link twitter-login-link' href="{{ login_url_for 'twitter' }}"><img class="icon-inline" src="{{ STATIC_URL }}myphillyrising/images/twitter-bird-white.png" />Twitter</a></li>
+    <li><a class='btn btn-block login-link facebook-login-link' href="{{ login_url_for 'facebook' }}"><img class="icon-inline" src="{{ STATIC_URL }}myphillyrising/images/facebook-logo-white.png" />Facebook</a></li>
   </ul>
 
 {{/ is_authenticated }}
