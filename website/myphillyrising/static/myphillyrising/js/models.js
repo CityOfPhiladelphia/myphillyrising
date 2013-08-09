@@ -32,6 +32,10 @@ var MyPhillyRising = MyPhillyRising || {};
       var self = this,
           actionModel;
 
+      if (this.isNew()) {
+        return;
+      }
+
       _.extend(actionObj, {
         user: this.id,
         item: contentItem ? contentItem.id : null
