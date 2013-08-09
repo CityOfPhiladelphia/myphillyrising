@@ -1,4 +1,7 @@
     <article class="detail-item facebook-item">
+
+      <a href="/{{ current_neighborhood}}/stories" class="close-btn detail-close-btn"><span class="close-icon">&times;</span><span class="close-text is-hidden">Close</span></a>
+
       <div class="item-header detail-item-header facebook-item-header">
         <h3 class="item-title detail-item-title facebook-item-title"><a href="{{source_url}}" target="_blank" class="page-open-btn">{{{ title }}}</a></h3>
         <div class="item-meta detail-item-meta facebook-item-meta">
@@ -6,8 +9,15 @@
         </div>
       </div>
       <div class="item-content detail-item-content facebook-item-content">
-        <span class="st_facebook_large" displayText="Facebook" st_title="{{{title}}}"></span>
-        <span class="st_twitter_large" displayText="Tweet" st_title="{{TWEET_TEXT title}}"></span>
         <p>{{{ source_content.summary }}}</p>
       </div>
+
+      <hr />
+
+      <p class="clearfix">
+        <span class="share-this-prompt">Share this: </span>
+        <span class="st_facebook_large" displayText="Facebook" st_title="{{{title}}}"></span>
+        <span class="st_twitter_large" displayText="Tweet" st_title="{{TWEET_TEXT title}}"></span>
+      </p>
+
     </article>
