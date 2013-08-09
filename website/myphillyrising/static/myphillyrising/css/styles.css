@@ -224,11 +224,11 @@ body {
       -ms-transform: translate3d(0,0,0);
        -o-transform: translate3d(0,0,0);
           transform: translate3d(0,0,0);
-  -webkit-transition: all 0.3s ease-out, height 0 0;
-     -moz-transition: all 0.3s ease-out, height 0 0;
-      -ms-transition: all 0.3s ease-out, height 0 0;
-       -o-transition: all 0.3s ease-out, height 0 0;
-          transition: all 0.3s ease-out, height 0 0;
+  -webkit-transition: -webkit-transform 0.3s ease-out, margin 0s 0.3s;
+     -moz-transition: -moz-transform 0.3s ease-out, margin 0s 0.3s;
+      -ms-transition: -ms-transform 0.3s ease-out, margin 0s 0.3s;
+       -o-transition: -o-transform 0.3s ease-out, margin 0s 0.3s;
+          transition: transform 0.3s ease-out, margin 0s 0.3s;
 }
 .is-open-off-canvas-left .page {
   -webkit-transform: translate3d(88%,0,0);
@@ -258,8 +258,7 @@ body {
   z-index: 50;
   background-color: #546070;
   color: #ebeff3;
-  height: 1%;
-/*  box-shadow: 0 0 20px rgba(51,60,71,1);*/
+  margin-top: -9999px;
 }
 .off-canvas-menu-left { 
   right: 100%; 
@@ -269,12 +268,12 @@ body {
 }
 .is-open-off-canvas-right .off-canvas-menu-right,
 .is-open-off-canvas-left .off-canvas-menu-left {
-  height: auto;
-  -webkit-transition: all 0.3s ease-out, height 0s 0.3s;
-     -moz-transition: all 0.3s ease-out, height 0s 0.3s;
-      -ms-transition: all 0.3s ease-out, height 0s 0.3s;
-       -o-transition: all 0.3s ease-out, height 0s 0.3s;
-          transition: all 0.3s ease-out, height 0s 0.3s;
+  margin-top: 0;
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+     -moz-transition: -moz-transform 0.3s ease-out;
+      -ms-transition: -ms-transform 0.3s ease-out;
+       -o-transition: -o-transform 0.3s ease-out;
+          transition: transform 0.3s ease-out;
 }
 .off-canvas-menu-left .container { margin-left: 12%; }
 .off-canvas-menu-right .container { margin-right: 12%; }
