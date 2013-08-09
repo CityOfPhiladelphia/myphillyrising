@@ -530,9 +530,7 @@ a.logout-link:visited {
   font-weight: 100;
 }
 
-p.contact-prompt {
-  font-size: 0.8em;
-  color: #8497b0;
+.contact-prompt {
   margin-bottom: 10px;
 }
 
@@ -689,6 +687,7 @@ p.contact-prompt {
   margin: 0 0 0.5em;
   box-shadow: 0 0 0.2em rgba(0,0,0,0.2);
   border-radius: 3px;
+  overflow: hidden;
 }
 .feed-item-header {}
 .feed-item-title {}
@@ -725,6 +724,7 @@ a.close-btn:hover {
   background: #fff;
   margin: -10px -10px 0;
   padding: 20px 20px 40px;
+  overflow: hidden;
 }
 .detail-header {}
 .detail-meta {}
