@@ -250,8 +250,16 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.HomeView = Backbone.Marionette.CompositeView.extend({
     template: '#home-tpl',
+    events: {
+      'click .btn-off-canvas-menu-right': 'showUserMenu'
+    },
     itemView: NS.NeighborhoodMenuItemView,
     itemViewContainer: '.neighborhood-list',
+    showUserMenu: function(evt) {
+      $('body').removeClass('is-open-off-canvas-left');
+      $('body').toggleClass('is-open-off-canvas-right');
+      evt.preventDefault();
+    }
   });
 
   NS.BaseDetailView = Backbone.Marionette.ItemView.extend({
