@@ -180,6 +180,11 @@ var MyPhillyRising = MyPhillyRising || {};
 
   // Initializers =============================================================
   NS.app.addInitializer(function(options){
+
+    Modernizr.addTest('overflow', function(){
+      return Modernizr.testProp("overflow");
+    });
+
     this.neighborhoodCollection = new NS.NeighborhoodCollection(NS.bootstrapped.neighborhoodData);
     this.currentUser = new NS.UserModel(NS.bootstrapped.currentUserData);
     this.currentUser.url = function() { return NS.UserCollection.prototype.url + '/' + this.id; };

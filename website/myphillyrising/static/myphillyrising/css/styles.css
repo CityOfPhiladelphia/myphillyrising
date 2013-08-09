@@ -207,27 +207,27 @@ textarea {
 -------------------------------------------------------------- */
 
 html {
-  width: 100%;
-  height: 100%;
+/*  width: 100%;*/
+/*  height: 100%;*/
 }
 body {
-  width: 100%;
-  height: 100%;
-  text-align: left;
-  overflow: hidden;
+/*  width: 100%;*/
+/*  height: 100%;*/
+/*  text-align: left;*/
+/*  overflow: hidden;*/
 }
 
 .site-wrapper {
-  width: 100%;
-  height: 100%;
+/*  width: 100%;*/
+/*  height: 100%;*/
   overflow: hidden;
   position: relative;
 }
 
 .page {
-  height: 100%;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
+/*  height: 100%;*/
+/*  overflow: auto;*/
+/*  -webkit-overflow-scrolling: touch;*/
   -webkit-transform: translate3d(0,0,0);
      -moz-transform: translate3d(0,0,0);
       -ms-transform: translate3d(0,0,0);
@@ -801,14 +801,14 @@ a.close-btn:hover {
   height: 200px;
 }
 .map-list-container {
-  position: absolute;
-  top: 256px;
-  right: 0;
-  bottom: 0;
-  left: 0;
+/*  position: absolute;*/
+/*  top: 256px;*/
+/*  right: 0;*/
+/*  bottom: 0;*/
+/*  left: 0;*/
   padding: 10px;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
+/*  overflow: auto;*/
+/*  -webkit-overflow-scrolling: touch;*/
 }
 .map-list {}
 .map-list .map-list-item {
@@ -915,7 +915,7 @@ a.close-btn:hover {
   .site-wrapper {
     width: 480px;
     margin: 0 auto;
-    box-shadow: 0 0 40px rgba(51,60,71,1);
+/*    box-shadow: 0 0 40px rgba(51,60,71,1);*/
   }
 }
 
