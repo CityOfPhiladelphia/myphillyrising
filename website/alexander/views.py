@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.routers import DefaultRouter
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-from alexander.models import Feed, ContentItem
+from alexander.models import Feed, ContentItem, ContentTag
 from alexander.serializers import ContentItemSerializer
 from alexander.tasks import refresh_feed, refresh_feeds
 from django.contrib.auth.decorators import user_passes_test
@@ -22,11 +22,19 @@ class AdminRequiredMixin(object):
         return super(AdminRequiredMixin, self).dispatch(*args, **kwargs)
 
 
-class AdminFeedView (AdminRequiredMixin, TemplateView):
+class AdminAppMixin (object):
+    def get_context_data(self, **kwargs):
+        context = super(AdminAppMixin, self).get_context_data(**kwargs)
+        context['tags'] = ContentTag.objects.all()
+        context['NS'] = 'Alexander'
+        return context
+
+
+class AdminFeedView (AdminRequiredMixin, AdminAppMixin, TemplateView):
     template_name = 'alexander/feeds.html'
 
 
-class AdminItemView (AdminRequiredMixin, TemplateView):
+class AdminItemView (AdminRequiredMixin, AdminAppMixin, TemplateView):
     template_name = 'alexander/items.html'
 
 

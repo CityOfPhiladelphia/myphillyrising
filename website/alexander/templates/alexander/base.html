@@ -56,6 +56,13 @@
     MyPhillyRising.bootstrapped = {
       staticUrl: '{{ STATIC_URL }}'
     };
+
+    var {{NS}} = {{NS}} || {};
+    {{NS}}.defaultTags = [
+      {% for tag in tags %}
+        { id: '{{ tag.label }}', label: '{{ tag.label|title }}' }{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    ];
   </script>
 
   {% if debug %}

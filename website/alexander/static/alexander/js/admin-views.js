@@ -7,24 +7,6 @@ var Alexander = Alexander || {};
     return Handlebars.compile(rawTemplate);
   };
 
-  NS.defaultTags = [
-    { id: 'market-east', label: 'Market East' },
-    { id: 'north-central', label: 'North Central' },
-    { id: 'pennrose', label: 'Pennrose' },
-    { id: 'strawberry-mansion', label: 'Strawberry Mansion' },
-    { id: 'hartranft', label: 'Hartranft' },
-    { id: 'kensington', label: 'Kensington' },
-    { id: 'st-hughs', label: 'St Hugh\'s' },
-    { id: 'frankford', label: 'Frankford' },
-    { id: 'lawncrest', label: 'Lawncrest' },
-    { id: 'swampoodle-allegheny-west', label: 'Swampoodle/Allegheny West' },
-    { id: 'point-breeze', label: 'Point Breeze' },
-    { id: 'southeast', label: 'Southeast' },
-    { id: 'elmwood', label: 'Elmwood' },
-    { id: 'haddington', label: 'Haddington' },
-    { id: 'kingsessing', label: 'Kingsessing' }
-  ];
-
   // Views
   NS.OrderedCollectionMixin = {
     // https://github.com/marionettejs/backbone.marionette/wiki/Adding-support-for-sorted-collections
