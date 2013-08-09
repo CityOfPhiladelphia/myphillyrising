@@ -112,14 +112,19 @@ img {
 .btn:hover,
 .btn:focus,
 .btn:active {
-  color: #455161;
+  color: #546070;
 }
 .btn-primary,
 .btn-primary:visited,
 .btn-primary:link {
   background-color: #a6cc29;
-  color: #fff !important;
+  color: #fff;
   text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  border-color: #fff;
 }
 .btn-block,
 .btn-block:visited,
@@ -422,6 +427,42 @@ a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighb
   border-bottom: 0;
 }
 
+ul.neighborhood-list-inline {
+  padding: 0.25em 0;
+  margin: 0 -0.25em 0.5em;
+/*  text-align: center;*/
+}
+.neighborhood-list-inline li {
+  display: inline;
+}
+.neighborhood-list-inline a,
+.neighborhood-list-inline a:visited,
+.neighborhood-list-inline a:link {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  width: auto;
+  padding: 0.25em 0.5em;
+  margin: 0 0.25em 0.5em;
+  font-weight: 700;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #455161;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+  background-color: #d0d3d7;
+  border: 2px solid #ebeff3;
+  border-radius: 3px;
+  box-shadow: 0 0.25em 0.5em rgba(0,0,0,0.2);
+}
+.neighborhood-list-inline a:hover,
+.neighborhood-list-inline a:focus,
+.neighborhood-list-inline a:active {
+  color: #546070;
+}
+
 /* User Menu */
 ul.login-options {
   margin: 10px;
@@ -467,6 +508,24 @@ a.logout-link:visited {
 
 /* =Main Content
 -------------------------------------------------------------- */
+
+.site-introduction {
+  text-align: center;
+}
+.site-introduction h1,
+.site-introduction h2,
+.site-introduction h3,
+.site-introduction h3,
+.site-introduction h4,
+.site-introduction h5,
+.site-introduction h6 {
+  margin-bottom: 0.5em;
+}
+
+.site-mission {
+  font-size: 1.5em;
+  font-weight: 100;
+}
 
 .neighborhood-header {
   overflow: hidden;
