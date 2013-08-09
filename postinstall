@@ -40,6 +40,23 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "redis_cache.cache.RedisCache",
+        "LOCATION": "%s:%s:1" % (env['DOTCLOUD_CACHE_REDIS_HOST'],
+                                 env['DOTCLOUD_CACHE_REDIS_PORT']),
+        "OPTIONS": {
+            "CLIENT_CLASS": "redis_cache.client.DefaultClient",
+            "PASSWORD": env['DOTCLOUD_CACHE_REDIS_PASSWORD'],
+        },
+        "TIMEOUT": 86400,  # 24 hours
+    }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
+BROKER_URL = env['DOTCLOUD_CACHE_REDIS_URL']
+
 STATIC_ROOT = '/home/dotcloud/current/static/'
 
 # Debug is False by default, true if set in the environment.
@@ -49,7 +66,17 @@ TEMPLATE_DEBUG = DEBUG
 # Set these explicitly here to override whatever may have come from settings
 STATIC_URL = '/static/'
 
-BROKER_URL = 'django://'  # Use the Django database as the celery broker
+TWITTER_ACCESS_SECRET = env['TWITTER_ACCESS_SECRET']
+TWITTER_ACCESS_TOKEN = env['TWITTER_ACCESS_TOKEN']
+TWITTER_CONSUMER_KEY = env['TWITTER_CONSUMER_KEY']
+TWITTER_CONSUMER_SECRET = env['TWITTER_CONSUMER_SECRET']
+FACEBOOK_APP_ID = env['FACEBOOK_APP_ID']
+FACEBOOK_API_SECRET = env['FACEBOOK_API_SECRET']
+DISQUS_PUBLIC_KEY = env['DISQUS_PUBLIC_KEY']
+DISQUS_SECRET_KEY = env['DISQUS_SECRET_KEY']
+DISQUS_ACCOUNT_UNIQUIFIER = env['DISQUS_ACCOUNT_UNIQUIFIER']
+
+ALLOWED_HOSTS = ['*']
 
 LOGGING = {
    'version': 1,
