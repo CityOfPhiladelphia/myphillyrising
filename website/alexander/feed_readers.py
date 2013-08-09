@@ -45,7 +45,7 @@ class FeedReader (object):
 
     def update_item_if_changed(self, item, item_data):
         """
-        Compare the item_data from the upstream source to the item model 
+        Compare the item_data from the upstream source to the item model
         instance to see whether the item instance needs to be updated. If the
         upstream data has changed, save the new data into the model.
         """
@@ -93,7 +93,7 @@ class RSSFeedReader (FeedReader):
             has_changed = True
 
         if has_changed:
-            item.source_url = item_data['id']
+            item.source_url = item_data['link']
             item.source_posted_at = datetime.fromtimestamp(mktime(published_at or updated_at))
             item.last_read_at = now()
             item.save()
@@ -133,7 +133,7 @@ class ICalFeedReader (FeedReader):
                     return vddd_type.dt
             else:
                 return None
-        
+
         item_data['DTSTART'] = get_dt_or_none(item_data.pop('DTSTART', None))
         item_data['DTEND'] = get_dt_or_none(item_data.pop('DTEND', None))
         item_data['DTSTAMP'] = get_dt_or_none(item_data.pop('DTSTAMP', None))
