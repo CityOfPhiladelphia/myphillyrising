@@ -86,6 +86,13 @@ img {
   width: 100%;
   height: auto;
 }
+.half-width-image {
+  display: block;
+  width: 50%;
+  height: auto;
+  margin-right: auto;
+  margin-left: auto;
+}
 
 /* Buttons */
 .btn,
@@ -554,8 +561,8 @@ a.logout-link:visited {
   bottom: 0;
   left: -3em;
   box-shadow: inset 0 -1em 2em rgba(0,0,0,0.25);
-  text-shadow: 0 0.25em 0.5em rgba(0,0,0,0.5), 0 0 0.25em rgba(0,0,0,0.25);
-  color: #ebffa6;
+  text-shadow: 0 0 0.75em rgba(0,0,0,0.8), 0 0.25em 0.25em rgba(0,0,0,0.25);
+  color: #fff;
 }
 .neighborhood-title .title-text {
   display: block;
@@ -566,7 +573,10 @@ a.logout-link:visited {
   left: 3em;
   line-height: 1.25;
   padding-left: 10px;
-  margin-right: 20%;
+  margin-right: 5em;
+}
+.neighborhood-score {
+  color: #ebffa6;
 }
 .neighborhood-map-link {
   position: absolute;
@@ -587,7 +597,9 @@ a.logout-link:visited {
   font-size: 0.625em;
   font-weight: 700;
   text-transform: uppercase;
-  padding: 4px 8px 3px;
+  padding: 4px 0 3px;
+  width: 7em;
+  text-align: center;
   box-shadow: 0 0 0.5em rgba(0,0,0,0.2);
   border-top: 1px solid rgba(255,255,255,0.5);
 }
@@ -716,6 +728,15 @@ a.close-btn:hover {
 }
 .detail-close-btn {
   margin: -10px -10px 0 0;
+  opacity: 1;
+  -webkit-transition: opacity 0.3s ease 0.2s;
+     -moz-transition: opacity 0.3s ease 0.2s;
+      -ms-transition: opacity 0.3s ease 0.2s;
+          transition: opacity 0.3s ease 0.2s;
+}
+.is-open-off-canvas-left .detail-close-btn,
+.is-open-off-canvas-right .detail-close-btn {
+  opacity: 0;
 }
 
 /* Detail Items */
@@ -851,21 +872,19 @@ a.close-btn:hover {
 
 .notification {
   visibility: visible;
-  position: absolute;
+  position: fixed;
   z-index: 9999;
-  top: auto;
-  right: 20px;
-  bottom: 0;
-  left: 20px;
-  margin-bottom: 0;
+  top: 76px;
+  right: 30px;
+  bottom: auto;
+  left: 30px;
   opacity: 1;
-
   background-color: #ebffa6;
   background-color: rgba(235, 255, 166, 0.9);
   border: 2px solid #ebffa6;
-  border-bottom: 0;
-  border-radius: 3px 3px 0 0;
-  padding: 5px 5px 8px;
+  border-top: 0;
+  border-radius: 3px;
+  padding: 5px;
   text-align: center;
   color: #546070;
   text-shadow: 0 1px 1px rgba(255,255,255,0.75);

@@ -3,11 +3,11 @@
       <img class="home-map-thumb full-width-image" src="http://api.tiles.mapbox.com/v3/openplans.map-dmar86ym/{{center_lng}},{{center_lat}},15/600x120.png">
   </div>
   <h1 class="neighborhood-title">
-    <span class="title-text">{{name}} <span class="nobreak">is rising!
+    <span class="title-text">{{name}} <span class="nobreak">is rising!</span>
       {{#if points}}
-        +{{points}}
+        <span class="neighborhood-score">+{{points}}</span>
       {{/if}}
-    </span></span>
+    </span>
   </h1>
   <a class="neighborhood-map-link" href="/{{current_neighborhood}}/map"><span class="neighborhood-map-link-text">Explore<br/>The Map</span></a>
 </div>
