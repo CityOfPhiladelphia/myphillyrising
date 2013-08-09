@@ -259,7 +259,7 @@ body {
   background-color: #546070;
   color: #ebeff3;
   height: 1%;
-  box-shadow: 0 0 20px rgba(51,60,71,1);
+/*  box-shadow: 0 0 20px rgba(51,60,71,1);*/
 }
 .off-canvas-menu-left { 
   right: 100%; 
@@ -506,7 +506,7 @@ a.logout-link:visited {
   text-decoration: none;
 }
 .user-profile {
-  padding: 0 10px;
+  padding: 0 10px 20px;
 }
 
 
@@ -902,11 +902,14 @@ a.close-btn:hover {
 }
 
 @media only screen and (min-width: 480px) {
-  body {}
+  body {
+    background-color: #455161;
+  }
   .site-wrapper {
     width: 480px;
     margin: 0 auto;
-/*    box-shadow: 0 0 40px rgba(51,60,71,1);*/
+    background-color: #546070;
+    box-shadow: 0 0 40px rgba(51,60,71,1);
   }
 }
 
@@ -914,6 +917,13 @@ a.close-btn:hover {
 }
 
 @media only screen and (min-width: 1024px) {
+/*  body {
+    background-color: #546070;
+  }
+  .site-wrapper {
+    width: 33.333333%;
+    overflow: visible;
+  }*/
 }
 
 @media only screen and (min-width: 1300px) {
