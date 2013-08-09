@@ -78,7 +78,7 @@ class MyPhillyRisingViewMixin (object):
 
     def get_disqus_sso_signature(self, message, timestamp):
         signature = hmac.HMAC(
-            settings.DISQUS_SECRET_KEY,
+            str(settings.DISQUS_SECRET_KEY),
             '%s %s' % (message, timestamp),
             hashlib.sha1).hexdigest()
         return signature
