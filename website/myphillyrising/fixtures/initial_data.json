@@ -1,1 +1,232 @@
-[{"pk": "elmwood", "model": "myphillyrising.neighborhood", "fields": {"center_lng": -75.1636, "description": "", "name": "Elmwood", "center_lat": 39.9524}}, {"pk": "frankford", "model": "myphillyrising.neighborhood", "fields": {"center_lng": -75.1636, "description": "", "name": "Frankford", "center_lat": 39.9524}}, {"pk": "haddington", "model": "myphillyrising.neighborhood", "fields": {"center_lng": -75.1636, "description": "", "name": "Haddington", "center_lat": 39.9524}}, {"pk": "hartranft", "model": "myphillyrising.neighborhood", "fields": {"center_lng": -75.1636, "description": "", "name": "Hartranft", "center_lat": 39.9524}}, {"pk": "kensington", "model": "myphillyrising.neighborhood", "fields": {"center_lng": -75.1185, "description": "", "name": "Kensington", "center_lat": 39.9949}}, {"pk": "kingsessing", "model": "myphillyrising.neighborhood", "fields": {"center_lng": -75.1636, "description": "", "name": "Kingsessing", "center_lat": 39.9524}}, {"pk": "lawncrest", "model": "myphillyrising.neighborhood", "fields": {"center_lng": -75.1636, "description": "", "name": "Lawncrest", "center_lat": 39.9524}}, {"pk": "market-east", "model": "myphillyrising.neighborhood", "fields": {"center_lng": -75.1567, "description": "", "name": "Market East", "center_lat": 39.9515}}, {"pk": "north-central", "model": "myphillyrising.neighborhood", "fields": {"center_lng": -75.1636, "description": "", "name": "North Central", "center_lat": 39.9524}}, {"pk": "penrose", "model": "myphillyrising.neighborhood", "fields": {"center_lng": -75.1636, "description": "", "name": "Penrose", "center_lat": 39.9524}}, {"pk": "point-breeze", "model": "myphillyrising.neighborhood", "fields": {"center_lng": -75.1636, "description": "", "name": "Point Breeze", "center_lat": 39.9524}}, {"pk": "southeast", "model": "myphillyrising.neighborhood", "fields": {"center_lng": -75.1636, "description": "", "name": "Southeast", "center_lat": 39.9524}}, {"pk": "st-hughs", "model": "myphillyrising.neighborhood", "fields": {"center_lng": -75.1636, "description": "", "name": "St Hughs", "center_lat": 39.9524}}, {"pk": "strawberry-mansion", "model": "myphillyrising.neighborhood", "fields": {"center_lng": -75.1636, "description": "", "name": "Strawberry Mansion", "center_lat": 39.9524}}, {"pk": "swampoodle-allegheny-west", "model": "myphillyrising.neighborhood", "fields": {"center_lng": -75.1636, "description": "", "name": "Swampoodle Allegheny West", "center_lat": 39.9524}}, {"pk": "elmwood", "model": "alexander.contenttag", "fields": {}}, {"pk": "frankford", "model": "alexander.contenttag", "fields": {}}, {"pk": "haddington", "model": "alexander.contenttag", "fields": {}}, {"pk": "hartranft", "model": "alexander.contenttag", "fields": {}}, {"pk": "kensington", "model": "alexander.contenttag", "fields": {}}, {"pk": "kingsessing", "model": "alexander.contenttag", "fields": {}}, {"pk": "lawncrest", "model": "alexander.contenttag", "fields": {}}, {"pk": "market-east", "model": "alexander.contenttag", "fields": {}}, {"pk": "north-central", "model": "alexander.contenttag", "fields": {}}, {"pk": "pennrose", "model": "alexander.contenttag", "fields": {}}, {"pk": "penrose", "model": "alexander.contenttag", "fields": {}}, {"pk": "point-breeze", "model": "alexander.contenttag", "fields": {}}, {"pk": "southeast", "model": "alexander.contenttag", "fields": {}}, {"pk": "st-hughs", "model": "alexander.contenttag", "fields": {}}, {"pk": "strawberry-mansion", "model": "alexander.contenttag", "fields": {}}, {"pk": "swampoodle-allegheny-west", "model": "alexander.contenttag", "fields": {}}]
+[
+  {
+    "pk": "elmwood",
+    "model": "myphillyrising.neighborhood",
+    "fields": {
+      "center_lng": -75.234577816999945,
+      "description": "",
+      "name": "Elmwood",
+      "center_lat": 39.920304489000046
+    }
+  },
+  {
+    "pk": "frankford",
+    "model": "myphillyrising.neighborhood",
+    "fields": {
+      "center_lng": -75.081585320999977,
+      "description": "",
+      "name": "Frankford",
+      "center_lat": 40.019153864000032
+    }
+  },
+  {
+    "pk": "haddington",
+    "model": "myphillyrising.neighborhood",
+    "fields": {
+      "center_lng": -75.247473919999948,
+      "description": "",
+      "name": "Haddington",
+      "center_lat": 39.968126748000032
+    }
+  },
+  {
+    "pk": "hartranft",
+    "model": "myphillyrising.neighborhood",
+    "fields": {
+      "center_lng": -75.145478524999987,
+      "description": "",
+      "name": "Hartranft",
+      "center_lat": 39.990452839000056
+    }
+  },
+  {
+    "pk": "kensington",
+    "model": "myphillyrising.neighborhood",
+    "fields": {
+      "center_lng": -75.117262093999955,
+      "description": "",
+      "name": "Kensington",
+      "center_lat": 39.997861392000061
+    }
+  },
+  {
+    "pk": "kingsessing",
+    "model": "myphillyrising.neighborhood",
+    "fields": {
+      "center_lng": -75.228410295999936,
+      "description": "",
+      "name": "Kingsessing",
+      "center_lat": 39.937772848000066
+    }
+  },
+  {
+    "pk": "lawncrest",
+    "model": "myphillyrising.neighborhood",
+    "fields": {
+      "center_lng": -75.102558678999969,
+      "description": "",
+      "name": "Lawncrest",
+      "center_lat": 40.042465208000067
+    }
+  },
+  {
+    "pk": "market-east",
+    "model": "myphillyrising.neighborhood",
+    "fields": {
+      "center_lng": -75.158723362999979,
+      "description": "",
+      "name": "Market East",
+      "center_lat": 39.952649352000037
+    }
+  },
+  {
+    "pk": "north-central",
+    "model": "myphillyrising.neighborhood",
+    "fields": {
+      "center_lng": -75.174057798999968,
+      "description": "",
+      "name": "North Central",
+      "center_lat": 39.984675709000044
+    }
+  },
+  {
+    "pk": "penrose",
+    "model": "myphillyrising.neighborhood",
+    "fields": {
+      "center_lng": -75.150912156999937,
+      "description": "",
+      "name": "Penrose",
+      "center_lat": 39.989497630000074
+    }
+  },
+  {
+    "pk": "point-breeze",
+    "model": "myphillyrising.neighborhood",
+    "fields": {
+      "center_lng": -75.178486786999940,
+      "description": "",
+      "name": "Point Breeze",
+      "center_lat": 39.929905999000027
+    }
+  },
+  {
+    "pk": "southeast",
+    "model": "myphillyrising.neighborhood",
+    "fields": {
+      "center_lng": -75.155555931999970,
+      "description": "",
+      "name": "Southeast",
+      "center_lat": 39.923754535000057
+    }
+  },
+  {
+    "pk": "st-hughs",
+    "model": "myphillyrising.neighborhood",
+    "fields": {
+      "center_lng": -75.128680667999959,
+      "description": "",
+      "name": "St Hughs",
+      "center_lat": 40.001431533000073
+    }
+  },
+  {
+    "pk": "strawberry-mansion",
+    "model": "myphillyrising.neighborhood",
+    "fields": {
+      "center_lng": -75.181660538999949,
+      "description": "",
+      "name": "Strawberry Mansion",
+      "center_lat": 39.994323661000067
+    }
+  },
+  {
+    "pk": "swampoodle-allegheny-west",
+    "model": "myphillyrising.neighborhood",
+    "fields": {
+      "center_lng": -75.171050270999956,
+      "description": "",
+      "name": "Swampoodle Allegheny West",
+      "center_lat": 39.998428296000043
+    }
+  },
+  {
+    "pk": "elmwood",
+    "model": "alexander.contenttag",
+    "fields": {}
+  },
+  {
+    "pk": "frankford",
+    "model": "alexander.contenttag",
+    "fields": {}
+  },
+  {
+    "pk": "haddington",
+    "model": "alexander.contenttag",
+    "fields": {}
+  },
+  {
+    "pk": "hartranft",
+    "model": "alexander.contenttag",
+    "fields": {}
+  },
+  {
+    "pk": "kensington",
+    "model": "alexander.contenttag",
+    "fields": {}
+  },
+  {
+    "pk": "kingsessing",
+    "model": "alexander.contenttag",
+    "fields": {}
+  },
+  {
+    "pk": "lawncrest",
+    "model": "alexander.contenttag",
+    "fields": {}
+  },
+  {
+    "pk": "market-east",
+    "model": "alexander.contenttag",
+    "fields": {}
+  },
+  {
+    "pk": "north-central",
+    "model": "alexander.contenttag",
+    "fields": {}
+  },
+  {
+    "pk": "pennrose",
+    "model": "alexander.contenttag",
+    "fields": {}
+  },
+  {
+    "pk": "penrose",
+    "model": "alexander.contenttag",
+    "fields": {}
+  },
+  {
+    "pk": "point-breeze",
+    "model": "alexander.contenttag",
+    "fields": {}
+  },
+  {
+    "pk": "southeast",
+    "model": "alexander.contenttag",
+    "fields": {}
+  },
+  {
+    "pk": "st-hughs",
+    "model": "alexander.contenttag",
+    "fields": {}
+  },
+  {
+    "pk": "strawberry-mansion",
+    "model": "alexander.contenttag",
+    "fields": {}
+  },
+  {
+    "pk": "swampoodle-allegheny-west",
+    "model": "alexander.contenttag",
+    "fields": {}
+  }
+]

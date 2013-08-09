@@ -399,8 +399,11 @@ var MyPhillyRising = MyPhillyRising || {};
       this.map = L.map('map', {
         layers: [baseLayer],
         center: [this.model.get('center_lat'), this.model.get('center_lng')],
-        zoom: 13
+        zoom: 15
       });
+
+      // Remove default prefix
+      this.map.attributionControl.setPrefix('');
 
       this.featureGroup = L.featureGroup().addTo(this.map);
 
@@ -439,7 +442,7 @@ var MyPhillyRising = MyPhillyRising || {};
       // Add .is-selected to the item
       $el.addClass('is-selected');
 
-      this.map.panTo([geom.y, geom.x]);
+      this.map.setView([geom.y, geom.x], 16);
     },
     selectItem: function(id) {
       var $el = this.$('[data-id="'+id+'"]');
