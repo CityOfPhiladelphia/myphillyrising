@@ -9,6 +9,15 @@ var MyPhillyRising = MyPhillyRising || {};
     return NS.Utils.truncateChars(text, len);
   }
 
+  Handlebars.registerHelper('neighborhood_category_list_url', function() {
+    var args = _.initial(arguments),
+        isNeighborhoodExplicit = (args.length == 2),
+        neighborhood = isNeighborhoodExplicit ? args[0] : NS.app.currentNeighborhood,
+        category = isNeighborhoodExplicit ? args[1] : args[0];
+    
+    return '/' + neighborhood + '/' + category;
+  });
+
   Handlebars.registerHelper('is_authenticated', function(options) {
     return (NS.app.currentUser.isAuthenticated()) ? options.fn(this) : options.inverse(this);
   });
