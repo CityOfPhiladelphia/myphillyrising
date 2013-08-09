@@ -9,6 +9,10 @@ var MyPhillyRising = MyPhillyRising || {};
     return NS.Utils.truncateChars(text, len);
   }
 
+  Handlebars.registerHelper('uriencode', function(s) {
+    return encodeURIComponent(s);
+  });
+
   Handlebars.registerHelper('is_authenticated', function(options) {
     return (NS.app.currentUser.isAuthenticated()) ? options.fn(this) : options.inverse(this);
   });
@@ -60,8 +64,24 @@ var MyPhillyRising = MyPhillyRising || {};
     return NS.bootstrapped.staticUrl;
   });
 
+  Handlebars.registerHelper('uriencoded_static_url', function() {
+    return encodeURIComponent(NS.bootstrapped.staticUrl);
+  });
+
   Handlebars.registerHelper('base_url', function() {
     return NS.bootstrapped.baseUrl;
+  });
+
+  Handlebars.registerHelper('uriencoded_base_url', function() {
+    return encodeURIComponent(NS.bootstrapped.baseUrl);
+  });
+
+  Handlebars.registerHelper('host_name', function() {
+    return NS.bootstrapped.hostName;
+  });
+
+  Handlebars.registerHelper('uriencoded_host_name', function() {
+    return encodeURIComponent(NS.bootstrapped.hostName);
   });
 
   Handlebars.registerHelper('fromnow', function(datetime) {

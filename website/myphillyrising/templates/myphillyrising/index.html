@@ -41,6 +41,7 @@
   {{NS}}.bootstrapped = {
     neighborhoodData : {{ neighborhood_data|as_json }},
     currentUserData : {{ current_user_data|as_json }},
+    hostName : "{{ request.get_host }}",
     baseUrl : "{% url 'app' %}",
     staticUrl : "{{ STATIC_URL }}",
 

@@ -4,7 +4,11 @@
               </div>
               <div class="item-meta feed-item-meta map-item-meta">
                 <span>{{ label }}</span> /
-                <span class="address"><img class="icon-inline map-list-icon" src="{{ STATIC_URL }}myphillyrising/images/black-icon-map.png" />{{ address }}</span><br>
-                <a href="http://maps.google.com/?near=Philadelphia, PA&q={{address}}" target="_blank" class="google-maps-link is-visuallyhidden">Google Maps</a>
+                <span class="address"><img class="icon-inline map-list-icon" src="{{ STATIC_URL }}myphillyrising/images/black-icon-map.png" />{{ address }}</span>
+
+                <div class="google-maps-link is-visuallyhidden">
+                  <img class="" src="http://api.tiles.mapbox.com/v3/openplans.map-dmar86ym/url-{{ uriencode 'http://' }}{{ uriencoded_host_name }}{{ uriencoded_static_url }}{{ uriencode 'myphillyrising/images/markers/marker-' }}{{ type }}.png({{ geom.x }},{{ geom.y }})/{{ geom.x }},{{ geom.y }},17/600x300.png"><br>
+                  <a href="http://maps.google.com/?near=Philadelphia, PA&q={{address}}" target="_blank" class="">Google Maps</a>
+                </div>
               </div>
             </li>
