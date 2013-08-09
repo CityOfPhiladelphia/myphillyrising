@@ -399,7 +399,7 @@ var MyPhillyRising = MyPhillyRising || {};
       this.map = L.map('map', {
         layers: [baseLayer],
         center: [this.model.get('center_lat'), this.model.get('center_lng')],
-        zoom: 15
+        zoom: 16
       });
 
       // Remove default prefix
