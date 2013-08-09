@@ -1,6 +1,11 @@
 www:
   type: python
-workers:
-  type: python-worker
+
 db:
   type: postgresql
+
+cache:  # Used as both the Django cache and the Celery broker
+  type: redis
+
+workers:
+  type: python-worker
