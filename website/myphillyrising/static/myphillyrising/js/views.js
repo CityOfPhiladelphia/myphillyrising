@@ -352,7 +352,7 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.StoryCollectionView = NS.PaginatedCompositeView.extend({
-    template: '#rss-list-tpl',
+    template: '#facebook-list-tpl',
     itemView: NS.StoryItemView
   });
 
