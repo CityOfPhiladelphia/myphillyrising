@@ -26,6 +26,7 @@ module.exports = function(grunt) {
             dest: 'static/js/admin-app.min.js',
             src: [
               'static/alexander/js/django-csrf.js',
+              '../myphillyrising/static/myphillyrising/js/utils.js',
               '../myphillyrising/static/myphillyrising/js/handlebars-helpers.js',
               'static/alexander/js/models.js',
               'static/alexander/js/admin-views.js',

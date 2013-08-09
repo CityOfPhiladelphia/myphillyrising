@@ -32,6 +32,8 @@ module.exports = function(grunt) {
               '../alexander/static/alexander/js/utils.js',
               '../alexander/static/alexander/js/models.js',
               '../alexander/static/alexander/js/django-csrf.js',
+              'static/myphillyrising/js/utils.js',
+              'static/myphillyrising/js/models.js'
               'static/myphillyrising/js/views.js',
               'static/myphillyrising/js/app.js'
             ]
