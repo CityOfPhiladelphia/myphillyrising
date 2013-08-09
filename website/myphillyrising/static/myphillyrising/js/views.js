@@ -467,9 +467,11 @@ var MyPhillyRising = MyPhillyRising || {};
       this.getMapListContainer().scrollTop($el.get(0).offsetTop);
     },
     setStaticMapImage: function ($el, geom, type) {
-      var mapboxServiceUrl = 'http://api.tiles.mapbox.com/v3/openplans.map-dmar86ym/',
-          encodedMarkerUrl = encodeURIComponent('http://' + NS.bootstrapped.hostName + NS.bootstrapped.staticUrl + 'myphillyrising/images/markers/marker-' + type + '.png') + '(' + geom.x + ',' + geom.y + ')';
-      $el.find('img.static-map').attr('src', mapboxServiceUrl + 'url-'+encodedMarkerUrl + '/' + geom.x+','+geom.y+',17/600x300.png');
+      if (geom && geom.x && geom.y) {
+        var mapboxServiceUrl = 'http://api.tiles.mapbox.com/v3/openplans.map-dmar86ym/',
+            encodedMarkerUrl = encodeURIComponent('http://' + NS.bootstrapped.hostName + NS.bootstrapped.staticUrl + 'myphillyrising/images/markers/marker-' + type + '.png') + '(' + geom.x + ',' + geom.y + ')';
+        $el.find('img.static-map').attr('src', mapboxServiceUrl + 'url-'+encodedMarkerUrl + '/' + geom.x+','+geom.y+',17/600x300.png');
+      }
     },
     getMapListContainer: function() {
       return $(document.body || document.documentElement);
