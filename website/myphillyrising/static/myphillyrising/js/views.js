@@ -438,7 +438,12 @@ var MyPhillyRising = MyPhillyRising || {};
     },
     handleClick: function(evt) {
       var $el = this.$(evt.currentTarget),
-          geom = this.collection.get($el.attr('data-id')).get('geom');
+          model = this.collection.get($el.attr('data-id')),
+          geom = model.get('geom'),
+          type = model.get('type');
+
+      // Set the map image
+      this.setStaticMapImage($el, geom, type);
       // Remove all of the .is-selected
       this.$('.map-list-item').removeClass('is-selected');
       // Add .is-selected to the item
@@ -447,13 +452,24 @@ var MyPhillyRising = MyPhillyRising || {};
       this.map.setView([geom.y, geom.x], 16);
     },
     selectItem: function(id) {
-      var $el = this.$('[data-id="'+id+'"]');
+      var $el = this.$('[data-id="'+id+'"]'),
+          model = this.collection.get(id),
+          geom = model.get('geom'),
+          type = model.get('type');
+
+      // Set the map image
+      this.setStaticMapImage($el, geom, type);
       // Remove all of the .is-selected
       this.$('.map-list-item').removeClass('is-selected');
       // Add .is-selected to the item
       $el.addClass('is-selected');
       // Move it into view
       this.getMapListContainer().scrollTop($el.get(0).offsetTop);
+    },
+    setStaticMapImage: function ($el, geom, type) {
+      var mapboxServiceUrl = 'http://api.tiles.mapbox.com/v3/openplans.map-dmar86ym/',
+          encodedMarkerUrl = encodeURIComponent('http://' + NS.bootstrapped.hostName + NS.bootstrapped.staticUrl + 'myphillyrising/images/markers/marker-' + type + '.png') + '(' + geom.x + ',' + geom.y + ')';
+      $el.find('img.static-map').attr('src', mapboxServiceUrl + 'url-'+encodedMarkerUrl + '/' + geom.x+','+geom.y+',17/600x300.png');
     },
     getMapListContainer: function() {
       return $(document.body || document.documentElement);
