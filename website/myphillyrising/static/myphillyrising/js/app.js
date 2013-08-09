@@ -7,6 +7,7 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.scrollTops = {};
   NS.Router = Backbone.Marionette.AppRouter.extend({
     appRoutes: {
+      'contact': 'contact',
       'about': 'about',
       '_=_': 'facebookAuthRedirect',
       ':neighborhood': 'neighborhoodHome',
@@ -27,6 +28,9 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.controller = {
+    contact: function() {
+      NS.app.mainRegion.show(new NS.ContactView());
+    },
     about: function() {
       NS.app.mainRegion.show(new NS.AboutView());
     },

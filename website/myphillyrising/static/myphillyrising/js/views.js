@@ -1,4 +1,4 @@
-/*globals Alexander Backbone Handlebars $ _ L */
+/*globals Alexander Backbone Handlebars $ _ L WufooForm */
 
 var MyPhillyRising = MyPhillyRising || {};
 
@@ -294,6 +294,7 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.ResourceCollectionView = NS.PaginatedCompositeView.extend({
+    template: '#rss-list-tpl',
     itemView: NS.ResourceItemView
   });
 
@@ -318,6 +319,7 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.EventCollectionView = NS.PaginatedCompositeView.extend({
+    template: '#ics-list-tpl',
     itemView: NS.EventItemView
   });
 
@@ -342,6 +344,7 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.StoryCollectionView = NS.PaginatedCompositeView.extend({
+    template: '#rss-list-tpl',
     itemView: NS.StoryItemView
   });
 
@@ -443,6 +446,21 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.AboutView = Backbone.Marionette.ItemView.extend({
     template: '#about-tpl'
+  });
+
+  NS.ContactView = Backbone.Marionette.ItemView.extend({
+    template: '#contact-tpl',
+    onShow: function() {
+      var form;
+
+      try {
+        form = new WufooForm();
+        form.initialize(NS.wufooFormConfig);
+        form.display();
+      } catch (e) {
+        // Meh
+      }
+    }
   });
 
   NS.PointsNotificationView = Backbone.Marionette.ItemView.extend({
