@@ -202,6 +202,7 @@ textarea {
 .block-link { display: block; }
 
 
+
 /* =Layout
 -------------------------------------------------------------- */
 
@@ -527,6 +528,12 @@ a.logout-link:visited {
 .site-mission {
   font-size: 1.5em;
   font-weight: 100;
+}
+
+p.contact-prompt {
+  font-size: 0.8em;
+  color: #8497b0;
+  margin-bottom: 10px;
 }
 
 .neighborhood-header {
