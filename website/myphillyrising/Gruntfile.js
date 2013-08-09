@@ -26,14 +26,14 @@ module.exports = function(grunt) {
           {
             dest: 'static/js/app.min.js',
             src: [
-              'static/js/utils.js',
-              'static/js/handlebars-helpers.js',
-              'static/js/config.js',
-              '../alexander/static/js/utils.js',
-              '../alexander/static/js/models.js',
-              '../alexander/static/js/django-csrf.js',
-              'static/js/views.js',
-              'static/js/app.js'
+              'static/myphillyrising/js/utils.js',
+              'static/myphillyrising/js/handlebars-helpers.js',
+              'static/myphillyrising/js/config.js',
+              '../alexander/static/alexander/js/utils.js',
+              '../alexander/static/alexander/js/models.js',
+              '../alexander/static/alexander/js/django-csrf.js',
+              'static/myphillyrising/js/views.js',
+              'static/myphillyrising/js/app.js'
             ]
           },
           {
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
           {
             dest: 'static/css/styles.min.css',
             src: [
-              'static/css/styles.css'
+              'static/myphillyrising/css/styles.css'
             ]
           }
         ]
