@@ -504,7 +504,8 @@ var MyPhillyRising = MyPhillyRising || {};
     template: '#points-notification-tpl',
     className: 'notification is-closed',
     events: {
-      'click .close-btn': function() {
+      'click .close-btn': function(evt) {
+        evt.preventDefault();
         // Hide the message
         this.$el.addClass('is-closed');
       }
