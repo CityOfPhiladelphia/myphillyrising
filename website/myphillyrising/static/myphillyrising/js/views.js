@@ -276,7 +276,7 @@ var MyPhillyRising = MyPhillyRising || {};
             NS.app.currentUser.doAction(
               {points: 5, type: 'share'},
               self.model,
-              {notification: 'You shared "' + self.model.get('title') + '"'}
+              {notification: 'You shared "' + NS.Utils.unescapeHtml(self.model.get('title')) + '"'}
             );
           }
         });

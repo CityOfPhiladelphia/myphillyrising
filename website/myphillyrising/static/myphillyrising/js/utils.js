@@ -33,6 +33,12 @@ var MyPhillyRising = MyPhillyRising || {};
       }
     },
 
+    unescapeHtml: function(escapedText) {
+      var e = document.createElement('div');
+      e.innerHTML = escapedText;
+      return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    },
+
     // ====================================================
     // Analytics
 
