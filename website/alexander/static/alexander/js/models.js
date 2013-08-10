@@ -15,7 +15,7 @@ var Alexander = Alexander || {};
     initialize: function(models, options) {
       var self = this;
 
-      this.config = options.config,
+      this.config = options.config;
       // Keep track of all of our AGS services
       this.allTheCollections = [];
 
