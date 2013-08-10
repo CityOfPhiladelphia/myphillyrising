@@ -964,6 +964,10 @@ a.close-btn:hover {
          -o-transform: translate3d(-43%,0,0);
             transform: translate3d(-43%,0,0);
   }
+  .is-open-off-canvas-left .detail-close-btn,
+  .is-open-off-canvas-right .detail-close-btn {
+    opacity: 1;
+  }
   .site-header {
     position: relative;
     z-index: 500;
