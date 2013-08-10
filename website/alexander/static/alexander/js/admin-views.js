@@ -93,7 +93,7 @@ var Alexander = Alexander || {};
   NS.FeedView = Backbone.Marionette.ItemView.extend({
     template: "#feed-tpl",
     tagName: 'li',
-    className: 'feed-item well',
+    className: 'feed-item',
     events: {
       'click .delete-feed-link': 'delete',
       'click .refresh-feed-link': 'refresh'

@@ -1,10 +1,23 @@
-    <div class="pull-right">
-      <p> {{ source_type }}, {{ default_category }} <br>
-      Last updated {{ prettydate last_read_at }}</p>
-    </div>
+<div class="row">
+  <div class="span8">
+    <h3>{{ title }} <span class="label">{{ source_type }}</span></h3>
+    <p>{{ source_url }}</p>
+  </div>
 
-    <h3>{{ title }}</h3>
-    <p>{{ source_url }}
+  <div class="span4">
+    <p>Items will be in the <b>{{ default_category }}</b> category 
+      {{# if default_tags }}
+        with the tags {{# each default_tags }} <span class="label">{{ . }}</span>{{/ each }}.
+      {{^}}
+        with no default tags.
+      {{/ if }}</p>
+    <p>Content last refreshed {{ prettydate last_read_at }}</p>
+
+    <div>
       <a class="delete-feed-link btn btn-danger pull-right" href="#"><i class="icon-trash"></i> Delete</a>
       <a class="refresh-feed-link btn pull-right" href="#"><i class="icon-refresh"></i> Refresh</a>
-    </p>
+    </div>
+  </div>
+</div>
+
+<hr>
