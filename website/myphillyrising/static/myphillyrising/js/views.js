@@ -130,6 +130,9 @@ var MyPhillyRising = MyPhillyRising || {};
     collectionEvents: {
       add: function() {
         this.setLoadButtonVisibility(!!this.collection.nextPage);
+      },
+      reset: function() {
+        this.setLoadButtonVisibility(!!this.collection.nextPage);
       }
     },
 
