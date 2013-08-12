@@ -217,8 +217,13 @@ var MyPhillyRising = MyPhillyRising || {};
     this.headerView = new NS.HeaderView();
     NS.app.headerRegion.show(this.headerView);
 
-    console.log('make and start a router');
-    // Construct a new app router
+    // Page-view analytics. This needs to go before the history is started in
+    // order to register the initial page load.
+    this.router.bind('route', function(route, router) {
+      NS.Utils.log('send', 'pageview', NS.Utils.getCurrentPath());
+    });
+
+    // Construct and start a new app router
     this.router = new NS.Router({
       controller: NS.controller
     });
@@ -268,11 +273,6 @@ var MyPhillyRising = MyPhillyRising || {};
       if (!this.noscroll) {
         document.body.scrollTop = document.documentElement.scrollTop = scrollTop;
       }
-    });
-
-    // Page-view analytics
-    this.router.bind('route', function(route, router) {
-      NS.Utils.log('send', 'pageview', NS.Utils.getCurrentPath());
     });
 
     // Globally capture clicks. If they are internal and not in the pass
