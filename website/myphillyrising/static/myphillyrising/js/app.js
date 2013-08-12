@@ -217,17 +217,18 @@ var MyPhillyRising = MyPhillyRising || {};
     this.headerView = new NS.HeaderView();
     NS.app.headerRegion.show(this.headerView);
 
+    // Construct a new app router
+    this.router = new NS.Router({
+      controller: NS.controller
+    });
+
     // Page-view analytics. This needs to go before the history is started in
     // order to register the initial page load.
     this.router.bind('route', function(route, router) {
       NS.Utils.log('send', 'pageview', NS.Utils.getCurrentPath());
     });
 
-    // Construct and start a new app router
-    this.router = new NS.Router({
-      controller: NS.controller
-    });
-
+    // Start the router
     Backbone.history.start({ pushState: Modernizr.history, silent: true });
 
     if(!Modernizr.history) {
