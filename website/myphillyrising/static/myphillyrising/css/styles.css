@@ -267,11 +267,11 @@ body {
   color: #ebeff3;
   margin-top: -9999px;
 }
-.off-canvas-menu-left { 
-  right: 100%; 
+.off-canvas-menu-left {
+  right: 100%;
 }
-.off-canvas-menu-right { 
-  left: 100%; 
+.off-canvas-menu-right {
+  left: 100%;
 }
 .is-open-off-canvas-right .off-canvas-menu-right,
 .is-open-off-canvas-left .off-canvas-menu-left {
@@ -813,7 +813,7 @@ a.close-btn:hover {
 
 /* Map */
 .map-container {
-  margin: -10px -10px 10px;
+  margin: 10px -10px -10px;
   padding: 0;
   background: #bbb;
 }
@@ -823,6 +823,7 @@ a.close-btn:hover {
   height: 200px;
 }
 .map-list-container {
+  display: none;
 }
 .map-list {}
 .map-list .map-list-item {

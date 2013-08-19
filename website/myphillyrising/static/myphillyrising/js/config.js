@@ -109,7 +109,7 @@ var MyPhillyRising = MyPhillyRising || {};
         url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Fire_Stations/MapServer/0/query',
         attrMap: {
           id: 'OBJECTID',
-          name: 'LAD',
+          name: 'ENG',
           address: 'LOCATION'
         }
       },

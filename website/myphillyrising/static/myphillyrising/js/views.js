@@ -393,25 +393,34 @@ var MyPhillyRising = MyPhillyRising || {};
     events: {
       'click .map-list-item': 'handleClick'
     },
+    initialize: function() {
+      var self = this;
+      $(window).resize(_.debounce(function(evt) {
+        self.resizeMap();
+      }, 100));
+    },
+    resizeMap: function() {
+      var $map = this.$('#map');
+      $map.height(window.innerHeight - $map[0].offsetTop);
+    },
     onShow: function() {
+      this.resizeMap();
+
       var url = 'http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png',
-          attribution = '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>',
+          attribution = '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms/Feedback</a>',
           baseLayer = L.tileLayer(url, {attribution: attribution});
 
       this.map = L.map('map', {
         layers: [baseLayer],
         center: [this.model.get('center_lat'), this.model.get('center_lng')],
-        zoom: 16
+        zoom: 16,
+        scrollWheelZoom: false
       });
 
       // Remove default prefix
       this.map.attributionControl.setPrefix('');
 
       this.featureGroup = L.featureGroup().addTo(this.map);
-
-      this.featureGroup.on('click', function(evt) {
-        this.selectItem(evt.layer.options.data.id);
-      }, this);
 
       this.listenTo(this.collection, 'add', this.addMarker);
 
@@ -420,9 +429,11 @@ var MyPhillyRising = MyPhillyRising || {};
       });
     },
     addMarker: function(model, collection, options) {
-      var geom = model.get('geom');
+      var geom = model.get('geom'),
+          markerLayer;
+
       if (geom && geom.x && geom.y) {
-        this.featureGroup.addLayer(L.marker([geom.y, geom.x], {
+        markerLayer = L.marker([geom.y, geom.x], {
           data: model.toJSON(),
           icon: L.icon({
             iconUrl: NS.staticURL + 'myphillyrising/images/markers/marker-'+model.get('type')+'.png',
@@ -433,7 +444,10 @@ var MyPhillyRising = MyPhillyRising || {};
             shadowUrl: NS.staticURL + 'myphillyrising/images/markers/marker-shadow.png',
             shadowSize: [41, 41]
           })
-        }));
+        });
+
+        markerLayer.bindPopup('<a href="#">' + model.get('name') + '</a><br>' + model.get('address'));
+        this.featureGroup.addLayer(markerLayer);
       }
     },
     handleClick: function(evt) {
