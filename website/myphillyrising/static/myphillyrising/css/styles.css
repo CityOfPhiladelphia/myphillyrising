@@ -2,7 +2,7 @@
 /* =Base Styles
 -------------------------------------------------------------- */
 
-/* Color Palette (These aren't semantic; just here for reference. ) */
+/* Color Palette (These aren't semantic. YOLO! ) */
 .light-grey { color: #ebeff3; }
 .grey { color: #d0d3d7; }
 .light-slate { color: #8497b0; }
@@ -542,78 +542,39 @@ a.logout-link:visited {
 }
 
 .neighborhood-header {
-  overflow: hidden;
-  position: relative;
-  z-index: 2;
-  margin: -10px -10px 0;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.5);
-}
-.neighborhood-header .map-container {
-  margin: 0;
+  background: #455161;
+  margin: -10px -20px 0 -20px;
+  padding: 10px 20px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.25);
 }
 .neighborhood-title {
   font-size: 1.2em;
-  margin: 0;
-  padding: 0 3em;
-  position: absolute;
-  top: 0;
-  right: -3em;
-  bottom: 0;
-  left: -3em;
-  box-shadow: inset 0 -1em 2em rgba(0,0,0,0.25);
-  text-shadow: 0 0 0.75em rgba(0,0,0,0.8), 0 0.25em 0.25em rgba(0,0,0,0.25);
   color: #fff;
-}
-.neighborhood-title .title-text {
-  display: block;
-  position: absolute;
-  top: auto;
-  right: 3em;
-  bottom: 8px;
-  left: 3em;
-  line-height: 1.25;
-  padding-left: 10px;
-  margin-right: 5em;
+  float: left;
+  width: 80%;
+  margin: 0;
+  padding: 0.25em 0;
 }
 .neighborhood-score {
-  color: #ebffa6;
-}
-.neighborhood-map-link {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-.neighborhood-map-link-text {
-  position: absolute;
-  top: auto;
-  right: 10px;
-  bottom: 0;
-  left: auto;
-  color: #ffcdbf;
-  background-color: #bf6750;
-  border-radius: 3px 3px 0 0;
-  font-size: 0.625em;
-  font-weight: 700;
-  text-transform: uppercase;
-  padding: 4px 0 3px;
-  width: 7em;
+  color: #caf445;
+  float: right;
+  width: 20%;
+  margin: 0 -10px 0 0;
   text-align: center;
-  box-shadow: 0 0 0.5em rgba(0,0,0,0.2);
-  border-top: 1px solid rgba(255,255,255,0.5);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+.neighborhood-score small {
+  color: #ebffa6;
+  display: block;
+  text-transform: uppercase;
+  font-size: xx-small;
 }
 
 .neighborhood-content {
   background: #455161;
-  border-bottom: 1px solid #fff;
-  box-shadow: inset 0 -0.75em 1.5em rgba(0,0,0,0.1);
-  margin: 0 -10px 10px;
+  margin: 0 -10px;
   padding: 0 0 10px 0;
   font-size: 0.8em;
-  overflow: hidden;
-  position: relative;
-  z-index: 1;
 }
 
 .column-40-right { width: 40%; float: right; }
@@ -631,15 +592,46 @@ a.logout-link:visited {
   margin: 0;
   padding: 0;
   clear: both;
+  background-color: #ebeff3;
 }
+
+.neighborhood-widget-header {
+  padding: 5px 5px 0;
+  margin: 0;
+}
+.neighborhood-widget-header a {
+  display: block;
+  background-color: #caf445;
+  padding: 5px 2em 5px 5px;
+  color: #546070;
+  font-size: 0.8em;
+  font-weight: 400;
+  text-decoration: none;
+  text-transform: uppercase;
+  position: relative;
+}
+.neighborhood-widget-header .arrows {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: center;
+  font-size: 1.75em;
+  line-height: 1;
+  width: 1em;
+}
+
 .neighborhood-widget .block-link {
   margin-bottom: 10px;
   text-decoration: none;
 }
-.events-widget {
-  background: #fc8769;
-  color: #fff;
-}
+
+.users-widget {}
+
+.resources-widget {}
+
+.stories-widget {}
+
+.events-widget {}
 .events-widget .date {
   text-transform: uppercase;
   font-size: 2em;
@@ -656,21 +648,17 @@ a.logout-link:visited {
   margin-left: 0;
   text-indent: 0;
 }
-.resources-widget {
-  background: #8497b0;
-  color: #fff;
-}
-.stories-widget {
-  background: #ebffa6;
-}
-.about-widget {
-  background: #546070;
-  color: #fff;
-}
-.resources-widget a,
-.events-widget a,
-.about-widget a { color: #fff; }
 
+.about-widget {
+  font-size: 0.8em;
+  color: #d0d3d7;
+  background: #455161;
+  margin: 0 -10px 10px;
+  padding: 5px 10px 20px;
+  box-shadow: inset 0 -0.75em 1.5em rgba(0,0,0,0.1);
+}
+
+/* Items */
 .item-header {
   margin: 0 0 10px;
 }

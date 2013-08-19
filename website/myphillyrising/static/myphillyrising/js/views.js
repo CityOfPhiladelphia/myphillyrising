@@ -157,9 +157,11 @@ var MyPhillyRising = MyPhillyRising || {};
     template: '#neighborhood-home-tpl',
     regions: {
       usersRegion1: '.users-region1',
+      usersRegion2: '.users-region2',
+      usersRegion3: '.users-region3',
+      usersRegion4: '.users-region4',
       eventsRegion1: '.events-region1',
       storiesRegion1: '.stories-region1',
-      usersRegion2: '.users-region2',
       resourcesRegion1: '.resources-region1'
     },
     initialize: function() {
@@ -202,27 +204,22 @@ var MyPhillyRising = MyPhillyRising || {};
     renderUsers: function() {
       console.log('render users for', this.model.get('tag'));
 
-      if (this.model.collections.users.length < 6) {
-        this.usersRegion1.show(new NS.HomeUserListView({
-          model: this.model,
-          collection: new Backbone.Collection(this.model.collections.users.slice(0, 3))
-        }));
-        this.usersRegion2.show(new NS.HomeUserListView({
-          model: this.model,
-          collection: new Backbone.Collection(this.model.collections.users.slice(3, 6))
-        }));
-      }
-
-      else {
-        this.usersRegion1.show(new NS.HomeUserListView({
-          model: this.model,
-          collection: new Backbone.Collection(this.model.collections.users.slice(0, 6))
-        }));
-        this.usersRegion2.show(new NS.HomeUserListView({
-          model: this.model,
-          collection: new Backbone.Collection(this.model.collections.users.slice(6, 10))
-        }));
-      }
+      this.usersRegion1.show(new NS.HomeUserListView({
+        model: this.model,
+        collection: new Backbone.Collection(this.model.collections.users.slice(0, 3))
+      }));
+      this.usersRegion2.show(new NS.HomeUserListView({
+        model: this.model,
+        collection: new Backbone.Collection(this.model.collections.users.slice(3, 6))
+      }));
+      this.usersRegion3.show(new NS.HomeUserListView({
+        model: this.model,
+        collection: new Backbone.Collection(this.model.collections.users.slice(6, 8))
+      }));
+      this.usersRegion4.show(new NS.HomeUserListView({
+        model: this.model,
+        collection: new Backbone.Collection(this.model.collections.users.slice(8, 10))
+      }));
 
     },
     renderEvents: function() {

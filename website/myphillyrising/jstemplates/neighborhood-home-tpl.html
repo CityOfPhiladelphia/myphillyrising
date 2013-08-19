@@ -1,49 +1,43 @@
-<div class="neighborhood-header">
-  <div class="map-container">
-      <img class="home-map-thumb full-width-image" src="http://api.tiles.mapbox.com/v3/openplans.map-dmar86ym/{{center_lng}},{{center_lat}},15/600x120.png">
-  </div>
+<div class="neighborhood-header clearfix">
   <h1 class="neighborhood-title">
-    <span class="title-text">{{name}} <span class="nobreak">is rising!</span>
-      {{#if points}}
-        <span class="neighborhood-score">+{{points}}</span>
-      {{/if}}
-    </span>
+    {{name}} <span class="nobreak">is rising!</span>
   </h1>
-  <a class="neighborhood-map-link" href="/{{current_neighborhood}}/map"><span class="neighborhood-map-link-text">Explore<br/>The Map</span></a>
+  {{#if points}}
+  <span class="neighborhood-score">{{points}} <small>points</small></span>
+  {{/if}}
 </div>
 
 <div class="neighborhood-content clearfix">
 
   <div class="column-40-right">
     <div class="neighborhood-widget events-widget events-region1"></div>
-    <div class="neighborhood-widget users-widget users-region2"></div>
+    <div class="neighborhood-widget users-widget users-region3"></div>
+    <div class="neighborhood-widget places-widget">
+      <h3 class="neighborhood-widget-header"><a href="/{{current_neighborhood}}/map">Places<span class="arrows">&#187;</span></a></h3>
+      <div class="container">
+        <a href="/{{current_neighborhood}}/map"><img class="home-map-thumb" src="http://api.tiles.mapbox.com/v3/openplans.map-dmar86ym/{{center_lng}},{{center_lat}},15/250x150.png"></a>
+      </div>
+    </div>
+    <div class="neighborhood-widget users-widget users-region4"></div>
   </div>
 
   <div class="column-60-left">
     <div class="neighborhood-widget users-widget users-region1"></div>
     <div class="neighborhood-widget resources-widget resources-region1"></div>
+    <div class="neighborhood-widget users-widget users-region2"></div>
     <div class="neighborhood-widget stories-widget stories-region1"></div>
   </div>
 
-  <div class="column-40-right">
-    <div class="neighborhood-widget about-widget">
-      <div class="container">
-        <h5>About PhillyRising</h5>
-        <p>We're creating community partnerships to help neighborhoods that are plagued by chronic crime and quality of life concerns.</p>
-        <a class="btn btn-block" href="/about">Learn More</a>
-      </div>
-    </div>
-  </div>
-  
-  <div class="column-60-left">
-    <div class="neighborhood-widget about-widget">
-      <div class="container">
-        <p>MyPhillyRising is still under development. Tell us your experiences using the website.</p>
-        <a class="btn btn-block" href="/about">Share Feedback</a>
-      </div>
-    </div>
-  </div>
+</div>
 
+<div class="neighborhood-widget about-widget">
+  <h5>About PhillyRising</h5>
+
+  <p>We're creating community partnerships to help neighborhoods that are plagued by chronic crime and quality of life concerns.</p>
+  <p><a class="btn" href="/about">Learn More</a></p>
+
+  <p>MyPhillyRising is still under development. Tell us your experiences using the website. </p>
+  <p><a class="btn" href="/about">Share Feedback</a></p>
 </div>
 
 <div id="disqus_thread"></div>
