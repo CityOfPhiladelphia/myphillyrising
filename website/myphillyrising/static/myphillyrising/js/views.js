@@ -390,6 +390,7 @@ var MyPhillyRising = MyPhillyRising || {};
     template: '#map-tpl',
     itemView: NS.MapItemView,
     itemViewContainer: '.map-list',
+    className: 'map-is-active',
     events: {
       'click .map-list-item': 'handleClick'
     },
