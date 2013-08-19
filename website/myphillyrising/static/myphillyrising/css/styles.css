@@ -643,16 +643,23 @@ a.logout-link:visited {
   font-size: 2em;
   font-weight: 100;
   display: block;
-  margin: 0;
-  text-shadow: ;
+  margin: -0.25em 0 0 0;
+  color: #bf6750;
 }
-.events-widget .day { font-weight: 700; }
+.events-widget .day { 
+  font-weight: 700; 
+  color: #fc8769;
+}
 .events-widget .time {
   font-weight: 400;
   display: block;
   margin-top: 0;
   margin-left: 0;
   text-indent: 0;
+  color: #546070;
+}
+.events-widget .item-title {
+  color: #546070;
 }
 
 .about-widget {
