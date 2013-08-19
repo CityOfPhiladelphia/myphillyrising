@@ -570,6 +570,12 @@ a.logout-link:visited {
   font-size: xx-small;
 }
 
+.neighborhood-subheader {
+  background: #455161;
+  margin: -10px -10px 0 -10px;
+  padding: 10px 10px 15px;
+}
+
 .neighborhood-content {
   background: #455161;
   margin: 0 -10px;
