@@ -2,7 +2,7 @@
 
   <h3 class="off-canvas-menu-header">{{ profile.full_name }} <a class="logout-link" href="{{ logout_url }}">Sign Out</a></h3>
 
-  <div class="user-profile">
+  <form class="user-profile">
     <p>You have {{ points }} points!</p>
 
     <p>
@@ -30,7 +30,10 @@
         Send me updates &amp; notifications
       </label>
     </p>
-  </div>
+
+    <button type="submit">Save</button>
+    <button type="reset">Cancel</button>
+  </form>
 
 {{^}}
 
