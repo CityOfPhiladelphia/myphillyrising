@@ -45,46 +45,31 @@ var MyPhillyRising = MyPhillyRising || {};
     template: '#user-menu-tpl',
 
     events: {
-      'change #user-menu-neighborhood-field': 'onNeighborhoodChange',
-      'change #user-menu-email-field': 'onEmailChange',
-      'change #user-menu-email-permission-field': 'onEmailPermissionChange'
+      'submit .user-profile': 'onSubmitProfileForm'
     },
 
-    onNeighborhoodChange: function() {
-      var $field = this.$('#user-menu-neighborhood-field'),
-          newNeighborhood = $field.val(),
-          profileData = NS.app.currentUser.get('profile');
+    onProfileFormSubmit: function(evt) {
+      evt.preventDefault();
+      var form = evt.target,
+          profileData = NS.app.currentUser.get('profile'),
+          attrName;
 
-      if ($field[0].checkValidity()) {
-        profileData['neighborhood'] = newNeighborhood;
-        NS.app.currentUser.save({'profile': profileData}, {
-          success: function() {
-            $field.find('.empty-neighborhood-option').remove();
-          },
-          error: function() {
-            // TODO: Let the user know, and switch back the neighborhood.
-          }
-        });
+      for (attrName in profileData) {
+        profileData[attrName] = this.getFieldValue(attrName);
       }
+
+      NS.app.currentUser.save({'profile': profileData});
     },
 
-    onEmailChange: function() {
-      var $field = this.$('#user-menu-email-field'),
-          newEmail = $field.val();
+    getFieldValue: function(name) {
+      var $field = this.$('[name="' + name + '"]');
 
-      if ($field[0].checkValidity()) {
-        NS.app.currentUser.save({'email': newEmail});
-      }
-    },
-
-    onEmailPermissionChange: function() {
-      var $field = this.$('#user-menu-email-permission-field'),
-          newEmailPermission = $field.is(':checked'),
-          profileData = NS.app.currentUser.get('profile');
-
-      if ($field[0].checkValidity()) {
-        profileData['email_permission'] = newEmailPermission;
-        NS.app.currentUser.save({'profile': profileData});
+      if ($field.length > 0) {
+        if ($field.attr('type') === 'checkbox') {
+          return $field.is(':checked');
+        } else {
+          return $field.val();
+        }
       }
     }
   });
