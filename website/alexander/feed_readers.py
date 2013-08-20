@@ -6,6 +6,7 @@ from urllib2 import urlopen
 import json  # For dumping dictionary content to strings
 import re
 
+
 # Optional packages
 try:
     import feedparser  # For parsing RSS and ATOM
@@ -178,10 +179,13 @@ class ICalFeedReader (FeedReader):
             item.source_url = self.url
             # TODO: Should the published_at time be DTSTART or LAST-MODIFIED?
             item.source_posted_at = item_data.get('DTSTART', None)
+
             item.last_read_at = now()
 
             if commit:
                 item.save()
+                # Call the geocode task
+                # geocode_contentitem.delay(item, item_data.get('LOCATION'))
 
 
 class FacebookPageReader (RSSFeedReader):
@@ -230,5 +234,3 @@ def get_feed_reader(source_type, **source_kwargs):
     else:
         msg = _('Unrecognized feed source type: %r') % (source_type,)
         raise ValueError(msg)
-
-

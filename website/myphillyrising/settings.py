@@ -130,7 +130,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.load_extra_data',
     'social_auth.backends.pipeline.user.update_user_details',
 
-    # Set up or update the myPhillyRising profile with things like 
+    # Set up or update the myPhillyRising profile with things like
     # neighborhood and email.
     'myphillyrising.social_auth.get_user_profile',
     'social_auth.backends.pipeline.misc.save_status_to_session',
@@ -256,6 +256,16 @@ LOGGING = {
     }
 }
 
+
+################################################################################
+#
+# Geocoder Settings
+#
+
+GEOCODER = {
+    'BOUNDS': '39.8707,-75.3092|40.1663,-74.9151',
+    'REGION': 'us'
+}
 
 ###############################################################################
 # Local settings overrides
