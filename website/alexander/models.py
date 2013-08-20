@@ -74,6 +74,8 @@ class ContentItem (models.Model):
     title = models.CharField(max_length=160, null=True)
     tags = models.ManyToManyField('ContentTag', related_name='items')
     category = models.CharField(max_length=20)
+    lat = models.FloatField(null=True)
+    lng = models.FloatField(null=True)
 
     # Information about the original source content
     feed = models.ForeignKey('Feed', related_name='items')
