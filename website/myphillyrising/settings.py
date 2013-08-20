@@ -118,6 +118,7 @@ AUTHENTICATION_BACKENDS = (
     # for list of available backends.
     'social_auth.backends.twitter.TwitterBackend',
     'social_auth.backends.facebook.FacebookBackend',
+    'publicstuff_tools.social_auth.backends.PublicStuffBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -185,6 +186,7 @@ COMMUNITY_APPS = (
 PROJECT_SPECIFIC_APPS = (
     'alexander',
     'myphillyrising',
+    'publicstuff_tools',
     'utils',
 )
 

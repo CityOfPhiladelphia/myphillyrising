@@ -72,6 +72,10 @@ var MyPhillyRising = MyPhillyRising || {};
     return NS.bootstrapped.baseUrl;
   });
 
+  Handlebars.registerHelper('csrf_token', function(options) {
+    return '<input type="hidden" name="csrfmiddlewaretoken" value="' + NS.Utils.getCookie('csrftoken') + '">';
+  });
+
   Handlebars.registerHelper('uriencoded_base_url', function() {
     return encodeURIComponent(NS.bootstrapped.baseUrl);
   });
