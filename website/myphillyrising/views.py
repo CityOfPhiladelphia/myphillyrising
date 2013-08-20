@@ -8,12 +8,14 @@ from django.core.urlresolvers import reverse
 from django.utils.timezone import now, timedelta
 from django.db.models import Sum, Q
 from django.views.generic import TemplateView, FormView
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.routers import DefaultRouter
 from rest_framework.viewsets import ModelViewSet
 from myphillyrising.forms import ChooseNeighborhoodForm
 from myphillyrising.models import Neighborhood, User, UserProfile, UserAction
 from myphillyrising.serializers import NeighborhoodSerializer, UserSerializer, LoggedInUserSerializer, ActionSerializer
 from myphillyrising.services import default_twitter_service
+from utils.views import EnsureCsrfCookieMixin
 
 
 class MyPhillyRisingViewMixin (object):
@@ -90,7 +92,7 @@ class MyPhillyRisingViewMixin (object):
         return ' '.join([message, signature, str(timestamp)])
 
 
-class AppView (MyPhillyRisingViewMixin, TemplateView):
+class AppView (MyPhillyRisingViewMixin, EnsureCsrfCookieMixin, TemplateView):
     template_name = 'myphillyrising/index.html'
 
     def get_neighborhood_data(self):
@@ -147,6 +149,7 @@ class UserViewSet (MyPhillyRisingViewMixin, ModelViewSet):
     model = User
     serializer_class = UserSerializer
     paginate_by = 20
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
         queryset = self.get_user_queryset()
@@ -167,6 +170,7 @@ class ActionViewSet (MyPhillyRisingViewMixin, ModelViewSet):
     model = UserAction
     serializer_class = ActionSerializer
     paginate_by = 20
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
 # Views
