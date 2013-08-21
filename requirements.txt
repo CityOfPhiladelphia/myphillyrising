@@ -78,6 +78,7 @@ geopy
 # Testing / QA
 # ==============================
 
+mock
 nose
 django-nose
 django-debug-toolbar

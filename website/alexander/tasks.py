@@ -1,8 +1,9 @@
 from celery import task, group
-from alexander.models import Feed
+from alexander.models import Feed, ContentItem
 
 from django.conf import settings
 from geopy import geocoders
+from geopy.geocoders.googlev3 import GTooManyQueriesError
 
 import logging
 
@@ -28,22 +29,27 @@ def refresh_feed(feed_id):
 
 
 @task
-def geocode_contentitem(item, address):
+def geocode_contentitem(item_id, address, retry_delay=None):
     geocoder = geocoders.GoogleV3()
     try:
-        # raise Exception
+        # The geocode method may raise an exception. See
+        # https://github.com/geopy/geopy/blob/master/geopy/geocoders/googlev3.py#L193
+        # for possibilities.
         results = geocoder.geocode(
             address,
-            bounds=settings.GEOCODER['bounds'],
-            region=settings.GEOCODER['region'],
+            bounds=settings.GEOCODER['BOUNDS'],
+            region=settings.GEOCODER['REGION'],
             exactly_one=False
         )
 
-        if (len(results) > 0):
-            place, (item.lat, item.lng) = results[0]
-            item.save()
-    except geocoders.GTooManyQueriesError:
-        # Rate limited... try again later!
+    except GTooManyQueriesError as e:
         logger.warn('Rate limited... try again later!')
-        # TODO Can I call myself?
-        geocode_contentitem.apply_async(args=(item, address), countdown=86400)
+        if retry_delay is None:
+            raise
+        else:
+            geocode_contentitem.retry(exc=e, countdown=retry_delay)
+
+    if (len(results) > 0):
+        item = ContentItem.objects.get(pk=item_id)
+        place, (item.lat, item.lng) = results[0]
+        item.save()
