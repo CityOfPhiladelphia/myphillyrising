@@ -6,71 +6,29 @@ var Alexander = Alexander || {};
   Backbone.Relational.store.addModelScope(NS);
 
   NS.AgsCollection = Backbone.Collection.extend({
+    initialize: function(attrs, options) {
+      this.center = options.center;
+      this.radius = options.radius;
+    },
     parse: function(response) {
       return response.features;
-    }
-  });
-
-  NS.FacilitiesCollection = Backbone.Collection.extend({
-    initialize: function(models, options) {
-      var self = this;
-
-      this.config = options.config;
-      // Keep track of all of our AGS services
-      this.allTheCollections = [];
-
-      // Turn our config file into collections
-      _.each(this.config, function(f, i) {
-
-        // Make and cache a collection
-        self.allTheCollections[i] = new NS.AgsCollection(null, {
-          url: f.url
-        });
-
-        // When we reset this collection
-        self.allTheCollections[i].on('reset', function(collection, evt) {
-
-          // Go through each model
-          collection.each(function(model) {
-            var geom = model.get('geometry'),
-                attrs = model.get('attributes'),
-                normAttrs = {
-                  label: f.label,
-                  type: f.type,
-                  geom: geom
-                };
-
-            _.each(f.attrMap, function(val, key) {
-              normAttrs[key] = attrs[val];
-            });
-
-            // Add it to the list item collection so the view can do its thing.
-            // Also map our attributes to something the template will understand.
-            self.add(normAttrs);
-          });
-        });
-      });
     },
     fetch: function(options) {
-      var self = this;
+      options = _.extend({
+        reset: true,
+        data: {
+          where: '1=1',
+          outFields: '*',
+          inSR: '4326',
+          outSR: '4326',
+          spatialRel: 'esriSpatialRelIntersects', // Find stuff that intersects this envelope
+          geometryType: 'esriGeometryEnvelope', // Our "geometry" url param will be an envelope
+          geometry: this.pointToBoundingBox(this.center, this.radius).join(','), // Build envelope geometry
+          f: 'json'
+        }
+      }, options);
 
-      // Get new data for all of the AGS collections, triggering a reset!
-      _.each(this.allTheCollections, function(collection, i) {
-        collection.fetch({
-          reset: true,
-          data: {
-            where: '1=1',
-            outFields: '*',
-            inSR: '4326',
-            outSR: '4326',
-            spatialRel: 'esriSpatialRelIntersects', // Find stuff that intersects this envelope
-            geometryType: 'esriGeometryEnvelope', // Our "geometry" url param will be an envelope
-            geometry: self.pointToBoundingBox(options.center, 0.75).join(','), // Build envelope geometry
-            f: 'json'
-          }
-        });
-      });
-
+      return NS.AgsCollection.__super__.fetch.call(this, options);
     },
     pointToBoundingBox: function(coords, radius) {
       var lngMile = 0.0192,
@@ -82,6 +40,42 @@ var Alexander = Alexander || {};
 
       return [left, bottom, right, top]; // <xmin>,<ymin>,<xmax>,<ymax>
     }
+  });
+
+  NS.PlaceConfig = Backbone.Model.extend({
+    initialize: function() {
+      var self = this;
+
+      this.collection = new NS.AgsCollection(null, {
+        url: this.get('url'),
+        center: this.get('center'),
+        radius: this.get('radius')
+      });
+
+      this.collection.on('reset', function(collection, evt) {
+        // Go through each model
+        collection.each(function(model) {
+          var geom = model.get('geometry'),
+              attrs = model.get('attributes'),
+              normAttrs = {
+                label: self.get('label'),
+                type: self.get('type'),
+                geom: geom
+              };
+
+          _.each(self.get('attrMap'), function(val, key) {
+            normAttrs[key] = attrs[val];
+          });
+
+          model.set(normAttrs);
+        });
+      });
+    }
+  });
+
+  NS.PlaceConfigCollection = Backbone.Collection.extend({
+    model: NS.PlaceConfig,
+    comparator: 'label'
   });
 
   NS.PaginatedCollection = Backbone.Collection.extend({

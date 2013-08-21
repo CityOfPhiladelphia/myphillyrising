@@ -646,8 +646,8 @@ a.logout-link:visited {
   margin: -0.25em 0 0 0;
   color: #bf6750;
 }
-.events-widget .day { 
-  font-weight: 700; 
+.events-widget .day {
+  font-weight: 700;
   color: #fc8769;
 }
 .events-widget .time {
@@ -832,9 +832,12 @@ a.close-btn:hover {
   height: 42px;
   background: url(../images/places-map-btn.png) center center no-repeat scroll;
   text-indent: -9999px;
+  z-index: 999;
+  display: none;
 }
 .map-is-active .map-list-toggle-btn {
   background: url(../images/places-list-btn.png) center center no-repeat scroll;
+  display: block;
 }
 .place-type-description {
   margin: 10px -75px 0 0;
@@ -849,12 +852,12 @@ a.close-btn:hover {
   position: absolute;
   right: 9999px;
 }
-.map-is-active .map-container {  
+.map-is-active .map-container {
   position: relative;
   right: auto;
 }
 #map {
-  margin: 0 -10px;
+  margin: -20px -10px -10px -10px;
   padding: 0;
   height: 200px;
 }
@@ -865,7 +868,6 @@ a.close-btn:hover {
 .map-list {}
 .map-list .map-list-item {
   padding: 10px 10px 10px 2.5em;
-  cursor: pointer;
   overflow: hidden;
 }
 .map-item-header {}

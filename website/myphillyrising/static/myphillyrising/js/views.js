@@ -381,18 +381,52 @@ var MyPhillyRising = MyPhillyRising || {};
     itemViewContainer: '.item-view-container'
   });
 
-  // Map Views ==============================================================
-  NS.MapItemView = Backbone.Marionette.ItemView.extend({
-    template: '#map-item-tpl'
+  // Place Views ==============================================================
+  NS.PlaceItemView = Backbone.Marionette.ItemView.extend({
+    template: '#place-item-tpl',
+    tagName: 'li'
   });
 
-  NS.MapView = Backbone.Marionette.CompositeView.extend({
-    template: '#map-tpl',
-    itemView: NS.MapItemView,
-    itemViewContainer: '.map-list',
-    className: 'map-is-active',
+  NS.PlaceListView = Backbone.Marionette.CollectionView.extend({
+    itemView: NS.PlaceItemView,
+    tagName: 'ul'
+  });
+
+  NS.PlaceCategoryItemView = Backbone.Marionette.Layout.extend({
+    template: '#place-category-item-tpl',
+    ui: {
+      count: '.place-list-count'
+    },
+    regions: {
+      listRegion: '.place-list-region'
+    },
+    initialize: function() {
+      this.model.collection.on('reset', function(collection) {
+        if (collection.size() === 0) {
+          this.$el.hide();
+        } else {
+          this.ui.count.text('(' + collection.size() + ')');
+        }
+      }, this);
+    },
+    onRender: function() {
+      var center = this.model.get('center');
+
+      this.listRegion.show(new NS.PlaceListView({
+        collection: this.model.collection
+      }));
+
+      this.model.collection.fetch();
+    }
+  });
+
+  NS.PlaceCategoryView = Backbone.Marionette.CompositeView.extend({
+    template: '#place-category-tpl',
+    itemView: NS.PlaceCategoryItemView,
+    itemViewContainer: '.place-category-list',
     events: {
-      'click .map-list-item': 'handleClick'
+      'click .place-category-map-btn': 'showMap',
+      'click .map-list-toggle-btn': 'showList'
     },
     initialize: function() {
       var self = this;
@@ -402,7 +436,7 @@ var MyPhillyRising = MyPhillyRising || {};
     },
     resizeMap: function() {
       var $map = this.$('#map');
-      $map.height(window.innerHeight - $map[0].offsetTop);
+      $map.height(window.innerHeight - $map.parent()[0].offsetTop);
     },
     onShow: function() {
       this.resizeMap();
@@ -414,7 +448,7 @@ var MyPhillyRising = MyPhillyRising || {};
       this.map = L.map('map', {
         layers: [baseLayer],
         center: [this.model.get('center_lat'), this.model.get('center_lng')],
-        zoom: 16,
+        zoom: 14,
         scrollWheelZoom: false
       });
 
@@ -422,12 +456,6 @@ var MyPhillyRising = MyPhillyRising || {};
       this.map.attributionControl.setPrefix('');
 
       this.featureGroup = L.featureGroup().addTo(this.map);
-
-      this.listenTo(this.collection, 'add', this.addMarker);
-
-      this.collection.fetch({
-        center: [this.model.get('center_lat'), this.model.get('center_lng')]
-      });
     },
     addMarker: function(model, collection, options) {
       var geom = model.get('geom'),
@@ -447,49 +475,38 @@ var MyPhillyRising = MyPhillyRising || {};
           })
         });
 
-        markerLayer.bindPopup('<a href="#">' + model.get('name') + '</a><br>' + model.get('address'));
+        markerLayer.bindPopup(
+          '<strong>' + model.get('name') + '</strong><br>' +
+          model.get('address') + ' (' + model.get('label') + ')');
         this.featureGroup.addLayer(markerLayer);
       }
     },
-    handleClick: function(evt) {
-      var $el = this.$(evt.currentTarget),
-          model = this.collection.get($el.attr('data-id')),
-          geom = model.get('geom'),
-          type = model.get('type');
+    showMap: function(evt) {
+      var self = this;
 
-      // Set the map image
-      this.setStaticMapImage($el, geom, type);
-      // Remove all of the .is-selected
-      this.$('.map-list-item').removeClass('is-selected');
-      // Add .is-selected to the item
-      $el.addClass('is-selected');
+      evt.preventDefault();
 
-      this.map.setView([geom.y, geom.x], 16);
-    },
-    selectItem: function(id) {
-      var $el = this.$('[data-id="'+id+'"]'),
-          model = this.collection.get(id),
-          geom = model.get('geom'),
-          type = model.get('type');
+      // Clear all markers from the map
+      this.featureGroup.clearLayers();
 
-      // Set the map image
-      this.setStaticMapImage($el, geom, type);
-      // Remove all of the .is-selected
-      this.$('.map-list-item').removeClass('is-selected');
-      // Add .is-selected to the item
-      $el.addClass('is-selected');
-      // Move it into view
-      this.getMapListContainer().scrollTop($el.get(0).offsetTop);
+      // Get the collection for this type from the button
+      var placeConfigModel = this.collection.get($(evt.target).attr('data-id'));
+
+      // Add a marker for each category model
+      placeConfigModel.collection.each(function(m) {
+        self.addMarker(m);
+      });
+
+      this.map.fitBounds(this.featureGroup.getBounds());
+      this.$el.addClass('map-is-active');
+
+      // Make sure everything is sized up nicely
+      this.resizeMap();
     },
-    setStaticMapImage: function ($el, geom, type) {
-      if (geom && geom.x && geom.y) {
-        var mapboxServiceUrl = 'http://api.tiles.mapbox.com/v3/openplans.map-dmar86ym/',
-            encodedMarkerUrl = encodeURIComponent('http://' + NS.bootstrapped.hostName + NS.bootstrapped.staticUrl + 'myphillyrising/images/markers/marker-' + type + '.png') + '(' + geom.x + ',' + geom.y + ')';
-        $el.find('img.static-map').attr('src', mapboxServiceUrl + 'url-'+encodedMarkerUrl + '/' + geom.x+','+geom.y+',17/600x300.png');
-      }
-    },
-    getMapListContainer: function() {
-      return $(document.body || document.documentElement);
+    showList: function(evt) {
+      evt.preventDefault();
+
+      this.$el.removeClass('map-is-active');
     }
   });
 

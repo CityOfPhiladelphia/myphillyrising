@@ -11,7 +11,7 @@ var MyPhillyRising = MyPhillyRising || {};
       'about': 'about',
       '_=_': 'facebookAuthRedirect',
       ':neighborhood': 'neighborhoodHome',
-      ':neighborhood/map': 'neighborhoodMap',
+      ':neighborhood/places': 'neighborhoodPlaces',
       ':neighborhood/:category': 'neighborhoodCategoryList',
       ':neighborhood/:category/:id': 'neighborhoodCategoryItem',
       '*anything': 'home'
@@ -114,16 +114,22 @@ var MyPhillyRising = MyPhillyRising || {};
         this.home();
       }
     },
-    neighborhoodMap: function(neighborhood) {
+    neighborhoodPlaces: function(neighborhood) {
       var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood}),
           view;
 
       if (neighborhoodModel) {
         NS.app.vent.trigger('neighborhoodchange', neighborhoodModel);
 
-        view = new NS.MapView({
+        var placeConfig = _.clone(NS.Config.facilities);
+
+        _.each(placeConfig, function(p) {
+          p.center = [neighborhoodModel.get('center_lat'), neighborhoodModel.get('center_lng')];
+        });
+
+        view = new NS.PlaceCategoryView({
           model: neighborhoodModel,
-          collection: new A.FacilitiesCollection([], {config: NS.Config.facilities})
+          collection: new A.PlaceConfigCollection(placeConfig)
         });
 
         NS.app.mainRegion.show(view);

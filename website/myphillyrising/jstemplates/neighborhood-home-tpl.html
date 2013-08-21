@@ -4,7 +4,7 @@
   </h1>
   {{#if points}}
   <span class="neighborhood-score">{{points}} <small>points</small></span>
-  {{/if}}  
+  {{/if}}
 </div>
 
 {{# is_authenticated }}
@@ -20,9 +20,9 @@
     <div class="neighborhood-widget events-widget events-region1"></div>
     <div class="neighborhood-widget users-widget users-region3"></div>
     <div class="neighborhood-widget places-widget">
-      <h3 class="neighborhood-widget-header"><a href="/{{current_neighborhood}}/map">Places<span class="arrows">&#187;</span></a></h3>
+      <h3 class="neighborhood-widget-header"><a href="/{{current_neighborhood}}/places">Places<span class="arrows">&#187;</span></a></h3>
       <div class="container">
-        <a href="/{{current_neighborhood}}/map"><img class="home-map-thumb" src="http://api.tiles.mapbox.com/v3/openplans.map-dmar86ym/{{center_lng}},{{center_lat}},15/250x150.png"></a>
+        <a href="/{{current_neighborhood}}/places"><img class="home-map-thumb" src="http://api.tiles.mapbox.com/v3/openplans.map-dmar86ym/{{center_lng}},{{center_lat}},15/250x150.png"></a>
       </div>
     </div>
     <div class="neighborhood-widget users-widget users-region4"></div>
