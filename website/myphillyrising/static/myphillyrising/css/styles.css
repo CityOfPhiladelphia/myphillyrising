@@ -66,6 +66,12 @@ hr {
   margin-right: -10px;
   margin-left: -10px;
 }
+.off-canvas-menu hr {
+  border: 1px solid #455161;
+  border-top-color: rgba(0,0,0,0.1);
+  border-bottom-color: rgba(255,255,255,0.1);
+}
+
 .capitalize { text-transform: capitalize; }
 
 /* Images */
@@ -132,6 +138,8 @@ img {
 .btn-primary:focus,
 .btn-primary:active {
   border-color: #fff;
+  color: #546070 !important;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.75);
 }
 .btn-block,
 .btn-block:visited,
@@ -513,6 +521,10 @@ a.logout-link:visited {
 }
 .user-profile {
   padding: 0 10px 20px;
+}
+
+.philly311-login {
+  margin: 0 10px;
 }
 
 
