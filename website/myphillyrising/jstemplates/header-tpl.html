@@ -2,12 +2,10 @@
 <h2 class="site-description"></h2>
 <a href="#" class="menu-btn btn-off-canvas-menu-left"><img class="menu-icon" src="{{ STATIC_URL }}myphillyrising/images/menu-icon-marker.png"></a>
 
-<a href="#" class="menu-btn btn-off-canvas-menu-right"><img class="menu-icon"
-  {{# is_authenticated }}
-    src="{{ current_user_profile 'avatar_url' }}"
-  {{^}}
-    src="{{ STATIC_URL }}myphillyrising/images/menu-icon-gear.png"
-  {{/ is_authenticated }}
-></a>
+{{# is_authenticated }}
+<a href="#" class="menu-btn btn-off-canvas-menu-right"><img class="menu-icon" src="{{ current_user_profile 'avatar_url' }}"></a>
+{{^}}
+<a href="#" class="login-btn btn-off-canvas-menu-right">Sign In</a>
+{{/ is_authenticated }}
 
 <a href="#" class="btn-canvas-center is-hidden"></a>
