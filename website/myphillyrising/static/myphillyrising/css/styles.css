@@ -275,11 +275,11 @@ body {
   color: #ebeff3;
   margin-top: -9999px;
 }
-.off-canvas-menu-left { 
-  right: 100%; 
+.off-canvas-menu-left {
+  right: 100%;
 }
-.off-canvas-menu-right { 
-  left: 100%; 
+.off-canvas-menu-right {
+  left: 100%;
 }
 .is-open-off-canvas-right .off-canvas-menu-right,
 .is-open-off-canvas-left .off-canvas-menu-left {
@@ -599,6 +599,8 @@ a.logout-link:visited {
   background: #455161;
   margin: -10px -10px 0 -10px;
   padding: 10px 10px 15px;
+
+  color: #caf445;
 }
 
 .neighborhood-content {
@@ -671,8 +673,8 @@ a.logout-link:visited {
   margin: -0.25em 0 0 0;
   color: #bf6750;
 }
-.events-widget .day { 
-  font-weight: 700; 
+.events-widget .day {
+  font-weight: 700;
   color: #fc8769;
 }
 .events-widget .time {

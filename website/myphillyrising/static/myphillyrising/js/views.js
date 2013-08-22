@@ -154,6 +154,7 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.NeighborhoodHomeView = Backbone.Marionette.Layout.extend({
     template: '#neighborhood-home-tpl',
     regions: {
+      messageRegion: '.neighborhood-message',
       usersRegion1: '.users-region1',
       usersRegion2: '.users-region2',
       usersRegion3: '.users-region3',
@@ -162,7 +163,7 @@ var MyPhillyRising = MyPhillyRising || {};
       storiesRegion1: '.stories-region1',
       resourcesRegion1: '.resources-region1'
     },
-    initialize: function() {
+    initialize: function(options) {
       this.listenTo(this.model.collections.users, 'reset', function() {
         this.renderUsers();
       });
@@ -175,6 +176,18 @@ var MyPhillyRising = MyPhillyRising || {};
       this.listenTo(this.model.collections.stories, 'reset', function() {
         this.renderStories();
       });
+      if (options.userModel) {
+        this.listenTo(options.userModel, 'action', function(actionModel, options) {
+          if (actionModel.get('type') === 'signup') {
+            this.messageRegion.show(new NS.SignupNotificationView({
+              model: new Backbone.Model({
+                user_points: actionModel.get('points'),
+                neighborhood: this.model.get('name')
+              })
+            }));
+          }
+        });
+      }
     },
     onRender: function() {
       if(this.model.collections.users.isSynced) {
@@ -501,6 +514,10 @@ var MyPhillyRising = MyPhillyRising || {};
         // Meh
       }
     }
+  });
+
+  NS.SignupNotificationView = Backbone.Marionette.ItemView.extend({
+    template: '#signup-notification-tpl'
   });
 
   NS.PointsNotificationView = Backbone.Marionette.ItemView.extend({

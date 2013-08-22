@@ -22,9 +22,7 @@ var MyPhillyRising = MyPhillyRising || {};
     },
     onAction: function(model, options) {
       var points = this.get('points');
-      console.log('before', this.get('points'));
       this.set('points', points + model.get('points'));
-      console.log('after', this.get('points'));
 
       this.trigger('action', model, options);
     },

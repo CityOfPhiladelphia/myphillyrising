@@ -4,10 +4,11 @@
   </h1>
   {{#if points}}
   <span class="neighborhood-score">{{points}} <small>points</small></span>
-  {{/if}}  
+  {{/if}}
 </div>
 
 {{# is_authenticated }}
+<div class="neighborhood-subheader neighborhood-message"></div>
 {{^}}
 <div class="neighborhood-subheader">
   <a href="#" class="btn btn-block btn-primary btn-off-canvas-menu-right">Join {{name}}</a>

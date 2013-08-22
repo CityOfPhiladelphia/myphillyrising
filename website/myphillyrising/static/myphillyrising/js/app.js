@@ -41,7 +41,8 @@ var MyPhillyRising = MyPhillyRising || {};
 
         // TODO: Need users too!
         NS.app.mainRegion.show(new NS.NeighborhoodHomeView({
-          model: neighborhoodModel
+          model: neighborhoodModel,
+          userModel: NS.app.currentUser
         }));
       } else {
         this.home();
@@ -202,7 +203,6 @@ var MyPhillyRising = MyPhillyRising || {};
     this.currentUser.url = function() { return NS.UserCollection.prototype.url + '/' + this.id; };
 
     this.currentUser.on('action', function(actionModel, options) {
-      console.log('action!', actionModel, this);
       var neighborhood = this.get('profile').neighborhood,
           points = actionModel.get('points'),
           neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood}),
@@ -211,22 +211,23 @@ var MyPhillyRising = MyPhillyRising || {};
       // Update neighborhood points
       neighborhoodModel.set('points', neighborhoodPoints);
 
-      NS.app.notificationRegion.show(new NS.PointsNotificationView({
-        model: new Backbone.Model({
-          user_points: points,
-          neighborhood_points: neighborhoodPoints,
-          neighborhood: neighborhoodModel.get('name'),
-          notification: options.notification
-        })
-      }));
+      if (actionModel.get('type') !== 'signup') {
+        NS.app.notificationRegion.show(new NS.PointsNotificationView({
+          model: new Backbone.Model({
+            user_points: points,
+            neighborhood_points: neighborhoodPoints,
+            neighborhood: neighborhoodModel.get('name'),
+            notification: options.notification
+          })
+        }));
+      }
     });
 
     // Is this the first time the user has signed in?
     if (NS.app.currentUser.hasSignedIn() === false) {
       NS.app.currentUser.doAction(
         {points: 10, type: 'signup'},
-        null,
-        {notification: 'You created a new account!'}
+        null
       );
     }
 
