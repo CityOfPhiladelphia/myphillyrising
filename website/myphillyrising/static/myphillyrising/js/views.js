@@ -70,10 +70,6 @@ var MyPhillyRising = MyPhillyRising || {};
       'click .btn-canvas-center': 'hideMenus'
     },
     showNeighborhoodMenu: function(evt) {
-      // Re-render the neighborhood menu in case the currently-selected
-      // neighborhood has changed.
-      NS.app.neighborhoodMenuView.render();
-
       $('body').removeClass('is-open-off-canvas-right');
       $('body').toggleClass('is-open-off-canvas-left');
       evt.preventDefault();
