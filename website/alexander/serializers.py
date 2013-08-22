@@ -8,6 +8,12 @@ class FeedSerializer(ModelSerializer):
         model = Feed
 
 
+class MinimalFeedSerializer(ModelSerializer):
+    class Meta:
+        model = Feed
+        fields = ('id', 'title')
+
+
 class MinimalUserSerializer(ModelSerializer):
     full_name = CharField(source='profile.full_name')
     avatar_url = URLField(source='profile.avatar_url')
@@ -28,6 +34,7 @@ class ContentItemActionSerializer(ModelSerializer):
 class ContentItemSerializer(ModelSerializer):
     source_type = CharField(source='feed.source_type', read_only=True)
     actions = ContentItemActionSerializer(many=True)
+    feed = MinimalFeedSerializer()
 
     class Meta:
         model = ContentItem
