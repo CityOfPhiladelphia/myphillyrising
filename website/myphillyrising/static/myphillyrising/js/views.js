@@ -70,18 +70,20 @@ var MyPhillyRising = MyPhillyRising || {};
       'click .btn-canvas-center': 'hideMenus'
     },
     showNeighborhoodMenu: function(evt) {
-      $('body').removeClass('is-open-off-canvas-right');
-      $('body').toggleClass('is-open-off-canvas-left');
+      $('body').removeClass('is-open-off-canvas-right')
+        .toggleClass('is-open-off-canvas-left');
       evt.preventDefault();
     },
     showUserMenu: function(evt) {
-      $('body').removeClass('is-open-off-canvas-left');
-      $('body').toggleClass('is-open-off-canvas-right');
+      $('body').removeClass('is-open-off-canvas-left')
+        .toggleClass('is-open-off-canvas-right');
+
+      window.scrollTo(0, 0);
       evt.preventDefault();
     },
     hideMenus: function(evt) {
-      $('body').removeClass('is-open-off-canvas-left');
-      $('body').removeClass('is-open-off-canvas-right');
+      $('body').removeClass('is-open-off-canvas-left')
+        .removeClass('is-open-off-canvas-right');
       evt.preventDefault();
     }
   });
@@ -252,8 +254,10 @@ var MyPhillyRising = MyPhillyRising || {};
     itemView: NS.NeighborhoodMenuItemView,
     itemViewContainer: '.neighborhood-list',
     showUserMenu: function(evt) {
-      $('body').removeClass('is-open-off-canvas-left');
-      $('body').toggleClass('is-open-off-canvas-right');
+      $('body').removeClass('is-open-off-canvas-left')
+        .toggleClass('is-open-off-canvas-right');
+
+      window.scrollTo(0, 0);
       evt.preventDefault();
     }
   });
