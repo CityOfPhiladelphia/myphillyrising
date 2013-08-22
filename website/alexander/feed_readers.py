@@ -3,6 +3,7 @@ from django.utils.translation import ugettext as _
 from django.utils.timezone import now, datetime
 from time import mktime
 from urllib2 import urlopen
+from HTMLParser import HTMLParser
 import json  # For dumping dictionary content to strings
 import re
 
@@ -115,7 +116,8 @@ class RSSFeedReader (FeedReader):
 
         item_data = self.prepare_item_content(item_data)
 
-        item.title = item_data['title']
+        h = HTMLParser()
+        item.title = h.unescape(item_data['title'])
         item.source_content = json.dumps(item_data, sort_keys=True)
         item.source_url = item_data.get('link') or item_data.get('id')
         item.source_posted_at = datetime.fromtimestamp(mktime(published_at or updated_at))
