@@ -154,4 +154,20 @@ var MyPhillyRising = MyPhillyRising || {};
   Handlebars.registerHelper('truncatechars', NS.Utils.truncateChars);
 
   Handlebars.registerHelper('TWEET_TEXT', getTweetText);
+
+  Handlebars.registerHelper('firstsentence', function(text) {
+    var regex = /^.*?[\.!\?](?:\s|$)/,
+        match;
+
+    // Extract the text from html
+    text = $('<div>' + text + '</div>').text();
+
+    if (_.isString(text)) {
+      match = regex.exec(text);
+      if (match) {
+        return match[0];
+      }
+    }
+    return text;
+  });
 }(MyPhillyRising));

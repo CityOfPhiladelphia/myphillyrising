@@ -350,7 +350,13 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.StoryItemView = Backbone.Marionette.ItemView.extend({
-    template: '#facebook-item-tpl'
+    template: function(modelObj) {
+      if (modelObj.source_type === 'rss') {
+        return Handlebars.compile($('#rss-item-tpl').html())(modelObj);
+      }
+      // Default to Facebook template
+      return Handlebars.compile($('#facebook-item-tpl').html())(modelObj);
+    }
   });
 
   NS.StoryCollectionView = NS.PaginatedCompositeView.extend({
