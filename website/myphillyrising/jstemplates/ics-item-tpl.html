@@ -3,11 +3,11 @@
         <h3 class="item-title feed-item-title"><a href="/{{current_neighborhood}}/{{category}}/{{id}}">{{ title }}</a></h3>
         <div class="item-meta feed-item-meta">
           <p class="date">
-            <time datetime="{{ source_posted_at }}">
+            <time datetime="{{ displayed_from }}">
               <span class="calendar-icon">
-                <span class="day">{{ prettyday source_posted_at }}</span>
-                <span class="month">{{ prettymonth source_posted_at }}</span>
-                <span class="year">{{ prettyyear source_posted_at }}</span>
+                <span class="day">{{ prettyday displayed_from }}</span>
+                <span class="month">{{ prettymonth displayed_from }}</span>
+                <span class="year">{{ prettyyear displayed_from }}</span>
               </span>
               <span class="time">
                 <img class="icon-inline icon-time" src="{{ STATIC_URL }}myphillyrising/images/gray-icon-clock.png" /><span class="time-start">{{ prettytime source_content.DTSTART }}</span>

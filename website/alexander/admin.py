@@ -3,7 +3,7 @@ from .models import Feed, ContentItem, ContentTag
 
 
 class ContentItemAdmin (admin.ModelAdmin):
-    list_display = ('__unicode__', 'source_posted_at', 'category', 'feed')
+    list_display = ('__unicode__', 'displayed_from', 'category', 'feed')
     list_filter = ('category',)
 
 

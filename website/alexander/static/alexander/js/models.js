@@ -142,8 +142,8 @@ var Alexander = Alexander || {};
       var isModel = ev instanceof NS.ContentItemModel,
           now = moment(),
           startString = isModel ?
-            ev.get('source_posted_at') :
-            ev['source_posted_at'],
+            ev.get('displayed_from') :
+            ev['displayed_from'],
           start = moment(startString).subtract(buffer);
       
       return now.isBefore(start);
@@ -153,20 +153,11 @@ var Alexander = Alexander || {};
       // attribute that can be passed into moment().subtract.
       buffer = buffer || {minutes: 30};
       var isModel = ev instanceof NS.ContentItemModel,
-          sourceType = isModel ?
-            ev.get('source_type') :
-            ev['source_type'],
           now = moment(),
-          endString, end;
-
-      if (sourceType && sourceType.toLowerCase() == 'ics') {
-        endString = isModel ?
-          ev.get('source_content')['DTEND'] :
-          ev['source_content']['DTEND'];
-        end = moment(endString).add(buffer);
-      } else {
-        return false;
-      }
+          endString = isModel ?
+            ev.get('displayed_from') :
+            ev['displayed_from'],
+          end = moment(endString).add(buffer);
       
       return now.isAfter(end);
     },
@@ -226,8 +217,8 @@ var Alexander = Alexander || {};
     url: '/api/items',
     model: NS.ContentItemModel,
     comparator: function(a, b) {
-      var aDate = a.get('source_posted_at'),
-          bDate = b.get('source_posted_at');
+      var aDate = a.get('displayed_from'),
+          bDate = b.get('displayed_from');
       if (aDate < bDate) {
         return 1;
       } else if (bDate < aDate) {

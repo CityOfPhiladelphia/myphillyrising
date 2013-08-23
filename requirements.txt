@@ -31,6 +31,8 @@ django-celery
 # ==============================
 #
 #git+git://github.com/openplans/meetingmatters.git#egg=meetingmatters
+times
+moment
 
 
 

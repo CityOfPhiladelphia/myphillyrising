@@ -21,8 +21,8 @@ class TestFeedRefreshing(TestCase):
 
         self.item_123_id = 1
         self.item_124_id = 2
-        ContentItem.objects.create(id=self.item_123_id, category='events', source_posted_at=datetime(1970, 1, 1), feed_id=0, source_id='123@example.com', source_url='http://example.com/ics', source_content='{}')
-        ContentItem.objects.create(id=self.item_124_id, category='events', source_posted_at=datetime(1970, 1, 1), feed_id=0, source_id='124@example.com', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent124.json')).read(), title='modified title')
+        ContentItem.objects.create(id=self.item_123_id, category='events', displayed_from=datetime(1970, 1, 1), feed_id=0, source_id='123@example.com', source_url='http://example.com/ics', source_content='{}')
+        ContentItem.objects.create(id=self.item_124_id, category='events', displayed_from=datetime(1970, 1, 1), feed_id=0, source_id='124@example.com', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent124.json')).read(), title='modified title')
 
     @patch('alexander.feed_readers.urlopen')
     def test_refresh_creates_new_content(self, urlopen):

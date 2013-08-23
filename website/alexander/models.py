@@ -94,6 +94,8 @@ class ContentItem (models.Model):
     tags = models.ManyToManyField('ContentTag', related_name='items')
     category = models.CharField(max_length=20)
     is_featured = models.BooleanField(default=False)
+    displayed_from = models.DateTimeField()
+    displayed_until = models.DateTimeField(null=True, blank=True)
 
     # Optional location information
     address = models.CharField(max_length=1000, default='', blank=True)
@@ -104,14 +106,13 @@ class ContentItem (models.Model):
     feed = models.ForeignKey('Feed', related_name='items')
     source_id = models.CharField(max_length=1000)
     source_url = models.URLField()
-    source_posted_at = models.DateTimeField()
     source_content = models.TextField()
 
     def __unicode__(self):
         return self.title or self.source_url
 
     class Meta:
-        ordering = ('-source_posted_at',)
+        ordering = ('-displayed_from',)
 
     def geocode(self, commit=True):
         if not self.address:

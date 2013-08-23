@@ -1,9 +1,9 @@
 <a class="block-link" href="/{{current_neighborhood}}/{{category}}/{{id}}">
 
 <span class="date">
-  <time datetime="{{ source_posted_at }}">
-    <span class="month">{{ prettymonth source_posted_at }}</span>
-    <span class="day">{{ prettyday source_posted_at }}</span>
+  <time datetime="{{ displayed_from }}">
+    <span class="month">{{ prettymonth displayed_from }}</span>
+    <span class="day">{{ prettyday displayed_from }}</span>
   </time>
 </span>
 
@@ -12,7 +12,7 @@
 </span>
 
 <span class="time">
-  <span class="time-start">{{ prettytime source_content.DTSTART }}</span>{{#if source_content.DTEND}}&ndash;<span class="time-end">{{ prettytime source_content.DTEND }}</span>{{/if}}
+  <span class="time-start">{{ prettytime displayed_from }}</span>{{#if displayed_until}}&ndash;<span class="time-end">{{ prettytime displayed_until }}</span>{{/if}}
 </span>
 
 </a>

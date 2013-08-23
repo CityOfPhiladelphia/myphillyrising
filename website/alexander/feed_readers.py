@@ -118,9 +118,9 @@ class RSSFeedReader (FeedReader):
 
         h = HTMLParser()
         item.title = h.unescape(item_data['title'])
+        item.displayed_from = datetime.fromtimestamp(mktime(published_at or updated_at))
         item.source_content = json.dumps(item_data, sort_keys=True)
         item.source_url = item_data.get('link') or item_data.get('id')
-        item.source_posted_at = datetime.fromtimestamp(mktime(published_at or updated_at))
 
         item.last_read_at = now()
         item.save()
@@ -197,13 +197,14 @@ class ICalFeedReader (FeedReader):
         # vText objects are derived from unicode, so this conversion should be
         # trivial
         item.title = unicode(item_data.get('SUMMARY'))
+        item.displayed_from = item_data.get('DTSTART', None)
+        item.displayed_until = item_data.get('DTEND', None)
 
         content = json.dumps(item_data, cls=DjangoJSONEncoder, sort_keys=True)
         item.source_content = content
 
         item.source_url = self.url
-        # TODO: Should the published_at time be DTSTART or LAST-MODIFIED?
-        item.source_posted_at = item_data.get('DTSTART', None)
+        # TODO: Should we do something special with the LAST-MODIFIED date?
 
         if 'LOCATION' in item_data:
             # vText objects are derived from unicode, so this conversion
