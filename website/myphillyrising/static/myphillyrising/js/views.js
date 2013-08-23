@@ -8,6 +8,37 @@ var MyPhillyRising = MyPhillyRising || {};
   };
 
   // Views ====================================================================
+  NS.OrderedCollectionMixin = {
+    // https://github.com/marionettejs/backbone.marionette/wiki/Adding-support-for-sorted-collections
+    // Inspired by the above link, but it doesn't work when you start with an
+    // empty (or unsorted) list.
+    appendHtml: function(collectionView, itemView, index){
+      var childrenContainer = collectionView.itemViewContainer ? collectionView.$(collectionView.itemViewContainer) : collectionView.$el,
+          children = childrenContainer.children(),
+          indices = childrenContainer.data('indices') || [],
+          sortNumber = function(a,b) { return a - b; },
+          goHereIndex;
+      // console.log(index, $(itemView.el).find('.feed-item-title').text());
+
+      // console.log('before', indices);
+      indices.push(index);
+      indices.sort(sortNumber);
+      // console.log('after', indices);
+      goHereIndex = indices.indexOf(index);
+      // console.log('at', goHereIndex);
+
+      if(goHereIndex === 0) {
+        childrenContainer.prepend(itemView.el);
+        // console.log('prepend');
+      } else {
+        // console.log('insert after', childrenContainer.children().eq(goHereIndex-1).find('.feed-item-title').text());
+        childrenContainer.children().eq(goHereIndex-1).after(itemView.el);
+      }
+
+      // console.log(childrenContainer)
+      childrenContainer.data('indices', indices);
+    }
+  };
 
   // User Menu View ===================================================
   NS.UserMenuView = Backbone.Marionette.ItemView.extend({
@@ -318,7 +349,8 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.ResourceCollectionView = NS.PaginatedCompositeView.extend({
     template: '#rss-list-tpl',
-    itemView: NS.ResourceItemView
+    itemView: NS.ResourceItemView,
+    appendHtml: NS.OrderedCollectionMixin.appendHtml
   });
 
   NS.HomeResourceItemView = Backbone.Marionette.ItemView.extend({
@@ -343,7 +375,8 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.EventCollectionView = NS.PaginatedCompositeView.extend({
     template: '#ics-list-tpl',
-    itemView: NS.EventItemView
+    itemView: NS.EventItemView,
+    appendHtml: NS.OrderedCollectionMixin.appendHtml
   });
 
   NS.HomeEventItemView = Backbone.Marionette.ItemView.extend({
@@ -374,7 +407,9 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.StoryCollectionView = NS.PaginatedCompositeView.extend({
     template: '#facebook-list-tpl',
-    itemView: NS.StoryItemView
+    itemView: NS.StoryItemView,
+    appendHtml: NS.OrderedCollectionMixin.appendHtml
+
   });
 
   NS.HomeStoryItemView = Backbone.Marionette.ItemView.extend({

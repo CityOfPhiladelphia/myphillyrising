@@ -80,17 +80,56 @@ var MyPhillyRising = MyPhillyRising || {};
       this.collections = {
         events: new A.NeighborhoodCategoryCollection([], {
           category: 'events',
-          neighborhood: this.get('tag')
+          neighborhood: this.get('tag'),
+          comparator: function(a, b) {
+            if (a.get('is_featured') && !b.get('is_featured')) {
+              return -1;
+            } else if (!a.get('is_featured') && b.get('is_featured')) {
+              return 1;
+            }
+
+            if (a.get('source_posted_at') < b.get('source_posted_at')) {
+              return -1;
+            } else {
+              return 1;
+            }
+          }
         }),
 
         resources: new A.NeighborhoodCategoryCollection([], {
           category: 'resources',
-          neighborhood: this.get('tag')
+          neighborhood: this.get('tag'),
+          comparator: function(a, b) {
+            if (a.get('is_featured') && !b.get('is_featured')) {
+              return -1;
+            } else if (!a.get('is_featured') && b.get('is_featured')) {
+              return 1;
+            }
+
+            if (a.get('title') < b.get('title')) {
+              return -1;
+            } else {
+              return 1;
+            }
+          }
         }),
 
         stories: new A.NeighborhoodCategoryCollection([], {
           category: 'stories',
-          neighborhood: this.get('tag')
+          neighborhood: this.get('tag'),
+          comparator: function(a, b) {
+            if (a.get('is_featured') && !b.get('is_featured')) {
+              return -1;
+            } else if (!a.get('is_featured') && b.get('is_featured')) {
+              return 1;
+            }
+
+            if (a.get('source_posted_at') < b.get('source_posted_at')) {
+              return 1;
+            } else {
+              return -1;
+            }
+          }
         }),
 
         users: new NS.UserCollection([], {
