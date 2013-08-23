@@ -77,38 +77,45 @@ var MyPhillyRising = MyPhillyRising || {};
     neighborhoodCategoryItem: function(neighborhood, category, id) {
       var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood}),
           self = this,
-          view, itemModel;
+          view, itemModel, doShow;
 
       if (neighborhoodModel) {
         NS.app.vent.trigger('neighborhoodchange', neighborhoodModel);
+
+        doShow = function() {
+          if (category === 'events') {
+            NS.app.mainRegion.show(new NS.EventDetailView({
+              model: itemModel
+            }));
+          } else if (category === 'resources') {
+            NS.app.mainRegion.show(new NS.ResourceDetailView({
+              model: itemModel
+            }));
+          } else if (category === 'stories') {
+            NS.app.mainRegion.show(new NS.StoryDetailView({
+              model: itemModel
+            }));
+          } else {
+            this.neighborhoodHome(neighborhood);
+            NS.app.router.navigate(neighborhood, {replace: true});
+            return;
+          }
+        };
 
         itemModel = neighborhoodModel.collections[category].get(id);
         if (!itemModel) {
           itemModel = new A.ContentItemModel({id: id});
           itemModel.fetch({
+            complete: function() {
+              doShow();
+            },
             error: function() {
               NS.app.router.navigate(neighborhood + '/' + category, {replace: true});
               self.neighborhoodCategoryList(neighborhood, category);
             }
           });
-        }
-
-        if (category === 'events') {
-          NS.app.mainRegion.show(new NS.EventDetailView({
-            model: itemModel
-          }));
-        } else if (category === 'resources') {
-          NS.app.mainRegion.show(new NS.ResourceDetailView({
-            model: itemModel
-          }));
-        } else if (category === 'stories') {
-          NS.app.mainRegion.show(new NS.StoryDetailView({
-            model: itemModel
-          }));
         } else {
-          this.neighborhoodHome(neighborhood);
-          NS.app.router.navigate(neighborhood, {replace: true});
-          return;
+          doShow();
         }
 
       } else {
