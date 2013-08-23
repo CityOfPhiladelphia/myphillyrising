@@ -334,7 +334,24 @@ var MyPhillyRising = MyPhillyRising || {};
 
   // Event Views ==============================================================
   NS.EventDetailView = NS.BaseDetailView.extend({
-    template: '#ics-detail-tpl'
+    template: '#ics-detail-tpl',
+
+    events: {
+      'click .event-attending-action': 'onEventAttendingActionClicked'
+    },
+
+    onEventAttendingActionClicked: function(evt) {
+      var user = NS.app.currentUser,
+          ev = this.model;
+
+      if (!user.hasDoneAction('rsvp', ev)) {
+        user.doAction({type: 'rsvp', points: 5}, ev, {notification: 'You RSVP\'d for "' + NS.Utils.unescapeHtml(ev.get('title')) + '"'});
+      }
+
+      if (ev.isInProgress() && !user.hasDoneAction('check-in', ev)) {
+        user.doAction({type: 'check-in', points: 10}, ev, {notification: 'You checked in to "' + NS.Utils.unescapeHtml(ev.get('title')) + '"'});
+      }
+    }
   });
 
   NS.EventItemView = Backbone.Marionette.ItemView.extend({
