@@ -128,6 +128,48 @@ var Alexander = Alexander || {};
     model: NS.ActionModel
   });
 
+  NS.Utils.Events = {
+    isUpcoming: function(ev, buffer) {
+      // Check whether this event content item is in the future. Buffer is any
+      // attribute that can be passed into moment().subtract.
+      buffer = buffer || {minutes: 30};
+      var isModel = ev instanceof NS.ContentItemModel,
+          now = moment(),
+          startString = isModel ?
+            ev.get('source_posted_at') :
+            ev['source_posted_at'],
+          start = moment(startString).subtract(buffer);
+      
+      return now.isBefore(start);
+    },
+    hasPassed: function(ev, buffer) {
+      // Check whether this event content item is in the past. Buffer is any
+      // attribute that can be passed into moment().subtract.
+      buffer = buffer || {minutes: 30};
+      var isModel = ev instanceof NS.ContentItemModel,
+          sourceType = isModel ?
+            ev.get('source_type') :
+            ev['source_type'],
+          now = moment(),
+          endString, end;
+
+      if (sourceType && sourceType.toLowerCase() == 'ics') {
+        endString = isModel ?
+          ev.get('source_content')['DTEND'] :
+          ev['source_content']['DTEND'];
+        end = moment(endString).add(buffer);
+      } else {
+        return false;
+      }
+      
+      return now.isAfter(end);
+    },
+    isInProgress: function(ev, buffer) {
+      // Check whether this event content item is now in progress.
+      return !NS.Utils.Events.isUpcoming(ev, buffer) && !NS.Utils.Events.hasPassed(ev, buffer);
+    }
+  };
+
   NS.ContentItemModel = Backbone.RelationalModel.extend({
     relations: [{
       type: Backbone.HasMany,
@@ -156,6 +198,18 @@ var Alexander = Alexander || {};
       options.data = JSON.stringify(data);
       options.contentType = 'application/json';
       return Backbone.sync(method, model, options);
+    },
+
+    // Event-specific methods
+
+    isUpcoming: function(buffer) {
+      return NS.Utils.Events.isUpcoming(this, buffer);
+    },
+    hasPassed: function(buffer) {
+      return NS.Utils.Events.hasPassed(this, buffer);
+    },
+    isInProgress: function(buffer) {
+      return NS.Utils.Events.isInProgress(this, buffer);
     }
   });
 
