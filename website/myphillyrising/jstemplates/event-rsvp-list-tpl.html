@@ -1,6 +1,9 @@
 <header class="event-attendee-summary">
   <h4>Who's Attending?</h4>
-  <p><span class="attendee-count">{{ action_count 'rsvp' }}</span> {{ action_count_pluralize 'rsvp' 'Neighbor' 'Neighbors' }}</p>
+  <p>
+    {{# current_user_has_taken_action 'rsvp' }}You &amp;{{/ current_user_has_taken_action }}
+    {{ action_count_without_current_user 'rsvp' 'Neighbor' 'Neighbors' }}
+  </p>
 </header>
 
 <div>
