@@ -5,3 +5,7 @@
     <option value="{{ id }}">{{ label}}</option>
   {{/each}}
   </select>
+
+  <label class="checkbox">
+    <input class="featured-checkbox" type="checkbox" {{#if is_featured}}checked="checked"{{/if}}> <h4>Featured?</h4>
+  </label>

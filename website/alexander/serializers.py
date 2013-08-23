@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, CharField, URLField
-from myphillyrising.models import User, UserAction, UserProfile
+from myphillyrising.models import User, UserAction
 from .models import Feed, ContentItem
 
 

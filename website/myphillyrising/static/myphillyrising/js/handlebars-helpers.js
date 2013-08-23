@@ -95,6 +95,13 @@ var MyPhillyRising = MyPhillyRising || {};
     return '';
   });
 
+  Handlebars.registerHelper('formatdatetime', function(datetime, format) {
+    if (datetime) {
+      return moment(datetime).format(format);
+    }
+    return datetime;
+  });
+
   Handlebars.registerHelper('prettydate', function(datetime) {
     if (datetime) {
       return moment(datetime).format('MMMM Do YYYY h:mma');

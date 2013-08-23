@@ -93,6 +93,7 @@ class ContentItem (models.Model):
     title = models.CharField(max_length=160, null=True)
     tags = models.ManyToManyField('ContentTag', related_name='items')
     category = models.CharField(max_length=20)
+    is_featured = models.BooleanField(default=False)
 
     # Optional location information
     address = models.CharField(max_length=1000, default='', blank=True)

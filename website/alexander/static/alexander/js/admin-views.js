@@ -131,7 +131,8 @@ var Alexander = Alexander || {};
   NS.ContentItemTagView = NS.DefaultTagView.extend({
     template: '#item-tags-tpl',
     events: {
-      'click .apply-all-tags-link': 'applyAllTags'
+      'click .apply-all-tags-link': 'applyAllTags',
+      'change .featured-checkbox': 'toggleFeatured'
     },
     saveTags: function(tags) {
       this.model.save({'tags': tags}, {
@@ -163,6 +164,12 @@ var Alexander = Alexander || {};
       evt.preventDefault();
       this.$('select').select2('val', allTags);
       this.saveTags(allTags);
+    },
+    toggleFeatured: function(evt) {
+      evt.preventDefault();
+      this.model.save({'is_featured': evt.target.checked}, {
+        patch: true
+      });
     }
   });
 
@@ -180,7 +187,7 @@ var Alexander = Alexander || {};
     },
     regions: {
       content: '.content',
-      tags: '.tags'
+      admin: '.item-admin'
     },
     onRender: function() {
       this.content.show(new Backbone.Marionette.ItemView({
@@ -188,7 +195,7 @@ var Alexander = Alexander || {};
         model: this.model
       }));
 
-      this.tags.show(new NS.ContentItemTagView({
+      this.admin.show(new NS.ContentItemTagView({
         model: this.model
       }));
     }
