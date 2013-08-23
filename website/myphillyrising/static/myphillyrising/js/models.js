@@ -53,6 +53,14 @@ var MyPhillyRising = MyPhillyRising || {};
           }, this)
         });
       }
+    },
+    hasDoneAction: function(actionType, contentItem) {
+      var user = this,
+          actions = contentItem.get('actions')
+            .filter(function(a) {
+              return a.get('type') === actionType && a.get('user').username === user.get('username');
+            });
+      return actions.length > 0;
     }
   });
 
