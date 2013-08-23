@@ -214,9 +214,16 @@ var MyPhillyRising = MyPhillyRising || {};
   // operating context.
   //
 
-  Handlebars.registerHelper('action_count', function(action_type) {
+  Handlebars.registerHelper('action_count', function(action_type, singular, plural) {
     // Assuming `this` represents a content item...
-    return _.where(this.actions, {type: action_type}).length;
+    var count = _.where(this.actions, {type: action_type}).length;
+    return count.toString() + ((singular || plural) ? ' ' + pluralize(count, singular, plural) : '');
+  });
+
+  Handlebars.registerHelper('action_count_without_current_user', function(action_type, singular, plural) {
+    // Assuming `this` represents a content item...
+    var count = _.filter(this.actions, function(a) { return a['type'] === action_type && a['user']['id'] !== NS.app.currentUser.id; }).length;
+    return count.toString() + ((singular || plural) ? ' ' + pluralize(count, singular, plural) : '');
   });
 
   Handlebars.registerHelper('action_count_pluralize', function(action_type, singular, plural) {
@@ -228,6 +235,19 @@ var MyPhillyRising = MyPhillyRising || {};
     // Assuming `this` represents a content item...
     var arr = _.where(this.actions, {type: action_type});
     return eachInArrayHelper.call(this, arr, options);
+  });
+
+  Handlebars.registerHelper('current_user_has_taken_action', function(action_type, item, options) {
+    // `item` argument is optional
+    if (_.isUndefined(options)) {
+      // Assuming `this` represents a content item...
+      options = item;
+      item = this;
+    }
+
+    var user = NS.app.currentUser.toJSON(),
+        cond = (_.filter(item.actions, function(a) { return a.type === action_type && a.user.username === user.username; }).length > 0);
+    return ifHelper.call(this, cond, options);
   });
 
   Handlebars.registerHelper('has_taken_action', function(user, action_type, item, options) {
