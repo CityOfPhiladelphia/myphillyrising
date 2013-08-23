@@ -402,6 +402,9 @@ var MyPhillyRising = MyPhillyRising || {};
     regions: {
       listRegion: '.place-list-region'
     },
+    events: {
+      'click .place-category-header': 'handleCategoryClick'
+    },
     initialize: function() {
       this.model.collection.on('reset', function(collection) {
         if (collection.size() === 0) {
@@ -419,6 +422,10 @@ var MyPhillyRising = MyPhillyRising || {};
       }));
 
       this.model.collection.fetch();
+    },
+    handleCategoryClick: function(evt) {
+      evt.preventDefault();
+      this.$('.place-category-item').toggleClass('is-open');
     }
   });
 
@@ -492,7 +499,7 @@ var MyPhillyRising = MyPhillyRising || {};
       this.featureGroup.clearLayers();
 
       // Get the collection for this type from the button
-      var placeConfigModel = this.collection.get($(evt.target).attr('data-id'));
+      var placeConfigModel = this.collection.get($(evt.currentTarget).attr('data-id'));
 
       // Add a marker for each category model
       placeConfigModel.collection.each(function(m) {
