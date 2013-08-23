@@ -1,7 +1,10 @@
 <div class="clearfix">
   <header class="event-attendee-summary column-60-left">
     <h4 class="event-attendee-header">Who's Attending?</h4>
-    <p class="event-attendee-count"><span class="attendee-count">{{ action_count 'rsvp' }}</span> {{ action_count_pluralize 'rsvp' 'Neighbor' 'Neighbors' }}</p>
+    <p class="event-attendee-count">
+      {{# current_user_has_taken_action 'rsvp' }}You &amp;{{/ current_user_has_taken_action }}
+      {{ action_count_without_current_user 'rsvp' 'Neighbor' 'Neighbors' }}
+    </p>
   </header>
 
   <div class="column-40-right">
