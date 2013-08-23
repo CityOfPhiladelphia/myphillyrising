@@ -54,7 +54,7 @@ class ContentItemViewSet (ModelViewSet):
             .prefetch_related('actions__user')\
             .prefetch_related('actions__user__profile')
 
-        queryset = queryset.exclude(source_posted_at__lt=datetime.now(), category='events')
+        queryset = queryset.exclude(displayed_until__lt=datetime.now())
 
         category = self.request.GET.get('category')
         if (category):

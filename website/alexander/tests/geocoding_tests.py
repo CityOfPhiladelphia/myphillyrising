@@ -16,8 +16,8 @@ class TestGeocoding(TestCase):
         ContentItem.objects.all().delete()
 
         Feed.objects.create(id=0, title='Test Feed', source_url='http://example.com/ics', source_type='ical', default_category='events')
-        ContentItem.objects.create(id=0, category='events', source_posted_at=datetime(1970, 1, 1), address='123 Sesame St.', feed_id=0, source_id='123', source_url='http://example.com/ics')
-        ContentItem.objects.create(id=1, category='events', source_posted_at=datetime(1970, 1, 1), feed_id=0, source_id='124', source_url='http://example.com/ics')
+        ContentItem.objects.create(id=0, category='events', displayed_from=datetime(1970, 1, 1), address='123 Sesame St.', feed_id=0, source_id='123', source_url='http://example.com/ics')
+        ContentItem.objects.create(id=1, category='events', displayed_from=datetime(1970, 1, 1), feed_id=0, source_id='124', source_url='http://example.com/ics')
 
     def test_rate_limited_geocodes_get_retried(self):
         """

@@ -7,11 +7,11 @@
 
       <div class="item-meta detail-meta">
         <p class="date"><a href="#" title="Permalink to {{ title }}" rel="bookmark">
-          <time datetime="{{ source_posted_at }}">
+          <time datetime="{{ displayed_from }}">
             <span class="calendar-icon">
-              <span class="day">{{ prettyday source_posted_at }}</span>
-              <span class="month">{{ prettymonth source_posted_at }}</span>
-              <span class="year">{{ prettyyear source_posted_at }}</span>
+              <span class="day">{{ prettyday displayed_from }}</span>
+              <span class="month">{{ prettymonth displayed_from }}</span>
+              <span class="year">{{ prettyyear displayed_from }}</span>
             </span>
             <span class="time">
               <img class="icon-inline icon-time" src="{{ STATIC_URL }}myphillyrising/images/icon-clock.png" /><span class="time-start">{{ prettytime source_content.DTSTART }}</span>
