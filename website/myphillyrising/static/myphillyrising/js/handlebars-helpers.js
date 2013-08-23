@@ -1,12 +1,46 @@
 /*globals Handlebars moment _ $ */
 var MyPhillyRising = MyPhillyRising || {};
 
-(function(NS) {
+(function(NS, A) {
     function getTweetText (text) {
     var url = window.location.toString(),
         urlLength = NS.twitterConf.short_url_length,
         len = 140 - urlLength - 1;
     return NS.Utils.truncateChars(text, len);
+  }
+
+  function eachInCollectionHelper(collection, options) {
+    var result;
+
+    if (collection.length > 0) {
+      result = '';
+      collection.each(function(model) {
+        result += options.fn(_.extend({}, this, model.toJSON()));
+      });
+    } else {
+      result = options.inverse(this);
+    }
+
+    return result;
+  }
+
+  function eachInArrayHelper(arr, options) {
+    var result;
+
+    if (arr.length > 0) {
+      result = '';
+      _.each(arr, function(elem) {
+        result += options.fn(_.extend({}, this, elem));
+      });
+    } else {
+      result = options.inverse(this);
+    }
+
+    return result;
+  }
+
+  function ifHelper(condition, options) {
+    return condition ? options.fn(this) : options.inverse(this);
   }
 
   Handlebars.registerHelper('uriencode', function(s) {
@@ -22,18 +56,7 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   Handlebars.registerHelper('each_neighborhood', function(options) {
-    var result;
-
-    if (NS.app.neighborhoodCollection.length > 0) {
-      result = '';
-      NS.app.neighborhoodCollection.each(function(neighborhood) {
-        result += options.fn(_.extend({}, this, neighborhood.toJSON()));
-      });
-    } else {
-      result = options.inverse(this);
-    }
-
-    return result;
+    return eachInCollectionHelper.call(this, NS.app.neighborhoodCollection, options);
   });
 
   Handlebars.registerHelper('current_neighborhood', function() {
@@ -177,4 +200,50 @@ var MyPhillyRising = MyPhillyRising || {};
     }
     return text;
   });
-}(MyPhillyRising));
+
+  // ============================================================
+  // Event-specific
+  // --------------
+  // The following helpers expect an event content item as the 
+  // operating context.
+  //
+
+  Handlebars.registerHelper('action_count', function(action_type) {
+    // Assuming `this` represents a content item...
+    return _.where(this.actions, {type: action_type}).length;
+  });
+
+  Handlebars.registerHelper('each_action', function(action_type, options) {
+    // Assuming `this` represents a content item...
+    var arr = _.where(this.actions, {type: action_type});
+    return eachInArrayHelper.call(this, arr, options);
+  });
+
+  Handlebars.registerHelper('has_taken_action', function(user, action_type, item, options) {
+    // `item` argument is optional
+    if (_.isUndefined(options)) {
+      // Assuming `this` represents a content item...
+      options = item;
+      item = this;
+    }
+
+    var cond = (_.filter(item.actions, function(a) { return a.type === action_type && a.user.username === user.username; }).length > 0);
+    return ifHelper.call(this, cond, options);
+  });
+
+  Handlebars.registerHelper('is_in_progress', function(options) {
+    // Assuming `this` represents an event content item
+    return ifHelper.call(this, A.Utils.Events.isInProgress(this), options);
+  });
+
+  Handlebars.registerHelper('is_upcoming', function(options) {
+    // Assuming `this` represents an event content item
+    return ifHelper.call(this, A.Utils.Events.isUpcoming(this), options);
+  });
+
+  Handlebars.registerHelper('has_passed', function(options) {
+    // Assuming `this` represents an event content item
+    return ifHelper.call(this, A.Utils.Events.hasPassed(this), options);
+  });
+
+}(MyPhillyRising, Alexander));
