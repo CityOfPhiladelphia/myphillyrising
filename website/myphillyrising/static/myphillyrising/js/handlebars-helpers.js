@@ -201,6 +201,12 @@ var MyPhillyRising = MyPhillyRising || {};
     return text;
   });
 
+  function pluralize(number, single, plural) {
+    return (number === 1) ? single : plural;
+  }
+
+  Handlebars.registerHelper('pluralize', pluralize);
+
   // ============================================================
   // Event-specific
   // --------------
@@ -211,6 +217,11 @@ var MyPhillyRising = MyPhillyRising || {};
   Handlebars.registerHelper('action_count', function(action_type) {
     // Assuming `this` represents a content item...
     return _.where(this.actions, {type: action_type}).length;
+  });
+
+  Handlebars.registerHelper('action_count_pluralize', function(action_type, singular, plural) {
+    var number = _.where(this.actions, {type: action_type}).length;
+    return pluralize(number, singular, plural);
   });
 
   Handlebars.registerHelper('each_action', function(action_type, options) {

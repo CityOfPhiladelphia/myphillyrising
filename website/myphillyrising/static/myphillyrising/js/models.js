@@ -20,11 +20,19 @@ var MyPhillyRising = MyPhillyRising || {};
 
       return true;
     },
-    onAction: function(model, options) {
+    onAction: function(model, contentItem, options) {
+      if (_.isUndefined(options)) {
+        options = contentItem;
+        contentItem = undefined;
+      }
+
       var points = this.get('points');
       this.set('points', points + model.get('points'));
 
       this.trigger('action', model, options);
+      if (contentItem) {
+        contentItem.trigger('action', model, options);
+      }
     },
     doAction: function(actionObj, contentItem, options) {
       var self = this,
@@ -42,13 +50,17 @@ var MyPhillyRising = MyPhillyRising || {};
       if (contentItem) {
         contentItem.get('actions').create(actionObj, {
           success: _.bind(function(model) {
-            self.onAction(model, options);
+            // The user on a created action comes down as just as id. Fill in the details here.
+            model.set('user', {'id': self.id, 'username': self.get('username'), 'full_name': self.get('profile').full_name, 'avatar_url': self.get('profile').avatar_url });
+            self.onAction(model, contentItem, options);
           }, this)
         });
       } else {
         actionModel = new A.ActionModel(actionObj);
         actionModel.save(null, {
           success: _.bind(function(model) {
+            // The user on a created action comes down as just as id. Fill in the details here.
+            model.set('user', {'id': self.id, 'username': self.get('username'), 'full_name': self.get('profile').full_name, 'avatar_url': self.get('profile').avatar_url });
             self.onAction(model, options);
           }, this)
         });

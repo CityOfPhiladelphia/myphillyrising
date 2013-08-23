@@ -135,9 +135,7 @@ var Alexander = Alexander || {};
       buffer = buffer || {minutes: 30};
       var isModel = ev instanceof NS.ContentItemModel,
           now = moment(),
-          startString = isModel ?
-            ev.get('displayed_from') :
-            ev['displayed_from'],
+          startString = isModel ? ev.get('displayed_from') : ev['displayed_from'],
           start = moment(startString).subtract(buffer);
       
       return now.isBefore(start);
@@ -148,9 +146,7 @@ var Alexander = Alexander || {};
       buffer = buffer || {minutes: 30};
       var isModel = ev instanceof NS.ContentItemModel,
           now = moment(),
-          endString = isModel ?
-            ev.get('displayed_from') :
-            ev['displayed_from'],
+          endString = isModel ? ev.get('displayed_until') : ev['displayed_until'],
           end = moment(endString).add(buffer);
       
       return now.isAfter(end);
