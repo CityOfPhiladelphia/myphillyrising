@@ -48,7 +48,7 @@ var MyPhillyRising = MyPhillyRising || {};
       'submit .user-profile': 'onSubmitProfileForm'
     },
 
-    onProfileFormSubmit: function(evt) {
+    onSubmitProfileForm: function(evt) {
       evt.preventDefault();
       var form = evt.target,
           profileData = NS.app.currentUser.get('profile'),
