@@ -337,7 +337,8 @@ var MyPhillyRising = MyPhillyRising || {};
     template: '#ics-detail-tpl',
 
     events: {
-      'click .event-attending-action': 'onEventAttendingActionClicked'
+      'click .event-attending-action': 'onEventAttendingActionClicked',
+      'click .show-user-menu-link': 'showUserMenu'
     },
 
     modelEvents: {
@@ -360,6 +361,14 @@ var MyPhillyRising = MyPhillyRising || {};
     redrawAttendees: function() {
       var html = Handlebars.templates['event-rsvp-list-tpl'](this.model.toJSON());
       this.$('.event-attendee-list').html(html);
+    },
+
+    showUserMenu: function(evt) {
+      $('body').removeClass('is-open-off-canvas-left')
+        .toggleClass('is-open-off-canvas-right');
+
+      window.scrollTo(0, 0);
+      evt.preventDefault();
     }
   });
 
