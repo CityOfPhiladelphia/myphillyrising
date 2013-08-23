@@ -51,14 +51,23 @@ var MyPhillyRising = MyPhillyRising || {};
     onSubmitProfileForm: function(evt) {
       evt.preventDefault();
       var form = evt.target,
-          profileData = NS.app.currentUser.get('profile'),
-          attrName;
+          attrName, fieldVal,
+          userData = {'profile': NS.app.currentUser.get('profile')};
 
-      for (attrName in profileData) {
-        profileData[attrName] = this.getFieldValue(attrName);
+      for (attrName in userData['profile']) {
+        fieldVal = this.getFieldValue(attrName);
+        if (fieldVal !== undefined) {
+          userData['profile'][attrName] = fieldVal;
+        }
       }
+      userData['email'] = this.getFieldValue('email');
 
-      NS.app.currentUser.save({'profile': profileData});
+      this.$('.save-profile-button').prop('disabled', true);
+      NS.app.currentUser.save(userData, {
+        complete: function() {
+          $(form).find('.save-profile-button').prop('disabled', false);
+        }
+      });
     },
 
     getFieldValue: function(name) {
