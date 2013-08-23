@@ -27,10 +27,10 @@ module.exports = function(grunt) {
             src: [
               'static/alexander/js/django-csrf.js',
               '../myphillyrising/static/myphillyrising/js/utils.js',
+              'static/alexander/js/utils.js',
               '../myphillyrising/static/myphillyrising/js/handlebars-helpers.js',
               'static/alexander/js/models.js',
-              'static/alexander/js/admin-views.js',
-              'static/alexander/js/utils.js'
+              'static/alexander/js/admin-views.js'
             ]
           },
           {
