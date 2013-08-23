@@ -568,9 +568,8 @@ a.logout-link:visited {
 
 .neighborhood-header {
   background: #455161;
-  margin: -10px -20px 0 -20px;
-  padding: 10px 20px;
-  box-shadow: inset 0 0 5px rgba(0,0,0,0.25);
+  margin: -10px -10px 0 -10px;
+  padding: 10px;
 }
 .neighborhood-title {
   font-size: 1.2em;
@@ -690,12 +689,9 @@ a.logout-link:visited {
 }
 
 .about-widget {
-  font-size: 0.8em;
   color: #d0d3d7;
   background: #455161;
-  margin: 0 -10px 10px;
-  padding: 5px 10px 20px;
-  box-shadow: inset 0 -0.75em 1.5em rgba(0,0,0,0.1);
+  padding: 10px 10px 20px;
 }
 
 /* Items */
