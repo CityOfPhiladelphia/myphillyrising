@@ -1,0 +1,22 @@
+<header class="event-attendee-summary">
+  <h4>Who's Attending?</h4>
+  <p><span class="attendee-count">{{ action_count 'rsvp' }}</span> Neighbors</p>
+</header>
+
+<div>
+  {{^ has_passed }}
+    <button class="event-attending-action">
+      {{# is_upcoming }}
+        I'll be there!
+      {{^}}
+        I'm here!
+      {{/ is_upcoming }}
+    </button>
+  {{/ has_passed }}
+</div>
+
+<ul class="event-attendee-list unstyled-list">
+  {{# each_action 'rsvp' }}
+    <img class="avatar rsvpd{{# has_taken_action user 'checked-in' .. }} checked-in{{/ has_taken_action}}" src="{{ user.avatar_url }}" alt="{{ user.full_name }}">
+  {{/ each_action }}
+</ul>
