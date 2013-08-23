@@ -599,7 +599,7 @@ a.logout-link:visited {
   background: #455161;
   margin: -10px -10px 0 -10px;
   padding: 10px 10px 15px;
-
+  font-size: 0.8em;
   color: #caf445;
 }
 
