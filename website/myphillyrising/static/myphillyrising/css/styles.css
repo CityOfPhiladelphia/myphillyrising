@@ -854,6 +854,37 @@ a.close-btn:hover {
 .map-is-active {
   display: block;
 }
+
+/* RSVP & Checkin */
+div.event-attendee-list {
+  background: #ebeff3;
+  margin: 10px -20px 20px;
+  padding: 10px 20px;
+  border-top: 1px solid #d0d3d7;
+}
+.event-attendee-summary {
+  margin-bottom: 10px;
+}
+.event-attendee-header {
+  font-weight: 400;
+  font-size: 1em;
+  text-transform: uppercase;
+  margin: 0.4em 0 0;
+}
+.event-attendee-count {
+  font-weight: 700;
+}
+ul.event-attendee-list {
+  margin-right: -20px;
+  margin-left: -20px;
+}
+ul.event-attendee-list .avatar {
+  float: left;
+  width: 20%;
+  height: auto;
+}
+
+/* Map */
 .map-container {
   width: 100%;
   margin: 0;
@@ -1078,6 +1109,25 @@ a.close-btn:hover {
     float: right;
     width: 50%;
     padding-top: 10px;
+  }
+  .detail-content {
+    float: left;
+    width: 45%;
+  }
+  div.event-attendee-list {
+    float: right;
+    width: 45%;
+    margin: 0;
+    padding: 0;
+    border-top: 0;
+    background: transparent;
+  }
+  ul.event-attendee-list {
+    margin: 0;
+    padding: 0;
+  }
+  .sharethis {
+    clear: left;
   }
 }
 

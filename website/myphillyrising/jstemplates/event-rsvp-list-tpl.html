@@ -1,32 +1,31 @@
-<header class="event-attendee-summary">
-  <h4>Who's Attending?</h4>
-  <p>
-    {{# current_user_has_taken_action 'rsvp' }}You &amp;{{/ current_user_has_taken_action }}
-    {{ action_count_without_current_user 'rsvp' 'Neighbor' 'Neighbors' }}
-  </p>
-</header>
+<div class="clearfix">
+  <header class="event-attendee-summary column-60-left">
+    <h4 class="event-attendee-header">Who's Attending?</h4>
+    <p class="event-attendee-count"><span class="attendee-count">{{ action_count 'rsvp' }}</span> {{ action_count_pluralize 'rsvp' 'Neighbor' 'Neighbors' }}</p>
+  </header>
 
-<div>
-  {{# is_authenticated }}
+  <div class="column-40-right">
+    {{# is_authenticated }}
 
-    {{^ has_passed }}
-      <button class="event-attending-action">
+      {{^ has_passed }}
+      <button class="event-attending-action btn btn-primary btn-block">
         {{# is_upcoming }}
           I'll be there!
         {{^}}
           I'm here!
         {{/ is_upcoming }}
       </button>
-    {{/ has_passed }}
+      {{/ has_passed }}
 
-  {{^}}
+    {{^}}
 
-    <a href="#" class="show-user-menu-link">Log in to RSVP</a>
+      <a href="#" class="show-user-menu-link">Log in to RSVP</a>
 
-  {{/ is_authenticated }}
+    {{/ is_authenticated }}
+  </div>
 </div>
 
-<ul class="event-attendee-list unstyled-list">
+<ul class="event-attendee-list unstyled-list clearfix">
   {{# each_action 'rsvp' }}
     <img class="avatar rsvpd{{# has_taken_action user 'check-in' .. }} checked-in{{/ has_taken_action}}" src="{{ user.avatar_url }}" alt="{{ user.full_name }}">
   {{/ each_action }}
