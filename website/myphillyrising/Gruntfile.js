@@ -26,12 +26,12 @@ module.exports = function(grunt) {
           {
             dest: 'static/js/app.min.js',
             src: [
-              'static/myphillyrising/js/utils.js',
-              'static/myphillyrising/js/handlebars-helpers.js',
-              'static/myphillyrising/js/config.js',
               '../alexander/static/alexander/js/utils.js',
               '../alexander/static/alexander/js/models.js',
               '../alexander/static/alexander/js/django-csrf.js',
+              'static/myphillyrising/js/utils.js',
+              'static/myphillyrising/js/handlebars-helpers.js',
+              'static/myphillyrising/js/config.js',
               'static/myphillyrising/js/utils.js',
               'static/myphillyrising/js/models.js',
               'static/myphillyrising/js/views.js',
