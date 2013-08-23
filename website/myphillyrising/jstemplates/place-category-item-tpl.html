@@ -1,6 +1,9 @@
-    <div class="item-header feed-item-header place-category-header">
-      <h3 class="item-title feed-item-title">{{ label }} <span class="place-list-count"></span></h3>
-      <div class="">{{ description }}</div>
+    <div class="place-category-item">
+      <div class="item-header feed-item-header place-category-header clearfix">
+        <div class="place-category-caret"><img class="place-category-caret-img" src="{{ STATIC_URL }}myphillyrising/images/place-category-caret.png"></div>
+        <h3 class="item-title feed-item-title place-category-title">{{ label }} <span class="place-list-count"></span></h3>
+        <div class="place-type-description">{{ description }}</div>
+      </div>
+      <a href="#" class="place-category-map-btn" data-id="{{ id }}"><img class="view-on-map-img" src="{{ STATIC_URL }}myphillyrising/images/view-on-map-btn.png"></a>
+      <div class="place-list-region"></div>
     </div>
-    <a href="#" class="place-category-map-btn" data-id="{{ id }}">View on Map</a>
-    <div class="place-list-region"></div>

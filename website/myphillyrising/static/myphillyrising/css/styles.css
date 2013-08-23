@@ -826,13 +826,11 @@ a.close-btn:hover {
   text-indent: -9999px;
   z-index: 999;
   background: url(../images/places-list-btn.png) center center no-repeat scroll;
+  display: none;
+}
+.map-is-active {
   display: block;
 }
-.place-type-description {
-  margin: 10px -75px 0 0;
-  font-size: 0.8em;
-}
-
 .map-container {
   width: 100%;
   margin: 0;
@@ -850,52 +848,75 @@ a.close-btn:hover {
   padding: 0;
   height: 200px;
 }
-.map-list-container {}
-.map-is-active .map-list-container {
-  display: none;
+
+.map-list-container {
+  margin: -10px -10px 0;
 }
-.map-list {}
-.map-list .map-list-item {
-  padding: 10px 10px 10px 2.5em;
+.map-is-active .map-list-container { display: none; }
+
+.place-category-list {}
+.place-category-item {
+  padding: 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  border-top: 1px solid rgba(255,255,255,1);
+}
+.place-category-header {
+  cursor: pointer;
+}
+.place-category-caret {
+  height: 22px;
+  width: 22px;
   overflow: hidden;
+  float: right;
+  position: relative;
+  top: 1em;
+  margin: 0 10px 0.8em;
 }
-.map-item-header {}
-.map-item-title {
-  color: #1E9D94;
-}
-.map-item-meta {}
-.map-list-icon {
-  position: absolute;
-  top: 10px;
-  left: 5px;
-  font-size: 1.75em;
-  margin: 0;
-  padding: 0;
-  line-height: 1;
-  opacity: 0.25;
-}
-.map-list-item.is-selected {
-  color: #444;
-  background-color: #ebffa6;
-  box-shadow: inset 0 0 0.5em rgba(0,0,0,0.5);
-  cursor: default;
-}
-.map-list-item.is-selected .map-item-title,
-.map-list-item.is-selected .map-item-meta {
-  color: #444;
-}
-.is-selected .map-list-icon {
-  opacity: 1;
-}
-.map-list-item.is-selected .google-maps-link {
-  position: relative !important;
-  clip: auto;
-  color: #308fbf !important;
-  white-space: nowrap;
-  font-weight: bold;
-  text-decoration: none;
+.place-category-caret-img {
+  position: relative;
 }
 
+.place-category-title {
+  color: #a6cc29;
+}
+.place-category-title .place-list-count {
+  font-weight: 400;
+  color: #8497b0;
+}
+.place-type-description {
+  font-size: 0.8em;
+}
+
+.place-category-map-btn {
+  box-shadow: 0 0 0.2em rgba(0,0,0,0.2);
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 0 0 0.5em;
+}
+.view-on-map-img { display: block; }
+
+/* Hide these by default... */
+.place-category-map-btn,
+.place-list-region { display: none; }
+/* ...and show 'em when needed... */
+.place-category-item.is-open .place-list-region,
+.place-category-item.is-open .place-category-map-btn { display: block; }
+/* ...and toggle the caret. */
+.place-category-item.is-open .place-category-caret-img {
+  top: -22px;
+}
+
+.place-item {}
+.place-item-header {
+  display: inline;
+}
+.place-item-title {
+  font-size: 1em;
+  display: inline;
+}
+.place-item-meta {
+  display: inline;
+}
 
 /* =Points Notifications
 -------------------------------------------------------------- */
