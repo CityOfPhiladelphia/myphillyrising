@@ -68,12 +68,17 @@ djangorestframework>=2.3.6
 django-jstemplate>=1.3.2
 django-shorturls
 
+# ==============================
+# Geocoding
+# ==============================
+geopy
 
 
 # ==============================
 # Testing / QA
 # ==============================
 
+mock
 nose
 django-nose
 django-debug-toolbar

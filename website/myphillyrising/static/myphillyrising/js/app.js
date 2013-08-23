@@ -41,7 +41,8 @@ var MyPhillyRising = MyPhillyRising || {};
 
         // TODO: Need users too!
         NS.app.mainRegion.show(new NS.NeighborhoodHomeView({
-          model: neighborhoodModel
+          model: neighborhoodModel,
+          userModel: NS.app.currentUser
         }));
       } else {
         this.home();
@@ -143,7 +144,11 @@ var MyPhillyRising = MyPhillyRising || {};
       if (NS.app.currentUser && NS.app.currentUser.has('profile')) {
         NS.app.router.navigate(NS.app.currentUser.get('profile').neighborhood, {trigger: true});
       } else {
+        // No neighborhood is selected
+        NS.app.vent.trigger('neighborhoodchange', null);
+        // Blank out the url
         NS.app.router.navigate('', {replace: true});
+        // Show the anonymous user home page
         NS.app.mainRegion.show(new NS.HomeView({
           collection: NS.app.neighborhoodCollection
         }));
@@ -171,17 +176,30 @@ var MyPhillyRising = MyPhillyRising || {};
     notificationRegion: '#notification-region'
   });
 
-  NS.app.vent.on('neighborhoodchange', function(neighborhoodModel){
-    // Update the neighborhood label when the neighborhood changes
-    NS.app.headerView.descriptionRegion.show(new NS.NeighborhoodLabelView({
-      model: neighborhoodModel
-    }));
+  NS.app.vent.on('neighborhoodchange', function(neighborhoodModel) {
+    if (neighborhoodModel) {
+      // Update the neighborhood label when the neighborhood changes
+      NS.app.headerView.descriptionRegion.show(new NS.NeighborhoodLabelView({
+        model: neighborhoodModel
+      }));
 
-    // Fetch the content models if not already done
-    neighborhoodModel.fetchCollectionData();
+      // Fetch the content models if not already done
+      neighborhoodModel.fetchCollectionData();
 
-    // Set the current neighborhood tag
-    NS.app.currentNeighborhood = neighborhoodModel.get('tag');
+      // Set the current neighborhood tag
+      NS.app.currentNeighborhood = neighborhoodModel.get('tag');
+    } else {
+      // Update the neighborhood label when the neighborhood changes
+      NS.app.headerView.descriptionRegion.show(new NS.NeighborhoodLabelView({
+        model: new Backbone.Model()
+      }));
+
+      // Set the current neighborhood tag
+      NS.app.currentNeighborhood = '';
+    }
+
+    // Render the neighborhood menu to update the currently-selected neighborhood
+    NS.app.neighborhoodMenuView.render();
   });
 
   // Initializers =============================================================
@@ -191,7 +209,6 @@ var MyPhillyRising = MyPhillyRising || {};
     this.currentUser.url = function() { return NS.UserCollection.prototype.url + '/' + this.id; };
 
     this.currentUser.on('action', function(actionModel, options) {
-      console.log('action!', actionModel, this);
       var neighborhood = this.get('profile').neighborhood,
           points = actionModel.get('points'),
           neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood}),
@@ -200,22 +217,23 @@ var MyPhillyRising = MyPhillyRising || {};
       // Update neighborhood points
       neighborhoodModel.set('points', neighborhoodPoints);
 
-      NS.app.notificationRegion.show(new NS.PointsNotificationView({
-        model: new Backbone.Model({
-          user_points: points,
-          neighborhood_points: neighborhoodPoints,
-          neighborhood: neighborhoodModel.get('name'),
-          notification: options.notification
-        })
-      }));
+      if (actionModel.get('type') !== 'signup') {
+        NS.app.notificationRegion.show(new NS.PointsNotificationView({
+          model: new Backbone.Model({
+            user_points: points,
+            neighborhood_points: neighborhoodPoints,
+            neighborhood: neighborhoodModel.get('name'),
+            notification: options.notification
+          })
+        }));
+      }
     });
 
     // Is this the first time the user has signed in?
     if (NS.app.currentUser.hasSignedIn() === false) {
       NS.app.currentUser.doAction(
         {points: 10, type: 'signup'},
-        null,
-        {notification: 'You created a new account!'}
+        null
       );
     }
 
@@ -233,28 +251,6 @@ var MyPhillyRising = MyPhillyRising || {};
     this.router.bind('route', function(route, router) {
       NS.Utils.log('send', 'pageview', NS.Utils.getCurrentPath());
     });
-
-    // Start the router
-    Backbone.history.start({ pushState: Modernizr.history, silent: true });
-
-    if(!Modernizr.history) {
-      var rootLength = Backbone.history.options.root.length,
-          fragment = window.location.pathname.substr(rootLength),
-          url;
-
-      if (fragment) {
-        Backbone.history.navigate(fragment, { trigger: true });
-        url = window.location.protocol + '//' + window.location.host +
-            Backbone.history.options.root + '#' + fragment;
-
-        // Do a full redirect so we don't get urls like /visions/7#visions/7
-        window.location = url;
-      } else {
-        Backbone.history.loadUrl(Backbone.history.getFragment());
-      }
-    } else {
-      Backbone.history.loadUrl(Backbone.history.getFragment());
-    }
 
     // Create the neighborhood menu
     NS.app.neighborhoodMenuView = new NS.NeighborhoodMenuView({
@@ -281,6 +277,28 @@ var MyPhillyRising = MyPhillyRising || {};
         document.body.scrollTop = document.documentElement.scrollTop = scrollTop;
       }
     });
+
+    // Start the router
+    Backbone.history.start({ pushState: Modernizr.history, silent: true });
+
+    if(!Modernizr.history) {
+      var rootLength = Backbone.history.options.root.length,
+          fragment = window.location.pathname.substr(rootLength),
+          url;
+
+      if (fragment) {
+        Backbone.history.navigate(fragment, { trigger: true });
+        url = window.location.protocol + '//' + window.location.host +
+            Backbone.history.options.root + '#' + fragment;
+
+        // Do a full redirect so we don't get urls like /visions/7#visions/7
+        window.location = url;
+      } else {
+        Backbone.history.loadUrl(Backbone.history.getFragment());
+      }
+    } else {
+      Backbone.history.loadUrl(Backbone.history.getFragment());
+    }
 
     // Globally capture clicks. If they are internal and not in the pass
     // through list, route them through Backbone's navigate method.

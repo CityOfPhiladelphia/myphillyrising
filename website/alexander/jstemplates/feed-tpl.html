@@ -5,13 +5,13 @@
   </div>
 
   <div class="span4">
-    <p>Items will be in the <b>{{ default_category }}</b> category 
+    <p>Items will be in the <b>{{ default_category }}</b> category
       {{# if default_tags }}
         with the tags {{# each default_tags }} <span class="label">{{ . }}</span>{{/ each }}.
       {{^}}
         with no default tags.
       {{/ if }}</p>
-    <p>Content last refreshed {{ prettydate last_read_at }}</p>
+    <p>Content last refreshed {{ formatdatetime last_read_at "M/D/YYYY h:mmA" }}</p>
 
     <div>
       <a class="delete-feed-link btn btn-danger pull-right" href="#"><i class="icon-trash"></i> Delete</a>

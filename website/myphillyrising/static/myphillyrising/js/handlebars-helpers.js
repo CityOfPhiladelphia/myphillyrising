@@ -72,6 +72,10 @@ var MyPhillyRising = MyPhillyRising || {};
     return NS.bootstrapped.baseUrl;
   });
 
+  Handlebars.registerHelper('csrf_token', function(options) {
+    return '<input type="hidden" name="csrfmiddlewaretoken" value="' + NS.Utils.getCookie('csrftoken') + '">';
+  });
+
   Handlebars.registerHelper('uriencoded_base_url', function() {
     return encodeURIComponent(NS.bootstrapped.baseUrl);
   });
@@ -89,6 +93,13 @@ var MyPhillyRising = MyPhillyRising || {};
       return moment(datetime).fromNow();
     }
     return '';
+  });
+
+  Handlebars.registerHelper('formatdatetime', function(datetime, format) {
+    if (datetime) {
+      return moment(datetime).format(format);
+    }
+    return datetime;
   });
 
   Handlebars.registerHelper('prettydate', function(datetime) {
@@ -150,4 +161,20 @@ var MyPhillyRising = MyPhillyRising || {};
   Handlebars.registerHelper('truncatechars', NS.Utils.truncateChars);
 
   Handlebars.registerHelper('TWEET_TEXT', getTweetText);
+
+  Handlebars.registerHelper('firstsentence', function(text) {
+    var regex = /^.*?[\.!\?](?:\s|$)/,
+        match;
+
+    // Extract the text from html
+    text = $('<div>' + text + '</div>').text();
+
+    if (_.isString(text)) {
+      match = regex.exec(text);
+      if (match) {
+        return match[0];
+      }
+    }
+    return text;
+  });
 }(MyPhillyRising));

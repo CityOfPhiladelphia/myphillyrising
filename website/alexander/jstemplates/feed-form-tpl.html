@@ -16,11 +16,13 @@
 
   <p>
   <p>
-  <select id="default-tags" name="default_tags" multiple>
+  <select class="default-tags" name="default_tags" multiple>
   {{#each defaultTags}}
     <option value="{{ id }}">{{ label}}</option>
   {{/each}}
   </select>
+
+  <a class="apply-all-tags-link" href="#">Apply All</a>
 
   <p>
   <button type="submit" class="btn btn-primary btn-block">Save</button>

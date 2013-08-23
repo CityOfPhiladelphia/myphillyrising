@@ -8,6 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^', include('social_auth.urls')),
+    url(r'^login/publicstuff/', include('publicstuff_tools.social_auth.urls')),
     url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout', kwargs={'next_page': '/'}),
     url(r'^choose-neighborhood/$', choose_neighborhood, name='choose-neighborhood'),
 

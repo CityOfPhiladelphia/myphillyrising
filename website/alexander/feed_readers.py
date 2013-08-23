@@ -3,8 +3,10 @@ from django.utils.translation import ugettext as _
 from django.utils.timezone import now, datetime
 from time import mktime
 from urllib2 import urlopen
+from HTMLParser import HTMLParser
 import json  # For dumping dictionary content to strings
 import re
+
 
 # Optional packages
 try:
@@ -19,6 +21,18 @@ except ImportError:
 
 import logging
 logger = logging.getLogger(__name__)
+
+
+def read_url(url):
+    req = urlopen(url)
+    content = req.read()
+
+    try:
+        encoding = req.headers['content-type'].split('charset=')[-1]
+    except (AttributeError, KeyError):
+        encoding = 'utf-8'
+
+    return unicode(content, encoding)
 
 
 class FeedReader (object):
@@ -43,11 +57,25 @@ class FeedReader (object):
         """
         raise NotImplementedError
 
-    def update_item_if_changed(self, item, item_data):
+    def is_different(self, item, item_data):
         """
-        Compare the item_data from the upstream source to the item model
-        instance to see whether the item instance needs to be updated. If the
-        upstream data has changed, save the new data into the model.
+        Given an item and some source data, return whether they represent the
+        same data.
+        """
+        item_data = self.prepare_item_content(item_data)
+        content = json.dumps(item_data, cls=DjangoJSONEncoder, sort_keys=True)
+        return item.source_content != content
+
+    def prepare_item_content(self, item_data):
+        """
+        Take raw item data and convert it into whatever should be stored in an
+        item instance's content field.
+        """
+        raise NotImplementedError
+
+    def update_item(self, item, item_data):
+        """
+        Save the given data into the item model.
         """
         raise NotImplementedError
 
@@ -76,27 +104,26 @@ class RSSFeedReader (FeedReader):
             msg = _('Source item has no id: %s') % (pretty_item_data,)
             raise ValueError(msg)
 
-    def update_item_if_changed(self, item, item_data):
-        has_changed = False
-
-        title = item_data['title']
-        if item.title != title:
-            item.title = title
-            has_changed = True
-
+    def prepare_item_content(self, item_data):
         item_data = item_data.copy()
+        item_data.pop('published_parsed', None)
+        item_data.pop('updated_parsed', None)
+        return item_data
+
+    def update_item(self, item, item_data):
         published_at = item_data.pop('published_parsed', None)
         updated_at = item_data.pop('updated_parsed', None)
-        content = json.dumps(item_data, sort_keys=True)
-        if item.source_content != content:
-            item.source_content = content
-            has_changed = True
 
-        if has_changed:
-            item.source_url = item_data.get('link') or item_data.get('id')
-            item.source_posted_at = datetime.fromtimestamp(mktime(published_at or updated_at))
-            item.last_read_at = now()
-            item.save()
+        item_data = self.prepare_item_content(item_data)
+
+        h = HTMLParser()
+        item.title = h.unescape(item_data['title'])
+        item.source_content = json.dumps(item_data, sort_keys=True)
+        item.source_url = item_data.get('link') or item_data.get('id')
+        item.source_posted_at = datetime.fromtimestamp(mktime(published_at or updated_at))
+
+        item.last_read_at = now()
+        item.save()
 
 
 class ICalFeedReader (FeedReader):
@@ -105,7 +132,7 @@ class ICalFeedReader (FeedReader):
         logger.info(msg)
 
         try:
-            raw_data = urlopen(self.url).read()
+            raw_data = read_url(self.url)
         except URLError as e:
             msg = _('Could not read data from the iCal feed at "%s" -- %s. '
                     'Are you sure the address is right?') % (self.url, e)
@@ -159,29 +186,32 @@ class ICalFeedReader (FeedReader):
             msg = _('Source item has no UID: %s') % (pretty_item_data,)
             raise ValueError(msg)
 
-    def update_item_if_changed(self, item, item_data, commit=True):
-        has_changed = False
+    def prepare_item_content(self, item_data):
         item_data = self.make_native_dts(item_data)
-
-        title = item_data.get('SUMMARY')
-        if item.title != title:
-            item.title = title
-            has_changed = True
-
         item_data.pop('DTSTAMP')  # ...it always changes and we don't need it.
+        return item_data
+
+    def update_item(self, item, item_data):
+        item_data = self.prepare_item_content(item_data)
+
+        # vText objects are derived from unicode, so this conversion should be
+        # trivial
+        item.title = unicode(item_data.get('SUMMARY'))
+
         content = json.dumps(item_data, cls=DjangoJSONEncoder, sort_keys=True)
-        if item.source_content != content:
-            item.source_content = content
-            has_changed = True
+        item.source_content = content
 
-        if has_changed:
-            item.source_url = self.url
-            # TODO: Should the published_at time be DTSTART or LAST-MODIFIED?
-            item.source_posted_at = item_data.get('DTSTART', None)
-            item.last_read_at = now()
+        item.source_url = self.url
+        # TODO: Should the published_at time be DTSTART or LAST-MODIFIED?
+        item.source_posted_at = item_data.get('DTSTART', None)
 
-            if commit:
-                item.save()
+        if 'LOCATION' in item_data:
+            # vText objects are derived from unicode, so this conversion
+            # should be trivial
+            item.address = unicode(item_data['LOCATION'])
+
+        item.last_read_at = now()
+        item.save()
 
 
 class FacebookPageReader (RSSFeedReader):
@@ -195,7 +225,7 @@ class FacebookPageReader (RSSFeedReader):
             page_url = 'http://graph.facebook.com/' + match.group(1)
 
         # Get the page id
-        page_info = json.loads(urlopen(page_url).read())
+        page_info = json.loads(read_url(page_url))
         page_id = page_info['id']
 
         # Temporarily set self.url to the RSS feed for the page
@@ -230,5 +260,3 @@ def get_feed_reader(source_type, **source_kwargs):
     else:
         msg = _('Unrecognized feed source type: %r') % (source_type,)
         raise ValueError(msg)
-
-

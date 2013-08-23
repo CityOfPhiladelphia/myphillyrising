@@ -51,12 +51,13 @@ var Alexander = Alexander || {};
   NS.FeedFormView = NS.DefaultTagView.extend({
     template: '#feed-form-tpl',
     events: {
-      'submit form': 'onSubmit'
+      'submit form': 'onSubmit',
+      'click .apply-all-tags-link': 'applyAllTags'
     },
     onRender: function() {
-      this.$('#default-tags').select2({
+      this.$('.default-tags').select2({
         placeholder: 'Tags',
-        width: '100%'
+        width: '90%'
       });
     },
     onSubmit: function(evt) {
@@ -80,13 +81,21 @@ var Alexander = Alexander || {};
         wait: true,
         success: function() {
           form.reset();
-          $('#default-tags').select2('val', '');
+          $('.default-tags').select2('val', '');
         },
         error: function() {
           // TODO: make nicer
           window.alert('Unable to save. Please try again.');
         }
       });
+    },
+    applyAllTags: function(evt) {
+      var allTags = $.map(this.$('.default-tags option'), function(el, i){
+        return el.value;
+      });
+
+      evt.preventDefault();
+      this.$('.default-tags').select2('val', allTags);
     }
   });
 
@@ -121,6 +130,10 @@ var Alexander = Alexander || {};
 
   NS.ContentItemTagView = NS.DefaultTagView.extend({
     template: '#item-tags-tpl',
+    events: {
+      'click .apply-all-tags-link': 'applyAllTags',
+      'change .featured-checkbox': 'toggleFeatured'
+    },
     saveTags: function(tags) {
       this.model.save({'tags': tags}, {
         patch: true,
@@ -142,6 +155,21 @@ var Alexander = Alexander || {};
           .on('change', function(evt) {
             self.saveTags(evt.val);
           });
+    },
+    applyAllTags: function(evt) {
+      var allTags = $.map(this.$('select option'), function(el, i){
+        return el.value;
+      });
+
+      evt.preventDefault();
+      this.$('select').select2('val', allTags);
+      this.saveTags(allTags);
+    },
+    toggleFeatured: function(evt) {
+      evt.preventDefault();
+      this.model.save({'is_featured': evt.target.checked}, {
+        patch: true
+      });
     }
   });
 
@@ -159,7 +187,7 @@ var Alexander = Alexander || {};
     },
     regions: {
       content: '.content',
-      tags: '.tags'
+      admin: '.item-admin'
     },
     onRender: function() {
       this.content.show(new Backbone.Marionette.ItemView({
@@ -167,7 +195,7 @@ var Alexander = Alexander || {};
         model: this.model
       }));
 
-      this.tags.show(new NS.ContentItemTagView({
+      this.admin.show(new NS.ContentItemTagView({
         model: this.model
       }));
     }

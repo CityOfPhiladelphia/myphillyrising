@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Time Zones
 #
 
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'US/Eastern'
 USE_TZ = True
 
 ###############################################################################
@@ -118,6 +118,7 @@ AUTHENTICATION_BACKENDS = (
     # for list of available backends.
     'social_auth.backends.twitter.TwitterBackend',
     'social_auth.backends.facebook.FacebookBackend',
+    'publicstuff_tools.social_auth.backends.PublicStuffBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -130,7 +131,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.load_extra_data',
     'social_auth.backends.pipeline.user.update_user_details',
 
-    # Set up or update the myPhillyRising profile with things like 
+    # Set up or update the myPhillyRising profile with things like
     # neighborhood and email.
     'myphillyrising.social_auth.get_user_profile',
     'social_auth.backends.pipeline.misc.save_status_to_session',
@@ -185,6 +186,7 @@ COMMUNITY_APPS = (
 PROJECT_SPECIFIC_APPS = (
     'alexander',
     'myphillyrising',
+    'publicstuff_tools',
     'utils',
 )
 
@@ -256,6 +258,16 @@ LOGGING = {
     }
 }
 
+
+################################################################################
+#
+# Geocoder Settings
+#
+
+GEOCODER = {
+    'BOUNDS': '39.8707,-75.3092|40.1663,-74.9151',
+    'REGION': 'us'
+}
 
 ###############################################################################
 # Local settings overrides

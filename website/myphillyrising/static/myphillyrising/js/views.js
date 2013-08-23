@@ -8,52 +8,89 @@ var MyPhillyRising = MyPhillyRising || {};
   };
 
   // Views ====================================================================
+  NS.OrderedCollectionMixin = {
+    // https://github.com/marionettejs/backbone.marionette/wiki/Adding-support-for-sorted-collections
+    // Inspired by the above link, but it doesn't work when you start with an
+    // empty (or unsorted) list.
+    appendHtml: function(collectionView, itemView, index){
+      var childrenContainer = collectionView.itemViewContainer ? collectionView.$(collectionView.itemViewContainer) : collectionView.$el,
+          children = childrenContainer.children(),
+          indices = childrenContainer.data('indices') || [],
+          sortNumber = function(a,b) { return a - b; },
+          goHereIndex;
+      // console.log(index, $(itemView.el).find('.feed-item-title').text());
+
+      // console.log('before', indices);
+      indices.push(index);
+      indices.sort(sortNumber);
+      // console.log('after', indices);
+      goHereIndex = indices.indexOf(index);
+      // console.log('at', goHereIndex);
+
+      if(goHereIndex === 0) {
+        childrenContainer.prepend(itemView.el);
+        // console.log('prepend');
+      } else {
+        // console.log('insert after', childrenContainer.children().eq(goHereIndex-1).find('.feed-item-title').text());
+        childrenContainer.children().eq(goHereIndex-1).after(itemView.el);
+      }
+
+      // console.log(childrenContainer)
+      childrenContainer.data('indices', indices);
+    }
+  };
 
   // User Menu View ===================================================
   NS.UserMenuView = Backbone.Marionette.ItemView.extend({
     template: '#user-menu-tpl',
 
     events: {
-      'change #user-menu-neighborhood-field': 'onNeighborhoodChange',
-      'change #user-menu-email-field': 'onEmailChange',
-      'change #user-menu-email-permission-field': 'onEmailPermissionChange'
+      'submit .user-profile': 'onSubmitProfileForm'
     },
 
-    onNeighborhoodChange: function() {
-      var $field = this.$('#user-menu-neighborhood-field'),
-          newNeighborhood = $field.val(),
-          profileData = NS.app.currentUser.get('profile');
+    onSubmitProfileForm: function(evt) {
+      evt.preventDefault();
+      var form = evt.target,
+          attrName, fieldVal,
+          userData = {'profile': NS.app.currentUser.get('profile')},
+          originalNeighborhood = userData.profile.neighborhood;
 
-      if ($field[0].checkValidity()) {
-        profileData['neighborhood'] = newNeighborhood;
-        NS.app.currentUser.save({'profile': profileData}, {
-          success: function() {
-            $field.find('.empty-neighborhood-option').remove();
-          },
-          error: function() {
-            // TODO: Let the user know, and switch back the neighborhood.
+      for (attrName in userData.profile) {
+        fieldVal = this.getFieldValue(attrName);
+        if (fieldVal !== undefined) {
+          userData.profile[attrName] = fieldVal;
+        }
+      }
+      userData.email = this.getFieldValue('email');
+
+      this.$('.save-profile-button').prop('disabled', true);
+      NS.app.currentUser.save(userData, {
+        complete: function() {
+          $(form).find('.save-profile-button').prop('disabled', false);
+        },
+        success: function() {
+          if (userData.profile.neighborhood !== originalNeighborhood) {
+            NS.app.router.navigate('/' + userData.profile.neighborhood, {trigger: true});
           }
-        });
-      }
+
+          $('body').removeClass('is-open-off-canvas-left')
+            .removeClass('is-open-off-canvas-right');
+        },
+        error: function() {
+          window.alert('Unable to save your profile. Please try again.');
+        }
+      });
     },
 
-    onEmailChange: function() {
-      var $field = this.$('#user-menu-email-field'),
-          newEmail = $field.val();
+    getFieldValue: function(name) {
+      var $field = this.$('[name="' + name + '"]');
 
-      if ($field[0].checkValidity()) {
-        NS.app.currentUser.save({'email': newEmail});
-      }
-    },
-
-    onEmailPermissionChange: function() {
-      var $field = this.$('#user-menu-email-permission-field'),
-          newEmailPermission = $field.is(':checked'),
-          profileData = NS.app.currentUser.get('profile');
-
-      if ($field[0].checkValidity()) {
-        profileData['email_permission'] = newEmailPermission;
-        NS.app.currentUser.save({'profile': profileData});
+      if ($field.length > 0) {
+        if ($field.attr('type') === 'checkbox') {
+          return $field.is(':checked');
+        } else {
+          return $field.val();
+        }
       }
     }
   });
@@ -70,22 +107,20 @@ var MyPhillyRising = MyPhillyRising || {};
       'click .btn-canvas-center': 'hideMenus'
     },
     showNeighborhoodMenu: function(evt) {
-      // Re-render the neighborhood menu in case the currently-selected
-      // neighborhood has changed.
-      NS.app.neighborhoodMenuView.render();
-
-      $('body').removeClass('is-open-off-canvas-right');
-      $('body').toggleClass('is-open-off-canvas-left');
+      $('body').removeClass('is-open-off-canvas-right')
+        .toggleClass('is-open-off-canvas-left');
       evt.preventDefault();
     },
     showUserMenu: function(evt) {
-      $('body').removeClass('is-open-off-canvas-left');
-      $('body').toggleClass('is-open-off-canvas-right');
+      $('body').removeClass('is-open-off-canvas-left')
+        .toggleClass('is-open-off-canvas-right');
+
+      window.scrollTo(0, 0);
       evt.preventDefault();
     },
     hideMenus: function(evt) {
-      $('body').removeClass('is-open-off-canvas-left');
-      $('body').removeClass('is-open-off-canvas-right');
+      $('body').removeClass('is-open-off-canvas-left')
+        .removeClass('is-open-off-canvas-right');
       evt.preventDefault();
     }
   });
@@ -156,6 +191,7 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.NeighborhoodHomeView = Backbone.Marionette.Layout.extend({
     template: '#neighborhood-home-tpl',
     regions: {
+      messageRegion: '.neighborhood-message',
       usersRegion1: '.users-region1',
       usersRegion2: '.users-region2',
       usersRegion3: '.users-region3',
@@ -164,7 +200,7 @@ var MyPhillyRising = MyPhillyRising || {};
       storiesRegion1: '.stories-region1',
       resourcesRegion1: '.resources-region1'
     },
-    initialize: function() {
+    initialize: function(options) {
       this.listenTo(this.model.collections.users, 'reset', function() {
         this.renderUsers();
       });
@@ -177,6 +213,18 @@ var MyPhillyRising = MyPhillyRising || {};
       this.listenTo(this.model.collections.stories, 'reset', function() {
         this.renderStories();
       });
+      if (options.userModel) {
+        this.listenTo(options.userModel, 'action', function(actionModel, options) {
+          if (actionModel.get('type') === 'signup') {
+            this.messageRegion.show(new NS.SignupNotificationView({
+              model: new Backbone.Model({
+                user_points: actionModel.get('points'),
+                neighborhood: this.model.get('name')
+              })
+            }));
+          }
+        });
+      }
     },
     onRender: function() {
       if(this.model.collections.users.isSynced) {
@@ -256,8 +304,10 @@ var MyPhillyRising = MyPhillyRising || {};
     itemView: NS.NeighborhoodMenuItemView,
     itemViewContainer: '.neighborhood-list',
     showUserMenu: function(evt) {
-      $('body').removeClass('is-open-off-canvas-left');
-      $('body').toggleClass('is-open-off-canvas-right');
+      $('body').removeClass('is-open-off-canvas-left')
+        .toggleClass('is-open-off-canvas-right');
+
+      window.scrollTo(0, 0);
       evt.preventDefault();
     }
   });
@@ -305,7 +355,8 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.ResourceCollectionView = NS.PaginatedCompositeView.extend({
     template: '#rss-list-tpl',
-    itemView: NS.ResourceItemView
+    itemView: NS.ResourceItemView,
+    appendHtml: NS.OrderedCollectionMixin.appendHtml
   });
 
   NS.HomeResourceItemView = Backbone.Marionette.ItemView.extend({
@@ -330,7 +381,8 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.EventCollectionView = NS.PaginatedCompositeView.extend({
     template: '#ics-list-tpl',
-    itemView: NS.EventItemView
+    itemView: NS.EventItemView,
+    appendHtml: NS.OrderedCollectionMixin.appendHtml
   });
 
   NS.HomeEventItemView = Backbone.Marionette.ItemView.extend({
@@ -350,12 +402,20 @@ var MyPhillyRising = MyPhillyRising || {};
   });
 
   NS.StoryItemView = Backbone.Marionette.ItemView.extend({
-    template: '#facebook-item-tpl'
+    template: function(modelObj) {
+      if (modelObj.source_type === 'rss') {
+        return Handlebars.compile($('#rss-item-tpl').html())(modelObj);
+      }
+      // Default to Facebook template
+      return Handlebars.compile($('#facebook-item-tpl').html())(modelObj);
+    }
   });
 
   NS.StoryCollectionView = NS.PaginatedCompositeView.extend({
     template: '#facebook-list-tpl',
-    itemView: NS.StoryItemView
+    itemView: NS.StoryItemView,
+    appendHtml: NS.OrderedCollectionMixin.appendHtml
+
   });
 
   NS.HomeStoryItemView = Backbone.Marionette.ItemView.extend({
@@ -536,6 +596,10 @@ var MyPhillyRising = MyPhillyRising || {};
         // Meh
       }
     }
+  });
+
+  NS.SignupNotificationView = Backbone.Marionette.ItemView.extend({
+    template: '#signup-notification-tpl'
   });
 
   NS.PointsNotificationView = Backbone.Marionette.ItemView.extend({
