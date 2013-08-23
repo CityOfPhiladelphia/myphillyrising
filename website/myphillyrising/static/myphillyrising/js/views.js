@@ -340,6 +340,10 @@ var MyPhillyRising = MyPhillyRising || {};
       'click .event-attending-action': 'onEventAttendingActionClicked'
     },
 
+    modelEvents: {
+      'action': 'redrawAttendees'
+    },
+
     onEventAttendingActionClicked: function(evt) {
       var user = NS.app.currentUser,
           ev = this.model;
@@ -351,6 +355,11 @@ var MyPhillyRising = MyPhillyRising || {};
       if (ev.isInProgress() && !user.hasDoneAction('check-in', ev)) {
         user.doAction({type: 'check-in', points: 10}, ev, {notification: 'You checked in to "' + NS.Utils.unescapeHtml(ev.get('title')) + '"'});
       }
+    },
+
+    redrawAttendees: function() {
+      var html = Handlebars.templates['event-rsvp-list-tpl'](this.model.toJSON());
+      this.$('.event-attendee-list').html(html);
     }
   });
 
