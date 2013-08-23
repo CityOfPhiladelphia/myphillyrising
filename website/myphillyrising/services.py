@@ -382,7 +382,7 @@ class FacebookService (object):
 
 class PublicStuffService (object):
     def extract_avatar_url(self, user_info):
-        return ''
+        return user_info.get('image', '')
 
     def extract_full_name(self, user_info):
         return ' '.join(n for n in [user_info['firstname'] or '', user_info['lastname']] if n)
