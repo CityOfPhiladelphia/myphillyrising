@@ -4,15 +4,23 @@
 </header>
 
 <div>
-  {{^ has_passed }}
-    <button class="event-attending-action">
-      {{# is_upcoming }}
-        I'll be there!
-      {{^}}
-        I'm here!
-      {{/ is_upcoming }}
-    </button>
-  {{/ has_passed }}
+  {{# is_authenticated }}
+
+    {{^ has_passed }}
+      <button class="event-attending-action">
+        {{# is_upcoming }}
+          I'll be there!
+        {{^}}
+          I'm here!
+        {{/ is_upcoming }}
+      </button>
+    {{/ has_passed }}
+
+  {{^}}
+
+    <a href="#" class="show-user-menu-link">Log in to RSVP</a>
+
+  {{/ is_authenticated }}
 </div>
 
 <ul class="event-attendee-list unstyled-list">
