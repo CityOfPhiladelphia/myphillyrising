@@ -389,11 +389,13 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.PlaceListView = Backbone.Marionette.CollectionView.extend({
     itemView: NS.PlaceItemView,
-    tagName: 'ul'
+    tagName: 'ul',
+    className: 'unstyled-list'
   });
 
   NS.PlaceCategoryItemView = Backbone.Marionette.Layout.extend({
     template: '#place-category-item-tpl',
+    tagName: 'li',
     ui: {
       count: '.place-list-count'
     },
