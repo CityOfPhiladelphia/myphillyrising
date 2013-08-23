@@ -189,14 +189,17 @@ var Alexander = Alexander || {};
       return resp;
     },
     sync: function(method, model, options) {
-      var data = options.attrs || model.toJSON(options);
-      if (method !== 'read' && method !== 'destroy') {
-        options.data = data;
-        options.data.source_content = JSON.stringify(data.source_content);
-      }
+      var data;
 
-      options.data = JSON.stringify(data);
-      options.contentType = 'application/json';
+      if (method !== 'read' && method !== 'destroy') {
+        options = options || {};
+        data = options.attrs || model.toJSON(options);
+        data.source_content = JSON.stringify(data.source_content);
+
+        options.data = JSON.stringify(data);
+        options.contentType = 'application/json';
+      }
+      
       return Backbone.sync(method, model, options);
     },
 
