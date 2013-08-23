@@ -1,12 +1,11 @@
     <article class="feed-item facebook-item">
       <div class="item-header feed-item-header facebook-item-header">
         <h3 class="feed-item-title facebook-item-title"><a href="/{{current_neighborhood}}/{{category}}/{{id}}">{{{firstsentence source_content.summary }}}</a></h3>
-        <div class="item-meta facebook-item-meta">
-          {{ prettydate source_posted_at }}
-        </div>
       </div>
       <div class="feed-item-content facebook-item-content">
         <p>{{{ source_content.summary }}}</p>
       </div>
-      <div class="">Source: {{ feed.title }}</div>
+      <div class="item-meta facebook-item-meta">
+        <p><span class="updated">Last updated {{ prettydate updated_at }}</span></p>
+      </div>
     </article>

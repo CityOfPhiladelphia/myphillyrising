@@ -2,15 +2,12 @@
 
       <a href="/{{ current_neighborhood}}/stories" class="close-btn detail-close-btn"><span class="close-icon">&times;</span><span class="close-text is-hidden">Close</span></a>
 
-      <div class="item-header detail-item-header facebook-item-header">
-        <div class="item-meta detail-item-meta facebook-item-meta">
-          {{ prettydate source_posted_at }}
-        </div>
-      </div>
-      <div class="item-content detail-item-content facebook-item-content">
+      <div class="item-content detail-content facebook-item-content">
         <p>{{{ source_content.summary }}}</p>
       </div>
-      <div class="">Source: {{ feed.title }}</div>
+      <div class="item-meta facebook-item-meta">
+        <p><span class="updated">Last updated: {{ prettydate updated_at }}</span> | Source: {{ feed.title }}</p>
+      </div>
 
       <hr />
 
