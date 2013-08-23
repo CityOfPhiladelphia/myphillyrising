@@ -52,20 +52,32 @@ var MyPhillyRising = MyPhillyRising || {};
       evt.preventDefault();
       var form = evt.target,
           attrName, fieldVal,
-          userData = {'profile': NS.app.currentUser.get('profile')};
+          userData = {'profile': NS.app.currentUser.get('profile')},
+          originalNeighborhood = userData.profile.neighborhood;
 
-      for (attrName in userData['profile']) {
+      for (attrName in userData.profile) {
         fieldVal = this.getFieldValue(attrName);
         if (fieldVal !== undefined) {
-          userData['profile'][attrName] = fieldVal;
+          userData.profile[attrName] = fieldVal;
         }
       }
-      userData['email'] = this.getFieldValue('email');
+      userData.email = this.getFieldValue('email');
 
       this.$('.save-profile-button').prop('disabled', true);
       NS.app.currentUser.save(userData, {
         complete: function() {
           $(form).find('.save-profile-button').prop('disabled', false);
+        },
+        success: function() {
+          if (userData.profile.neighborhood !== originalNeighborhood) {
+            NS.app.router.navigate('/' + userData.profile.neighborhood, {trigger: true});
+          }
+
+          $('body').removeClass('is-open-off-canvas-left')
+            .removeClass('is-open-off-canvas-right');
+        },
+        error: function() {
+          window.alert('Unable to save your profile. Please try again.');
         }
       });
     },
