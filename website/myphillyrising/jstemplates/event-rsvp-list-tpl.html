@@ -1,7 +1,11 @@
 <div class="clearfix">
   <header class="event-attendee-summary column-60-left">
     <h4 class="event-attendee-header">Who's Attending?</h4>
+    {{#if_has_actions "rsvp"}}
     <p class="event-attendee-count"><span class="attendee-count">{{ action_count 'rsvp' }}</span> {{ action_count_pluralize 'rsvp' 'Neighbor' 'Neighbors' }}</p>
+    {{^}}
+    <p class="event-attendee-count">Be the first to RSVP!</p>
+    {{/if_has_actions}}
   </header>
 
   <div class="column-40-right">

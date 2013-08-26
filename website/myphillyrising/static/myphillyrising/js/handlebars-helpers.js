@@ -210,14 +210,22 @@ var MyPhillyRising = MyPhillyRising || {};
   // ============================================================
   // Event-specific
   // --------------
-  // The following helpers expect an event content item as the 
+  // The following helpers expect an event content item as the
   // operating context.
   //
 
-  Handlebars.registerHelper('action_count', function(action_type, singular, plural) {
+  Handlebars.registerHelper('action_count', function(action_type) {
     // Assuming `this` represents a content item...
     var count = _.where(this.actions, {type: action_type}).length;
-    return count.toString() + ((singular || plural) ? ' ' + pluralize(count, singular, plural) : '');
+    return count.toString();
+  });
+
+  Handlebars.registerHelper('if_has_actions', function(action_type, options) {
+    if(_.where(this.actions, {type: action_type}).length > 0) {
+      return options.fn(this);
+    } else {
+      return options.inverse(this);
+    }
   });
 
   Handlebars.registerHelper('action_count_without_current_user', function(action_type, singular, plural) {
