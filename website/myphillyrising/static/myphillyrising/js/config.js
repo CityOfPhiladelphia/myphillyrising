@@ -129,8 +129,6 @@ var MyPhillyRising = MyPhillyRising || {};
       {
         id: 11,
         label: 'Cooling Center',
-        description: 'Cooling Centers are cool! Cooling Centers are cool! Cooling Centers are cool! Cooling Centers are cool!',
-        url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Keyspot_Locations/MapServer/0/query',
         type: 'swimmer',
         url: 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/Cooling_Centers/MapServer/1/query',
         radius: 1,
