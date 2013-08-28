@@ -200,6 +200,9 @@ var MyPhillyRising = MyPhillyRising || {};
       storiesRegion1: '.stories-region1',
       resourcesRegion1: '.resources-region1'
     },
+    events: {
+      'click .btn-off-canvas-menu-right': 'showUserMenu'
+    },
     initialize: function(options) {
       this.listenTo(this.model.collections.users, 'reset', function() {
         this.renderUsers();
@@ -293,6 +296,13 @@ var MyPhillyRising = MyPhillyRising || {};
         model: this.model,
         collection: new Backbone.Collection(this.model.collections.stories.slice(0, 3))
       }));
+    },
+    showUserMenu: function(evt) {
+      $('body').removeClass('is-open-off-canvas-left')
+        .toggleClass('is-open-off-canvas-right');
+
+      window.scrollTo(0, 0);
+      evt.preventDefault();
     }
   });
 
