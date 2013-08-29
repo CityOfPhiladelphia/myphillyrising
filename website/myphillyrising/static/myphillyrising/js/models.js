@@ -108,7 +108,7 @@ var MyPhillyRising = MyPhillyRising || {};
               return 1;
             }
 
-            if (a.get('source_posted_at') < b.get('source_posted_at')) {
+            if (a.get('displayed_from') < b.get('displayed_from')) {
               return -1;
             } else {
               return 1;
@@ -144,7 +144,7 @@ var MyPhillyRising = MyPhillyRising || {};
               return 1;
             }
 
-            if (a.get('source_posted_at') < b.get('source_posted_at')) {
+            if (a.get('displayed_from') < b.get('displayed_from')) {
               return 1;
             } else {
               return -1;
