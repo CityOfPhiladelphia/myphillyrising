@@ -3,18 +3,26 @@
 -------------------------------------------------------------- */
 
 /* Color Palette (These aren't semantic. YOLO! ) */
-.light-grey { color: #ebeff3; }
-.grey { color: #d0d3d7; }
-.light-slate { color: #8497b0; }
-.slate { color: #546070; }
-.dark-slate { color: #455161; }
-.light-green { color: #ebffa6; }
-.green { color: #caf445; }
-.dark-green { color: #a6cc29; }
-.lighter-tomato { color: #ffcdbf; }
-.light-tomato { color: #ffae99; }
-.tomato { color: #fc8769; }
-.dark-tomato { color: #bf6750; }
+.lighter-grey { color: #ebeff3; }
+.light-grey { color: #d0d3d7; }
+.grey { color: #999999; }
+.dark-grey { color: #666; }
+.darker-grey { color: #444; }
+
+.light-blue { color: #ebffa6; }
+.light-blue { color: #ebffa6; }
+.blue { color: #caf445; }
+.dark-blue { color: #a6cc29; }
+
+.light-red { color: #ebffa6; }
+.light-red { color: #ebffa6; }
+.red { color: #caf445; }
+.dark-red { color: #a6cc29; }
+
+.light-yellow { color: #ebffa6; }
+.light-yellow { color: #ebffa6; }
+.yellow { color: #caf445; }
+.dark-yellow { color: #a6cc29; }
 
 /* Typography */
 body { line-height: 1.25; }
