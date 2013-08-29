@@ -120,11 +120,17 @@ class ContentItem (models.Model):
 
         geocoder = geocoders.GoogleV3()
 
+        # Increase specificity of the address if it's not specific already.
+        address = self.address
+        if settings.GEOCODER['CITY'].lower() not in address.lower():
+            address += ', ' + settings.GEOCODER['CITY']
+            address += ', ' + settings.GEOCODER['STATE']
+
         # The geocode method may raise an exception. See
         # https://github.com/geopy/geopy/blob/master/geopy/geocoders/googlev3.py#L193
         # for possibilities.
         results = geocoder.geocode(
-            self.address,
+            address,
             bounds=settings.GEOCODER['BOUNDS'],
             region=settings.GEOCODER['REGION'],
             exactly_one=False
@@ -134,6 +140,8 @@ class ContentItem (models.Model):
             place, (self.lat, self.lng) = results[0]
             if commit:
                 self.save()
+        else:
+            logger.debug('Found no locations for address %r' % (address,))
 
 
 class ContentTag (models.Model):
