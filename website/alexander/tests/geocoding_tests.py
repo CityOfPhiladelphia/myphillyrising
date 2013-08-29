@@ -62,3 +62,46 @@ class TestGeocoding(TestCase):
 
             assert_true(geocoders.GoogleV3.geocode.called)
             assert_equals((item.lat, item.lng), (-75, 40))
+
+    @override_settings(GEOCODER={
+        'BOUNDS': '39.8707,-75.3092|40.1663,-74.9151',
+        'REGION': 'us',
+        'CITY': 'Philadelphia',
+        'STATE': 'PA',
+    })
+    def test_geocode_item_without_city(self):
+        """
+        Tests that the address is appended with the city.
+        """
+        from alexander.models import ContentItem, geocoders
+
+        with patch.object(geocoders.GoogleV3, 'geocode') as geocode:
+            geocode.return_value = [(None, (-75, 40))]
+
+            item = ContentItem.objects.get(pk=0)
+            item.geocode()
+
+            geocoders.GoogleV3.geocode.assert_called_with('123 Sesame St., Philadelphia, PA',
+                bounds='39.8707,-75.3092|40.1663,-74.9151', region='us', exactly_one=False)
+
+    @override_settings(GEOCODER={
+        'BOUNDS': '39.8707,-75.3092|40.1663,-74.9151',
+        'REGION': 'us',
+        'CITY': 'Philadelphia',
+        'STATE': 'PA',
+    })
+    def test_geocode_item_with_city(self):
+        """
+        Tests that the address is appended with the city.
+        """
+        from alexander.models import ContentItem, geocoders
+
+        with patch.object(geocoders.GoogleV3, 'geocode') as geocode:
+            geocode.return_value = [(None, (-75, 40))]
+
+            item = ContentItem.objects.get(pk=0)
+            item.address = '123 Sesame St. in Philadelphia'
+            item.geocode()
+
+            geocoders.GoogleV3.geocode.assert_called_with('123 Sesame St. in Philadelphia',
+                bounds='39.8707,-75.3092|40.1663,-74.9151', region='us', exactly_one=False)
