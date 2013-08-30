@@ -90,7 +90,7 @@ class Feed (models.Model):
 class ContentItem (models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    title = models.CharField(max_length=160, null=True)
+    title = models.CharField(max_length=160, null=True, blank=True)
     tags = models.ManyToManyField('ContentTag', related_name='items')
     category = models.CharField(max_length=20)
     is_featured = models.BooleanField(default=False)
