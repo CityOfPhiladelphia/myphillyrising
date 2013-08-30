@@ -13,9 +13,9 @@
       {{/ if }}</p>
     <p>Content last refreshed {{ formatdatetime last_read_at "M/D/YYYY h:mmA" }}</p>
 
-    <div>
-      <a class="delete-feed-link btn btn-danger pull-right" href="#"><i class="icon-trash"></i> Delete</a>
-      <a class="refresh-feed-link btn pull-right" href="#"><i class="icon-refresh"></i> Refresh</a>
+    <div class="pull-right">
+      <button type="button" class="refresh-feed-link btn" data-loading-text="Refreshing..."><i class="icon-refresh"></i> Refresh</button>
+      <button class="delete-feed-link btn btn-danger"><i class="icon-trash"></i> Delete</button>
     </div>
   </div>
 </div>

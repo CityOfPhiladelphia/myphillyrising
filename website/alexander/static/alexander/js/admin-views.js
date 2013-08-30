@@ -133,15 +133,16 @@ var Alexander = Alexander || {};
   });
 
   NS.FeedView = Backbone.Marionette.ItemView.extend({
-    template: "#feed-tpl",
+    template: '#feed-tpl',
     tagName: 'li',
     className: 'feed-item',
     events: {
       'click .delete-feed-link': 'delete',
       'click .refresh-feed-link': 'refresh'
     },
-    delete: function() {
-      if (window.confirm('Are you sure you want to delete this feed?')) {
+    delete: function(evt) {
+      evt.preventDefault();
+      if (window.confirm('Are you sure you want to delete this feed? This will DELETE ALL ITEMS that have been imported from this feed.')) {
         this.model.destroy({
           wait: true,
           error: function() {
@@ -151,8 +152,14 @@ var Alexander = Alexander || {};
         });
       }
     },
-    refresh: function() {
+    refresh: function(evt) {
+      var $btn = $(evt.currentTarget);
       this.model.refresh();
+
+      $btn.button('loading');
+      setTimeout(function () {
+        $btn.button('reset');
+      }, 60000);
     }
   });
 
