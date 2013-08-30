@@ -4,19 +4,30 @@
 {% block title %}Items{% endblock title %}
 
 {% block navitems %}
-  <li class="active"><a href="/admin/items/">Items</a></li>
-  <li><a href="/admin/feeds/">Feeds</a></li>
+  <li class=""><a href="/admin/feeds/">Feeds</a></li>
+  <li class="{% ifequal request.GET.status|default:"pending" "pending" %}active{% endifequal %}"><a href="/admin/items/?status=pending">Pending Items</a></li>
+  <li class="{% ifequal request.GET.status|default:"pending" "published" %}active{% endifequal %}"><a href="/admin/items/?status=published">Published Items</a></li>
+  <li class="{% ifequal request.GET.status|default:"pending" "default" %}active{% endifequal %}"><a href="/admin/items/?status=discarded">Discarded Items</a></li>
 {% endblock navitems %}
 
 {% block content %}
   {% handlebarsjs '(.*)' %}
 
   <div class="container">
-    <h1>Items</h1>
+    <h1>{{ request.GET.status|default:"pending"|capfirst }} Items</h1>
     <div id="content-item-list-wrapper"></div>
   </div>
 {% endblock content %}
 
 {% block javascripts %}
-  <script src="{{ STATIC_URL }}alexander/js/items.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    var collection = new Alexander.ContentItemCollection(),
+        view = new Alexander.ContentItemListView({
+          el: '#content-item-list-wrapper',
+          collection: collection
+        }).render();
+    collection.fetch({data: {status: '{{ request.GET.status|default:"pending" }}'}});
+  });
+  </script>
 {% endblock javascripts %}

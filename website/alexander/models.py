@@ -96,6 +96,7 @@ class ContentItem (models.Model):
     is_featured = models.BooleanField(default=False)
     displayed_from = models.DateTimeField()
     displayed_until = models.DateTimeField(null=True, blank=True)
+    status = models.CharField(max_length=20, default='pending')
 
     # Optional location information
     address = models.CharField(max_length=1000, default='', blank=True)

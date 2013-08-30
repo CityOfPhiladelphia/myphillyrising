@@ -132,7 +132,8 @@ var Alexander = Alexander || {};
     template: '#item-tags-tpl',
     events: {
       'click .apply-all-tags-link': 'applyAllTags',
-      'change .featured-checkbox': 'toggleFeatured'
+      'change .featured-checkbox': 'toggleFeatured',
+      'click .status-btn-group .btn': 'updateStatus'
     },
     saveTags: function(tags) {
       this.model.save({'tags': tags}, {
@@ -168,6 +169,12 @@ var Alexander = Alexander || {};
     toggleFeatured: function(evt) {
       evt.preventDefault();
       this.model.save({'is_featured': evt.target.checked}, {
+        patch: true
+      });
+    },
+    updateStatus: function(evt) {
+      evt.preventDefault();
+      this.model.save({'status': evt.target.value}, {
         patch: true
       });
     }

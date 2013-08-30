@@ -56,6 +56,14 @@ class ContentItemViewSet (ModelViewSet):
 
         queryset = queryset.exclude(displayed_until__lt=datetime.now())
 
+        statuses = self.request.GET.getlist('status')
+        if (statuses):
+            # TODO: Make case insensitive
+            queryset = queryset.filter(status__in=statuses)
+        else:
+            if (self.request.method == 'GET'):
+                queryset = queryset.filter(status='published')
+
         category = self.request.GET.get('category')
         if (category):
             # TODO: Make case insensitive

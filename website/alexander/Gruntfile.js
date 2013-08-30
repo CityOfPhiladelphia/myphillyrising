@@ -13,6 +13,7 @@ module.exports = function(grunt) {
             dest: 'static/js/admin-components.min.js',
             src: [
               'static/components/jquery/jquery.min.js',
+              'static/components/bootstrap/docs/assets/js/bootstrap.js',
               'static/components/underscore/underscore-min.js',
               'static/components/backbone/backbone-min.js',
               'static/components/backbone-relational/backbone-relational.js',
@@ -28,6 +29,7 @@ module.exports = function(grunt) {
               'static/alexander/js/django-csrf.js',
               '../myphillyrising/static/myphillyrising/js/utils.js',
               'static/alexander/js/utils.js',
+              'static/alexander/js/handlebars-helpers.js',
               '../myphillyrising/static/myphillyrising/js/handlebars-helpers.js',
               'static/alexander/js/models.js',
               'static/alexander/js/admin-views.js'

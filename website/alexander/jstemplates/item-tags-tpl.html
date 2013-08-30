@@ -6,6 +6,14 @@
   {{/each}}
   </select>
 
+  <h4>Status</h4>
+  <div class="btn-group status-btn-group" data-toggle="buttons-radio">
+    <button type="button" value="pending" class="btn {{#is_pending status}}active{{/is_pending}}">Pending</button>
+    <button type="button" value="published" class="btn {{#is_published status}}active{{/is_published}}">Published</button>
+    <button type="button" value="discarded" class="btn {{#is_discarded status}}active{{/is_discarded}}">Discarded</button>
+  </div>
+
   <label class="checkbox">
     <input class="featured-checkbox" type="checkbox" {{#if is_featured}}checked="checked"{{/if}}> <h4>Featured?</h4>
   </label>
+
