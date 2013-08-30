@@ -40,6 +40,39 @@ var Alexander = Alexander || {};
     }
   };
 
+  NS.PaginatedCompositeView = Backbone.Marionette.CompositeView.extend({
+    template: '#paginated-list-tpl',
+    itemViewContainer: '.content-list',
+    events: {
+      'click .load-more-action': 'onClickLoadMore'
+    },
+
+    collectionEvents: {
+      add: function() {
+        this.setLoadButtonVisibility(!!this.collection.nextPage);
+      },
+      reset: function() {
+        this.setLoadButtonVisibility(!!this.collection.nextPage);
+      }
+    },
+
+    onClickLoadMore: function() {
+      this.loadMoreContentItems();
+    },
+
+    loadMoreContentItems: function() {
+      var self = this;
+      this.collection.fetchNextPage(function(collection, response, options) {
+        self.setLoadButtonVisibility(!!collection.nextPage);
+      });
+    },
+
+    setLoadButtonVisibility: function(show) {
+      this.$('.load-more-action').toggleClass('is-hidden', !show);
+    }
+  });
+
+
   NS.DefaultTagView = Backbone.Marionette.ItemView.extend({
     serializeData: function() {
       var data = NS.DefaultTagView.__super__.serializeData.call(this);
@@ -205,23 +238,11 @@ var Alexander = Alexander || {};
     }
   });
 
-  NS.ContentItemListView = Backbone.Marionette.CompositeView.extend({
+  NS.ContentItemListView = NS.PaginatedCompositeView.extend({
     template: '#content-item-list-tpl',
     itemViewContainer: '.content-item-list',
     itemView: NS.ContentItemView,
-    appendHtml: NS.OrderedCollectionMixin.appendHtml,
-
-    events: {
-      'click .load-more-action': 'onClickLoadMore'
-    },
-
-    onClickLoadMore: function() {
-      this.loadMoreContentItems();
-    },
-
-    loadMoreContentItems: function() {
-      this.collection.fetchNextPage();
-    }
+    appendHtml: NS.OrderedCollectionMixin.appendHtml
   });
 
 }(Alexander));
