@@ -49,15 +49,7 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       dist: {
-        files: [
-          {
-            dest: 'static/css/admin-components.min.css',
-            src: [
-              'static/components/bootstrap/docs/assets/css/bootstrap.css',
-              'static/components/select2/select2.css',
-            ]
-          }
-        ]
+        files: []
       }
     }
   });

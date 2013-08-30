@@ -12,16 +12,10 @@
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width">
       <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-      {% if debug %}
       <link href="{{ STATIC_URL }}components/bootstrap/docs/assets/css/bootstrap.css" rel="stylesheet">
       <link href="{{ STATIC_URL }}components/select2/select2.css" rel="stylesheet"/>
-      <link rel="stylesheet" href="{{ STATIC_URL }}alexander/css/styles.css" type="text/css" media="screen, projection" />
+      <link href="{{ STATIC_URL }}alexander/css/styles.css" rel="stylesheet" type="text/css" media="screen, projection" />
       <script src="{{ STATIC_URL }}components/modernizr/modernizr.js"></script>
-      {% else %}
-      <link rel="stylesheet" href="{{ STATIC_URL }}css/admin-components.min.css" type="text/css" media="screen, projection" />
-      <link rel="stylesheet" href="{{ STATIC_URL }}alexander/css/styles.css" type="text/css" media="screen, projection" />
-      <script src="{{ STATIC_URL }}js/modernizr.min.js"></script>
-      {% endif %}
       {% block css %}{% endblock %}
   </head>
   <body>
