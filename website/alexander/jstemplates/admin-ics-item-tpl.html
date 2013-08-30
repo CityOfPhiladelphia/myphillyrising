@@ -1,0 +1,32 @@
+    <article class="feed-item event-item">
+      <div class="item-header feed-item-header event-item-header">
+        <h3 class="item-title feed-item-title">{{{ title }}}</h3>
+        <div class="item-meta feed-item-meta">
+          <p class="date">
+            <time datetime="{{ displayed_from }}">
+              <span class="calendar-icon">
+                <span class="day">{{ prettyday displayed_from }}</span>
+                <span class="month">{{ prettymonth displayed_from }}</span>
+                <span class="year">{{ prettyyear displayed_from }}</span>
+              </span>
+              <span class="time">
+                <span class="time-start">{{ prettytime source_content.DTSTART }}</span>
+                {{#if source_content.DTEND}}
+                to <span class="time-end">{{ prettytime source_content.DTEND }}</span>
+                {{/if}}
+              </span>
+            </time>
+          </p>
+          {{#if source_content.LOCATION}}
+          <p class="location">{{{ source_content.LOCATION }}}</p>
+          {{/if}}
+        </div>
+      </div>
+      <div class="item-content feed-item-content">
+        <p>{{{ source_content.DESCRIPTION }}}</p>
+      </div>
+
+      <div class="item-meta feed-item-meta">
+        <p><span class="updated"><strong>Feed</strong>: {{ feed.title }} | <strong>Category</strong>: {{ category }}</span></p>
+      </div>
+    </article>
