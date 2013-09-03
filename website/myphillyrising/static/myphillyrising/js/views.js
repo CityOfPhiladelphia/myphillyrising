@@ -153,7 +153,7 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.NeighborhoodMenuView = Backbone.Marionette.CompositeView.extend({
     template: '#neighborhood-menu-tpl',
     itemView: NS.NeighborhoodMenuItemView,
-    itemViewContainer: '.neighborhood-list',
+    itemViewContainer: '.neighborhood-list'
   });
 
   NS.PaginatedCompositeView = Backbone.Marionette.CompositeView.extend({
@@ -254,8 +254,6 @@ var MyPhillyRising = MyPhillyRising || {};
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     },
     renderUsers: function() {
-      console.log('render users for', this.model.get('tag'));
-
       this.usersRegion1.show(new NS.HomeUserListView({
         model: this.model,
         collection: new Backbone.Collection(this.model.collections.users.slice(0, 3))
@@ -275,24 +273,18 @@ var MyPhillyRising = MyPhillyRising || {};
 
     },
     renderEvents: function() {
-      console.log('render events for', this.model.get('tag'));
-
       this.eventsRegion1.show(new NS.HomeEventListView({
         model: this.model,
         collection: new Backbone.Collection(this.model.collections.events.slice(0, 1))
       }));
     },
     renderResources: function() {
-      console.log('render resources for', this.model.get('tag'));
-
       this.resourcesRegion1.show(new NS.HomeResourceListView({
         model: this.model,
         collection: new Backbone.Collection(this.model.collections.resources.slice(0, 1))
       }));
     },
     renderStories: function() {
-      console.log('render stories for', this.model.get('tag'));
-
       this.storiesRegion1.show(new NS.HomeStoryListView({
         model: this.model,
         collection: new Backbone.Collection(this.model.collections.stories.slice(0, 3))
