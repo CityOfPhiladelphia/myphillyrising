@@ -1,9 +1,10 @@
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.translation import ugettext as _
-from django.utils.timezone import now, datetime
+from django.utils.timezone import now, datetime, timedelta
 from time import mktime
 from urllib2 import urlopen
 from HTMLParser import HTMLParser
+from time import mktime
 import json  # For dumping dictionary content to strings
 import re
 
@@ -110,7 +111,11 @@ class RSSFeedReader (FeedReader):
         item_data.pop('updated_parsed', None)
         return item_data
 
-    def update_item(self, item, item_data):
+    def update_items(self, items, item_data):
+        if len(items) > 1:
+            raise ValueError('There should only ever be exactly one-to-one '
+                             'relationships between items in RSS feeds.')
+
         published_at = item_data.pop('published_parsed', None)
         updated_at = item_data.pop('updated_parsed', None)
 
@@ -191,16 +196,48 @@ class ICalFeedReader (FeedReader):
         item_data.pop('DTSTAMP')  # ...it always changes and we don't need it.
         return item_data
 
-    def update_item(self, item, item_data):
+    def get_dates(self, item_data):
         item_data = self.prepare_item_content(item_data)
 
+        # Recurring event
+        if 'RRULE' in item_data:
+            from dateutil.rrule import rrulestr
+
+            dates = []
+            start_date = now()
+            end_date = start_date + timedelta(days=30)
+            for date in rrulestr(item_data['RRULE'].to_ical(), dtstart=item_data['DTSTART']):
+                if date < start_date:
+                    continue
+                elif date > end_date:
+                    break
+                else:
+                    dates.append(date)
+
+            return dates, start_date, end_date
+
+        # One-time event (single date)
+        else:
+            dates = [item_data['DTSTART']]
+            return dates, None, None
+
+    def get_occurrence_count(self, item_data):
+        dates, start, end = self.get_dates(item_data)
+        return len(dates), start, end
+
+    def update_single_item(self, item, date, item_data):
         # vText objects are derived from unicode, so this conversion should be
         # trivial
+        first_start = item_data['DTSTART']
+        first_end = item_data.get('DTEND', None)
+
         item.title = unicode(item_data.get('SUMMARY'))
-        item.displayed_from = item_data.get('DTSTART', None)
-        item.displayed_until = item_data.get('DTEND', None)
+        item.displayed_from = date
+        if first_start and first_end:
+            item.displayed_until = date + (first_end - first_start)
 
         content = json.dumps(item_data, cls=DjangoJSONEncoder, sort_keys=True)
+        item.source_id = self.get_item_id(item_data)
         item.source_content = content
 
         item.source_url = self.url
@@ -212,7 +249,46 @@ class ICalFeedReader (FeedReader):
             item.address = unicode(item_data['LOCATION'])
 
         item.last_read_at = now()
+        is_new = item.pk is None
         item.save()
+
+        if is_new:
+            for t in item.feed.default_tags.all():
+                item.tags.add(t)
+
+    def update_items(self, items, item_data):
+        item_data = self.prepare_item_content(item_data)
+        dates, start, end = self.get_dates(item_data)
+
+        if len(items) != len(dates):
+            raise ValueError('Wrong number of events: expected %s, got %s' %
+                             (len(dates), len(items)))
+
+        if len(dates) == 0:
+            return
+
+        elif len(items) == 1 and len(dates) == 1:
+            self.update_single_item(items[0], dates[0], item_data)
+
+        else:
+            old_items = [item for item in items if item.pk is not None]
+            new_items = [item for item in items if item.pk is None]
+
+            # First deal with known dates
+            for item in old_items:
+                date = item.displayed_from
+
+                if date in dates:
+                    self.update_single_item(item, date, item_data)
+                    dates.remove(date)
+                else:
+                    item.delete()
+                    new_items.append(item)
+                    continue
+
+            # Then deal with new dates
+            for item, date in zip(new_items, dates):
+                self.update_single_item(item, date, item_data)
 
 
 class FacebookPageReader (RSSFeedReader):

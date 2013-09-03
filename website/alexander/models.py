@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models import query
 from django.utils.translation import ugettext as _
-from django.utils.timezone import now
+from django.utils.timezone import now, timedelta
 from geopy import geocoders
 from .feed_readers import get_feed_reader
 
@@ -41,20 +41,15 @@ class Feed (models.Model):
     def __unicode__(self):
         return self.title
 
-    def get_item(self, **kwargs):
-        try:
-            return self.items.get(**kwargs)
-        except ContentItem.DoesNotExist:
+    def get_items(self, **kwargs):
+        return self.items.filter(**kwargs)
+
+    def make_new_items(self, count, **kwargs):
+        items = []
+        for index in xrange(count):
             item = ContentItem(feed=self, category=self.default_category, **kwargs)
-            # Patch item.save to add the default tags
-            orig_save = item.save
-            def save_and_add_tags(*args, **kwargs):
-                orig_save(*args, **kwargs)
-                for t in self.default_tags.all():
-                    item.tags.add(t)
-                item.save = orig_save
-            item.save = save_and_add_tags
-            return item
+            items.append(item)
+        return items
 
     def refresh(self):
         """
@@ -62,29 +57,40 @@ class Feed (models.Model):
         changes to the feed's items.
         """
         feed_source = get_feed_reader(self.source_type, url=self.source_url)
-        items = []
+        refreshed_items = []
+        is_new = lambda item: item.pk is None
 
         for item_source in feed_source:
-            # Get the item model corresponding to the source data
+            # Get the source id and the expected number of corresponding items
             source_id = feed_source.get_item_id(item_source)
-            # TODO: Think about what to do when there are multiple content
-            #       items that refer to the same source item (e.g., repeating
-            #       calendar events).
-            item = self.get_item(source_id=source_id)
+            occurrence_count, from_dt, until_dt = feed_source.get_occurrence_count(item_source)
+
+            # If date filters were returned, add them as filter parameters
+            extra_params = {}
+            if from_dt:
+                extra_params['displayed_from__gte'] = from_dt
+            if until_dt:
+                extra_params['displayed_until__lte'] = until_dt
+
+            # Get the item model(s) corresponding to the source data
+            items = list(self.get_items(source_id=source_id, **extra_params))
+            existing_count = len(items)
+            if existing_count < occurrence_count:
+                items.extend(self.make_new_items(occurrence_count - existing_count))
 
             # If it is new or has changed, update the model with the source
-            # data
-            is_new = item.pk is None
-            has_changed = is_new or feed_source.is_different(item, item_source)
-            if has_changed:
-                feed_source.update_item(item, item_source)
+            # data            
+            has_new = any(is_new(item) for item in items)
+            has_changed = any(feed_source.is_different(item, item_source) for item in items)
+            if has_new or has_changed:
+                feed_source.update_items(items, item_source)
 
-            items.append((item, has_changed))
+            refreshed_items.extend((item, is_new(item) or has_changed) for item in items)
 
         self.last_read_at = now()
         self.save()
 
-        return items
+        return refreshed_items
 
 
 class ContentItem (models.Model):
