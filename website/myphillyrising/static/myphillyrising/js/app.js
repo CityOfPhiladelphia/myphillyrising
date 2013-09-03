@@ -30,16 +30,31 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.controller = {
     contact: function() {
       NS.app.mainRegion.show(new NS.ContactView());
+
+      // back button to current neighborhood home
+      NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({
+        model: new Backbone.Model({
+          url: '/' + NS.app.currentNeighborhood,
+          label: 'Home'
+        })
+      }));
     },
     about: function() {
       NS.app.mainRegion.show(new NS.AboutView());
+
+      // back button to current neighborhood home
+      NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({
+        model: new Backbone.Model({
+          url: '/' + NS.app.currentNeighborhood,
+          label: 'Home'
+        })
+      }));
     },
     neighborhoodHome: function(neighborhood) {
       var neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: neighborhood});
       if (neighborhoodModel) {
         NS.app.vent.trigger('neighborhoodchange', neighborhoodModel);
 
-        // TODO: Need users too!
         NS.app.mainRegion.show(new NS.NeighborhoodHomeView({
           model: neighborhoodModel,
           userModel: NS.app.currentUser
@@ -47,6 +62,9 @@ var MyPhillyRising = MyPhillyRising || {};
       } else {
         this.home();
       }
+
+      // neighborhood selector button
+      NS.app.headerView.leftRegion.show(new NS.HeaderNeighborhoodSelectorView());
     },
 
     neighborhoodCategoryList: function(neighborhood, category) {
@@ -70,6 +88,14 @@ var MyPhillyRising = MyPhillyRising || {};
           this.neighborhoodHome(neighborhood);
           NS.app.router.navigate(neighborhood, {replace: true});
         }
+
+        // back button to current neighborhood home
+        NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({
+          model: new Backbone.Model({
+            url: '/' + NS.app.currentNeighborhood,
+            label: 'Home'
+          })
+        }));
       } else {
         this.home();
       }
@@ -87,17 +113,51 @@ var MyPhillyRising = MyPhillyRising || {};
             NS.app.mainRegion.show(new NS.EventDetailView({
               model: itemModel
             }));
+
+            // back button to the events list
+            NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({
+              model: new Backbone.Model({
+                url: '/' + NS.app.currentNeighborhood + '/events',
+                label: 'Events'
+              })
+            }));
+
           } else if (category === 'resources') {
             NS.app.mainRegion.show(new NS.ResourceDetailView({
               model: itemModel
+            }));
+
+            // back button to the resources list
+            NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({
+              model: new Backbone.Model({
+                url: '/' + NS.app.currentNeighborhood + '/resources',
+                label: 'Resources'
+              })
             }));
           } else if (category === 'stories') {
             NS.app.mainRegion.show(new NS.StoryDetailView({
               model: itemModel
             }));
+
+            // back button to the stories list
+            NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({
+              model: new Backbone.Model({
+                url: '/' + NS.app.currentNeighborhood + '/stories',
+                label: 'Stories'
+              })
+            }));
           } else {
             this.neighborhoodHome(neighborhood);
             NS.app.router.navigate(neighborhood, {replace: true});
+
+            // back button to current neighborhood home
+            NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({
+              model: new Backbone.Model({
+                url: '/' + NS.app.currentNeighborhood,
+                label: 'Home'
+              })
+            }));
+
             return;
           }
         };
@@ -141,6 +201,15 @@ var MyPhillyRising = MyPhillyRising || {};
         });
 
         NS.app.mainRegion.show(view);
+
+        // back button to current neighborhood home
+        NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({
+          model: new Backbone.Model({
+            url: '/' + NS.app.currentNeighborhood,
+            label: 'Home'
+          })
+        }));
+
       } else {
         this.home();
       }
@@ -159,6 +228,9 @@ var MyPhillyRising = MyPhillyRising || {};
         NS.app.mainRegion.show(new NS.HomeView({
           collection: NS.app.neighborhoodCollection
         }));
+
+        // neighborhood selector button
+        NS.app.headerView.leftRegion.show(new NS.HeaderNeighborhoodSelectorView());
       }
     },
 

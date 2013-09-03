@@ -855,6 +855,10 @@ a.close-btn:hover {
   display: block;
 }
 
+.map-is-active .map-list-toggle-btn {
+  display: block;
+}
+
 /* RSVP & Checkin */
 div.event-attendee-list {
   background: #ebeff3;

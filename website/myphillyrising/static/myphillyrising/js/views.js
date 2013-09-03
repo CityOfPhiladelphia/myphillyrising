@@ -126,6 +126,16 @@ var MyPhillyRising = MyPhillyRising || {};
     }
   });
 
+  NS.HeaderNeighborhoodSelectorView = Backbone.Marionette.ItemView.extend({
+    template: '#header-neighborhood-selector-tpl',
+    tagName: 'span'
+  });
+
+  NS.HeaderBreadcrumbButtonView = Backbone.Marionette.ItemView.extend({
+    template: '#header-breadcrumb-button-tpl',
+    tagName: 'span'
+  });
+
   NS.NeighborhoodLabelView = Backbone.Marionette.ItemView.extend({
     template: '#neighborhood-label-tpl',
     tagName: 'span'
@@ -613,7 +623,10 @@ var MyPhillyRising = MyPhillyRising || {};
       });
 
       this.map.fitBounds(this.featureGroup.getBounds());
+      this.scrollTop = $('body').scrollTop();
+
       this.$el.addClass('map-is-active');
+      window.scrollTo(0,0);
 
       // Make sure everything is sized up nicely
       this.resizeMap();
@@ -622,6 +635,7 @@ var MyPhillyRising = MyPhillyRising || {};
       evt.preventDefault();
 
       this.$el.removeClass('map-is-active');
+      window.scrollTo(0, this.scrollTop);
     }
   });
 
