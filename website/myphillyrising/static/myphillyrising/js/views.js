@@ -99,7 +99,8 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.HeaderView = Backbone.Marionette.Layout.extend({
     template: '#header-tpl',
     regions: {
-      descriptionRegion: '.site-description'
+      descriptionRegion: '.site-description-region',
+      leftRegion: '.header-left-region'
     },
     events: {
       'click .btn-off-canvas-menu-left': 'showNeighborhoodMenu',

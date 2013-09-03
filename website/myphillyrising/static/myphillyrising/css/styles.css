@@ -350,7 +350,7 @@ body {
 /*  color: #fc8769;*/
 }
 .site-title a span.rising {}
-.site-description {
+.site-description-region {
   background-color: #455161;
   color: #ffae99;
   margin: 0;
@@ -1088,7 +1088,7 @@ ul.event-attendee-list .avatar {
     float: left;
     padding: 0 0.5em 0 1em;
   }
-  .site-description {
+  .site-description-region {
     background-color: transparent;
     font-size: 1.5em;
     line-height: 2.5em;

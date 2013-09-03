@@ -1,11 +1,17 @@
 <h1 class="site-title"><a href="{{ base_url }}" title="myPhillyRising" rel="home"><span class="my">my</span><span class="philly">Philly</span><span class="rising">Rising</a></h1>
-<h2 class="site-description"></h2>
-<a href="#" class="menu-btn btn-off-canvas-menu-left"><img class="menu-icon" src="{{ STATIC_URL }}myphillyrising/images/menu-icon-marker.png"></a>
 
-{{# is_authenticated }}
-<a href="#" class="menu-btn btn-off-canvas-menu-right"><img class="menu-icon" src="{{ current_user_profile 'avatar_url' }}"></a>
-{{^}}
-<a href="#" class="login-btn btn-off-canvas-menu-right">Sign In</a>
-{{/ is_authenticated }}
+<h2 class="site-description-region"></h2>
+
+<div class="header-left-region">
+  <a href="#" class="menu-btn btn-off-canvas-menu-left"><img class="menu-icon" src="{{ STATIC_URL }}myphillyrising/images/menu-icon-marker.png"></a>
+</div>
+
+<div class="header-right-region">
+  {{# is_authenticated }}
+  <a href="#" class="menu-btn btn-off-canvas-menu-right"><img class="menu-icon" src="{{ current_user_profile 'avatar_url' }}"></a>
+  {{^}}
+  <a href="#" class="login-btn btn-off-canvas-menu-right">Sign In</a>
+  {{/ is_authenticated }}
+</div>
 
 <a href="#" class="btn-canvas-center is-hidden"></a>
