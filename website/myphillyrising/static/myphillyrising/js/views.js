@@ -580,12 +580,12 @@ var MyPhillyRising = MyPhillyRising || {};
         markerLayer = L.marker([geom.y, geom.x], {
           data: model.toJSON(),
           icon: L.icon({
-            iconUrl: NS.staticURL + 'myphillyrising/images/markers/marker-'+model.get('type')+'.png',
+            iconUrl: NS.staticURL + 'myphillyrising/images/markers/' + (model.get('icon') || 'marker-default.png'),
             iconSize: [25, 41],
             iconAnchor: [12, 41],
             popupAnchor: [1, -34],
 
-            shadowUrl: NS.staticURL + 'myphillyrising/images/markers/marker-shadow.png',
+            shadowUrl: NS.staticURL + 'myphillyrising/images/markers/' + (model.get('iconShadow') || 'marker-shadow.png'),
             shadowSize: [41, 41]
           })
         });

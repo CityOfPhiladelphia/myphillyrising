@@ -57,11 +57,9 @@ var Alexander = Alexander || {};
         collection.each(function(model) {
           var geom = model.get('geometry'),
               attrs = model.get('attributes'),
-              normAttrs = {
-                label: self.get('label'),
-                type: self.get('type'),
+              normAttrs = _.extend({
                 geom: geom
-              };
+              }, self.toJSON());
 
           _.each(self.get('attrMap'), function(val, key) {
             normAttrs[key] = attrs[val];
@@ -137,7 +135,7 @@ var Alexander = Alexander || {};
           now = moment(),
           startString = isModel ? ev.get('displayed_from') : ev['displayed_from'],
           start = moment(startString).subtract(buffer);
-      
+
       return now.isBefore(start);
     },
     hasPassed: function(ev, buffer) {
@@ -148,7 +146,7 @@ var Alexander = Alexander || {};
           now = moment(),
           endString = isModel ? ev.get('displayed_until') : ev['displayed_until'],
           end = moment(endString).add(buffer);
-      
+
       return now.isAfter(end);
     },
     isInProgress: function(ev, buffer) {
@@ -186,7 +184,7 @@ var Alexander = Alexander || {};
         options.data = JSON.stringify(data);
         options.contentType = 'application/json';
       }
-      
+
       return Backbone.sync(method, model, options);
     },
 
