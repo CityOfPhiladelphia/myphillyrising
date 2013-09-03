@@ -121,7 +121,7 @@ img {
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
-  color: #455161;
+  color: #004080;
   text-transform: uppercase;
   text-decoration: none;
   text-shadow: 0 1px 1px rgba(255,255,255,0.75);
@@ -133,21 +133,20 @@ img {
 .btn:hover,
 .btn:focus,
 .btn:active {
-  color: #546070;
+  color: #0078b3;
 }
 .btn-primary,
 .btn-primary:visited,
 .btn-primary:link {
-  background-color: #a6cc29;
+  background-color: #0078b3;
   color: #fff;
   text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
 }
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active {
-  border-color: #fff;
-  color: #546070 !important;
-  text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+  border-color: #b8d7e6;
+  color: #fff !important;
 }
 .btn-block,
 .btn-block:visited,
@@ -187,7 +186,7 @@ textarea {
 }
 .input-block:focus,
 textarea:focus {
-  outline: 2px solid #268099;
+  outline: 2px solid #609fbf;
 }
 textarea {
   height: 6.5em;
@@ -231,7 +230,7 @@ textarea {
 
 html {}
 body {
-  background-color: #546070;
+  background-color: #444;
 }
 
 .site-wrapper {
@@ -272,14 +271,14 @@ body {
   background-color: #ebeff3;
   position: relative;
   z-index: 100;
-  box-shadow: 0 0 20px rgba(51,60,71,1);
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
 .off-canvas-menu {
   width: 100%;
   position: relative;
   z-index: 50;
-  background-color: #546070;
+  background-color: #444;
   color: #ebeff3;
   margin-top: -9999px;
 }
@@ -316,7 +315,7 @@ body {
 
 .page.choose {
   width: 100%;
-  background-color: #546070;
+  background-color: #444;
   color: #ebeff3;
 }
 
@@ -334,20 +333,23 @@ body {
   text-align: center;
 }
 .site-title {
-  background-color: #546070;
+  background-color: #d0d3d7;
   box-shadow: 0 0 5px rgba(0,0,0,0.25);
   margin: 0;
   font-size: 1em;
   line-height: 40px;
   height: 35px;
+  overflow: visible;
   font-weight: 400;
   position: relative;
   z-index: 2;
 }
 .site-title a {
-  color: #caf445;
-  text-decoration: none;
-  font-style: italic;
+  background: url(../images/myphillyrising-logo-sm.png) center 0 no-repeat scroll;
+  display: block;
+  margin: 0 50px;
+  height: 40px;
+  text-indent: -9999px;
 }
 .site-title a span.my {
   color: #fff;
@@ -359,8 +361,8 @@ body {
 }
 .site-title a span.rising {}
 .site-description-region {
-  background-color: #455161;
-  color: #ffae99;
+  background-color: #0078b3;
+  color: #fff;
   margin: 0;
   font-size: 10px;
   font-weight: ;
@@ -371,7 +373,7 @@ body {
   z-index: 1;
 }
 a.login-btn {
-  color: #ebffa6;
+  color: #004080;
   display: block;
   position: absolute;
   z-index: 3;
@@ -388,8 +390,8 @@ a.login-btn {
   position: absolute;
   z-index: 3;
   top: 8px;
-  background-color: #546070;
-  border: 2px solid #455161;
+  background-color: #d0d3d7;
+  border: 2px solid #ebeff3;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
@@ -426,8 +428,8 @@ a.login-btn {
   color: #d0d3d7;
 }
 
-.off-canvas-menu a, .off-canvas-menu a:link, .off-canvas-menu a:visited { color: #ebffa6; }
-.off-canvas-menu a:hover { color: #caf445; }
+.off-canvas-menu a, .off-canvas-menu a:link, .off-canvas-menu a:visited { color: #b8d7e6; }
+.off-canvas-menu a:hover { color: #fff; }
 
 /* Neighborhood Menu */
 ul.neighborhood-list {
@@ -449,7 +451,7 @@ ul.neighborhood-list {
   margin: 0px;
   background: none;
   text-align: left;
-  color: #ebffa6;
+  color: #b8d7e6;
   font-size: 1em;
   line-height: 1.25;
 }
@@ -458,8 +460,8 @@ ul.neighborhood-list {
   border-top: 0;
 }
 a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighborhood:visited {
-  background-color: #455161;
-  color: #caf445;
+  background-color: #333;
+  color: #fff;
   border-top: 1px solid rgba(0,0,0,0.1);
   border-bottom: 0;
 }
@@ -467,7 +469,6 @@ a.is-current-neighborhood, a.is-current-neighborhood:active, a.is-current-neighb
 ul.neighborhood-list-inline {
   padding: 0.25em 0;
   margin: 0 -0.25em 0.5em;
-/*  text-align: center;*/
 }
 .neighborhood-list-inline li {
   display: inline;
@@ -485,7 +486,7 @@ ul.neighborhood-list-inline {
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
-  color: #455161;
+  color: #004080;
   text-transform: uppercase;
   text-decoration: none;
   text-shadow: 0 1px 1px rgba(255,255,255,0.75);
@@ -497,7 +498,7 @@ ul.neighborhood-list-inline {
 .neighborhood-list-inline a:hover,
 .neighborhood-list-inline a:focus,
 .neighborhood-list-inline a:active {
-  color: #546070;
+  color: #0078b3;
 }
 
 /* User Menu */
@@ -534,7 +535,7 @@ a.logout-link,
 a.logout-link:link,
 a.logout-link:visited {
   float: right;
-  color: #ffae99;
+  color: #ffbfca;
   font-weight: 100;
   font-size: 0.75em;
   padding: 0.325em;
@@ -575,7 +576,7 @@ a.logout-link:visited {
 }
 
 .neighborhood-header {
-  background: #455161;
+  background: #444;
   margin: -10px -10px 0 -10px;
   padding: 10px;
 }
@@ -585,10 +586,10 @@ a.logout-link:visited {
   float: left;
   width: 80%;
   margin: 0;
-  padding: 0.25em 0;
+  padding: 0.25em 0 0;
 }
 .neighborhood-score {
-  color: #caf445;
+  color: #ffb726;
   float: right;
   width: 20%;
   margin: 0 -10px 0 0;
@@ -596,22 +597,22 @@ a.logout-link:visited {
   text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 .neighborhood-score small {
-  color: #ebffa6;
+  color: #ffeabf;
   display: block;
   text-transform: uppercase;
   font-size: xx-small;
 }
 
 .neighborhood-subheader {
-  background: #455161;
-  margin: -10px -10px 0 -10px;
-  padding: 10px 10px 15px;
+  background: #444;
+  margin: 0 -10px 0 -10px;
+  padding: 0 10px;
   font-size: 0.8em;
-  color: #caf445;
+  color: #ffbfca;
 }
 
 .neighborhood-content {
-  background: #455161;
+  background-color: #ebeff3;
   margin: 0 -10px;
   padding: 0 0 10px 0;
   font-size: 0.8em;
@@ -632,7 +633,6 @@ a.logout-link:visited {
   margin: 0;
   padding: 0;
   clear: both;
-  background-color: #ebeff3;
 }
 
 .neighborhood-widget-header {
@@ -641,9 +641,9 @@ a.logout-link:visited {
 }
 .neighborhood-widget-header a {
   display: block;
-  background-color: #caf445;
+  background-color: #0078b3;
   padding: 5px 2em 5px 5px;
-  color: #546070;
+  color: #fff;
   font-size: 0.8em;
   font-weight: 400;
   text-decoration: none;
@@ -678,11 +678,12 @@ a.logout-link:visited {
   font-weight: 100;
   display: block;
   margin: -0.25em 0 0 0;
-  color: #bf6750;
+  color: #b3001e;
+  text-shadow: 0 1px 1px rgba(255,255,255,1);
 }
 .events-widget .day {
   font-weight: 700;
-  color: #fc8769;
+  color: #ff4d6a;
 }
 .events-widget .time {
   font-weight: 400;
@@ -690,16 +691,16 @@ a.logout-link:visited {
   margin-top: 0;
   margin-left: 0;
   text-indent: 0;
-  color: #546070;
+  color: #666;
 }
 .events-widget .item-title {
-  color: #546070;
+  color: #666;
 }
 
 .about-widget {
-  color: #d0d3d7;
-  background: #455161;
   padding: 10px 10px 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #d0d3d7;
 }
 
 /* Items */
@@ -747,12 +748,12 @@ a.close-btn {
   height: 2em;
   width: 2em;
   text-align: center;
-  color: #FF6B6B;
+  color: #ff4d6a;
   position: relative;
   z-index: 2;
 }
 a.close-btn:hover {
-  color: #C44D58;
+  color: #b3001e;
 }
 .close-icon {
   font-size: 1.5em;
@@ -818,14 +819,14 @@ a.close-btn:hover {
   display: block;
   font-size: 2.25em;
   font-weight: bold;
-  color: #556270;
+  color: #666;
 }
 .calendar-icon .month {
   position: absolute;
   top: 0;
   left: 0;
   display: block;
-  background: #FF6B6B;
+  background: #ff4d6a;
   border-radius: 0.2em 0.2em 0 0;
   width: 100%;
   color: #fff;
@@ -939,11 +940,11 @@ ul.event-attendee-list .avatar {
 }
 
 .place-category-title {
-  color: #a6cc29;
+  color: #0078b3;
 }
 .place-category-title .place-list-count {
   font-weight: 400;
-  color: #8497b0;
+  color: #609fbf;
 }
 .place-type-description {
   font-size: 0.8em;
@@ -992,14 +993,14 @@ ul.event-attendee-list .avatar {
   bottom: auto;
   left: 30px;
   opacity: 1;
-  background-color: #ebffa6;
-  background-color: rgba(235, 255, 166, 0.9);
-  border: 2px solid #ebffa6;
+  background-color: #ffeabf;
+  background-color: rgba(255,234,191, 0.9);
+  border: 2px solid #ffeabf;
   border-top: 0;
   border-radius: 3px;
   padding: 5px;
   text-align: center;
-  color: #546070;
+  color: #666;
   text-shadow: 0 1px 1px rgba(255,255,255,0.75);
   box-shadow: 0 0.125em 0.75em rgba(0,0,0,0.5);
 
@@ -1034,13 +1035,13 @@ ul.event-attendee-list .avatar {
 
 @media only screen and (min-width: 480px) {
   body {
-    background-color: #455161;
+    background-color: #444;
   }
   .site-wrapper {
     width: 480px;
     margin: 0 auto;
-    background-color: #546070;
-    box-shadow: 0 0 40px rgba(51,60,71,1);
+    background-color: #666;
+    box-shadow: 0 0 40px rgba(0,0,0,0.5);
   }
 }
 
@@ -1084,24 +1085,27 @@ ul.event-attendee-list .avatar {
   .site-header {
     position: relative;
     z-index: 500;
-    background-color: #546070;
     box-shadow: 0 0 5px rgba(0,0,0,0.25);
   }
   .site-title {
-    background-color: transparent;
-    box-shadow: none;
-    font-size: 1.5em;
-    line-height: 2.5em;
-    height: 2.5em;
-    float: left;
-    padding: 0 0.5em 0 1em;
+    height: 70px;
+  }
+  .site-title a {
+    background: url(../images/myphillyrising-logo.png) center 0 no-repeat scroll;
+    height: 80px;
   }
   .site-description-region {
     background-color: transparent;
-    font-size: 1.5em;
-    line-height: 2.5em;
-    height: 2.5em;
-    float: left;
+    font-size: 1em;
+    line-height: 2em;
+    height: 2em;
+  }
+  .menu-btn {
+    margin: 20px;
+  }
+  .menu-icon {
+    width: 50px;
+    height: 50px;
   }
 }
 
@@ -1140,4 +1144,11 @@ ul.event-attendee-list .avatar {
 }
 
 @media only screen and (min-width: 1300px) {
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
+  .site-title a {
+    background-image: url(../images/myphillyrising-logo.png);
+    background-size: 190px 40px;
+  }
 }
