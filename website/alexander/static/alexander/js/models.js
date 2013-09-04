@@ -16,6 +16,7 @@ var Alexander = Alexander || {};
     fetch: function(options) {
       options = _.extend({
         reset: true,
+        dataType: 'jsonp',
         data: {
           where: '1=1',
           outFields: '*',
