@@ -18,10 +18,11 @@ class TestFeedRefreshing(TestCase):
         Feed.objects.all().delete()
         ContentItem.objects.all().delete()
 
+        # Simple iCal feed
         feed = Feed.objects.create(title='Test Feed', source_url='http://example.com/ics', source_type='ical', default_category='events')
-        self.feed_simple_id = feed.id
-        i1 = ContentItem.objects.create(category='events', displayed_from=datetime(1970, 1, 1), feed_id=self.feed_simple_id, source_id='123@example.com', source_url='http://example.com/ics', source_content='{}')
-        i2 = ContentItem.objects.create(category='events', displayed_from=datetime(1970, 1, 1), feed_id=self.feed_simple_id, source_id='124@example.com', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent124.json')).read(), title='modified title')
+        self.feed_simple_cal_id = feed.id
+        i1 = ContentItem.objects.create(category='events', displayed_from=datetime(1970, 1, 1), feed_id=self.feed_simple_cal_id, source_id='123@example.com', source_url='http://example.com/ics', source_content='{}')
+        i2 = ContentItem.objects.create(category='events', displayed_from=datetime(1970, 1, 1), feed_id=self.feed_simple_cal_id, source_id='124@example.com', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent124.json')).read(), title='modified title')
         self.item_123_id = i1.id
         self.item_124_id = i2.id
 
@@ -53,6 +54,14 @@ class TestFeedRefreshing(TestCase):
         self.item_infinite_outdated_ev_1 = i1.id
         self.item_infinite_outdated_ev_2 = i2.id
 
+        # Simple RSS feed
+        feed = Feed.objects.create(title='Test Feed', source_url='http://example.com/rss', source_type='rss', default_category='stories')
+        self.feed_simple_rss_id = feed.id
+        i1 = ContentItem.objects.create(category='stories', displayed_from=datetime(1970, 1, 1), feed_id=self.feed_simple_rss_id, source_id='www.facebook.com/notification/1', source_url='http://example.com/rss', source_content=open(pathjoin(FIXTURE_DIR, 'teststory1.json')).read(), title='modified title')
+        i2 = ContentItem.objects.create(category='stories', displayed_from=datetime(1970, 1, 1), feed_id=self.feed_simple_rss_id, source_id='www.facebook.com/notification/2', source_url='http://example.com/rss', source_content='{}')
+        self.item_fb1_id = i1.id
+        self.item_fb2_id = i2.id
+
     @patch('alexander.feed_readers.urlopen')
     def test_refresh_creates_new_content(self, urlopen):
         """
@@ -60,7 +69,7 @@ class TestFeedRefreshing(TestCase):
         """
         from alexander.models import Feed, ContentItem
 
-        feed = Feed.objects.get(pk=self.feed_simple_id)
+        feed = Feed.objects.get(pk=self.feed_simple_cal_id)
 
         with open(pathjoin(FIXTURE_DIR, 'testcal123.ics')) as icalfile:
             urlopen.return_value = icalfile
@@ -74,14 +83,14 @@ class TestFeedRefreshing(TestCase):
             assert_equals(num_items + 1, ContentItem.objects.all().count())
 
     @patch('alexander.feed_readers.urlopen')
-    def test_refresh_updates_stale_content(self, urlopen):
+    def test_refresh_updates_stale_events(self, urlopen):
         """
         Tests that stale content items whose content has become out of sync
         with the source feed are updated.
         """
         from alexander.models import Feed, ContentItem
 
-        feed = Feed.objects.get(pk=self.feed_simple_id)
+        feed = Feed.objects.get(pk=self.feed_simple_cal_id)
 
         with open(pathjoin(FIXTURE_DIR, 'testcal123.ics')) as icalfile:
             urlopen.return_value = icalfile
@@ -93,13 +102,13 @@ class TestFeedRefreshing(TestCase):
             assert_equals(item.title, u'This test event’s summary')
 
     @patch('alexander.feed_readers.urlopen')
-    def test_refresh_does_not_update_fresh_content(self, urlopen):
+    def test_refresh_does_not_update_fresh_events(self, urlopen):
         """
-        Tests that fresh content items are not modified.
+        Tests that fresh ical content items are not modified.
         """
         from alexander.models import Feed, ContentItem
 
-        feed = Feed.objects.get(pk=self.feed_simple_id)
+        feed = Feed.objects.get(pk=self.feed_simple_cal_id)
 
         with patch.object(ContentItem, 'save') as item_save:
             with open(pathjoin(FIXTURE_DIR, 'testcal124.ics')) as icalfile:
@@ -120,6 +129,61 @@ class TestFeedRefreshing(TestCase):
                 # Since the item was not saved with the imported information,
                 # the title should still be modified from what's in the feed.
                 assert_equals(item.title, 'modified title')
+
+    @patch('alexander.feed_readers.parserss')
+    def test_refresh_updates_stale_stories(self, parserss):
+        """
+        Tests that stale story items whose content has become out of sync
+        with the source feed are updated.
+        """
+        from alexander.models import Feed, ContentItem
+        import feedparser
+        parserss.return_value = feedparser.parse(pathjoin(FIXTURE_DIR, 'testfbfeed2.rss'))
+
+        feed = Feed.objects.get(pk=self.feed_simple_rss_id)
+
+        original_count = ContentItem.objects.all().count()
+
+        # import pdb; pdb.set_trace()
+        feed.refresh()
+        item = ContentItem.objects.get(pk=self.item_fb2_id)
+        updated_count = ContentItem.objects.all().count()
+
+        assert_equals(original_count, updated_count)
+        assert_equals(item.title, u'Vote 4 @PhillyMDO! RT @StateTech: @PhillyMDO Your blog has been nominated as a m...')
+
+    @patch('alexander.feed_readers.parserss')
+    def test_refresh_does_not_update_fresh_stories(self, parserss):
+        """
+        Tests that fresh rss content items are not modified.
+        """
+        from alexander.models import Feed, ContentItem
+        import feedparser
+        parserss.return_value = feedparser.parse(pathjoin(FIXTURE_DIR, 'testfbfeed1.rss'))
+
+        feed = Feed.objects.get(pk=self.feed_simple_rss_id)
+
+        with patch.object(ContentItem, 'save') as item_save:
+            item = ContentItem.objects.get(pk=self.item_fb1_id)
+            original_count = ContentItem.objects.all().count()
+            content = item.source_content
+
+            # import pdb; pdb.set_trace()
+            feed.refresh()
+            item = ContentItem.objects.get(pk=self.item_fb1_id)
+            updated_count = ContentItem.objects.all().count()
+
+            # No new content items should have been created.
+            assert_equals(original_count, updated_count)
+            # The serialized content in the item should be the same as 
+            # what was loaded in initially from the test fixture.
+            assert_equals(content, item.source_content)
+            # Since the content was the same, the item should not have
+            # had to be saved (i.e., by update_item)
+            assert_false(item_save.called)
+            # Since the item was not saved with the imported information,
+            # the title should still be modified from what's in the feed.
+            assert_equals(item.title, 'modified title')
 
     @patch('alexander.feed_readers.now')
     @patch('alexander.feed_readers.urlopen')

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+      xmlns:media="http://search.yahoo.com/mrss/"
+      xmlns:dc="http://purl.org/dc/elements/1.1/"
+    >
+  <channel>
+    <title>PhillyRising Collaborative&apos;s Facebook Wall</title>
+    <link>https://www.facebook.com/</link>
+    <description>PhillyRising Collaborative&apos;s Facebook Wall</description>
+    <language>en-us</language>
+    <category domain="Facebook">PageSyndicationFeed</category>
+    <generator>Facebook Syndication</generator><docs>http://www.rssboard.org/rss-specification</docs>
+    <lastBuildDate>Thu, 29 Aug 2013 19:19:44 +0000</lastBuildDate>
+    <webMaster>webmaster@facebook.com</webMaster>
+
+    <item>
+      <guid isPermaLink="false">www.facebook.com/notification/1</guid>
+      <title><![CDATA[ Vote 4 &#064;PhillyMDO! RT &#064;StateTech: &#064;PhillyMDO Your blog has been nominated as a m...]]></title>
+      <link>http://www.facebook.com/phillyrisingmdo/posts/693721667321615</link>
+      <description><![CDATA[Vote 4 &#064;PhillyMDO! RT &#064;StateTech: &#064;PhillyMDO Your blog has been nominated as a must-read #gov20 blogâ€¦vote here: <a href="http://www.facebook.com/l.php?u=http%3A%2F%2Ft.co%2FSgJrsX2zg8&amp;h=yAQHKL8tM&amp;s=1" rel="nofollow nofollow" target="_blank" onmouseover="LinkshimAsyncLink.swap(this, &quot;http:\/\/t.co\/SgJrsX2zg8&quot;);" onclick="LinkshimAsyncLink.referrer_log(this, &quot;http:\/\/t.co\/SgJrsX2zg8&quot;, &quot;https:\/\/www.facebook.com\/si\/ajax\/l\/render_linkshim_log\/?u=http\u00253A\u00252F\u00252Ft.co\u00252FSgJrsX2zg8&amp;h=yAQHKL8tM&amp;s=1&quot;);">http://t.co/SgJrsX2zg8</a><br/><br/><a href="http://www.facebook.com/l.php?u=http%3A%2F%2Ft.co%2FSgJrsX2zg8&amp;h=hAQFCCwJc&amp;s=1" id="" title="" target="" onclick="LinkshimAsyncLink.referrer_log(this, &quot;http:\/\/t.co\/SgJrsX2zg8&quot;, &quot;https:\/\/www.facebook.com\/si\/ajax\/l\/render_linkshim_log\/?u=http\u00253A\u00252F\u00252Ft.co\u00252FSgJrsX2zg8&amp;h=hAQFCCwJc&amp;s=1&quot;);" style="" rel="nofollow" onmouseover="LinkshimAsyncLink.swap(this, &quot;http:\/\/t.co\/SgJrsX2zg8&quot;);"><img class="img" src="https://fbexternal-a.akamaihd.net/app_full_proxy.php?app=2231777543&amp;v=1&amp;size=z&amp;cksum=298b058a9c4271b033a7eb31ed4cbe5f&amp;src=http%3A%2F%2Fwww.statetechmagazine.com%2Fsites%2Fdefault%2Ffiles%2Farticles%2F2013%2F08%2Fstatetech-bloggers-2013-300.png" alt="" /></a><br/><a href="http://www.facebook.com/l.php?u=http%3A%2F%2Ft.co%2FSgJrsX2zg8&amp;h=gAQE5tT96&amp;s=1" id="" target="_blank" onclick="LinkshimAsyncLink.referrer_log(this, &quot;http:\/\/t.co\/SgJrsX2zg8&quot;, &quot;https:\/\/www.facebook.com\/si\/ajax\/l\/render_linkshim_log\/?u=http\u00253A\u00252F\u00252Ft.co\u00252FSgJrsX2zg8&amp;h=gAQE5tT96&amp;s=1&quot;);" style="" rel="nofollow" onmouseover="LinkshimAsyncLink.swap(this, &quot;http:\/\/t.co\/SgJrsX2zg8&quot;);">StateTechâ€™s 2013 â€œMust-Read IT Blogsâ€ Nominees</a><br/>ow.ly<br/>Help StateTech create the ultimate list of state and local government tech blogs.]]></description>
+      <pubDate>Thu, 22 Aug 2013 00:07:19 +0100</pubDate>
+      <author>PhillyRising Collaborative</author>
+      <dc:creator>PhillyRising Collaborative</dc:creator>
+    </item>
+
+  </channel>
+  <access:restriction relationship="deny" xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" />
+</rss>

@@ -11,7 +11,7 @@ import re
 
 # Optional packages
 try:
-    import feedparser  # For parsing RSS and ATOM
+    from feedparser import parse as parserss  # For parsing RSS and ATOM
 except ImportError:
     pass
 
@@ -74,9 +74,18 @@ class FeedReader (object):
         """
         raise NotImplementedError
 
-    def update_item(self, item, item_data):
+    def get_occurrence_count(self, item_data):
         """
-        Save the given data into the item model.
+        Get the number of models that will correspond to the given source item
+        data, and the dates between which that number of items occur. This will
+        all be returned as a tuple of (count, start_date, end_date), where each
+        of the dates can be None if they are unbounded or indeterminate.
+        """
+        raise NotImplementedError
+
+    def update_items(self, items, item_data):
+        """
+        Save the given data into the item model(s).
         """
         raise NotImplementedError
 
@@ -86,7 +95,7 @@ class RSSFeedReader (FeedReader):
         msg = _('Retrieving items from RSS feed at %s.') % (self.url,)
         logger.info(msg)
 
-        feed_data = feedparser.parse(self.url)
+        feed_data = parserss(self.url)
         if len(feed_data.entries) == 0:
             msg = _('The RSS feed at "%s" has no items in it. '
                     'Are you sure the address is right?') % (self.url,)
@@ -111,10 +120,14 @@ class RSSFeedReader (FeedReader):
         item_data.pop('updated_parsed', None)
         return item_data
 
+    def get_occurrence_count(self, item_data):
+        return 1, None, None
+
     def update_items(self, items, item_data):
         if len(items) > 1:
             raise ValueError('There should only ever be exactly one-to-one '
                              'relationships between items in RSS feeds.')
+        item = items[0]
 
         published_at = item_data.pop('published_parsed', None)
         updated_at = item_data.pop('updated_parsed', None)
