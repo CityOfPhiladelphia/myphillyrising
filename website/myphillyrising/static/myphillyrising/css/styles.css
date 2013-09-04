@@ -1120,6 +1120,17 @@ ul.event-attendee-list .avatar {
     width: 50px;
     height: 50px;
   }
+  .btn-breadcrumb {
+    height: 50px;
+  }
+  .breadcrumb-icon {
+    height: 38px;
+    width: 38px;
+  }
+  .breadcrumb-arrows {
+    font-size: 44px;
+    line-height: 46px;
+  }
 }
 
 @media only screen and (min-width: 1024px) {
