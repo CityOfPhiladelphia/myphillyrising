@@ -1,4 +1,6 @@
 *.py[cod]
+celerybeat-schedule
+*.schedulers.DatabaseScheduler
 
 # C extensions
 *.so
