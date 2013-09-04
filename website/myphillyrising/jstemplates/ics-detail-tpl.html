@@ -6,7 +6,7 @@
       <h3 class="item-title detail-title">{{{ title }}}</h3>
 
       <div class="item-meta detail-meta">
-        <p class="date"><a href="#" title="Permalink to {{ title }}" rel="bookmark">
+        <p class="date">
           <time datetime="{{ displayed_from }}">
             <span class="calendar-icon">
               <span class="day">{{ prettyday displayed_from }}</span>
@@ -20,9 +20,9 @@
               {{/if}}
             </span>
           </time>
-        </a></p>
+        </p>
         {{#if source_content.LOCATION}}
-        <p class="location"><img class="icon-inline icon-location" src="{{ STATIC_URL }}myphillyrising/images/icon-location.png" />{{{ source_content.LOCATION }}}</p>
+        <p class="location"><a href="http://maps.google.com/?q={{{ source_content.LOCATION }}}&near=Philadelphia, PA&ll={{lat}},{{lng}}" target="_blank"><img class="icon-inline icon-location" src="{{ STATIC_URL }}myphillyrising/images/icon-location.png" />{{{ source_content.LOCATION }}}</a></p>
         {{/if}}
       </div>
     </div>

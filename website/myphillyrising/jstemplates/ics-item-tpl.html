@@ -18,7 +18,7 @@
             </time>
           </p>
           {{#if source_content.LOCATION}}
-          <p class="location"><img class="icon-inline icon-location" src="{{ STATIC_URL }}myphillyrising/images/gray-icon-map.png" />{{{ source_content.LOCATION }}}</p>
+          <p class="location"><a href="http://maps.google.com/?q={{{ source_content.LOCATION }}}&near=Philadelphia, PA&ll={{lat}},{{lng}}" target="_blank"><img class="icon-inline icon-location" src="{{ STATIC_URL }}myphillyrising/images/icon-location.png" />{{{ source_content.LOCATION }}}</a></p>
           {{/if}}
         </div>
       </div>
