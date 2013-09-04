@@ -610,6 +610,11 @@ a.logout-link:visited {
   font-size: 0.8em;
   color: #ffbfca;
 }
+.neighborhood-subheader > div,
+.neighborhood-subheader > a {
+  clear: both;
+  margin-top: 10px;
+}
 
 .neighborhood-content {
   background-color: #ebeff3;
