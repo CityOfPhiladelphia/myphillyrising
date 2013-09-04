@@ -35,7 +35,8 @@ var MyPhillyRising = MyPhillyRising || {};
       NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({
         model: new Backbone.Model({
           url: '/' + NS.app.currentNeighborhood,
-          label: 'Home'
+          label: 'Home',
+          type: 'home'
         })
       }));
     },
@@ -46,7 +47,8 @@ var MyPhillyRising = MyPhillyRising || {};
       NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({
         model: new Backbone.Model({
           url: '/' + NS.app.currentNeighborhood,
-          label: 'Home'
+          label: 'Home',
+          type: 'home'
         })
       }));
     },
@@ -93,7 +95,8 @@ var MyPhillyRising = MyPhillyRising || {};
         NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({
           model: new Backbone.Model({
             url: '/' + NS.app.currentNeighborhood,
-            label: 'Home'
+            label: 'Home',
+            type: 'home'
           })
         }));
       } else {
@@ -118,7 +121,8 @@ var MyPhillyRising = MyPhillyRising || {};
             NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({
               model: new Backbone.Model({
                 url: '/' + NS.app.currentNeighborhood + '/events',
-                label: 'Events'
+                label: 'Events',
+                type: 'calendar'
               })
             }));
 
@@ -131,7 +135,8 @@ var MyPhillyRising = MyPhillyRising || {};
             NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({
               model: new Backbone.Model({
                 url: '/' + NS.app.currentNeighborhood + '/resources',
-                label: 'Resources'
+                label: 'Resources',
+                type: 'book'
               })
             }));
           } else if (category === 'stories') {
@@ -143,7 +148,8 @@ var MyPhillyRising = MyPhillyRising || {};
             NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({
               model: new Backbone.Model({
                 url: '/' + NS.app.currentNeighborhood + '/stories',
-                label: 'Stories'
+                label: 'Stories',
+                type: 'balloon'
               })
             }));
           } else {
@@ -154,7 +160,8 @@ var MyPhillyRising = MyPhillyRising || {};
             NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({
               model: new Backbone.Model({
                 url: '/' + NS.app.currentNeighborhood,
-                label: 'Home'
+                label: 'Home',
+                type: 'home'
               })
             }));
 
@@ -206,7 +213,8 @@ var MyPhillyRising = MyPhillyRising || {};
         NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({
           model: new Backbone.Model({
             url: '/' + NS.app.currentNeighborhood,
-            label: 'Home'
+            label: 'Home',
+            type: 'home'
           })
         }));
 
