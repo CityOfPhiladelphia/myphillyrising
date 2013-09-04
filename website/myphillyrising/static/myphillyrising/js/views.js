@@ -141,8 +141,8 @@ var MyPhillyRising = MyPhillyRising || {};
 
     onClick: function(evt) {
       // Hide the menu
-      $("body").removeClass("is-open-off-canvas-left");
-      $("body").removeClass("is-open-off-canvas-right");
+      $('body').removeClass('is-open-off-canvas-left');
+      $('body').removeClass('is-open-off-canvas-right');
 
       // Select as the current neighborhood
       $('.is-current-neighborhood').removeClass('is-current-neighborhood');
@@ -153,7 +153,15 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.NeighborhoodMenuView = Backbone.Marionette.CompositeView.extend({
     template: '#neighborhood-menu-tpl',
     itemView: NS.NeighborhoodMenuItemView,
-    itemViewContainer: '.neighborhood-list'
+    itemViewContainer: '.neighborhood-list',
+    events: {
+      'click .content-link': 'hideMenus'
+    },
+    hideMenus: function() {
+      // Hide the menu
+      $('body').removeClass('is-open-off-canvas-left');
+      $('body').removeClass('is-open-off-canvas-right');
+    }
   });
 
   NS.PaginatedCompositeView = Backbone.Marionette.CompositeView.extend({
