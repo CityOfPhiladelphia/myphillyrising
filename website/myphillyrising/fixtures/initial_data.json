@@ -195,11 +195,6 @@
     "fields": {}
   },
   {
-    "pk": "pennrose",
-    "model": "alexander.contenttag",
-    "fields": {}
-  },
-  {
     "pk": "penrose",
     "model": "alexander.contenttag",
     "fields": {}

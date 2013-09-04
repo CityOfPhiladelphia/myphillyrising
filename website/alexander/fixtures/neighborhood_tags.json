@@ -1,77 +1,72 @@
 [
 {
-  "pk": "elmwood", 
-  "model": "alexander.contenttag", 
+  "pk": "elmwood",
+  "model": "alexander.contenttag",
   "fields": {}
 },
 {
-  "pk": "frankford", 
-  "model": "alexander.contenttag", 
+  "pk": "frankford",
+  "model": "alexander.contenttag",
   "fields": {}
 },
 {
-  "pk": "haddington", 
-  "model": "alexander.contenttag", 
+  "pk": "haddington",
+  "model": "alexander.contenttag",
   "fields": {}
 },
 {
-  "pk": "hartranft", 
-  "model": "alexander.contenttag", 
+  "pk": "hartranft",
+  "model": "alexander.contenttag",
   "fields": {}
 },
 {
-  "pk": "kensington", 
-  "model": "alexander.contenttag", 
+  "pk": "kensington",
+  "model": "alexander.contenttag",
   "fields": {}
 },
 {
-  "pk": "kingsessing", 
-  "model": "alexander.contenttag", 
+  "pk": "kingsessing",
+  "model": "alexander.contenttag",
   "fields": {}
 },
 {
-  "pk": "lawncrest", 
-  "model": "alexander.contenttag", 
+  "pk": "lawncrest",
+  "model": "alexander.contenttag",
   "fields": {}
 },
 {
-  "pk": "market-east", 
-  "model": "alexander.contenttag", 
+  "pk": "market-east",
+  "model": "alexander.contenttag",
   "fields": {}
 },
 {
-  "pk": "north-central", 
-  "model": "alexander.contenttag", 
+  "pk": "north-central",
+  "model": "alexander.contenttag",
   "fields": {}
 },
 {
-  "pk": "pennrose", 
-  "model": "alexander.contenttag", 
+  "pk": "point-breeze",
+  "model": "alexander.contenttag",
   "fields": {}
 },
 {
-  "pk": "point-breeze", 
-  "model": "alexander.contenttag", 
+  "pk": "southeast",
+  "model": "alexander.contenttag",
   "fields": {}
 },
 {
-  "pk": "southeast", 
-  "model": "alexander.contenttag", 
+  "pk": "st-hughs",
+  "model": "alexander.contenttag",
   "fields": {}
 },
 {
-  "pk": "st-hughs", 
-  "model": "alexander.contenttag", 
+  "pk": "strawberry-mansion",
+  "model": "alexander.contenttag",
   "fields": {}
 },
 {
-  "pk": "strawberry-mansion", 
-  "model": "alexander.contenttag", 
-  "fields": {}
-},
-{
-  "pk": "swampoodle-allegheny-west", 
-  "model": "alexander.contenttag", 
+  "pk": "swampoodle-allegheny-west",
+  "model": "alexander.contenttag",
   "fields": {}
 }
 ]
