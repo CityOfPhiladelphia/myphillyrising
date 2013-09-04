@@ -712,12 +712,6 @@ a.logout-link:visited {
   font-size: 0.8em;
   color: #888;
 }
-.item-meta a {
-  color: #888;
-}
-.item-meta a:hover {
-  color: #555;
-}
 .item-content {
   line-height: 1.5;
   clear: both;
