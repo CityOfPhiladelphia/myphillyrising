@@ -261,6 +261,24 @@ LOGGING = {
 
 ################################################################################
 #
+# Periodic Tasks
+#
+
+from datetime import timedelta
+
+CELERYBEAT_SCHEDULE = {
+    'refresh-feeds-every-hour': {
+        'task': 'alexander.tasks.refresh_feeds',
+        'schedule': timedelta(minutes=60),
+        'kwargs': {'individually': True}
+    },
+}
+
+CELERY_TIMEZONE = 'UTC'
+
+
+################################################################################
+#
 # Geocoder Settings
 #
 

@@ -10,12 +10,15 @@ logger = logging.getLogger(__name__)
 
 
 @task
-def refresh_feeds(feed_ids, individually=False):
+def refresh_feeds(feed_ids=None, individually=False):
+    if feed_ids is None:
+        feed_ids = [feed.id for feed in Feed.objects.all()]
+
     if individually:
         # When run with individually set to True, each feed is updated in its
         # own subtask (s). This will prevent things like
         tasks = [refresh_feed.s(feed_id) for feed_id in feed_ids]
-        group(tasks)
+        group(tasks).apply_async()
     else:
         feeds = Feed.objects.filter(pk__in=feed_ids)
         feeds.refresh()
