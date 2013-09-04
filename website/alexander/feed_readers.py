@@ -139,9 +139,9 @@ class RSSFeedReader (FeedReader):
         item.displayed_from = datetime.fromtimestamp(mktime(published_at or updated_at))
         item.source_content = json.dumps(item_data, sort_keys=True)
         item.source_url = item_data.get('link') or item_data.get('id')
+        item.source_id = item_data.get('id') or item_data.get('link')
 
         item.last_read_at = now()
-        item.save()
 
 
 class ICalFeedReader (FeedReader):
@@ -262,12 +262,6 @@ class ICalFeedReader (FeedReader):
             item.address = unicode(item_data['LOCATION'])
 
         item.last_read_at = now()
-        is_new = item.pk is None
-        item.save()
-
-        if is_new:
-            for t in item.feed.default_tags.all():
-                item.tags.add(t)
 
     def update_items(self, items, item_data):
         item_data = self.prepare_item_content(item_data)

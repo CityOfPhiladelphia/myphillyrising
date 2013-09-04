@@ -57,7 +57,9 @@ class Feed (models.Model):
         changes to the feed's items.
         """
         feed_source = get_feed_reader(self.source_type, url=self.source_url)
-        refreshed_items = []
+        changed_items = []
+        new_items = []
+        all_items = []
         is_new = lambda item: item.pk is None
 
         for item_source in feed_source:
@@ -85,12 +87,23 @@ class Feed (models.Model):
             if has_new or has_changed:
                 feed_source.update_items(items, item_source)
 
-            refreshed_items.extend((item, is_new(item) or has_changed) for item in items)
+            new_items.extend(item for item in items if is_new(item))
+            changed_items.extend(items if (has_new or has_changed) else [])
+            all_items.extend((item, has_new or has_changed) for item in items)
+
+        # Save everything that's new or changed
+        for item in changed_items:
+            item.save()
+
+        # Apply tags to everything that's new
+        for item in new_items:
+            tags = tuple(item.feed.default_tags.all())
+            item.tags.add(*tags)
 
         self.last_read_at = now()
         self.save()
 
-        return refreshed_items
+        return all_items
 
 
 class ContentItem (models.Model):
