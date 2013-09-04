@@ -1,7 +1,44 @@
+/*globals jQuery _ Backbone */
+
 var MyPhillyRising = MyPhillyRising || {};
 
 (function(NS) {
   "use strict";
+
+  // Array indexOf Polyfill
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FGlobal_Objects%2FArray%2FindexOf
+  if (!Array.prototype.indexOf) {
+    Array.prototype.indexOf = function (searchElement /*, fromIndex */ ) {
+      'use strict';
+      if (this == null) {
+        throw new TypeError();
+      }
+      var n, k, t = Object(this),
+          len = t.length >>> 0;
+
+      if (len === 0) {
+        return -1;
+      }
+      n = 0;
+      if (arguments.length > 1) {
+        n = Number(arguments[1]);
+        if (n != n) { // shortcut for verifying if it's NaN
+          n = 0;
+        } else if (n != 0 && n != Infinity && n != -Infinity) {
+          n = (n > 0 || -1) * Math.floor(Math.abs(n));
+        }
+      }
+      if (n >= len) {
+        return -1;
+      }
+      for (k = n >= 0 ? n : Math.max(len - Math.abs(n), 0); k < len; k++) {
+        if (k in t && t[k] === searchElement) {
+          return k;
+        }
+      }
+      return -1;
+    };
+  }
 
   NS.Utils = _.extend(NS.Utils || {}, {
     getCurrentPath: function() {
@@ -61,10 +98,10 @@ var MyPhillyRising = MyPhillyRising || {};
     log: function() {
       if (window.ga) {
         window.ga.apply(window, arguments);
-      } else if (window.console.log) {
+      } else if (window.console) {
         window.console.log(Array.prototype.slice.call(arguments, 0));
       }
-    },
+    }
 
   });
-})(MyPhillyRising);
+}(MyPhillyRising));

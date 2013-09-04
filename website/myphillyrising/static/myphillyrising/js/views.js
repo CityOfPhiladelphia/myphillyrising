@@ -151,8 +151,8 @@ var MyPhillyRising = MyPhillyRising || {};
 
     onClick: function(evt) {
       // Hide the menu
-      $("body").removeClass("is-open-off-canvas-left");
-      $("body").removeClass("is-open-off-canvas-right");
+      $('body').removeClass('is-open-off-canvas-left');
+      $('body').removeClass('is-open-off-canvas-right');
 
       // Select as the current neighborhood
       $('.is-current-neighborhood').removeClass('is-current-neighborhood');
@@ -164,6 +164,14 @@ var MyPhillyRising = MyPhillyRising || {};
     template: '#neighborhood-menu-tpl',
     itemView: NS.NeighborhoodMenuItemView,
     itemViewContainer: '.neighborhood-list',
+    events: {
+      'click .content-link': 'hideMenus'
+    },
+    hideMenus: function() {
+      // Hide the menu
+      $('body').removeClass('is-open-off-canvas-left');
+      $('body').removeClass('is-open-off-canvas-right');
+    }
   });
 
   NS.PaginatedCompositeView = Backbone.Marionette.CompositeView.extend({
@@ -264,8 +272,6 @@ var MyPhillyRising = MyPhillyRising || {};
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     },
     renderUsers: function() {
-      console.log('render users for', this.model.get('tag'));
-
       this.usersRegion1.show(new NS.HomeUserListView({
         model: this.model,
         collection: new Backbone.Collection(this.model.collections.users.slice(0, 3))
@@ -285,24 +291,18 @@ var MyPhillyRising = MyPhillyRising || {};
 
     },
     renderEvents: function() {
-      console.log('render events for', this.model.get('tag'));
-
       this.eventsRegion1.show(new NS.HomeEventListView({
         model: this.model,
         collection: new Backbone.Collection(this.model.collections.events.slice(0, 1))
       }));
     },
     renderResources: function() {
-      console.log('render resources for', this.model.get('tag'));
-
       this.resourcesRegion1.show(new NS.HomeResourceListView({
         model: this.model,
         collection: new Backbone.Collection(this.model.collections.resources.slice(0, 1))
       }));
     },
     renderStories: function() {
-      console.log('render stories for', this.model.get('tag'));
-
       this.storiesRegion1.show(new NS.HomeStoryListView({
         model: this.model,
         collection: new Backbone.Collection(this.model.collections.stories.slice(0, 3))
@@ -590,12 +590,12 @@ var MyPhillyRising = MyPhillyRising || {};
         markerLayer = L.marker([geom.y, geom.x], {
           data: model.toJSON(),
           icon: L.icon({
-            iconUrl: NS.staticURL + 'myphillyrising/images/markers/marker-'+model.get('type')+'.png',
+            iconUrl: NS.staticURL + 'myphillyrising/images/markers/' + (model.get('icon') || 'marker-default.png'),
             iconSize: [25, 41],
             iconAnchor: [12, 41],
             popupAnchor: [1, -34],
 
-            shadowUrl: NS.staticURL + 'myphillyrising/images/markers/marker-shadow.png',
+            shadowUrl: NS.staticURL + 'myphillyrising/images/markers/' + (model.get('iconShadow') || 'marker-shadow.png'),
             shadowSize: [41, 41]
           })
         });
