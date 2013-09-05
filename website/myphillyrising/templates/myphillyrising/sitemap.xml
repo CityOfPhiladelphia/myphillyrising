@@ -4,29 +4,29 @@
 
    <url>
       <loc>http://{{ request.get_host }}</loc>
-      <lastmod>{{ settings.LAST_DEPLOY_DATE }}</lastmod>
-      <changefreq>daily</changefreq>
+      <lastmod>{{ settings.LAST_DEPLOY_DATE|slice:":10" }}</lastmod>
+      <changefreq>monthly</changefreq>
       <priority>1.0</priority>
    </url>
 
    <url>
       <loc>http://{{ request.get_host }}/about</loc>
-      <lastmod>{{ settings.LAST_DEPLOY_DATE }}</lastmod>
-      <changefreq>daily</changefreq>
+      <lastmod>{{ settings.LAST_DEPLOY_DATE|slice:":10" }}</lastmod>
+      <changefreq>yearly</changefreq>
       <priority>0.8</priority>
    </url>
 
    <url>
       <loc>http://{{ request.get_host }}/contact</loc>
-      <lastmod>{{ settings.LAST_DEPLOY_DATE }}</lastmod>
-      <changefreq>daily</changefreq>
+      <lastmod>{{ settings.LAST_DEPLOY_DATE|slice:":10" }}</lastmod>
+      <changefreq>yearly</changefreq>
       <priority>0.4</priority>
    </url>
 
 {% for neighborhood in neighborhood_data %}
    <url>
       <loc>http://{{ request.get_host }}/{{ neighborhood.tag }}</loc>
-      <lastmod>{{ settings.LAST_DEPLOY_DATE }}</lastmod>
+      <lastmod>{{ settings.LAST_DEPLOY_DATE|slice:":10" }}</lastmod>
       <changefreq>daily</changefreq>
       <priority>0.6</priority>
    </url>
