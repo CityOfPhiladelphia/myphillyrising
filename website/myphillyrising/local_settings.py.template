@@ -1,6 +1,6 @@
 from os import environ
 
-DEBUG = 'True'
+DEBUG = True
 
 DATABASES = {
     'default': {
@@ -14,6 +14,7 @@ DATABASES = {
 }
 
 SECRET_KEY = '0xyj_n)ut)c=d98*+=e$iyk1wkbi4t)1)kyoij87jb1av*z*o'
+LAST_DEPLOY_DATE = '1970-01-01T00:00+00:00'
 
 # For authenticating users with social auth
 TWITTER_CONSUMER_KEY = environ.get('TWITTER_CONSUMER_KEY')
