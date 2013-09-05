@@ -10,7 +10,7 @@ module.exports = function(grunt) {
       dist: {
         files: [
           {
-            dest: 'static/js/components.min.js',
+            dest: 'static/myphillyrising/js/components.min.js',
             src: [
               'static/components/jquery/jquery.js',
               'static/components/underscore/underscore-min.js',
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
             ]
           },
           {
-            dest: 'static/js/app.min.js',
+            dest: 'static/myphillyrising/js/app.min.js',
             src: [
               '../alexander/static/alexander/js/utils.js',
               '../alexander/static/alexander/js/models.js',
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
             ]
           },
           {
-            dest: 'static/js/modernizr.min.js',
+            dest: 'static/myphillyrising/js/modernizr.min.js',
             src: [
               'static/components/modernizr/modernizr.js'
             ]
@@ -54,14 +54,14 @@ module.exports = function(grunt) {
       dist: {
         files: [
           {
-            dest: 'static/css/components.min.css',
+            dest: 'static/myphillyrising/css/components.min.css',
             src: [
               'static/components/normalize-css/normalize.css',
               'static/components/leaflet/dist/leaflet.css'
             ]
           },
           {
-            dest: 'static/css/styles.min.css',
+            dest: 'static/myphillyrising/css/styles.min.css',
             src: [
               'static/myphillyrising/css/styles.css'
             ]

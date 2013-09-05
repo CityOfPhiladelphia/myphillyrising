@@ -15,7 +15,13 @@
       <link href="{{ STATIC_URL }}components/bootstrap/docs/assets/css/bootstrap.css" rel="stylesheet">
       <link href="{{ STATIC_URL }}components/select2/select2.css" rel="stylesheet"/>
       <link href="{{ STATIC_URL }}alexander/css/styles.css" rel="stylesheet" type="text/css" media="screen, projection" />
+
+      {% if debug %}
       <script src="{{ STATIC_URL }}components/modernizr/modernizr.js"></script>
+      {% else %}
+      <script src="{{ STATIC_URL }}alexander/js/modernizr.min.js"></script>
+      {% endif %}
+
       {% block css %}{% endblock %}
   </head>
   <body>
@@ -80,8 +86,8 @@
   <script src="{{ STATIC_URL }}alexander/js/admin-views.js"></script>
 
   {% else %}
-  <script src="{{ STATIC_URL }}js/admin-components.min.js"></script>
-  <script src="{{ STATIC_URL }}js/admin-app.min.js"></script>
+  <script src="{{ STATIC_URL }}alexander/js/admin-components.min.js"></script>
+  <script src="{{ STATIC_URL }}alexander/js/admin-app.min.js"></script>
   {% endif %}
   {% block javascripts %}{% endblock %}
 

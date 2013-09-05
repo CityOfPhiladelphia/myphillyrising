@@ -10,7 +10,7 @@ module.exports = function(grunt) {
       dist: {
         files: [
           {
-            dest: 'static/js/admin-components.min.js',
+            dest: 'static/alexander/js/admin-components.min.js',
             src: [
               'static/components/jquery/jquery.min.js',
               'static/components/bootstrap/docs/assets/js/bootstrap.js',
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
             ]
           },
           {
-            dest: 'static/js/admin-app.min.js',
+            dest: 'static/alexander/js/admin-app.min.js',
             src: [
               'static/alexander/js/django-csrf.js',
               '../myphillyrising/static/myphillyrising/js/utils.js',
@@ -36,7 +36,7 @@ module.exports = function(grunt) {
             ]
           },
           {
-            dest: 'static/js/modernizr.min.js',
+            dest: 'static/alexander/js/modernizr.min.js',
             src: [
               'static/components/modernizr/modernizr.js'
             ]
