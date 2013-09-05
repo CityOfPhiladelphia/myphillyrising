@@ -632,18 +632,14 @@ a.logout-link:visited {
   margin: 0 -10px;
   padding: 0 0 10px 0;
   font-size: 0.8em;
+  position: relative;
+  overflow: hidden;
 }
 
+.column-20-right { width: 20%; float: right; }
 .column-40-right { width: 40%; float: right; }
 .column-60-left { width: 60%; float: left; }
-
-.neighbors-list .avatar {
-  float: left;
-  width: 20%;
-  height: auto;
-}
-.column-40-right .avatar { width: 50%; }
-.column-60-left .avatar { width: 33.333333%; }
+.column-80-left { width: 80%; float: left; }
 
 .neighborhood-widget {
   margin: 0;
@@ -681,13 +677,31 @@ a.logout-link:visited {
   text-decoration: none;
 }
 
-.users-widget {}
+.users-widget {
+  clear: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.users-widget .avatar {
+  width: 100%;
+  height: auto;
+}
 
 .resources-widget {}
 
 .stories-widget {}
 
-.events-widget {}
+.places-widget {
+  width: 50%;
+  float: right;
+  clear: none;
+}
+
+.events-widget {
+  width: 50%;
+  float: left;
+}
 .events-widget .date {
   text-transform: uppercase;
   font-size: 2em;
@@ -714,9 +728,17 @@ a.logout-link:visited {
 }
 
 .about-widget {
-  padding: 10px 10px 20px;
+  padding: 0 10px 20px;
   margin-bottom: 10px;
-  border-bottom: 1px solid #d0d3d7;
+}
+#disqus_thread {
+  background: #ebeff3;
+  position: relative;
+  z-index: 50;
+  border-top: 1px solid rgba(0,0,0,0.2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.75);
+  margin: 0 -10px;
+  padding: 15px 10px;
 }
 
 /* Items */
@@ -1140,6 +1162,7 @@ ul.event-attendee-list .avatar {
     background: transparent;
     box-shadow: none;
     border: 0;
+    overflow: visible;
   }
   #disqus_thread {
     float: right;
