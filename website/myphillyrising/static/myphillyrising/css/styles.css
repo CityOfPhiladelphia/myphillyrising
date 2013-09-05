@@ -1,4 +1,3 @@
-
 /* =Base Styles
 -------------------------------------------------------------- */
 
@@ -804,6 +803,11 @@ a.close-btn:hover {
   font-weight: 100;
   float: left;
   margin-right: 6px;
+}
+
+/* Hide RSS "Add a comment" button */
+.detail-content a[rel="nofollow"] {
+  display: none;
 }
 
 /* Events */
