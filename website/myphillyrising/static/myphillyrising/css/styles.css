@@ -912,10 +912,21 @@ ul.event-attendee-list {
   margin-right: -20px;
   margin-left: -20px;
 }
-ul.event-attendee-list .avatar {
+ul.event-attendee-list li {
   float: left;
   width: 20%;
+  position: relative;
+}
+ul.event-attendee-list .avatar {
+  width: 100%;
   height: auto;
+}
+.checked-in-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 34px;
 }
 
 /* Map */
@@ -1046,10 +1057,7 @@ ul.event-attendee-list .avatar {
 .notification-points {
   margin: 0;
 }
-.notification-reason {
-  font-size: 0.75em;
-  text-transform: uppercase;
-}
+.notification-reason {}
 
 
 /* =Media Queries for Responsive Layout

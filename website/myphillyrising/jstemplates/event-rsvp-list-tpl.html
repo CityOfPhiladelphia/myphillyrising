@@ -31,6 +31,9 @@
 
 <ul class="event-attendee-list unstyled-list clearfix">
   {{# each_action 'rsvp' }}
-    <img class="avatar rsvpd{{# has_taken_action user 'check-in' .. }} checked-in{{/ has_taken_action}}" src="{{ user.avatar_url }}" alt="{{ user.full_name }}">
+    <li>
+      <img class="avatar rsvpd" src="{{ user.avatar_url }}" alt="{{ user.full_name }}">
+      {{# has_taken_action user 'check-in' .. }}<img class="checked-in-icon" src="{{ STATIC_URL }}myphillyrising/images/checked-in.png">{{/ has_taken_action}}
+    </li>
   {{/ each_action }}
 </ul>
