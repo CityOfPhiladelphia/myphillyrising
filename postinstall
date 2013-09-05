@@ -181,7 +181,7 @@ if [ "`dotcloud_get_env SSL_ENABLED`" = "True" ] ; then
   cat >> nginx.conf <<EOF
 server {
     listen         [::]:80;
-    return 301 https://$host$request_uri;
+    return 301 https://\$host\$request_uri;
 }
 EOF
 else
