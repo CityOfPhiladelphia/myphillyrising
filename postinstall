@@ -178,12 +178,8 @@ EOF
 
 if [ "`dotcloud_get_env SSL_ENABLED`" = "True" ] ; then
   echo "Configuring nginx to redirect to secure requests..."
-  cat >> nginx.conf <<EOF
-server {
-    listen         [::]:80;
-    return 301 https://\$host\$request_uri;
-}
-EOF
+  echo "listen         [::]:80;" >> nginx.conf
+  echo "return 301 https://\$host\$request_uri;" >> nginx.conf
 else
   shout "${BOLD}${YELLOW}WARNING: ${NORMAL}Non-secure (HTTP) requests will not be forwarded to secure (HTTPS). Set the SSL_ENABLED environment variable to 'True' to change this behavior."
 fi
