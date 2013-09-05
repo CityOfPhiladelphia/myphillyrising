@@ -5,12 +5,12 @@ barf() { shout "$*"; exit 111; }
 safe() { "$@" || barf "cannot $*"; }
 
 # Text styles
-BOLD="\[$(tput bold)\]"
-GREEN="\[$(tput setaf 2)\]"
-BLUE="\[$(tput setaf 4)\]"
-YELLOW="\[$(tput setaf 3)\]"
-RED="\[$(tput setaf 1)\]"
-NORMAL="\[$(tput sgr0)\]"
+BOLD="$(tput bold)"
+GREEN="$(tput setaf 2)"
+BLUE="$(tput setaf 4)"
+YELLOW="$(tput setaf 3)"
+RED="$(tput setaf 1)"
+NORMAL="$(tput sgr0)"
 
 # =============================================================================
 # Post-install hook file for configuring dotcloud server
@@ -178,7 +178,7 @@ EOF
 
 if [ "`dotcloud_get_env SSL_ENABLED`" = "True" ] ; then
   echo "Configuring nginx to redirect to secure requests..."
-  cat >> ngingx.conf <<EOF
+  cat >> nginx.conf <<EOF
 server {
     listen         [::]:80;
     return 301 https://$host$request_uri;
