@@ -86,8 +86,8 @@
   <script src="{{ STATIC_URL }}alexander/js/admin-views.js"></script>
 
   {% else %}
-  <script src="{{ STATIC_URL }}alexander/js/admin-components.min.js"></script>
-  <script src="{{ STATIC_URL }}alexander/js/admin-app.min.js"></script>
+  <script src="{{ STATIC_URL }}alexander/js/admin-components.min.js?d={{ settings.LAST_DEPLOY_DATE }}"></script>
+  <script src="{{ STATIC_URL }}alexander/js/admin-app.min.js?d={{ settings.LAST_DEPLOY_DATE }}"></script>
   {% endif %}
   {% block javascripts %}{% endblock %}
 

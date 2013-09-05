@@ -42,8 +42,8 @@
 
   <script src="{{ STATIC_URL }}components/modernizr/modernizr.js"></script>
   {% else %}
-  <link rel="stylesheet" href="{{ STATIC_URL }}myphillyrising/css/components.min.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="{{ STATIC_URL }}myphillyrising/css/styles.min.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}myphillyrising/css/components.min.css?d={{ settings.LAST_DEPLOY_DATE }}" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}myphillyrising/css/styles.min.css?d={{ settings.LAST_DEPLOY_DATE }}" type="text/css" media="screen, projection" />
   <script src="{{ STATIC_URL }}myphillyrising/js/modernizr.min.js"></script>
   {% endif %}
 
