@@ -34,7 +34,7 @@ class MyPhillyRisingViewMixin (object):
             # include actions that are null, because those will correspond to
             # users that yet have no points.
             .filter(
-                Q(actions__awarded_at__gt=now() - timedelta(days=30)) | 
+                Q(actions__awarded_at__gt=now() - timedelta(days=30)) |
                 Q(actions__awarded_at__isnull=True)
             )
 
@@ -52,7 +52,7 @@ class MyPhillyRisingViewMixin (object):
             # include actions that are null, because those will correspond to
             # users that yet have no points.
             .filter(
-                Q(profiles__user__actions__awarded_at__gt=now() - timedelta(days=30)) | 
+                Q(profiles__user__actions__awarded_at__gt=now() - timedelta(days=30)) |
                 Q(profiles__user__actions__awarded_at__isnull=True)
             )
 
@@ -145,6 +145,20 @@ class ChooseNeighborhoodView (MyPhillyRisingViewMixin, FormView):
         return reverse('socialauth_complete', args=(self.auth_provider,))
 
 
+class SiteMapView (MyPhillyRisingViewMixin, TemplateView):
+    template_name = 'myphillyrising/sitemap.xml'
+
+    def get_neighborhood_data(self):
+        neighborhoods = self.get_neighborhood_queryset()
+        serializer = NeighborhoodSerializer(neighborhoods)
+        return serializer.data
+
+    def get_context_data(self, **kwargs):
+        context = super(SiteMapView, self).get_context_data(**kwargs)
+        context['neighborhood_data'] = self.get_neighborhood_data()
+        return context
+
+
 class UserViewSet (MyPhillyRisingViewMixin, ModelViewSet):
     model = User
     serializer_class = UserSerializer
@@ -176,6 +190,8 @@ class ActionViewSet (MyPhillyRisingViewMixin, ModelViewSet):
 # Views
 app_view = AppView.as_view()
 choose_neighborhood = ChooseNeighborhoodView.as_view()
+robots_view = TemplateView.as_view(template_name='myphillyrising/robots.txt')
+sitemap_view = SiteMapView.as_view()
 
 # Setup the API routes
 api_router = DefaultRouter(trailing_slash=False)
