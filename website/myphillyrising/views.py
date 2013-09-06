@@ -15,6 +15,7 @@ from myphillyrising.forms import ChooseNeighborhoodForm
 from myphillyrising.models import Neighborhood, User, UserProfile, UserAction
 from myphillyrising.serializers import NeighborhoodSerializer, UserSerializer, LoggedInUserSerializer, ActionSerializer
 from myphillyrising.services import default_twitter_service
+from proxy.views import proxy_view
 from utils.views import EnsureCsrfCookieMixin
 
 
@@ -185,6 +186,15 @@ class ActionViewSet (MyPhillyRisingViewMixin, ModelViewSet):
     serializer_class = ActionSerializer
     paginate_by = 20
     permission_classes = (IsAuthenticatedOrReadOnly,)
+
+
+def phila_gis_proxy_view(request, path):
+    """
+    A small proxy for Philly GIS services, so that they are accessible over
+    HTTPS.
+    """
+    root = 'http://gis.phila.gov/ArcGIS/rest/services/PhilaGov/'
+    return proxy_view(request, root + path)
 
 
 # Views

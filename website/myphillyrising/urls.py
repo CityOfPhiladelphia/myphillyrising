@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from views import app_view, api_router, choose_neighborhood, robots_view, sitemap_view
+from views import app_view, api_router, choose_neighborhood, robots_view, sitemap_view, phila_gis_proxy_view
 import alexander.urls
 
 # Uncomment the next two lines to enable the admin:
@@ -18,6 +18,7 @@ urlpatterns = patterns('',
 
     url(r'^', include(alexander.urls)),
     url(r'^api/', include(api_router.urls)),
+    url(r'^phila_gis/(.*)$', phila_gis_proxy_view, name='phila-gis-proxy'),
 
     url(r'^', app_view, name='app'),
 )

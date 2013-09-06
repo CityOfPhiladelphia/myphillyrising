@@ -44,6 +44,7 @@ feedparser  # RSS / ATOM
 icalendar  # iCal
 twitter
 facebook-sdk
+django-proxy>=1.0.2  # For accessing Philly's GIS services over HTTPS
 
 
 
