@@ -1,1 +1,5 @@
+{{#if profile.avatar_url }}
 <img class="avatar" src="{{ profile.avatar_url }}" alt="{{ profile.full_name }} ({{ points}} points)" title="{{ profile.full_name }} ({{ points}} points)">
+{{else}}
+<!-- Note: there's a missing avatar url -->
+{{/if }}
