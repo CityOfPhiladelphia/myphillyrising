@@ -41,6 +41,12 @@
           <ul class="nav">
             {% block navitems %}{% endblock %}
           </ul>
+
+          {% if user.is_authenticated %}
+          <ul class="nav pull-right">
+            <li><a href="/logout/">Log Out</a></li>
+          </ul>
+          {% endif %}
         </div><!--/.nav-collapse -->
       </div>
     </div>
