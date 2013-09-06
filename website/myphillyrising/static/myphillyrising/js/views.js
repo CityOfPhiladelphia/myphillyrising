@@ -551,7 +551,7 @@ var MyPhillyRising = MyPhillyRising || {};
     onShow: function() {
       this.resizeMap();
 
-      var url = 'http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png',
+      var url = '//{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png',
           attribution = '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms/Feedback</a>',
           baseLayer = L.tileLayer(url, {attribution: attribution});
 
