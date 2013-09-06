@@ -1160,9 +1160,10 @@ ul.event-attendee-list .avatar {
     width: 50%;
     padding-top: 10px;
   }
-  .detail-content {
+  .detail-event-content-and-meta {
     float: left;
     width: 45%;
+    margin-bottom: 2em;
   }
   div.event-attendee-list {
     float: right;
@@ -1170,7 +1171,8 @@ ul.event-attendee-list .avatar {
     margin: 0;
     padding: 0;
     border-top: 0;
-    background: transparent;
+/*    background: transparent;*/
+    box-shadow: -0.5em -0.5em 0 #ebeff3, 0.5em 0.5em 0 #ebeff3, 0.5em -0.5em 0 #ebeff3, -0.5em 0.5em 0 #ebeff3;
   }
   ul.event-attendee-list {
     margin: 0;
