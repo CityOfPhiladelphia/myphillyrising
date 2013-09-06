@@ -284,13 +284,13 @@ var MyPhillyRising = MyPhillyRising || {};
     renderResources: function() {
       this.resourcesRegion1.show(new NS.HomeResourceListView({
         model: this.model,
-        collection: new Backbone.Collection(this.model.collections.resources.slice(0, 1))
+        collection: new Backbone.Collection(this.model.collections.resources.slice(0, 3))
       }));
     },
     renderStories: function() {
       this.storiesRegion1.show(new NS.HomeStoryListView({
         model: this.model,
-        collection: new Backbone.Collection(this.model.collections.stories.slice(0, 3))
+        collection: new Backbone.Collection(this.model.collections.stories.slice(0, 1))
       }));
     },
     showUserMenu: function(evt) {
