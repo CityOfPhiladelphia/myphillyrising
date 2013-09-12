@@ -1,3 +1,7 @@
 .is-hidden {
   display: none;
 }
+
+.text-capitalize {
+  text-transform: capitalize;
+}

@@ -6,6 +6,7 @@ from django.utils.timezone import now, timedelta
 from geopy import geocoders
 from .feed_readers import get_feed_reader
 
+
 import logging
 logger = logging.getLogger(__name__)
 
@@ -27,6 +28,8 @@ class FeedManager (models.Manager):
 class Feed (models.Model):
     title = models.CharField(max_length=100)
     last_read_at = models.DateTimeField(null=True, blank=True)
+    is_trusted = models.BooleanField(default=False)
+
     # ----------
     # Information about the original feed
     source_url = models.URLField()
@@ -81,7 +84,7 @@ class Feed (models.Model):
                 items.extend(self.make_new_items(occurrence_count - existing_count))
 
             # If it is new or has changed, update the model with the source
-            # data            
+            # data
             has_new = any(is_new(item) for item in items)
             has_changed = any(feed_source.is_different(item, item_source) for item in items)
             if has_new or has_changed:
@@ -99,6 +102,11 @@ class Feed (models.Model):
         for item in new_items:
             tags = tuple(item.feed.default_tags.all())
             item.tags.add(*tags)
+
+            # Auto publish if this is a trusted feed
+            if self.is_trusted:
+                item.status = 'published'
+                item.save()
 
         self.last_read_at = now()
         self.save()
