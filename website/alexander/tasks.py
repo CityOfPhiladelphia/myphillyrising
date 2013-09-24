@@ -44,7 +44,7 @@ def geocode_contentitems(item_ids, retry_delay=None):
         geocode_contentitem.delay(item_id, retry_delay)
 
 
-@task
+@task(rate_limit=1)  # i.e., 1 request/second
 def geocode_contentitem(item_id, retry_delay=None):
     try:
         item = ContentItem.objects.get(pk=item_id)
