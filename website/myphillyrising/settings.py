@@ -269,7 +269,7 @@ from datetime import timedelta
 CELERYBEAT_SCHEDULE = {
     'refresh-feeds-every-hour': {
         'task': 'alexander.tasks.refresh_feeds',
-        'schedule': timedelta(minutes=60),
+        'schedule': timedelta(minutes=5),
         'kwargs': {'individually': True}
     },
 }
