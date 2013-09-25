@@ -24,6 +24,7 @@ You may need to use `sudo` to install these tools.
     sudo pip install virtualenv
 
 Clone the repo:
+
     git clone https://github.com/openplans/myphillyrising.git
 
 Create a new virtual environment inside of the repository folder, and install
