@@ -34,11 +34,14 @@ the project requirements:
     source env/bin/activate
     pip install -r requirements.txt
 
+Setup a PostgreSQL database:
+
+Check out this [installation guide](https://wiki.postgresql.org/wiki/Detailed_installation_guides) for help
+
 Do the usual:
 
-    pip install -r requirements.txt
-    ./manage.py syncdb
-    ./manage.py migrate
+    ./website/manage.py syncdb
+    ./website/manage.py migrate
     cp local_settings.py.template local_settings.py
     cd website
 
