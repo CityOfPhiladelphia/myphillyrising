@@ -1138,6 +1138,7 @@ ul.event-attendee-list .avatar {
   }
   .btn-breadcrumb {
     height: 50px;
+    padding-right: 48px;
   }
   .breadcrumb-icon {
     height: 38px;
