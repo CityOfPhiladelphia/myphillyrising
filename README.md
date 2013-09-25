@@ -49,6 +49,9 @@ favorite IDE to do this.
 
 Update the database setting to allow the application to connect to your database. 
 It should just be the username and password.
+
+Set the Twitter, Facebook, and DISQUS keys. These can be junk values if you don't 
+need to login or test comments right away.
     
 ### Initialize your database and run migrations
 
@@ -75,11 +78,11 @@ Do the *bower* install in both the `myphillyrising` and `alexander` folders:
     bower install
     cd ../..
 
-Load the neighborhoods and tags:
+### Load the neighborhoods and tags:
 
-    ./website/manage.py loaddata ./website/myphillyrising/fixtures/phillyrising_neighborhoods.json
+    ./website/manage.py loaddata ./website/alexander/fixtures/phillyrising_neighborhoods.json
 
-Load some content items:
+### Start the servers
 
     ./website/manage.py runserver  # Run this in one terminal
     ./website/manage.py celeryd    # Run this in another terminal
