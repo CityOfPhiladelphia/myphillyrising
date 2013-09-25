@@ -32,7 +32,7 @@ the project requirements:
 
     virtualenv env
     source env/bin/activate
-    pip install -r requirements.txt
+    pip install -r requirements.txt --use-mirrors
 
 Setup a PostgreSQL database:
 
