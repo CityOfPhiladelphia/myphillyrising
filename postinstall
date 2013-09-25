@@ -64,6 +64,7 @@ CACHES = {
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 BROKER_URL = env['DOTCLOUD_CACHE_REDIS_URL']
+CELERY_RESULT_BACKEND = env['DOTCLOUD_CACHE_REDIS_URL']
 
 STATIC_ROOT = '/home/dotcloud/current/static/'
 
