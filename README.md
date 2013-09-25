@@ -11,6 +11,28 @@ Stay tuned for more about the tool. It's in a very early state of development - 
 Setup Instructions
 ------------------
 
+Install `pip` and `virtualenv`, if not already installed.  These will keep your
+python code isolated from the rest of your machine and ensure you have
+the correct versions.
+
+    easy_install pip
+    pip install virtualenv
+
+You may need to use `sudo` to install these tools.
+
+    sudo easy_install pip
+    sudo pip install virtualenv
+
+Clone the repo:
+    git clone https://github.com/openplans/myphillyrising.git
+
+Create a new virtual environment inside of the repository folder, and install
+the project requirements:
+
+    virtualenv env
+    source env/bin/activate
+    pip install -r requirements.txt
+
 Do the usual:
 
     pip install -r requirements.txt
