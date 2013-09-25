@@ -366,7 +366,7 @@ a.login-btn {
   text-decoration: none;
 }
 .menu-btn {
-  display: block;
+  float: left;
   position: absolute;
   z-index: 3;
   top: 8px;
@@ -382,7 +382,6 @@ a.login-btn {
   right: 8px;
 }
 .menu-icon {
-  display: block;
   width: 36px;
   height: 36px;
   border-radius: 6px;
@@ -396,6 +395,7 @@ a.login-btn {
   height: 24px;
   width: 24px;
   margin: 6px;
+  float: right;
 }
 .breadcrumb-arrows {
   font-size: 30px;
