@@ -40,8 +40,10 @@ def refresh_feed(feed_id):
 
 @task(ignore_result=True)
 def geocode_contentitems(item_ids, retry_delay=None):
-    for item_id in item_ids:
-        geocode_contentitem.delay(item_id, retry_delay)
+    items = ContentItem.objects.filter(pk__in=item_ids).select_related('feed')
+    for item in items:
+        logger.info('Scheduling geocode for item in "%s" from "%s": "%s"' % (item.category, item.feed.title, item.title))
+        geocode_contentitem.delay(item.id, retry_delay)
 
 
 @task(ignore_result=True, max_retries=5, rate_limit=1)  # i.e., 1 request/second
@@ -55,6 +57,7 @@ def geocode_contentitem(item_id, retry_delay=None):
         if retry_delay is None:
             raise
         else:
+            logger.info('Rescheduling geocode for item in "%s" from "%s": "%s"' % (item.category, item.feed.title, item.title))
             geocode_contentitem.retry(exc=e, countdown=retry_delay)
 
     except ContentItem.DoesNotExist as e:
