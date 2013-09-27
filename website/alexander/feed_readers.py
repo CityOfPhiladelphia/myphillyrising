@@ -182,7 +182,7 @@ class ICalFeedReader (FeedReader):
         item_data['DTSTART'] = get_dt_or_none(item_data.pop('DTSTART', None))
         item_data['DTEND'] = get_dt_or_none(item_data.pop('DTEND', None))
         item_data['DTSTAMP'] = get_dt_or_none(item_data.pop('DTSTAMP', None))
-        item_data['CREATED'] = get_dt_or_none(item_data.pop('DTSTAMP', None))
+        item_data['CREATED'] = get_dt_or_none(item_data.pop('CREATED', None))
         item_data['LAST-MODIFIED'] = get_dt_or_none(item_data.pop('LAST-MODIFIED', None))
         item_data['RECURRENCE-ID'] = get_dt_or_none(item_data.pop('RECURRENCE-ID', None))
 
