@@ -3,7 +3,7 @@
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils.timezone import datetime
-from nose.tools import assert_equals, assert_false, assert_in, assert_not_in
+from nose.tools import assert_equals, assert_false, assert_in, assert_not_in, assert_true
 from mock import patch
 from os.path import dirname, join as pathjoin
 from pytz import timezone
@@ -129,6 +129,38 @@ class TestFeedRefreshing(TestCase):
                 # Since the item was not saved with the imported information,
                 # the title should still be modified from what's in the feed.
                 assert_equals(item.title, 'modified title')
+
+    @patch('alexander.feed_readers.urlopen')
+    def test_refresh_does_not_geocode_unchanged_events(self, urlopen):
+        """
+        Tests that fresh ical content items are not modified.
+        """
+        from alexander.models import Feed, ContentItem
+        from alexander.tasks import refresh_feed
+
+        feed = Feed.objects.get(pk=self.feed_simple_cal_id)
+
+        with patch('alexander.tasks.geocode_contentitems') as geocode_contentitems:
+            geocode_contentitems.return_value = None
+
+            with open(pathjoin(FIXTURE_DIR, 'testcal124.ics')) as icalfile:
+                urlopen.return_value = icalfile
+
+                item = ContentItem.objects.get(pk=self.item_124_id)
+                content = item.source_content
+
+                refresh_feed(feed.id)
+                item = ContentItem.objects.get(pk=self.item_124_id)
+
+                # The serialized content in the item should be the same as 
+                # what was loaded in initially from the test fixture.
+                assert_equals(content, item.source_content)
+                # Since the content was the same, the item should not have
+                # had to be geocoded
+                assert_true(geocode_contentitems.called)
+                args, kwargs = geocode_contentitems.call_args
+                assert_equals(list(args[0]), [])
+                assert_equals(kwargs, {'retry_delay': 86400})
 
     @patch('alexander.feed_readers.parserss')
     def test_refresh_updates_stale_stories(self, parserss):
