@@ -115,6 +115,26 @@ LOGGING = {
        },
    }
 }
+
+
+################################################################################
+#
+# Periodic Tasks
+#
+
+from datetime import timedelta
+
+CELERYBEAT_SCHEDULE = {
+    'refresh-feeds-every-hour': {
+        'task': 'alexander.tasks.refresh_feeds',
+        'schedule': timedelta(
+            minutes=float(env.get('CELERY_REFRESH_SCHEDULE', '60'))),
+        'kwargs': {'individually': True}
+    },
+}
+
+CELERY_TIMEZONE = 'UTC'
+
 EOF
 
 # Need to be able to import settings to run the createdbs script...
