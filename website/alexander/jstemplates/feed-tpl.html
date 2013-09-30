@@ -1,17 +1,34 @@
 <div class="row">
   <div class="span8">
-    <h3>{{ title }} <span class="label">{{ source_type }}</span></h3>
-    <p>{{ source_url }}</p>
+    <h3>{{ title }} <span class="label label-info">{{ source_type }}</span></h3>
+    <p>
+      {{# if default_tags }}
+        {{# each default_tags }} <span class="label">{{ . }}</span>{{/ each }}
+      {{/ if }}
+    </p>
+
+    <p><small>{{ source_url }}</small></p>
   </div>
 
   <div class="span4">
-    <p>Items will be in the <b>{{ default_category }}</b> category
-      {{# if default_tags }}
-        with the tags {{# each default_tags }} <span class="label">{{ . }}</span>{{/ each }}.
-      {{^}}
-        with no default tags.
-      {{/ if }}</p>
-    <p>Content last refreshed {{ formatdatetime last_read_at "M/D/YYYY h:mmA" }}</p>
+    <dl class="dl-horizontal">
+      <dt>Content last refreshed</dt>
+      <dd>
+        {{#if last_read_at }}
+          {{ formatdatetime last_read_at "M/D/YYYY h:mmA" }}
+        {{^}}
+          Not refreshed yet
+        {{/ if }}
+      </dd>
+
+      <dt>Category</dt>
+      <dd class="text-capitalize">{{ default_category }}</dd>
+
+      <dt>Auto-publish?</dt>
+      <dd>
+        {{#if is_trusted }} Yes {{^}} No {{/ if }}
+      </dd>
+    </dl>
 
     <div class="pull-right">
       <button type="button" class="refresh-feed-link btn" data-loading-text="Refreshing..."><i class="icon-refresh"></i> Refresh</button>

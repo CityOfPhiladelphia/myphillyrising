@@ -587,7 +587,7 @@ var MyPhillyRising = MyPhillyRising || {};
 
         markerLayer.bindPopup(
           '<strong>' + model.get('name') + '</strong><br>' +
-          model.get('address') + ' (' + model.get('label') + ')');
+          (model.get('address') || '') + ' (' + model.get('label') + ')');
         this.featureGroup.addLayer(markerLayer);
       }
     },

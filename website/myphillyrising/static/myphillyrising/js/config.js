@@ -60,7 +60,7 @@ var MyPhillyRising = MyPhillyRising || {};
       },
       {
         id: 5,
-        label: 'PAL Centers',
+        label: 'PAL Center',
         icon: 'marker-reccenter.png',
         iconShadow: 'marker-shadow.png',
         url: '/phila_gis/PAL_Centers/MapServer/0/query',
@@ -160,6 +160,19 @@ var MyPhillyRising = MyPhillyRising || {};
           id: 'OBJECTID',
           name: 'NAME',
           address: 'ADDRESS'
+        }
+      },
+      {
+        id: 13,
+        label: 'Police Station',
+        icon: 'marker-police.png',
+        iconShadow: 'marker-shadow.png',
+        url: '/phila_gis/Police_Stations/MapServer/0/query',
+        radius: 1,
+        attrMap: {
+          id: 'OBJECTID',
+          name: 'DISTRICT_NUMBER',
+          address: 'LOCATION'
         }
       }
     ]
