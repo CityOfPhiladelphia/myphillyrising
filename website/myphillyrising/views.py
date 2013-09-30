@@ -4,6 +4,7 @@ import hmac
 import json
 import time
 from django.conf import settings
+from django.contrib.auth import logout
 from django.core.urlresolvers import reverse
 from django.utils.timezone import now, timedelta
 from django.db.models import Sum, Q
@@ -63,12 +64,16 @@ class MyPhillyRisingViewMixin (object):
 
     def get_disqus_sso_message(self, user):
         if user.is_authenticated():
-            data = {
-                'id': str(user.id) + settings.DISQUS_ACCOUNT_UNIQUIFIER,
-                'username': user.username,
-                'email': user.email,
-                'avatar': user.profile.avatar_url
-            }
+            try:
+                data = {
+                    'id': str(user.id) + settings.DISQUS_ACCOUNT_UNIQUIFIER,
+                    'username': user.username,
+                    'email': user.email,
+                    'avatar': user.profile.avatar_url
+                }
+            except UserProfile.DoesNotExist:
+                logout(self.request)
+                data = {}
         else:
             data = {}
 
