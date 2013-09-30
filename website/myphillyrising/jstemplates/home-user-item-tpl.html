@@ -1,5 +1,7 @@
 {{#if profile.avatar_url }}
-<img class="avatar" src="{{ profile.avatar_url }}" alt="{{ profile.full_name }} ({{ points}} points)" title="{{ profile.full_name }} ({{ points}} points)">
+<span tabindex="0" class="hint--left" data-hint="{{ profile.full_name }} ({{ points}} points)">
+  <img src="{{ profile.avatar_url }}" class="avatar" alt="{{ profile.full_name }} ({{ points}} points)">
+</span>
 {{else}}
 <!-- Note: there's a missing avatar url -->
 {{/if }}
