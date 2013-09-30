@@ -13,7 +13,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.routers import DefaultRouter
 from rest_framework.viewsets import ModelViewSet
 from myphillyrising.forms import ChooseNeighborhoodForm
-from myphillyrising.models import Neighborhood, User, UserProfile, UserAction
+from myphillyrising.models import Neighborhood, User, UserProfile, UserAction, Neighbor
 from myphillyrising.serializers import NeighborhoodSerializer, UserSerializer, LoggedInUserSerializer, ActionSerializer
 from myphillyrising.services import default_twitter_service
 from proxy.views import proxy_view
@@ -23,7 +23,7 @@ from utils.views import EnsureCsrfCookieMixin
 class MyPhillyRisingViewMixin (object):
     def get_user_queryset(self):
         qs =  (
-            User.objects.all()
+            Neighbor.objects.all()
 
             # Only select users that have profiles.
             .select_related('profile')
@@ -32,16 +32,8 @@ class MyPhillyRisingViewMixin (object):
             # Pre-select the neighborhood object.
             .select_related('profile__neighborhood')
 
-            # For points, only use those that are in the last 30 days. Also
-            # include actions that are null, because those will correspond to
-            # users that yet have no points.
-            .filter(
-                Q(actions__awarded_at__gt=now() - timedelta(days=30)) |
-                Q(actions__awarded_at__isnull=True)
-            )
-
-            # Add up the points.
-            .annotate(points=Sum('actions__points'))
+            # Prefetch the action objects so that score calculations are fast.
+            .prefetch_related('actions')
         )
 
         return qs
@@ -53,12 +45,8 @@ class MyPhillyRisingViewMixin (object):
             # For points, only use those that are in the last 30 days. Also
             # include actions that are null, because those will correspond to
             # users that yet have no points.
-            .filter(
-                Q(profiles__user__actions__awarded_at__gt=now() - timedelta(days=30)) |
-                Q(profiles__user__actions__awarded_at__isnull=True)
-            )
+            .prefetch_related('profiles__user__actions')
 
-            .annotate(points=Sum('profiles__user__actions__points'))
             .order_by('tag')
         )
 

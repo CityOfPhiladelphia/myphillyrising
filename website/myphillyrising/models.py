@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.conf import settings
+from django.utils.timezone import now, timedelta
+from itertools import chain
 
 
 class Neighborhood (models.Model):
@@ -13,8 +15,32 @@ class Neighborhood (models.Model):
     def __unicode__(self):
         return unicode(self.tag_id)
 
+    @property
+    def points(self):
+        score = 0
+        for profile in self.profiles.all():
+            for action in profile.user.actions.all():
+                # NOTE: We use a condition instead of a filter here because all
+                # has been prefetched at this point.
+                if action.awarded_at >= (now() - timedelta(days=30)):
+                    score += action.points
+        return score
+
 
 User = get_user_model()
+class Neighbor (User):
+    class Meta:
+        proxy = True
+
+    @property
+    def points(self):
+        return sum(
+            action.points
+            for action in self.actions.all()
+            # NOTE: We use a condition instead of a filter here because all
+            # has been prefetched at this point.
+            if action.awarded_at >= now() - timedelta(days=30)
+        )
 
 
 class UserProfile (models.Model):
