@@ -57,7 +57,8 @@ module.exports = function(grunt) {
             dest: 'static/myphillyrising/css/components.min.css',
             src: [
               'static/components/normalize-css/normalize.css',
-              'static/components/leaflet/dist/leaflet.css'
+              'static/components/leaflet/dist/leaflet.css',
+              'static/components/hint.css/hint.css'
             ]
           },
           {
