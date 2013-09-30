@@ -64,7 +64,9 @@ class Feed (models.Model):
         new_items = []
         all_items = []
         is_new = lambda item: item.pk is None
+        seen_source_ids = set()
 
+        # Loop through each item from the source
         for item_source in feed_source:
             # Get the source id and the expected number of corresponding items
             source_id = feed_source.get_item_id(item_source)
@@ -93,6 +95,19 @@ class Feed (models.Model):
             new_items.extend(item for item in items if is_new(item))
             changed_items.extend(items if (has_new or has_changed) else [])
             all_items.extend((item, has_new or has_changed) for item in items)
+
+            # No matter what, note that we've seen the item
+            seen_source_ids.add(source_id)
+
+        # ICS feeds return a complete set of events each time, so we might as
+        # well clean out events that no longer exist.
+        if self.source_type.lower() in ('ical', 'ics'):
+            all_source_ids = set(
+                item.source_id 
+                for item in self.items.all()
+            )
+            unseen_source_ids = all_source_ids - seen_source_ids
+            self.items.filter(source_id__in=unseen_source_ids).delete()
 
         # Save everything that's new or changed
         for item in changed_items:

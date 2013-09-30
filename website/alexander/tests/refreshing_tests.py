@@ -74,8 +74,7 @@ class TestFeedRefreshing(TestCase):
         with open(pathjoin(FIXTURE_DIR, 'testcal123.ics')) as icalfile:
             urlopen.return_value = icalfile
 
-            item = ContentItem.objects.get(pk=self.item_123_id)
-            item.delete()
+            feed.items.all().delete()
             num_items = ContentItem.objects.all().count()
 
             feed.refresh()
@@ -129,6 +128,30 @@ class TestFeedRefreshing(TestCase):
                 # Since the item was not saved with the imported information,
                 # the title should still be modified from what's in the feed.
                 assert_equals(item.title, 'modified title')
+
+    @patch('alexander.feed_readers.urlopen')
+    def test_refresh_deletes_nonexistant_events(self, urlopen):
+        """
+        Tests that fresh ical content items are not modified.
+        """
+        from alexander.models import Feed, ContentItem
+
+        feed = Feed.objects.get(pk=self.feed_simple_cal_id)
+
+        with open(pathjoin(FIXTURE_DIR, 'testcal124.ics')) as icalfile:
+            urlopen.return_value = icalfile
+
+            feed.refresh()
+            item_ids = set(item.id for item in ContentItem.objects.all())
+
+            # Item 123 is not in the feed, so it should have been deleted.
+            # Item 124 should still be present.
+            assert_in(self.item_124_id, item_ids)
+            assert_not_in(self.item_123_id, item_ids)
+            # Items from other feeds should be unaffected and still 
+            # present. Check a couple of them here.
+            assert_in(self.item_finite_ev_1, item_ids)
+            assert_in(self.item_infinite_ev_1, item_ids)
 
     @patch('alexander.feed_readers.urlopen')
     def test_refresh_does_not_geocode_unchanged_events(self, urlopen):
