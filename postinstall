@@ -96,27 +96,58 @@ ALLOWED_HOSTS = ['*']
 
 LAST_DEPLOY_DATE = '$(date --iso-8601=minutes)'
 
+ADMINS = [
+    (admin.split('@')[0], admin)
+    for admin in env.get('ADMINS', '').split(',')
+]
+
 LOGGING = {
-   'version': 1,
-   'disable_existing_loggers': True,
-   'formatters': {
-       'simple': {
-           'format': '%(levelname)s %(message)s',
-       },
-   },
-   'handlers': {
-       'console': {
-           'level': 'DEBUG',
-           'class': 'logging.StreamHandler',
-           'formatter': 'simple'
-       },
-   },
-   'loggers': {
-       'django': {
-           'handlers': ['console'],
-           'level': 'DEBUG',
-       },
-   }
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'simple': {
+            'format': '%(levelname)s %(asctime)s\n%(message)s',
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'log_file': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'simple',
+            'filename': '/var/log/supervisor/app.log',
+            'maxBytes': 1024*1024*25, # 25 MB
+            'backupCount': 5,
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'log_file', 'mail_admins'],
+            'level': 'WARNING',
+        },
+        'alexander': {
+            'handlers': ['console', 'log_file', 'mail_admins'],
+            'level': 'DEBUG',
+        },
+        'myphillyrising': {
+            'handlers': ['console', 'log_file', 'mail_admins'],
+            'level': 'DEBUG',
+        },
+    }
 }
 
 
