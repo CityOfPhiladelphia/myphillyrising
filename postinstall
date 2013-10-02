@@ -34,6 +34,7 @@ echo "Writing the local settings file..."
 cat >> website/myphillyrising/local_settings.py <<EOF
 
 import json
+import os
 with open('/home/dotcloud/environment.json') as f:
     env = json.load(f)
 
@@ -72,6 +73,8 @@ STATIC_ROOT = '/home/dotcloud/current/static/'
 DEBUG = (env.get('DEBUG', 'False') in ['true', 'True'])
 TEMPLATE_DEBUG = DEBUG
 SHOW_DEBUG_TOOLBAR = DEBUG
+
+os.environ['HTTPS'] = 'on' if env.get('SSL_ENABLED', '').lower() == 'true' else 'off'
 
 # Set these explicitly here to override whatever may have come from settings
 STATIC_URL = '/static/'
