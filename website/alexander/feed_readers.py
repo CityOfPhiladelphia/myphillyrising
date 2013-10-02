@@ -154,7 +154,7 @@ class ICalFeedReader (FeedReader):
         except URLError as e:
             msg = _('Could not read data from the iCal feed at "%s" -- %s. '
                     'Are you sure the address is right?') % (self.url, e)
-            logger.error(msg)
+            logger.warning(msg)
             return iter([])
 
         try:
@@ -162,7 +162,7 @@ class ICalFeedReader (FeedReader):
         except ValueError as e:
             msg = _('The iCal feed at "%s" is invalid -- %s. '
                     'Are you sure the address is right?') % (self.url, e)
-            logger.error(msg)
+            logger.warning(msg)
             return iter([])
 
         return iter([ev for ev in cal.walk() if ev.name.lower() == 'vevent'])

@@ -90,7 +90,13 @@ class Feed (models.Model):
             has_new = any(is_new(item) for item in items)
             has_changed = any(feed_source.is_different(item, item_source) for item in items)
             if has_new or has_changed:
-                feed_source.update_items(items, item_source)
+                try:
+                    feed_source.update_items(items, item_source)
+                except ValueError as exc:
+                    logger.error('Failed to update the feed %s items %s with '
+                                 'data %s: %s' % 
+                                 (self, items, item_source, exc))
+                    continue
 
             new_items.extend(item for item in items if is_new(item))
             changed_items.extend(items if (has_new or has_changed) else [])
