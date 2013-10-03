@@ -37,6 +37,8 @@ def refresh_feed(feed_id):
         retry_delay=86400
     )
 
+    return {'errors': feed.errors} if feed.errors else None
+
 
 @task(ignore_result=True)
 def geocode_contentitems(item_ids, retry_delay=None):

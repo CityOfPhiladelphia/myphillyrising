@@ -66,6 +66,8 @@ class Feed (models.Model):
         is_new = lambda item: item.pk is None
         seen_source_ids = set()
 
+        self.errors = []
+
         # Loop through each item from the source
         for item_source in feed_source:
             # Get the source id and the expected number of corresponding items
@@ -93,9 +95,10 @@ class Feed (models.Model):
                 try:
                     feed_source.update_items(items, item_source)
                 except ValueError as exc:
-                    logger.error('Failed to update the feed %s items %s with '
-                                 'data %s: %s' % 
-                                 (self, items, item_source, exc))
+                    error_str = ('Failed to update the feed %s items %s: %s' %
+                                 (self, items, exc))
+                    logger.error(error_str)
+                    self.errors.append(error_str)
                     continue
 
             new_items.extend(item for item in items if is_new(item))
