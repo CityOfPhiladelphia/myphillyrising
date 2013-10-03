@@ -74,8 +74,6 @@ DEBUG = (env.get('DEBUG', 'False') in ['true', 'True'])
 TEMPLATE_DEBUG = DEBUG
 SHOW_DEBUG_TOOLBAR = DEBUG
 
-os.environ['HTTPS'] = 'on' if env.get('SSL_ENABLED', '').lower() == 'true' else 'off'
-
 # Set these explicitly here to override whatever may have come from settings
 STATIC_URL = '/static/'
 
