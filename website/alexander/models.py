@@ -95,8 +95,9 @@ class Feed (models.Model):
                 try:
                     feed_source.update_items(items, item_source)
                 except ValueError as exc:
-                    error_str = ('Failed to update the feed %s items %s: %s' %
-                                 (self, items, exc))
+                    error_str = ('Failed to update the feed %s items %s from '
+                                 'the source item with id %s: %s' %
+                                 (self, items, source_id, exc))
                     logger.error(error_str)
                     self.errors.append(error_str)
                     continue
