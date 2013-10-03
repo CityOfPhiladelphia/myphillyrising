@@ -8,6 +8,11 @@ class ContentItemAdmin (admin.ModelAdmin):
     search_fields = ('title',)
 
 
-admin.site.register(Feed)
+class FeedAdmin (admin.ModelAdmin):
+    list_display = ('__unicode__', 'is_trusted', 'source_type', 'default_category',)
+    list_editable = ('is_trusted',)
+
+
+admin.site.register(Feed, FeedAdmin)
 admin.site.register(ContentItem, ContentItemAdmin)
 admin.site.register(ContentTag)
