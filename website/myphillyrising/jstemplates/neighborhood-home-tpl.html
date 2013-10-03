@@ -4,7 +4,7 @@
       {{name}} <span class="nobreak">is rising!</span>
     </h1>
     {{#if points}}
-    <span class="neighborhood-score">{{points}} <small>points</small></span>
+    <span class="hint--left neighborhood-score" data-hint="{{points}} points for {{name}}!">{{points}} <small>points</small></span>
     {{/if}}
   </div>
   {{# is_authenticated }}
