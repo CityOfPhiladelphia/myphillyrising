@@ -181,11 +181,12 @@ var MyPhillyRising = MyPhillyRising || {};
 
     return $el.html();
   });
+
   Handlebars.registerHelper('truncatechars', NS.Utils.truncateChars);
 
   Handlebars.registerHelper('TWEET_TEXT', getTweetText);
 
-  Handlebars.registerHelper('firstsentence', function(text) {
+  Handlebars.registerHelper('firstsentence', function(text, maxLength, continuationString) {
     var regex = /^.*?[\.!\?](?:\s|$)/,
         match;
 
@@ -195,10 +196,15 @@ var MyPhillyRising = MyPhillyRising || {};
     if (_.isString(text)) {
       match = regex.exec(text);
       if (match) {
-        return match[0];
+        text = match[0];
       }
     }
+
+    if (maxLength) {
+      return NS.Utils.truncateChars(text, maxLength, continuationString);
+    }
     return text;
+
   });
 
   function pluralize(number, single, plural) {
