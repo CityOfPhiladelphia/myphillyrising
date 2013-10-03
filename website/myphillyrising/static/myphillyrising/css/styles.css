@@ -199,6 +199,10 @@ textarea {
   height: 50px;
 }
 
+.home-avatar-wrapper {
+  display: block;
+}
+
 
 /* =Nonsemantic Base Styles
 -------------------------------------------------------------- */
