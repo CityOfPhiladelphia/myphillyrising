@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.utils.timezone import now, timedelta
 from itertools import chain
+from myphillyrising.services import CacheService
 
 
 class Neighborhood (models.Model):

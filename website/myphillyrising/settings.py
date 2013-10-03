@@ -272,6 +272,10 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(minutes=60),
         'kwargs': {'individually': True}
     },
+    'refresh-twitter-avatars-every-hour': {
+        'task': 'myphillyrising.tasks.update_avatars',
+        'schedule': timedelta(minutes=60),
+    },
 }
 
 CELERY_TIMEZONE = 'UTC'

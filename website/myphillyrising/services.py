@@ -1,9 +1,11 @@
+from __future__ import absolute_import
 from django.conf import settings
 from django.core.cache import cache
 from functools import partial
 from twitter import Twitter, OAuth, TwitterHTTPError
 from twitter.stream import TwitterStream
 from urlparse import parse_qs
+import json
 import re
 from utils.datatools import chunk
 
@@ -76,7 +78,9 @@ class BaseService (object):
 
             # Cache for just long enough to complete the current batch of
             # lookups without having to hit the DB again.
-            cache.set(cache_key, social_auth, 60)
+            cache.set(cache_key, social_auth.pk, 60)
+        else:
+            social_auth = user.social_auth.get(pk=social_auth)
         return social_auth
 
     def get_user_id(self, user):
@@ -88,7 +92,9 @@ class BaseService (object):
         return social_auth.provider
 
 
-class CacheService (object):
+class CacheService (BaseService):
+    provider = 'cache'
+
     @classmethod
     def get_social_media_service(cls, provider):
         if provider == 'twitter':
@@ -142,7 +148,9 @@ class CacheService (object):
 # The Twitter service
 # ============================================================
 
-class TwitterService (object):
+class TwitterService (BaseService):
+    provider = 'twitter'
+
     # ==================================================================
     # General Twitter info, cached
     # ==================================================================
@@ -364,7 +372,9 @@ class TwitterService (object):
 # The Facebook service
 # ============================================================
 
-class FacebookService (object):
+class FacebookService (BaseService):
+    provider = 'facebook'
+
     def extract_avatar_url(self, user_info):
         url = user_info['picture']['data']['url']
         return url
@@ -380,7 +390,9 @@ class FacebookService (object):
 # The PublicStuff
 # ============================================================
 
-class PublicStuffService (object):
+class PublicStuffService (BaseService):
+    provider = 'publicstuff'
+
     def extract_avatar_url(self, user_info):
         return user_info.get('image', '')
 
