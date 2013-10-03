@@ -8,6 +8,7 @@ var MyPhillyRising = MyPhillyRising || {};
   NS.Router = Backbone.Marionette.AppRouter.extend({
     appRoutes: {
       'contact': 'contact',
+      'share/:type': 'share',
       'about': 'about',
       '_=_': 'facebookAuthRedirect',
       ':neighborhood': 'neighborhoodHome',
@@ -29,7 +30,37 @@ var MyPhillyRising = MyPhillyRising || {};
 
   NS.controller = {
     contact: function() {
-      NS.app.mainRegion.show(new NS.ContactView());
+      var wufooOptions = _.extend({}, NS.Config.form.defaults, NS.Config.form.contact);
+
+      NS.app.mainRegion.show(new NS.ContactView({
+        model: new Backbone.Model({
+          wufoo_id: NS.Config.form.contact.formHash
+        }),
+        wufooOptions: wufooOptions
+      }));
+
+      // back button to current neighborhood home
+      NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({
+        model: new Backbone.Model({
+          url: '/' + NS.app.currentNeighborhood,
+          label: 'Home',
+          type: 'home'
+        })
+      }));
+    },
+    share: function(type) {
+      var wufooOptions = _.extend({}, NS.Config.form.defaults, NS.Config.form.share),
+          neighborhoodModel = NS.app.neighborhoodCollection.findWhere({tag: NS.app.currentNeighborhood}),
+          neighborhood = neighborhoodModel && neighborhoodModel.get('name');
+
+      wufooOptions.defaultValues = 'Field102='+type+'&Field1='+neighborhood;
+
+      NS.app.mainRegion.show(new NS.ContactView({
+        model: new Backbone.Model({
+          wufoo_id: NS.Config.form.share.formHash
+        }),
+        wufooOptions: wufooOptions
+      }));
 
       // back button to current neighborhood home
       NS.app.headerView.leftRegion.show(new NS.HeaderBreadcrumbButtonView({

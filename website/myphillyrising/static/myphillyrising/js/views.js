@@ -635,7 +635,7 @@ var MyPhillyRising = MyPhillyRising || {};
 
       try {
         form = new WufooForm();
-        form.initialize(NS.wufooFormConfig);
+        form.initialize(this.options.wufooOptions);
         form.display();
       } catch (e) {
         // Meh

@@ -2,6 +2,22 @@ var MyPhillyRising = MyPhillyRising || {};
 
 (function(NS) {
   NS.Config = {
+    form: {
+      defaults: {
+        'userName':'myphillyrising',
+        'autoResize':true,
+        'height':'497',
+        'async':true,
+        'header':'show',
+        'ssl':true
+      },
+      contact: {
+        formHash: 'z12sa31i040clzp'
+      },
+      share: {
+        formHash: 'ma0gqpo15u21rz'
+      }
+    },
     facilities: [
       {
         id: 1,
