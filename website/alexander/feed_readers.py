@@ -5,6 +5,7 @@ from time import mktime
 from urllib2 import urlopen
 from HTMLParser import HTMLParser
 from time import mktime
+from collections import defaultdict
 import json  # For dumping dictionary content to strings
 import re
 
@@ -193,12 +194,8 @@ class ICalFeedReader (FeedReader):
         return json.dumps(item_data, cls=DjangoJSONEncoder, **kwargs)
 
     def get_item_id(self, item_data):
-        recurrence_id = self.get_dt_or_none(item_data.get('RECURRENCE-ID', None))
         try:
-            if recurrence_id is not None:
-                return '%s:%s' % (item_data['UID'], recurrence_id.isoformat())
-            else:
-                return str(item_data['UID'])
+            return str(item_data['UID'])
         except KeyError:
             if isinstance(item_data, dict):
                 pretty_item_data = self.item_as_json(item_data, indent=2)
@@ -212,6 +209,12 @@ class ICalFeedReader (FeedReader):
         item_data = self.make_native_dts(item_data)
         item_data.pop('DTSTAMP')  # ...it always changes and we don't need it.
         return item_data
+
+    @property
+    def recurrence_ids(self):
+        if not hasattr(self, '_recurrence_ids'):
+            self._recurrence_ids = defaultdict(set)
+        return self._recurrence_ids
 
     def get_dates(self, item_data):
         item_data = self.prepare_item_content(item_data)
@@ -228,10 +231,19 @@ class ICalFeedReader (FeedReader):
                     continue
                 elif date > end_date:
                     break
+                elif date in self.recurrence_ids[self.get_item_id(item_data)]:
+                    continue
                 else:
                     dates.append(date)
 
             return dates, start_date, end_date
+
+        # Single instance of a recurring event
+        elif 'RECURRENCE-ID' in item_data:
+            # Make a note that we've seen this recurrence id, so that the
+            # corresponding rrule knows how many things there should be.
+            self.recurrence_ids[self.get_item_id(item_data)].add(item_data['RECURRENCE-ID'])
+            return [item_data['DTSTART']], item_data['DTSTART'], item_data['DTEND']
 
         # One-time event (single date)
         else:

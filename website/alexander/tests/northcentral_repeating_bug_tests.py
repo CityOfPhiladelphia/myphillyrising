@@ -43,39 +43,34 @@ class TestNorthCentralCalendar(TestCase):
             num_items = events.all().count()
             assert_equals(num_items, 4)
 
-            individual_instance = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com:2013-10-09T18:00:00-04:00')
-            num_items = individual_instance.all().count()
-            assert_equals(num_items, 1)
+    @patch('alexander.feed_readers.now')
+    @patch('alexander.feed_readers.urlopen')
+    def test_recurrence_id_override_rrule_first(self, urlopen, now):
+        """
+        Tests that the recurrence id overrides matter
+        """
+        with open(pathjoin(FIXTURE_DIR, 'northcentral_calendar_repeating_bug_rrule_first.ics')) as icalfile:
+            urlopen.return_value = icalfile
+            now.return_value = datetime(2013, 10, 4, 17, 54, tzinfo=utc)
+
+            self.feed.refresh()
+
+            events = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com')
+            earliest_event = min(events, key=lambda event: event.displayed_from)
+            assert_in('All events are free!!!', earliest_event.source_content)
 
     @patch('alexander.feed_readers.now')
     @patch('alexander.feed_readers.urlopen')
-    def test_recurrence_id(self, urlopen, now):
+    def test_recurrence_id_override_recurrence_instance_first(self, urlopen, now):
         """
-        Tests that the refresh is successful the second time around.
+        Tests that the recurrence id overrides matter
         """
-        now.return_value = datetime(2013, 10, 4, 17, 54, tzinfo=utc)
-
-        # Refresh once
         with open(pathjoin(FIXTURE_DIR, 'northcentral_calendar_repeating_bug.ics')) as icalfile:
             urlopen.return_value = icalfile
-            self.feed.refresh()
-            events = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com')
-            individual_instance = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com:2013-10-09T18:00:00-04:00')
-            first_refresh_pks = set([item.pk for item in list(events) + list(individual_instance)])
+            now.return_value = datetime(2013, 10, 4, 17, 54, tzinfo=utc)
 
-        # Reopen the file and refresh again
-        with open(pathjoin(FIXTURE_DIR, 'northcentral_calendar_repeating_bug.ics')) as icalfile:
-            urlopen.return_value = icalfile
             self.feed.refresh()
 
             events = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com')
-            num_items = events.all().count()
-            assert_equals(num_items, 4)
-
-            individual_instance = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com:2013-10-09T18:00:00-04:00')
-            num_items = individual_instance.all().count()
-            assert_equals(num_items, 1)
-
-            # These should be the exact same items, not new ones.
-            second_refresh_pks = set([item.pk for item in list(events) + list(individual_instance)])
-            assert_equals(first_refresh_pks, second_refresh_pks)
+            earliest_event = min(events, key=lambda event: event.displayed_from)
+            assert_in('All events are free!!!', earliest_event.source_content)
