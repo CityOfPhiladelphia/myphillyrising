@@ -259,7 +259,7 @@ class TwitterService (BaseService):
     def extract_avatar_url(self, user_info):
         url = user_info['profile_image_url']
 
-        url_pattern = '^(?P<path>.*?)(?:_normal|_mini|_bigger|)(?P<ext>\.[^\.]*)$'
+        url_pattern = r'^(?P<path>.*?)(?:_normal|_mini|_bigger|)(?P<ext>(?:\.[^\/]*)?)$'
         match = re.match(url_pattern, url)
         if match:
             return match.group('path') + '_bigger' + match.group('ext')
