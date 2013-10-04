@@ -49,6 +49,6 @@ def update_avatars():
             updated.append(user)
     
     return {
-        'updated': updated,
-        'non-twitter': non_twitter
+        'updated': [u.username for u in updated],
+        'non-twitter': [u.username for u in updated]
     }
