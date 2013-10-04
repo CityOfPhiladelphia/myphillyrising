@@ -272,9 +272,11 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(minutes=60),
         'kwargs': {'individually': True}
     },
-    'refresh-twitter-avatars-every-quarter-hour': {
+    'refresh-twitter-avatars-every-few-minutes': {
         'task': 'myphillyrising.tasks.update_avatars',
         'schedule': timedelta(minutes=15),
+        'args': (),
+        'kwargs': {}
     },
 }
 
