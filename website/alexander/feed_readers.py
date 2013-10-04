@@ -167,24 +167,24 @@ class ICalFeedReader (FeedReader):
 
         return iter([ev for ev in cal.walk() if ev.name.lower() == 'vevent'])
 
+    def get_dt_or_none(self, vddd_type):
+        if vddd_type is not None:
+            if isinstance(vddd_type, datetime):
+                return vddd_type
+            else:
+                return vddd_type.dt
+        else:
+            return None
+
     def make_native_dts(self, item_data):
         item_data = item_data.copy()
 
-        def get_dt_or_none(vddd_type):
-            if vddd_type is not None:
-                if isinstance(vddd_type, datetime):
-                    return vddd_type
-                else:
-                    return vddd_type.dt
-            else:
-                return None
-
-        item_data['DTSTART'] = get_dt_or_none(item_data.pop('DTSTART', None))
-        item_data['DTEND'] = get_dt_or_none(item_data.pop('DTEND', None))
-        item_data['DTSTAMP'] = get_dt_or_none(item_data.pop('DTSTAMP', None))
-        item_data['CREATED'] = get_dt_or_none(item_data.pop('CREATED', None))
-        item_data['LAST-MODIFIED'] = get_dt_or_none(item_data.pop('LAST-MODIFIED', None))
-        item_data['RECURRENCE-ID'] = get_dt_or_none(item_data.pop('RECURRENCE-ID', None))
+        item_data['DTSTART'] = self.get_dt_or_none(item_data.pop('DTSTART', None))
+        item_data['DTEND'] = self.get_dt_or_none(item_data.pop('DTEND', None))
+        item_data['DTSTAMP'] = self.get_dt_or_none(item_data.pop('DTSTAMP', None))
+        item_data['CREATED'] = self.get_dt_or_none(item_data.pop('CREATED', None))
+        item_data['LAST-MODIFIED'] = self.get_dt_or_none(item_data.pop('LAST-MODIFIED', None))
+        item_data['RECURRENCE-ID'] = self.get_dt_or_none(item_data.pop('RECURRENCE-ID', None))
 
         return item_data
 
@@ -193,8 +193,12 @@ class ICalFeedReader (FeedReader):
         return json.dumps(item_data, cls=DjangoJSONEncoder, **kwargs)
 
     def get_item_id(self, item_data):
+        recurrence_id = self.get_dt_or_none(item_data.get('RECURRENCE-ID', None))
         try:
-            return str(item_data['UID'])
+            if recurrence_id is not None:
+                return '%s:%s' % (item_data['UID'], recurrence_id.isoformat())
+            else:
+                return str(item_data['UID'])
         except KeyError:
             if isinstance(item_data, dict):
                 pretty_item_data = self.item_as_json(item_data, indent=2)
