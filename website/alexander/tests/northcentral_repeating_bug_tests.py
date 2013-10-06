@@ -38,6 +38,7 @@ class TestNorthCentralCalendar(TestCase):
             now.return_value = datetime(2013, 10, 4, 17, 54, tzinfo=utc)
 
             self.feed.refresh()
+            assert_equals(self.feed.errors, [])
 
             events = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com')
             num_items = events.all().count()
@@ -54,8 +55,12 @@ class TestNorthCentralCalendar(TestCase):
             now.return_value = datetime(2013, 10, 4, 17, 54, tzinfo=utc)
 
             self.feed.refresh()
+            assert_equals(self.feed.errors, [])
 
             events = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com')
+            num_items = events.all().count()
+            assert_equals(num_items, 4)
+
             earliest_event = min(events, key=lambda event: event.displayed_from)
             assert_in('All events are free!!!', earliest_event.source_content)
 
@@ -70,7 +75,76 @@ class TestNorthCentralCalendar(TestCase):
             now.return_value = datetime(2013, 10, 4, 17, 54, tzinfo=utc)
 
             self.feed.refresh()
+            assert_equals(self.feed.errors, [])
 
             events = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com')
+            num_items = events.all().count()
+            assert_equals(num_items, 4)
+
+            earliest_event = min(events, key=lambda event: event.displayed_from)
+            assert_in('All events are free!!!', earliest_event.source_content)
+
+    @patch('alexander.feed_readers.now')
+    @patch('alexander.feed_readers.urlopen')
+    def test_subsequen_refreshes_rrule_first(self, urlopen, now):
+        """
+        Tests that the subsequent refreshes go without errors.
+        """
+        with open(pathjoin(FIXTURE_DIR, 'northcentral_calendar_repeating_bug_rrule_first.ics')) as icalfile:
+            urlopen.return_value = icalfile
+            now.return_value = datetime(2013, 10, 4, 17, 54, tzinfo=utc)
+
+            self.feed.refresh()
+
+        with open(pathjoin(FIXTURE_DIR, 'northcentral_calendar_repeating_bug_rrule_first.ics')) as icalfile:
+            urlopen.return_value = icalfile
+            now.return_value = datetime(2013, 10, 4, 17, 54, tzinfo=utc)
+
+            self.feed.refresh()
+            assert_equals(self.feed.errors, [])
+
+    @patch('alexander.feed_readers.now')
+    @patch('alexander.feed_readers.urlopen')
+    def test_subsequen_refreshes_recurrence_instance_first(self, urlopen, now):
+        """
+        Tests that the subsequent refreshes go without errors.
+        """
+        with open(pathjoin(FIXTURE_DIR, 'northcentral_calendar_repeating_bug.ics')) as icalfile:
+            urlopen.return_value = icalfile
+            now.return_value = datetime(2013, 10, 4, 17, 54, tzinfo=utc)
+
+            self.feed.refresh()
+
+        with open(pathjoin(FIXTURE_DIR, 'northcentral_calendar_repeating_bug.ics')) as icalfile:
+            urlopen.return_value = icalfile
+            now.return_value = datetime(2013, 10, 4, 17, 54, tzinfo=utc)
+
+            self.feed.refresh()
+            assert_equals(self.feed.errors, [])
+
+    @patch('alexander.feed_readers.now')
+    @patch('alexander.feed_readers.urlopen')
+    def test_refreshes_updated_recurrence_instance(self, urlopen, now):
+        """
+        Tests that the an rrule in which an instance is updated still has the
+        correct number of instances with the correct content.
+        """
+        with open(pathjoin(FIXTURE_DIR, 'northcentral_calendar_repeating_bug_no_recurrence_id.ics')) as icalfile:
+            urlopen.return_value = icalfile
+            now.return_value = datetime(2013, 10, 4, 17, 54, tzinfo=utc)
+
+            self.feed.refresh()
+
+        with open(pathjoin(FIXTURE_DIR, 'northcentral_calendar_repeating_bug.ics')) as icalfile:
+            urlopen.return_value = icalfile
+            now.return_value = datetime(2013, 10, 4, 17, 54, tzinfo=utc)
+
+            self.feed.refresh()
+            assert_equals(self.feed.errors, [])
+
+            events = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com')
+            num_items = events.all().count()
+            assert_equals(num_items, 4)
+
             earliest_event = min(events, key=lambda event: event.displayed_from)
             assert_in('All events are free!!!', earliest_event.source_content)

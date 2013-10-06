@@ -231,8 +231,6 @@ class ICalFeedReader (FeedReader):
                     continue
                 elif date > end_date:
                     break
-                elif date in self.recurrence_ids[self.get_item_id(item_data)]:
-                    continue
                 else:
                     dates.append(date)
 
@@ -281,6 +279,7 @@ class ICalFeedReader (FeedReader):
 
     def update_items(self, items, item_data):
         item_data = self.prepare_item_content(item_data)
+        item_id = self.get_item_id(item_data)
         dates, start, end = self.get_dates(item_data)
 
         if len(items) != len(dates):
@@ -301,7 +300,20 @@ class ICalFeedReader (FeedReader):
             for item in old_items:
                 date = item.displayed_from
 
-                if date in dates:
+                if date in self.recurrence_ids[item_id]:
+                    # If the start date of this event is in the recurrence_ids
+                    # mapping for this source item it means we've already seen
+                    # an event instance for the date.
+                    #
+                    # For more about RECURRENCE-IDs, see section 4.8.4.4 of
+                    # http://www.ietf.org/rfc/rfc2445.txt:
+                    #
+                    #   The "RECURRENCE-ID" property is used in conjunction
+                    #   with the "UID"and "SEQUENCE" property to identify a
+                    #   particular instance of a recurring event, to-do or
+                    #   journal.
+                    dates.remove(date)
+                elif date in dates:
                     self.update_single_item(item, date, item_data)
                     dates.remove(date)
                 else:

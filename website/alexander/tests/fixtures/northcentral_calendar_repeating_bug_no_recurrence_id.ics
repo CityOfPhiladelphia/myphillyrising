@@ -1,0 +1,254 @@
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:North Central
+X-WR-TIMEZONE:America/New_York
+X-WR-CALDESC:
+BEGIN:VTIMEZONE
+TZID:America/New_York
+X-LIC-LOCATION:America/New_York
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+TZNAME:EDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:EST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+
+BEGIN:VEVENT
+DTSTART:20130928T140000Z
+DTEND:20130928T160000Z
+DTSTAMP:20131004T205525Z
+UID:be2bpv549pqamhtjvfhrah4k7g@google.com
+CREATED:20130927T182255Z
+DESCRIPTION:Join The Church of the Advocate for an informative morning with
+  Dr. Michael Daniels to learn about Prostate Health and other Men's Issues.
+   \n\nDr. Daniels is a well-known local urologist\, He will provide needed 
+ information and answer questions.\n\nFor more information call 215.620.0965
+ .  $5 Donation are welcomed. 
+LAST-MODIFIED:20130927T182255Z
+LOCATION:The Church of the Advocate 18th and Diamond 
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Caring for Men's Health hosted by The Church of the Advocate
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART:20131009T213000Z
+DTEND:20131009T233000Z
+DTSTAMP:20131004T205525Z
+UID:dd3rkhfili7sj9qcamib2t3dio@google.com
+CREATED:20130927T180210Z
+DESCRIPTION:Women's Christian Alliance celebrates Parent and Family Appreci
+ ation in their "6 Ways in 6 Days" celebration.  Join the Women's Christian 
+ Alliance during the month of October in a series of activities and workshop
+ s. \n\nAll events are free!!! Contact Quibila Divine at qdivine@wcafamily.o
+ rg or 215.236.9911 ext. 1309. for more information.
+LAST-MODIFIED:20130927T181118Z
+LOCATION:Women's Christian Alliance 18th and Cecil B. Moore Ave. 
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Women's Christian Alliance Family Night 
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART:20131016T130000Z
+DTEND:20131016T143000Z
+DTSTAMP:20131004T205525Z
+UID:sfghr2us3l8icnve6t56g7ro58@google.com
+CREATED:20130927T180414Z
+DESCRIPTION:Women's Christian Alliance celebrates Parent and Family Appreci
+ ation in their "6 Ways in 6 Days" celebration.  Join the Women's Christian 
+ Alliance during the month of October in a series of activities and workshop
+ s. \n\nAll events are free!!! Contact Quibila Divine at qdivine@wcafamily.o
+ rg or 215.236.9911 ext. 1309. for more information.
+LAST-MODIFIED:20130927T181042Z
+LOCATION:Women's Christian Alliance Learning and Development Center 18th an
+ d Cecil B. Moore
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Women's Christian Alliance Doughnuts For Dads and Muffins for Moms 
+ Br
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART:20131017T193000Z
+DTEND:20131017T213000Z
+DTSTAMP:20131004T205525Z
+UID:ce08frbqd0vo61dck51nlaj524@google.com
+CREATED:20130927T180609Z
+DESCRIPTION:Women's Christian Alliance celebrates Parent and Family Appreci
+ ation in their "6 Ways in 6 Days" celebration.  Join the Women's Christian 
+ Alliance during the month of October in a series of activities and workshop
+ s. \n\n Lights On After School Event\n\nAll events are free!!! Contact Quib
+ ila Divine at qdivine@wcafamily.org or 215.236.9911 ext. 1309. for more inf
+ ormation.
+LAST-MODIFIED:20130927T181030Z
+LOCATION:Meade Elementary School. 18th and Oxford Streets and also at 22nd 
+ and Cecil B. Moore Ave. 
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Women's Christian Alliance 
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART:20131024T140000Z
+DTEND:20131024T150000Z
+DTSTAMP:20131004T205525Z
+UID:mgh0ujrd82l96kl1k0n0vjo61s@google.com
+CREATED:20130927T180859Z
+DESCRIPTION:Women's Christian Alliance celebrates Parent and Family Appreci
+ ation in their "6 Ways in 6 Days" celebration.  Join the Women's Christian 
+ Alliance during the month of October in a series of activities and workshop
+ s. \n\nAll events are free!!! Contact Quibila Divine at qdivine@wcafamily.o
+ rg or 215.236.9911 ext. 1309. for more information.
+LAST-MODIFIED:20130927T181016Z
+LOCATION:4th Floor City Hall
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Women's Christian Alliance City Council Proclamation
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART:20131019T133000Z
+DTEND:20131019T173000Z
+DTSTAMP:20131004T205525Z
+UID:ml28ja1jq8nnnrsuulk37g3ddk@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=North 
+ Central;X-NUM-GUESTS=0:mailto:l429ggolfisptg8f78ropuo7gg@group.calendar.goo
+ gle.com
+CREATED:20130927T180741Z
+DESCRIPTION:Women's Christian Alliance celebrates Parent and Family Appreci
+ ation in their "6 Ways in 6 Days" celebration.  Join the Women's Christian 
+ Alliance during the month of October in a series of activities and workshop
+ s. \n\n
+LAST-MODIFIED:20130927T180754Z
+LOCATION:22nd and Huntingdon Streets
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Women's Christian Alliance Parent Appreciation Day 
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=America/New_York:20131002T180000
+DTEND;TZID=America/New_York:20131002T200000
+RRULE:FREQ=WEEKLY;UNTIL=20131106T230000Z;BYDAY=WE
+DTSTAMP:20131004T205525Z
+UID:ca000c8r1o3mocc8k9pm6q9k3s@google.com
+CREATED:20130927T175710Z
+DESCRIPTION:Women's Christian Alliance celebrates Parent and Family Appreci
+ ation in their "6 Ways in 6 Days" celebration.  Join the Women's Christian 
+ Alliance during the month of October in a series of activities and workshop
+ s. \n\nOn the Parent Tip: For Fathers  (hosted by Philadelphia Anti-Drug/An
+ ti-Violence Network)\n\nevery Wednesday in October. 
+LAST-MODIFIED:20130927T175710Z
+LOCATION:22nd and Cecil B. Moore Ave.
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Women's Christian Alliance 
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART:20130926T223000Z
+DTEND:20130926T233000Z
+DTSTAMP:20131004T205525Z
+UID:egjhecmvju39ai2rq5u2cveljc@google.com
+CREATED:20130906T190355Z
+DESCRIPTION:Meeting with PMBC\, Sanitation and Philly311 to discuss challen
+ ges and next steps to address chronic blight issues. 
+LAST-MODIFIED:20130906T190355Z
+LOCATION:Honickman Learning Center and Comcast Technology Lab 1936 Judson S
+ t.
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:PhillyRising Area Beautification Meeting
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART:20130914T140000Z
+DTEND:20130914T220000Z
+DTSTAMP:20131004T205525Z
+UID:4rrrr9mup42e55kl80duvguee0@google.com
+CREATED:20130906T185829Z
+DESCRIPTION:Senator Shirley Kitchen and community residents host annual com
+ munity celebration. The celebration will take place from 2300 block of Norr
+ is St. to 2300 block of Diamond St. 
+LAST-MODIFIED:20130906T185829Z
+LOCATION:2300 block of Norris St. 
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:5th Annual Diamond St. event
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART:20130911T223000Z
+DTEND:20130911T233000Z
+DTSTAMP:20131004T205525Z
+UID:n38ou03s7ifdotfqfsckev599s@google.com
+CREATED:20130906T185251Z
+DESCRIPTION:Community Safety Meeting\nPlease join Project HOME as we sit do
+ wn with the members of the 22nd District of the Philadelphia Police Departm
+ ent and the PHA Police Department to get answers to some of the questions t
+ hat were raised at our previous community meeting held on 7/30/13.\nWednesd
+ ay\, September 11\, 2013\n6:30pm – 7:30pm\nHonickman Learning Center and\nC
+ omcast Technology Labs\n1936 North Judson Street\nFor information about thi
+ s event contact\nHelen Brown at\n215-235-3110 ext. 5611
+LAST-MODIFIED:20130906T185251Z
+LOCATION:1936 Judson St.
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Project H.O.M.E Community Safety Meeting Follow-up
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART:20130911T130000Z
+DTEND:20130911T160000Z
+DTSTAMP:20131004T205525Z
+UID:utuofrh3tgsietfh2p9ra88fls@google.com
+CREATED:20130906T184940Z
+DESCRIPTION:PhillyRising and CLIP in partnership with community residents w
+ ill be cleaning the 1800 block of Bucknell St. 
+LAST-MODIFIED:20130906T184940Z
+LOCATION:1800 block of Bucknell St.
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:PhillyRising Cleanup in Lower N. Central
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=America/New_York:20130911T180000
+DTEND;TZID=America/New_York:20130911T190000
+RRULE:FREQ=MONTHLY;BYDAY=2WE
+DTSTAMP:20131004T205525Z
+UID:al5frnhaeq8h6u75gupk1o14is@google.com
+CREATED:20130903T185233Z
+DESCRIPTION:Monthly community resident meeting. 
+LAST-MODIFIED:20130903T191311Z
+LOCATION:2309 W Diamond St Philadelphia\, PA 19121-1342
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:Raymond Rosen Tenant Council Meeting 
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

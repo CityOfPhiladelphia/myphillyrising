@@ -102,12 +102,30 @@ class Feed (models.Model):
                     self.errors.append(error_str)
                     continue
 
-            new_items.extend(item for item in items if is_new(item))
-            changed_items.extend(items if (has_new or has_changed) else [])
-            all_items.extend((item, has_new or has_changed) for item in items)
+                # Save all the changed items
+                for item in items:
+                    item.save()
+                changed_items.extend(items)
+
+            # Apply tags to everything that's new
+            for item in items:
+                if not is_new(item):
+                    continue
+
+                tags = tuple(item.feed.default_tags.all())
+                item.tags.add(*tags)
+
+                # Auto publish if this is a trusted feed
+                if self.is_trusted:
+                    item.status = 'published'
+                    item.save()
 
             # No matter what, note that we've seen the item
             seen_source_ids.add(source_id)
+            all_items.extend((item, has_new or has_changed) for item in items)
+
+            self.last_read_at = now()
+            self.save()
 
         # ICS feeds return a complete set of events each time, so we might as
         # well clean out events that no longer exist.
@@ -118,23 +136,6 @@ class Feed (models.Model):
             )
             unseen_source_ids = all_source_ids - seen_source_ids
             self.items.filter(source_id__in=unseen_source_ids).delete()
-
-        # Save everything that's new or changed
-        for item in changed_items:
-            item.save()
-
-        # Apply tags to everything that's new
-        for item in new_items:
-            tags = tuple(item.feed.default_tags.all())
-            item.tags.add(*tags)
-
-            # Auto publish if this is a trusted feed
-            if self.is_trusted:
-                item.status = 'published'
-                item.save()
-
-        self.last_read_at = now()
-        self.save()
 
         return all_items
 
