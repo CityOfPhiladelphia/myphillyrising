@@ -237,7 +237,7 @@ class ICalFeedReader (FeedReader):
             return dates, start_date, end_date
 
         # Single instance of a recurring event
-        elif 'RECURRENCE-ID' in item_data:
+        elif item_data.get('RECURRENCE-ID', None) is not None:
             # Make a note that we've seen this recurrence id, so that the
             # corresponding rrule knows how many things there should be.
             self.recurrence_ids[self.get_item_id(item_data)].add(item_data['RECURRENCE-ID'])

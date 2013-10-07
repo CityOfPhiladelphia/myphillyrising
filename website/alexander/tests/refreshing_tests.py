@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils.timezone import datetime
 from nose.tools import assert_equals, assert_false, assert_in, assert_not_in, assert_true
-from mock import patch
+from mock import patch, Mock
 from os.path import dirname, join as pathjoin
 from pytz import timezone
 
@@ -94,6 +94,7 @@ class TestFeedRefreshing(TestCase):
         with open(pathjoin(FIXTURE_DIR, 'testcal123.ics')) as icalfile:
             urlopen.return_value = icalfile
 
+            # This should update item 123, not create a new event
             feed.refresh()
             item = ContentItem.objects.get(pk=self.item_123_id)
 
@@ -109,25 +110,25 @@ class TestFeedRefreshing(TestCase):
 
         feed = Feed.objects.get(pk=self.feed_simple_cal_id)
 
-        with patch.object(ContentItem, 'save') as item_save:
-            with open(pathjoin(FIXTURE_DIR, 'testcal124.ics')) as icalfile:
-                urlopen.return_value = icalfile
+        with open(pathjoin(FIXTURE_DIR, 'testcal124.ics')) as icalfile:
+            urlopen.return_value = icalfile
 
-                item = ContentItem.objects.get(pk=self.item_124_id)
-                content = item.source_content
+            item = ContentItem.objects.get(pk=self.item_124_id)
+            item_save = item.save = Mock(wraps=item.save)
+            content = item.source_content
 
-                feed.refresh()
-                item = ContentItem.objects.get(pk=self.item_124_id)
+            feed.refresh()
+            item = ContentItem.objects.get(pk=self.item_124_id)
 
-                # The serialized content in the item should be the same as 
-                # what was loaded in initially from the test fixture.
-                assert_equals(content, item.source_content)
-                # Since the content was the same, the item should not have
-                # had to be saved (i.e., by update_item)
-                assert_false(item_save.called)
-                # Since the item was not saved with the imported information,
-                # the title should still be modified from what's in the feed.
-                assert_equals(item.title, 'modified title')
+            # The serialized content in the item should be the same as 
+            # what was loaded in initially from the test fixture.
+            assert_equals(content, item.source_content)
+            # Since the content was the same, the item should not have
+            # had to be saved (i.e., by update_item)
+            assert_false(item_save.called)
+            # Since the item was not saved with the imported information,
+            # the title should still be modified from what's in the feed.
+            assert_equals(item.title, 'modified title')
 
     @patch('alexander.feed_readers.urlopen')
     def test_refresh_deletes_nonexistant_events(self, urlopen):
@@ -182,7 +183,7 @@ class TestFeedRefreshing(TestCase):
                 # had to be geocoded
                 assert_true(geocode_contentitems.called)
                 args, kwargs = geocode_contentitems.call_args
-                assert_equals(list(args[0]), [])
+                assert_not_in(item.pk, list(args[0]))
                 assert_equals(kwargs, {'retry_delay': 86400})
 
     @patch('alexander.feed_readers.parserss')

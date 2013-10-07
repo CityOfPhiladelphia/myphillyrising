@@ -89,8 +89,12 @@ class Feed (models.Model):
 
             # If it is new or has changed, update the model with the source
             # data
-            has_new = any(is_new(item) for item in items)
-            has_changed = any(feed_source.is_different(item, item_source) for item in items)
+            new_flags = [is_new(item) for item in items]
+            changed_flags = [feed_source.is_different(item, item_source) for item in items]
+
+            has_new = any(new_flags)
+            has_changed = any(changed_flags)
+
             if has_new or has_changed:
                 try:
                     feed_source.update_items(items, item_source)
@@ -108,8 +112,8 @@ class Feed (models.Model):
                 changed_items.extend(items)
 
             # Apply tags to everything that's new
-            for item in items:
-                if not is_new(item):
+            for item, item_is_new in zip(items, new_flags):
+                if not item_is_new:
                     continue
 
                 tags = tuple(item.feed.default_tags.all())
