@@ -264,19 +264,17 @@ LOGGING = {
 # Periodic Tasks
 #
 
-from datetime import timedelta
+from celery.schedules import crontab
 
 CELERYBEAT_SCHEDULE = {
     'refresh-feeds-every-hour': {
         'task': 'alexander.tasks.refresh_feeds',
-        'schedule': timedelta(minutes=60),
+        'schedule': crontab(minute=5),
         'kwargs': {'individually': True}
     },
-    'refresh-twitter-avatars-every-few-minutes': {
+    'refresh-avatars-regularly': {
         'task': 'myphillyrising.tasks.update_avatars',
-        'schedule': timedelta(minutes=15),
-        'args': (),
-        'kwargs': {}
+        'schedule': crontab(minute='*/15'),
     },
 }
 
