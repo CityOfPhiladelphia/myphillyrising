@@ -1,0 +1,201 @@
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Strawberry Mansion
+X-WR-TIMEZONE:America/New_York
+X-WR-CALDESC:
+BEGIN:VTIMEZONE
+TZID:America/New_York
+X-LIC-LOCATION:America/New_York
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+TZNAME:EDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:EST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+
+BEGIN:VEVENT
+DTSTART:20131012T180000Z
+DTEND:20131012T210000Z
+DTSTAMP:20131007T212917Z
+UID:n8h14kn91k52jp4vh2g0jd2kns@google.com
+CREATED:20131007T155029Z
+DESCRIPTION:The Strawberry Mansion Community is gathering to celebrate a nu
+ mber of recent successful events and to begin to strategize on next steps a
+ nd sustainability. 
+LAST-MODIFIED:20131007T155029Z
+LOCATION:Faith Temple Church at 32nd and Cumberland
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Thank you event and planning meeting for 32nd and Cumberland
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=America/New_York:20131009T100000
+DTEND;TZID=America/New_York:20131009T150000
+DTSTAMP:20131007T212917Z
+UID:d2rtji7bt4h2mu2u4tpore5pnk@google.com
+RECURRENCE-ID;TZID=America/New_York:20131007T100000
+CREATED:20131002T151124Z
+DESCRIPTION:The Mural Arts Guild is working with residents\, PHS\, EPRA and
+  PhillyRising to build a much needed tool shed for the community. They will
+  work on building and painting the shed eveery Monday in October.
+LAST-MODIFIED:20131007T154541Z
+LOCATION:32nd and Ridge Community/School Garden
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:Mural Arts Guild Shed Build at Strawberry Mansion Green Resource Ce
+ nter
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=America/New_York:20131007T100000
+DTEND;TZID=America/New_York:20131007T150000
+RRULE:FREQ=WEEKLY;COUNT=4;BYDAY=MO
+DTSTAMP:20131007T212917Z
+UID:d2rtji7bt4h2mu2u4tpore5pnk@google.com
+CREATED:20131002T151124Z
+DESCRIPTION:The Mural Arts Guild is working with residents\, PHS\, EPRA and
+  PhillyRising to build a much needed tool shed for the community. They will
+  work on building and painting the shed eveery Monday in October.
+LAST-MODIFIED:20131002T151140Z
+LOCATION:32nd and Ridge Community/School Garden
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Mural Arts Guild Shed Build at Strawberry Mansion Green Resource Ce
+ nter
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART:20131005T140000Z
+DTEND:20131005T180000Z
+DTSTAMP:20131007T212917Z
+UID:sar2v5sqr22gb8ft58b1ou1jco@google.com
+CREATED:20131002T145858Z
+DESCRIPTION:Students from Temple University will be joining with youth from
+  the Strawberry Mansion Learning Center to sweep the streets and clean an o
+ vergrown lot in the neighborhood.
+LAST-MODIFIED:20131002T145858Z
+LOCATION:30th and Dauphin
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Cleanup at Strawberry Mansion Learning Center
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART:20130924T193000Z
+DTEND:20130924T210000Z
+DTSTAMP:20131007T212917Z
+UID:ns9r7tsm501703t8tkjioalrq8@google.com
+CREATED:20130903T182013Z
+DESCRIPTION:SMHS is participating in their first ever football game
+LAST-MODIFIED:20130919T135312Z
+LOCATION:Chalmer's Park 29th and Lehigh
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:First ever football game for Strawberry Mansion High School
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART:20130924T220000Z
+DTEND:20130924T230000Z
+DTSTAMP:20131007T212917Z
+UID:9fno1b1skj4kkfajs4sl63gh64@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;CN=Strawb
+ erry Mansion;X-NUM-GUESTS=0:mailto:qms54kfpa6u6g7km1ts64sehtg@group.calenda
+ r.google.com
+CREATED:20130910T150803Z
+DESCRIPTION:
+LAST-MODIFIED:20130910T151302Z
+LOCATION:17th and Montgomery 22nd Dist HQ
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:22nd District Captain's Townhall Meeting
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART:20130928T140000Z
+DTEND:20130928T180000Z
+DTSTAMP:20131007T212917Z
+UID:sfuart1pa1dd082fl1jqbi8pt8@google.com
+CREATED:20130909T164739Z
+DESCRIPTION:East Park Revitalization Alliance is leading a garden revitaliz
+ ation at 33rd and Hagert for an overgrown community garden in Strawberry Ma
+ nsion. PhillyRising will be joining EPRA\, volunteers and residents from 10
+ -2
+LAST-MODIFIED:20130909T164739Z
+LOCATION: 33rd and Hagert in Strawberry Mansion
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Garden Revitalization project w/ EPRA
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART:20130921T140000Z
+DTEND:20130921T193000Z
+DTSTAMP:20131007T212917Z
+UID:v27scd4m90nhoght1tnj3eouio@google.com
+CREATED:20130906T153757Z
+DESCRIPTION:SMHS\, EPRA\, USAO and PhillyRising are adding 20 raisewd beds 
+ for the community garden
+LAST-MODIFIED:20130906T153757Z
+LOCATION:32nd and Ridge Ave\, Philadelphia PA
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Strawberry Mansion Garden work day
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART:20130911T190000Z
+DTEND:20130911T200000Z
+DTSTAMP:20131007T212917Z
+UID:0smpnrlr9cvep93813cu3meguc@google.com
+CREATED:20130903T181851Z
+DESCRIPTION:ATT has awarded Kevin Upshur and the Strawberry Mansion Learnin
+ g Center with a grant to continue the great after school [programs they pro
+ vide for residents of the neighborhood.Special thanks to Council Presidnet 
+ Darrle Clarke's Office for making this possible.
+LAST-MODIFIED:20130903T181851Z
+LOCATION:30th and Dauphin
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:ATT and Strawberry Mansion Learning Center
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART:20130914T140000Z
+DTEND:20130914T210000Z
+DTSTAMP:20131007T212917Z
+UID:42rs12t2kbih67uk9e5ap3cbok@google.com
+CREATED:20130903T172624Z
+DESCRIPTION:Fun food games and music for all residents of Strawberry Mansio
+ n\, hosted by the Strawberry Mansion CDC and Council President Darrell Clar
+ ke
+LAST-MODIFIED:20130903T172624Z
+LOCATION:Mander Recreation Center\, 33rd & Diamond\, Philadelphia PA
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Strawberry Mansion Day
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

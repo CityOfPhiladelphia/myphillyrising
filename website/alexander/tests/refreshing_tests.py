@@ -21,8 +21,8 @@ class TestFeedRefreshing(TestCase):
         # Simple iCal feed
         feed = Feed.objects.create(title='Test Feed', source_url='http://example.com/ics', source_type='ical', default_category='events')
         self.feed_simple_cal_id = feed.id
-        i1 = ContentItem.objects.create(category='events', displayed_from=datetime(1970, 1, 1), feed_id=self.feed_simple_cal_id, source_id='123@example.com', source_url='http://example.com/ics', source_content='{}')
-        i2 = ContentItem.objects.create(category='events', displayed_from=datetime(1970, 1, 1), feed_id=self.feed_simple_cal_id, source_id='124@example.com', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent124.json')).read(), title='modified title')
+        i1 = ContentItem.objects.create(category='events', displayed_from=datetime(1970, 1, 1), feed_id=self.feed_simple_cal_id, source_id='123@example.com:0', source_url='http://example.com/ics', source_content='{}')
+        i2 = ContentItem.objects.create(category='events', displayed_from=datetime(1970, 1, 1), feed_id=self.feed_simple_cal_id, source_id='124@example.com:0', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent124.json')).read(), title='modified title')
         self.item_123_id = i1.id
         self.item_124_id = i2.id
 
@@ -30,13 +30,13 @@ class TestFeedRefreshing(TestCase):
         feed = Feed.objects.create(title='Test Recurrence Feed', source_url='http://example.com/ics', source_type='ical', default_category='events')
         self.feed_rrules_id = feed.id
 
-        i1 = ContentItem.objects.create(category='events', displayed_from=datetime(2013, 5, 31, 16, 0, tzinfo=timezone('UTC')), displayed_until=datetime(2013, 5, 31, 22, 0, tzinfo=timezone('UTC')), feed_id=self.feed_rrules_id, source_id='finite@example.com', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent_finite.json')).read())
-        i2 = ContentItem.objects.create(category='events', displayed_from=datetime(2013, 6, 1, 16, 0, tzinfo=timezone('UTC')), displayed_until=datetime(2013, 6, 1,22, 0, tzinfo=timezone('UTC')), feed_id=self.feed_rrules_id, source_id='finite@example.com', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent_finite.json')).read())
+        i1 = ContentItem.objects.create(category='events', displayed_from=datetime(2013, 5, 31, 16, 0, tzinfo=timezone('UTC')), displayed_until=datetime(2013, 5, 31, 22, 0, tzinfo=timezone('UTC')), feed_id=self.feed_rrules_id, source_id='finite@example.com:1', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent_finite.json')).read())
+        i2 = ContentItem.objects.create(category='events', displayed_from=datetime(2013, 6, 1, 16, 0, tzinfo=timezone('UTC')), displayed_until=datetime(2013, 6, 1,22, 0, tzinfo=timezone('UTC')), feed_id=self.feed_rrules_id, source_id='finite@example.com:1', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent_finite.json')).read())
         self.item_finite_ev_1 = i1.id
         self.item_finite_ev_2 = i2.id
 
-        i1 = ContentItem.objects.create(category='events', displayed_from=datetime(2013, 5, 31, 16, 0, tzinfo=timezone('UTC')), displayed_until=datetime(2013, 5, 31, 22, 0, tzinfo=timezone('UTC')), feed_id=self.feed_rrules_id, source_id='infinite@example.com', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent_infinite.json')).read())
-        i2 = ContentItem.objects.create(category='events', displayed_from=datetime(2013, 6, 1, 16, 0, tzinfo=timezone('UTC')), displayed_until=datetime(2013, 6, 1, 22, 0, tzinfo=timezone('UTC')), feed_id=self.feed_rrules_id, source_id='infinite@example.com', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent_infinite.json')).read())
+        i1 = ContentItem.objects.create(category='events', displayed_from=datetime(2013, 5, 31, 16, 0, tzinfo=timezone('UTC')), displayed_until=datetime(2013, 5, 31, 22, 0, tzinfo=timezone('UTC')), feed_id=self.feed_rrules_id, source_id='infinite@example.com:1', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent_infinite.json')).read())
+        i2 = ContentItem.objects.create(category='events', displayed_from=datetime(2013, 6, 1, 16, 0, tzinfo=timezone('UTC')), displayed_until=datetime(2013, 6, 1, 22, 0, tzinfo=timezone('UTC')), feed_id=self.feed_rrules_id, source_id='infinite@example.com:1', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent_infinite.json')).read())
         self.item_infinite_ev_1 = i1.id
         self.item_infinite_ev_2 = i2.id
 
@@ -44,13 +44,13 @@ class TestFeedRefreshing(TestCase):
         feed = Feed.objects.create(title='Test Recurrence Feed', source_url='http://example.com/ics', source_type='ical', default_category='events')
         self.feed_rrules_outdated_id = feed.id
 
-        i1 = ContentItem.objects.create(category='events', displayed_from=datetime(2013, 5, 31, 15, 0, tzinfo=timezone('UTC')), displayed_until=datetime(2013, 5, 31, 21, 0, tzinfo=timezone('UTC')), feed_id=self.feed_rrules_outdated_id, source_id='finite@example.com', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent_finite_outdated.json')).read())
-        i2 = ContentItem.objects.create(category='events', displayed_from=datetime(2013, 6, 1, 15, 0, tzinfo=timezone('UTC')), displayed_until=datetime(2013, 6, 1,21, 0, tzinfo=timezone('UTC')), feed_id=self.feed_rrules_outdated_id, source_id='finite@example.com', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent_finite_outdated.json')).read())
+        i1 = ContentItem.objects.create(category='events', displayed_from=datetime(2013, 5, 31, 15, 0, tzinfo=timezone('UTC')), displayed_until=datetime(2013, 5, 31, 21, 0, tzinfo=timezone('UTC')), feed_id=self.feed_rrules_outdated_id, source_id='finite@example.com:1', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent_finite_outdated.json')).read())
+        i2 = ContentItem.objects.create(category='events', displayed_from=datetime(2013, 6, 1, 15, 0, tzinfo=timezone('UTC')), displayed_until=datetime(2013, 6, 1,21, 0, tzinfo=timezone('UTC')), feed_id=self.feed_rrules_outdated_id, source_id='finite@example.com:1', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent_finite_outdated.json')).read())
         self.item_finite_outdated_ev_1 = i1.id
         self.item_finite_outdated_ev_2 = i2.id
 
-        i1 = ContentItem.objects.create(category='events', displayed_from=datetime(2013, 5, 31, 15, 0, tzinfo=timezone('UTC')), displayed_until=datetime(2013, 5, 31, 21, 0, tzinfo=timezone('UTC')), feed_id=self.feed_rrules_outdated_id, source_id='infinite@example.com', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent_infinite_outdated.json')).read())
-        i2 = ContentItem.objects.create(category='events', displayed_from=datetime(2013, 6, 1, 15, 0, tzinfo=timezone('UTC')), displayed_until=datetime(2013, 6, 1, 21, 0, tzinfo=timezone('UTC')), feed_id=self.feed_rrules_outdated_id, source_id='infinite@example.com', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent_infinite_outdated.json')).read())
+        i1 = ContentItem.objects.create(category='events', displayed_from=datetime(2013, 5, 31, 15, 0, tzinfo=timezone('UTC')), displayed_until=datetime(2013, 5, 31, 21, 0, tzinfo=timezone('UTC')), feed_id=self.feed_rrules_outdated_id, source_id='infinite@example.com:1', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent_infinite_outdated.json')).read())
+        i2 = ContentItem.objects.create(category='events', displayed_from=datetime(2013, 6, 1, 15, 0, tzinfo=timezone('UTC')), displayed_until=datetime(2013, 6, 1, 21, 0, tzinfo=timezone('UTC')), feed_id=self.feed_rrules_outdated_id, source_id='infinite@example.com:1', source_url='http://example.com/ics', source_content=open(pathjoin(FIXTURE_DIR, 'testevent_infinite_outdated.json')).read())
         self.item_infinite_outdated_ev_1 = i1.id
         self.item_infinite_outdated_ev_2 = i2.id
 
@@ -253,7 +253,7 @@ class TestFeedRefreshing(TestCase):
             urlopen.return_value = icalfile
 
             feed.refresh()
-            items = ContentItem.objects.filter(source_id='infinite@example.com', feed_id=self.feed_rrules_id)
+            items = ContentItem.objects.filter(source_id='infinite@example.com:1', feed_id=self.feed_rrules_id)
 
             assert_equals(len(items), 10)
             assert_equals([i.id for i in items][-2:], [self.item_infinite_ev_2, self.item_infinite_ev_1])
@@ -270,7 +270,7 @@ class TestFeedRefreshing(TestCase):
             urlopen.return_value = icalfile
 
             feed.refresh()
-            items = ContentItem.objects.filter(source_id='infinite@example.com', feed_id=self.feed_rrules_outdated_id)
+            items = ContentItem.objects.filter(source_id='infinite@example.com:1', feed_id=self.feed_rrules_outdated_id)
 
             assert_equals(len(items), 10)
             assert_in(self.item_infinite_outdated_ev_1, [i.id for i in items])

@@ -195,7 +195,10 @@ class ICalFeedReader (FeedReader):
 
     def get_item_id(self, item_data):
         try:
-            return str(item_data['UID'])
+            if 'SEQUENCE' in item_data:
+                return '%s:%s' % (item_data['UID'], item_data['SEQUENCE'])
+            else:
+                return str(item_data['UID'])
         except KeyError:
             if isinstance(item_data, dict):
                 pretty_item_data = self.item_as_json(item_data, indent=2)

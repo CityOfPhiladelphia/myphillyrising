@@ -40,7 +40,7 @@ class TestNorthCentralCalendar(TestCase):
             self.feed.refresh()
             assert_equals(self.feed.errors, [])
 
-            events = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com')
+            events = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com:0')
             num_items = events.all().count()
             assert_equals(num_items, 4)
 
@@ -57,7 +57,7 @@ class TestNorthCentralCalendar(TestCase):
             self.feed.refresh()
             assert_equals(self.feed.errors, [])
 
-            events = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com')
+            events = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com:0')
             num_items = events.all().count()
             assert_equals(num_items, 4)
 
@@ -77,7 +77,7 @@ class TestNorthCentralCalendar(TestCase):
             self.feed.refresh()
             assert_equals(self.feed.errors, [])
 
-            events = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com')
+            events = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com:0')
             num_items = events.all().count()
             assert_equals(num_items, 4)
 
@@ -142,7 +142,7 @@ class TestNorthCentralCalendar(TestCase):
             self.feed.refresh()
             assert_equals(self.feed.errors, [])
 
-            events = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com')
+            events = self.feed.items.filter(source_id='ca000c8r1o3mocc8k9pm6q9k3s@google.com:0')
             num_items = events.all().count()
             assert_equals(num_items, 4)
 
