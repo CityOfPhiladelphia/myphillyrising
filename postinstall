@@ -160,8 +160,13 @@ CELERYBEAT_SCHEDULE = {
     'refresh-feeds-every-hour': {
         'task': 'alexander.tasks.refresh_feeds',
         'schedule': timedelta(
-            minutes=float(env.get('CELERY_REFRESH_SCHEDULE', '60'))),
+            minutes=float(env.get('CELERY_FEED_REFRESH_SCHEDULE', '60'))),
         'kwargs': {'individually': True}
+    },
+    'refresh-avatars-regularly': {
+        'task': 'myphillyrising.tasks.update_avatars',
+        'schedule': timedelta(
+            minutes=float(env.get('CELERY_AVATAR_REFRESH_SCHEDULE', '15'))),
     },
 }
 
