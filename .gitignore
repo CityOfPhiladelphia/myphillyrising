@@ -55,3 +55,6 @@ website/myphillyrising/static/components/
 website/myphillyrising/node_modules/
 website/myphillyrising/static/myphillyrising/js/*.min.js
 website/myphillyrising/static/myphillyrising/css/*.min.css
+
+# Vagrant
+.vagrant/

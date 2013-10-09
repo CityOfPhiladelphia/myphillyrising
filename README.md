@@ -89,6 +89,31 @@ Do the *bower* install in both the `myphillyrising` and `alexander` folders:
 
 Browse to `http://localhost:8000/admin` and add a feed or two. Click the *Refresh* button next to each feed to import the data. Give it a minute (you should see database activity scrolling by in your `celeryd` terminal as the content items are loading).
 
+Vagrant Installation
+------------------
+
+To setup a VM to run the database and app within, install [Vagrant](http://www.vagrantup.com), then:
+
+     git clone https://github.com/openplans/myphillyrising.git
+     vagrant up
+
+This will do a lot of the installation work above for you. When the VM has finished initializing:
+
+     vagrant ssh
+
+Then finish setting up the database:
+
+    cd /vagrant # The repo's code will be available in the VM here
+    ./website/manage.py syncdb
+    ./website/manage.py migrate
+    ./website/manage.py loaddata ./website/alexander/fixtures/neighborhood_tags.json
+
+Now you're ready to start the servers. [Tmux](http://tmux.sourceforge.net/) is installed so that you can both of these servers within one shell or you could open a new shell and `vagrant ssh` into it:
+
+    ./website/manage.py runserver [::]:8000  # Run this in one terminal (slight change from above)
+    ./website/manage.py celeryd    # Run this in another terminal`
+
+Use `vagrant halt` to stop the VM while saving your state for next time. [Refer to the docs](http://docs.vagrantup.com/v2/getting-started/teardown.html) for more info on Vagrant teardown.
 
 About PhillyRising
 ------------------
