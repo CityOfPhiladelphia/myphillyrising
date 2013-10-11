@@ -261,7 +261,7 @@ var MyPhillyRising = MyPhillyRising || {};
     },
     onShow: function() {
       /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-      var disqus_shortname = 'devphillyrising'; // required: replace example with your forum shortname
+      var disqus_shortname = NS.bootstrapped.disqusShortName; // required: replace example with your forum shortname
 
       /* * * DON'T EDIT BELOW THIS LINE * * */
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

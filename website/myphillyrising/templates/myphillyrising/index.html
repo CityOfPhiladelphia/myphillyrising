@@ -46,7 +46,8 @@
     staticUrl : "{{ STATIC_URL }}",
 
     disqusSSOAuth : "{{ disqus_sso_auth }}",
-    disqusPublicKey : "{{ settings.DISQUS_PUBLIC_KEY }}"
+    disqusPublicKey : "{{ settings.DISQUS_PUBLIC_KEY }}",
+    disqusShortName : "{{ settings.DISQUS_SHORT_NAME }}"
   };
   {{NS}}.staticURL = '{{ STATIC_URL|safe }}';
   {{NS}}.twitterConf = {{ twitter_config|safe }};
