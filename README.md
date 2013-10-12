@@ -113,7 +113,7 @@ Now you're ready to start the servers. [Tmux](http://tmux.sourceforge.net/) is i
     ./website/manage.py runserver [::]:8000  # Run this in one terminal (slight change from above)
     ./website/manage.py celeryd    # Run this in another terminal`
 
-The app should now be available at [http://localhost:8000](http://localhost:8000). Navigate to [http://localhost:8000/admin](http://localhost:8000/admin) Use `vagrant halt` to stop the VM while saving your state for next time. [Refer to the docs](http://docs.vagrantup.com/v2/getting-started/teardown.html) for more info on Vagrant teardown.
+The app should now be available at [http://localhost:8000](http://localhost:8000). Navigate to [http://localhost:8000/admin/](http://localhost:8000/admin/) Use `vagrant halt` to stop the VM while saving your state for next time. [Refer to the docs](http://docs.vagrantup.com/v2/getting-started/teardown.html) for more info on Vagrant teardown.
 
 About PhillyRising
 ------------------
