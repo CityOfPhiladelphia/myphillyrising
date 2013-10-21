@@ -128,8 +128,8 @@ class Feed (models.Model):
             seen_source_ids.add(source_id)
             all_items.extend((item, has_new or has_changed) for item in items)
 
-            self.last_read_at = now()
-            self.save()
+        self.last_read_at = now()
+        self.save()
 
         # ICS feeds return a complete set of events each time, so we might as
         # well clean out events that no longer exist.
