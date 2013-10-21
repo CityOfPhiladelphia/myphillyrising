@@ -6,6 +6,7 @@ from urllib2 import urlopen
 from HTMLParser import HTMLParser
 from time import mktime
 from collections import defaultdict
+from itertools import chain
 import json  # For dumping dictionary content to strings
 import re
 
@@ -184,12 +185,15 @@ class ICalFeedReader (FeedReader):
     def get_json_encoder_class(self):
         return ICalJSONEncoder
 
-    def get_dt_or_none(self, vddd_type):
+    def get_dt_or_none(self, vddd_type, default_tzinfo=None):
         if vddd_type is not None:
             if isinstance(vddd_type, datetime):
                 return vddd_type
             else:
-                return vddd_type.dt
+                dt = vddd_type.dt
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=default_tzinfo)
+                return dt
         else:
             return None
 
@@ -202,6 +206,23 @@ class ICalFeedReader (FeedReader):
         item_data['CREATED'] = self.get_dt_or_none(item_data.pop('CREATED', None))
         item_data['LAST-MODIFIED'] = self.get_dt_or_none(item_data.pop('LAST-MODIFIED', None))
         item_data['RECURRENCE-ID'] = self.get_dt_or_none(item_data.pop('RECURRENCE-ID', None))
+
+        if item_data['DTSTART'] is not None:
+            default_tzinfo = item_data['DTSTART'].tzinfo
+        elif item_data['DTEND'] is not None:
+            default_tzinfo = item_data['DTEND'].tzinfo
+        else:
+            default_tzinfo = None
+
+        eds = item_data.get('EXDATE', [])
+        if 'EXDATE' in item_data and all(hasattr(ed, 'dts') for ed in eds):
+            item_data['EXDATE'] = [self.get_dt_or_none(dt, default_tzinfo=default_tzinfo)
+                                   for dt in chain(*[ed.dts for ed in eds])]
+
+        rds = item_data.get('RDATE', [])
+        if 'RDATE' in item_data and all(hasattr(rds, 'dts') for rd in rds):
+            item_data['RDATE'] = [self.get_dt_or_none(dt, default_tzinfo=default_tzinfo)
+                                  for dt in chain(*[rd.dts for rd in rds])]
 
         return item_data
 
@@ -245,7 +266,18 @@ class ICalFeedReader (FeedReader):
             dates = []
             start_date = now()
             end_date = start_date + timedelta(days=30)
-            for date in rrulestr(item_data['RRULE'].to_ical(), dtstart=item_data['DTSTART']):
+
+            rule = rrulestr(item_data['RRULE'].to_ical(),
+                            dtstart=item_data['DTSTART'],
+                            forceset=True)
+
+            # Exclusions and inclusions...
+            for date in item_data.get('EXDATE', []):
+                rule.exdate(date)
+            for date in item_data.get('RDATE', []):
+                rule.rdate(date)
+
+            for date in rule:
                 if date < start_date:
                     continue
                 elif date > end_date:
