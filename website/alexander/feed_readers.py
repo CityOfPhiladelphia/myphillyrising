@@ -45,6 +45,9 @@ class FeedReader (object):
     def __init__(self, url):
         self.url = url
 
+    def get_json_encoder_class(self):
+        return DjangoJSONEncoder
+
     def __iter__(self):
         """
         Retrieve the feed information from the upstream source, and return an
@@ -65,7 +68,7 @@ class FeedReader (object):
         same data.
         """
         item_data = self.prepare_item_content(item_data)
-        content = json.dumps(item_data, cls=DjangoJSONEncoder, sort_keys=True)
+        content = json.dumps(item_data, cls=self.get_json_encoder_class(), sort_keys=True)
         return item.source_content != content
 
     def prepare_item_content(self, item_data):
@@ -145,6 +148,16 @@ class RSSFeedReader (FeedReader):
         item.last_read_at = now()
 
 
+class ICalJSONEncoder (DjangoJSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, icalendar.prop.vDDDLists):
+            return [self.default(elem.dt) for elem in obj.dts]
+        elif isinstance(obj, icalendar.prop.vDDDTypes):
+            return self.default(obj.dt)
+        else:
+            return super(ICalJSONEncoder, self).default(obj)
+
+
 class ICalFeedReader (FeedReader):
     def __iter__(self):
         msg = _('Retrieving items from iCal feed at %s.') % (self.url,)
@@ -167,6 +180,9 @@ class ICalFeedReader (FeedReader):
             return iter([])
 
         return iter([ev for ev in cal.walk() if ev.name.lower() == 'vevent'])
+
+    def get_json_encoder_class(self):
+        return ICalJSONEncoder
 
     def get_dt_or_none(self, vddd_type):
         if vddd_type is not None:
@@ -191,7 +207,7 @@ class ICalFeedReader (FeedReader):
 
     def item_as_json(self, item_data, **kwargs):
         item_data = self.make_native_dts(item_data)
-        return json.dumps(item_data, cls=DjangoJSONEncoder, **kwargs)
+        return json.dumps(item_data, cls=self.get_json_encoder_class(), **kwargs)
 
     def get_item_id(self, item_data):
         try:
@@ -266,7 +282,7 @@ class ICalFeedReader (FeedReader):
         if first_start and first_end:
             item.displayed_until = date + (first_end - first_start)
 
-        content = json.dumps(item_data, cls=DjangoJSONEncoder, sort_keys=True)
+        content = json.dumps(item_data, cls=self.get_json_encoder_class(), sort_keys=True)
         item.source_id = self.get_item_id(item_data)
         item.source_content = content
 
