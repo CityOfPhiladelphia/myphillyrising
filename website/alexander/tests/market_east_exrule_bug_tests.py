@@ -29,7 +29,7 @@ class TestMarketEastCalendar(TestCase):
 
     @patch('alexander.feed_readers.now')
     @patch('alexander.feed_readers.urlopen')
-    def test_rrule(self, urlopen, now):
+    def test_rrule_with_multiple_exdates(self, urlopen, now):
         """
         Tests that the right number of events are created from the rrule.
         """
@@ -51,5 +51,46 @@ class TestMarketEastCalendar(TestCase):
                     # Exclude the 12th and 13th...
                     datetime(2013, 10, 18, 16, 0, tzinfo=utc),
                     datetime(2013, 10, 19, 16, 0, tzinfo=utc),
+                ])
+            )
+
+
+@override_settings(CELERY_ALWAYS_EAGER=True)
+class TestFrankfordCalendar(TestCase):
+    def setUp(self):
+        Feed.objects.all().delete()
+        ContentItem.objects.all().delete()
+
+        # The Market East calendar has an event called Market East Live!
+        # that causes issues. The event is recurring, but has two exception
+        # dates.
+        self.feed = Feed.objects.create(
+            title='Frankford Events',
+            source_url='http://example.com/ics',
+            source_type='ics',
+            default_category='events'
+        )
+
+    @patch('alexander.feed_readers.now')
+    @patch('alexander.feed_readers.urlopen')
+    def test_rrule_with_single_exdate(self, urlopen, now):
+        """
+        Tests that the right number of events are created from the rrule.
+        """
+        with open(pathjoin(FIXTURE_DIR, 'frankford_exdate_bug.ics')) as icalfile:
+            urlopen.return_value = icalfile
+            now.return_value = datetime(2013, 8, 28, 17, 54, tzinfo=utc)
+
+            self.feed.refresh()
+            assert_equals(self.feed.errors, [])
+
+            events = self.feed.items.filter(source_id='s91l5tpfc45h7ou2qk2303egag@google.com:1')
+            num_items = events.all().count()
+            assert_equals(num_items, 1)  # there would be two without exclusion
+            assert_equals(
+                set([e.displayed_from for e in events]),
+                set([
+                    datetime(2013, 8, 29, 21, 30, tzinfo=utc),
+                    # Exclude Sept 26th...
                 ])
             )

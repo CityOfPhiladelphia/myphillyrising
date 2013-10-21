@@ -197,6 +197,26 @@ class ICalFeedReader (FeedReader):
         else:
             return None
 
+    def get_dts_or_empty(self, vddd_lists, default_tzinfo):
+        dts = []
+
+        # If there's one EXDATE, it's a vDDDLists object
+        if hasattr(vddd_lists, 'dts'):
+            dts = [self.get_dt_or_none(dt, default_tzinfo=default_tzinfo)
+                   for dt in vddd_lists.dts]
+
+        # Otherwise, check if it's a list of vDDDLists objects
+        elif all(hasattr(ed, 'dts') for ed in vddd_lists):
+            multi = vddd_lists
+            dts = [self.get_dt_or_none(dt, default_tzinfo=default_tzinfo)
+                   for dt in chain(*[single.dts for single in multi])]
+
+        # If it's neither of those, it may already be datetimes
+        elif all(isinstance(dt, datetime) for dt in vddd_lists):
+            dts = vddd_lists
+
+        return dts
+
     def make_native_dts(self, item_data):
         item_data = item_data.copy()
 
@@ -214,15 +234,10 @@ class ICalFeedReader (FeedReader):
         else:
             default_tzinfo = None
 
-        eds = item_data.get('EXDATE', [])
-        if 'EXDATE' in item_data and all(hasattr(ed, 'dts') for ed in eds):
-            item_data['EXDATE'] = [self.get_dt_or_none(dt, default_tzinfo=default_tzinfo)
-                                   for dt in chain(*[ed.dts for ed in eds])]
-
-        rds = item_data.get('RDATE', [])
-        if 'RDATE' in item_data and all(hasattr(rds, 'dts') for rd in rds):
-            item_data['RDATE'] = [self.get_dt_or_none(dt, default_tzinfo=default_tzinfo)
-                                  for dt in chain(*[rd.dts for rd in rds])]
+        item_data['EXDATE'] = self.get_dts_or_empty(item_data.pop('EXDATE', []),
+                                                    default_tzinfo=default_tzinfo)
+        item_data['RDATE'] = self.get_dts_or_empty(item_data.pop('RDATE', []),
+                                                   default_tzinfo=default_tzinfo)
 
         return item_data
 
