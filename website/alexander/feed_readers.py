@@ -333,9 +333,12 @@ class ICalFeedReader (FeedReader):
         item_id = self.get_item_id(item_data)
         dates, start, end = self.get_dates(item_data)
 
-        if len(items) != len(dates):
+        if len(items) < len(dates):
             raise ValueError('Wrong number of events: expected %s, got %s' %
                              (len(dates), len(items)))
+
+        # How many items do we need to get rid of?
+        surplus_items = len(items) - len(dates)
 
         if len(dates) == 0:
             return
@@ -369,7 +372,10 @@ class ICalFeedReader (FeedReader):
                     dates.remove(date)
                 else:
                     item.delete()
-                    new_items.append(item)
+                    if surplus_items <= 0:
+                        new_items.append(item)
+                    else:
+                        surplus_items -= 1
                     continue
 
             # Then deal with new dates
