@@ -1,12 +1,12 @@
-  <article class="detail-item">
+  <article class="detail-item rss-item">
 
-    <div class="item-header detail-header">
-      <h3 class="item-title detail-title">{{{ title }}}</h3>
+    <div class="item-header detail-header rss-item-header">
+      <h3 class="item-title detail-title rss-item-title">{{{ title }}}</h3>
     </div>
-    <div class="item-content detail-content">
+    <div class="item-content detail-content rss-item-content">
       {{{ rsscontent }}}
     </div>
-    <div class="item-meta">
+    <div class="item-meta rss-item-meta">
       <p><span class="updated">Last updated: {{ prettydate updated_at }}</span> | Source: {{ feed.title }}</p>
     </div>
 

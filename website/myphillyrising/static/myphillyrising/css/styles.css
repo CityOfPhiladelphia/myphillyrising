@@ -821,7 +821,7 @@ a.close-btn:hover {
 }
 
 /* Hide RSS "Add a comment" button */
-.detail-content a[rel="nofollow"] {
+.rss-item .detail-content a[rel="nofollow"] {
   display: none;
 }
 
