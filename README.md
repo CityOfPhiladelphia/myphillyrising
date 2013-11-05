@@ -55,28 +55,29 @@ need to login or test comments right away.
     ./website/manage.py migrate
 
 
-### Install bower and grunt
+### Install Bower and Grunt
 
-Bower is a package manager for JavaScript assets and grunt is a build tool.
+[Bower](http://bower.io/) is a package manager for JavaScript assets and [Grunt](http://gruntjs.com/) is a build tool.
 
-TODO: add instructions
-
+    npm install -g bower grunt-cli
 
 ### Install client assets
 
-Do the *bower* install in both the `myphillyrising` and `alexander` folders:
+Do the *bower* and *grunt* installs in both the `myphillyrising` and `alexander` folders:
 
     cd website/myphillyrising
     npm install
     bower install
+    grunt
     cd ../alexander
     npm install
     bower install
+    grunt
     cd ../..
 
 ### Load the neighborhoods and tags:
 
-    ./website/manage.py loaddata ./website/alexander/fixtures/phillyrising_neighborhoods.json
+    ./website/manage.py loaddata ./website/alexander/fixtures/neighborhood_tags.json
 
 ### Start the servers
 
