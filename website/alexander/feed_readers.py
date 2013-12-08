@@ -1,3 +1,4 @@
+from datetime import date
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.translation import ugettext as _
 from django.utils.timezone import now, datetime, timedelta
@@ -187,11 +188,11 @@ class ICalFeedReader (FeedReader):
 
     def get_dt_or_none(self, vddd_type, default_tzinfo=None):
         if vddd_type is not None:
-            if isinstance(vddd_type, datetime):
+            if isinstance(vddd_type, (date, datetime)):
                 return vddd_type
             else:
                 dt = vddd_type.dt
-                if dt.tzinfo is None:
+                if hasattr(dt, 'tzinfo') and dt.tzinfo is None:
                     dt = dt.replace(tzinfo=default_tzinfo)
                 return dt
         else:
@@ -227,9 +228,9 @@ class ICalFeedReader (FeedReader):
         item_data['LAST-MODIFIED'] = self.get_dt_or_none(item_data.pop('LAST-MODIFIED', None))
         item_data['RECURRENCE-ID'] = self.get_dt_or_none(item_data.pop('RECURRENCE-ID', None))
 
-        if item_data['DTSTART'] is not None:
+        if isinstance(item_data['DTSTART'], datetime):  # it could be a date
             default_tzinfo = item_data['DTSTART'].tzinfo
-        elif item_data['DTEND'] is not None:
+        elif isinstance(item_data['DTEND'], datetime):
             default_tzinfo = item_data['DTEND'].tzinfo
         else:
             default_tzinfo = None
