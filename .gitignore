@@ -58,3 +58,7 @@ website/myphillyrising/static/myphillyrising/css/*.min.css
 
 # Vagrant
 .vagrant/
+
+# Database dumps
+*.dump
+*.backup
