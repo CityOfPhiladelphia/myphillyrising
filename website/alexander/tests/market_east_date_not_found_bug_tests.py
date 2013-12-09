@@ -30,6 +30,8 @@ class TestStrawberryMansionCalendar(TestCase):
     def test_rrule(self, urlopen, now):
         """
         Tests that the right number of events are created from the rrule.
+        Specifically, check that this is true even for recurring events that
+        straddle a daylight savings time change.
         """
         import json
 
@@ -43,3 +45,12 @@ class TestStrawberryMansionCalendar(TestCase):
             events = self.feed.items.filter(source_id='077bvv1i0dlfutnpboet6ls23k@google.com:1')
             num_items = events.all().count()
             assert_equals(num_items, 8)
+
+            # The first four are in daylight savings time, and so should be
+            # 16:00 UTC. The last four are in standard time, and so should be
+            # 17:00 UTC. Note that they're all still 12:00 Eastern.
+            event_dts = sorted([event.displayed_from for event in events])
+            for dt in event_dts[:4]:
+                assert_equals(dt.hour, 16)
+            for dt in event_dts[4:]:
+                assert_equals(dt.hour, 17)
