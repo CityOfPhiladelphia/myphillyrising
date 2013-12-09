@@ -1,0 +1,84 @@
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Market East
+X-WR-TIMEZONE:America/New_York
+X-WR-CALDESC:
+BEGIN:VTIMEZONE
+TZID:America/New_York
+X-LIC-LOCATION:America/New_York
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+TZNAME:EDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:EST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+
+BEGIN:VEVENT
+DTSTART:20131119T203000Z
+DTEND:20131119T213000Z
+DTSTAMP:20131208T195936Z
+UID:tf5srm3vncmhj9kkoj8dndt3fs@google.com
+CREATED:20131119T142019Z
+DESCRIPTION:PHLCVB hosts a monthly meeting of all those working around Cent
+ er City's "Hospitality Zone" to stay ahead of potential issues and enhance 
+ cooperation and communication.
+LAST-MODIFIED:20131119T142019Z
+LOCATION:18th and Market
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Hospitality Zone Working Group
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=America/New_York:20131116T120000
+DTEND;TZID=America/New_York:20131116T170000
+DTSTAMP:20131208T195936Z
+UID:077bvv1i0dlfutnpboet6ls23k@google.com
+RECURRENCE-ID;TZID=America/New_York:20131116T120000
+CREATED:20130903T181453Z
+DESCRIPTION:Hard Rock Cafe\, Pennsylvania Convention Center and Visitors Bu
+ reau (PCVB) and Market 8 are working with PhillyRising to provide live ente
+ rtainment on Friday and Saturday afternoons throughout the Summer and Fall.
+  On the third Saturday in November performers from the Philadelphia High Sc
+ hool for the Creative and performing Arts will be showcasing their talents!
+LAST-MODIFIED:20131028T164331Z
+LOCATION:12th and Market Streets (weather permitting)
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:CAPA performing for the MarketArts Series
+TRANSP:OPAQUE
+END:VEVENT
+
+BEGIN:VEVENT
+DTSTART;TZID=America/New_York:20131018T120000
+DTEND;TZID=America/New_York:20131018T170000
+RRULE:FREQ=WEEKLY;UNTIL=20131214T170000Z;BYDAY=FR,SA
+DTSTAMP:20131208T195936Z
+UID:077bvv1i0dlfutnpboet6ls23k@google.com
+CREATED:20130903T181453Z
+DESCRIPTION:The Fieldhouse\, Hard Rock Cafe\, Pennsylvania Convention Cente
+ r and Visitors Bureau (PCVB) and Market 8 are working with PhillyRising to 
+ provide live entertainment on Friday and Saturday afternoons throughout the
+  Summer.
+LAST-MODIFIED:20131015T210927Z
+LOCATION:12th and Market Streets (weather permitting)
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:Market East Live!
+TRANSP:OPAQUE
+END:VEVENT
+
+END:VCALENDAR

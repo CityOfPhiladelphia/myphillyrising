@@ -294,6 +294,17 @@ class ICalFeedReader (FeedReader):
                 rule.rdate(date)
 
             for date in rule:
+
+                # The following seems kind of silly -- to strip away and
+                # reapply the same timezone info -- but it is necessary. In
+                # cases where the recurrence spans across a daylight savings
+                # change, the timezone offset will not be applied correctly by
+                # dateutil, so we must have the pytz object relocalize time.
+                if date.tzinfo:
+                    tz = date.tzinfo
+                    date = date.replace(tzinfo=None)
+                    date = tz.localize(date)
+
                 if date < start_date:
                     continue
                 elif date > end_date:
