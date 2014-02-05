@@ -9,3 +9,6 @@ cache:  # Used as both the Django cache and the Celery broker
 
 workers:
   type: python-worker
+
+config:
+  enable_newrelic: true
