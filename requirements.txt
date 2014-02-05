@@ -74,7 +74,7 @@ django-shorturls
 # ==============================
 # Geocoding
 # ==============================
-geopy
+geopy==0.95.1
 
 
 # ==============================
@@ -84,4 +84,4 @@ geopy
 mock
 nose
 django-nose
-django-debug-toolbar
+django-debug-toolbar==0.11.0
