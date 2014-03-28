@@ -1,7 +1,7 @@
 # ==============================
 # Web server
 # ==============================
-
+uwsgi>=1.2.6 # For accurate New Relic metrics, per DotCloud support ticket
 Django
 
 
