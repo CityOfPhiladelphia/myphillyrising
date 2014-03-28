@@ -56,7 +56,7 @@ class UserProfile (models.Model):
 
 
 class UserAction (models.Model):
-    awarded_at = models.DateTimeField(auto_now_add=True)
+    awarded_at = models.DateTimeField(auto_now_add=True, verbose_name='action datetime')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='actions')
     item = models.ForeignKey('alexander.ContentItem', related_name='actions', null=True, blank=True)
     points = models.IntegerField(default=0)
