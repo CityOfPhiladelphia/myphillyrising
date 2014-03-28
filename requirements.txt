@@ -42,7 +42,7 @@ moment
 
 feedparser  # RSS / ATOM
 icalendar  # iCal
-twitter
+twitter==1.14.1
 facebook-sdk
 django-proxy>=1.0.2  # For accessing Philly's GIS services over HTTPS
 
