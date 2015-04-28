@@ -2,7 +2,7 @@
 # Web server
 # ==============================
 uwsgi>=1.2.6 # For accurate New Relic metrics, per DotCloud support ticket
-Django
+Django==1.6.1
 
 
 
@@ -10,10 +10,10 @@ Django
 # Database and Persistance
 # ==============================
 
-psycopg2
-south
-django-reversion
-django-redis
+psycopg2==2.4.5
+south==0.8.4
+django-reversion==1.8.0
+django-redis==3.5.0
 
 
 
@@ -21,8 +21,8 @@ django-redis
 # Task Queing and Management
 # ==============================
 
-celery
-django-celery
+celery==3.1.8
+django-celery==3.1.1
 
 
 
@@ -31,8 +31,8 @@ django-celery
 # ==============================
 #
 #git+git://github.com/openplans/meetingmatters.git#egg=meetingmatters
-times
-moment
+times==0.6.2
+moment==0.1.4
 
 
 
@@ -40,11 +40,11 @@ moment
 # Web Data Wrappers
 # ==============================
 
-feedparser  # RSS / ATOM
-icalendar  # iCal
+feedparser==5.1.3  # RSS / ATOM
+icalendar==3.6.1  # iCal
 twitter==1.14.1
-facebook-sdk
-django-proxy>=1.0.2  # For accessing Philly's GIS services over HTTPS
+facebook-sdk==0.4.0
+django-proxy==1.0.2  # For accessing Philly's GIS services over HTTPS
 
 
 
@@ -52,7 +52,7 @@ django-proxy>=1.0.2  # For accessing Philly's GIS services over HTTPS
 # Authentication
 # ==============================
 
-django-social-auth
+django-social-auth==0.7.28
 
 
 
@@ -60,7 +60,7 @@ django-social-auth
 # APIs
 # ==============================
 
-djangorestframework>=2.3.6
+djangorestframework==2.3.12
 
 
 
@@ -68,8 +68,8 @@ djangorestframework>=2.3.6
 # Routes and Templating
 # ==============================
 
-django-jstemplate>=1.3.2
-django-shorturls
+django-jstemplate==1.3.6
+django-shorturls==1.0.1
 
 # ==============================
 # Geocoding
@@ -81,7 +81,7 @@ geopy==0.95.1
 # Testing / QA
 # ==============================
 
-mock
-nose
-django-nose
+mock==1.0.1
+nose==1.3.0
+django-nose==1.2
 django-debug-toolbar==0.11.0
