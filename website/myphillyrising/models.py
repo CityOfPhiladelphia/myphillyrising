@@ -48,7 +48,7 @@ class UserProfile (models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile', primary_key=True)
     full_name = models.CharField(max_length=100, null=True, blank=True)
     neighborhood = models.ForeignKey('Neighborhood', null=True, blank=True, related_name='profiles')
-    avatar_url = models.URLField(null=True, blank=True)
+    avatar_url = models.URLField(max_length=2048, null=True, blank=True)
     email_permission = models.BooleanField(default=True)
 
     def __unicode__(self):
